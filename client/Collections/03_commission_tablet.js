@@ -27,6 +27,7 @@ Template.commTablet.helpers ({
         if(machineNr) {
             let pickedMachine = machineCommTable.findOne({_id: machineNr}).machineId;
             Session.set('pickedMachine', pickedMachine);
+            Session.set('supplyChosen', 0);
             return pickedMachine;
         }
     },
@@ -37,7 +38,6 @@ Template.commTablet.helpers ({
         if(supply) {
             let pickedArea = supplyAreaList.findOne({_id: supply}).supplyArea;
             Session.set('pickedArea', pickedArea);
-            console.log('noticed');
             Session.set('supplyChosen', 9);
             return pickedArea;
         }
@@ -155,7 +155,6 @@ Session.set('inActiveState', 0);
 
 Handlebars.registerHelper('inActive_9', function () {
     let inActiveState = Session.get('supplyChosen');
-    console.log('supplyChosen', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }
