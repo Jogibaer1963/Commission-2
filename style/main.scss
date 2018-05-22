@@ -1,0 +1,94 @@
+@import 'admin';
+@import 'login';
+@import 'tables';
+@import 'glowingBox';
+@import 'mainLayout';
+@import 'buttonNotWorking';
+@import 'toDoList';
+@import 'commission_tablet';
+@import 'commissionOverView';
+
+
+
+
+
+
+.insideNavBar {
+  margin-top: 25px;
+}
+
+.topNav {
+  left: 40em;
+  margin-top: 25px;
+  position: relative;
+}
+
+.templateNav {
+  left: 40em;
+  position: absolute;
+  top: 6em;
+}
+
+#logo {
+  margin: 10px;
+}
+
+.selected {
+  background-color: #978f93;
+}
+
+.selectedMachine {
+  background-color: #978f93;
+}
+
+.selectedArea {
+  background-color: #978f93;
+}
+
+.selectedBackgroundGreen {
+  background-color: green;
+}
+
+.individualNavigation {
+  font-size: 16px;
+}
+
+.navigation {
+  margin-left: 25px;
+}
+
+.marginMain {
+  margin-left: 25px;
+}
+
+.mainLayout {
+  color: $comm-black;
+  left: 560px;
+  position: relative;
+}
+
+//  Inactive Buttons
+
+$comm-status: #252525;
+
+.in-active-button {
+  background-color: $comm-status;
+  opacity: .5;
+  pointer-events: none;
+
+}
+
+.activeButton {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inActive {
+  background: repeating-linear-gradient(
+                  45deg,
+                  #e6e6e6,
+                  #bc171b 10px,
+                  #e6e6e6 10px,
+                  #bc171b 20px
+  );
+}

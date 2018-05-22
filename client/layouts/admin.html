@@ -1,0 +1,114 @@
+<template name="admin">
+{{#if currentUser}}
+        {{> adminViewUser}}
+{{else}}
+    {{> login}}
+{{/if}}
+</template>
+
+
+
+<template name="adminViewUser">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <div class="topNav">
+        <nav>
+            <a class="btn"  href="/adminNewUser">New User</a>
+            <a>|</a>
+            <a class="btn"  href="/newFiskalYear" disabled>Change Fiscal Year</a>
+            <a>|</a>
+            <a class="btn" href="/manipulateDatabase" disabled>Manipulate Database</a>
+            <a>|</a>
+            <a  class="btn" href="/commissionOverView">Over View</a>
+        </nav>
+    </div>
+    <div class="totalUsers">
+        <h2>Users Total: {{usersTotal}}</h2>
+        <br>
+        <form class="submitAdmin">
+            <button type="button" class="btn btn-danger">Send</button>
+        </form>
+           <br><br><br>
+        <table class="blueTable tableAdminPos"  cellpadding="10">
+           <thead>
+              <tr>
+                <th class="adminUserId"><strong>User id</strong></th>
+                <th class="adminUser"><strong>User</strong></th>
+                <th class="userRole"><strong>Role</strong></th>
+                <th class="userCreated"><strong>Date Created</strong></th>
+                <th class="userCreatedBy"><strong>Issuer</strong></th>
+                <th class="userLastLogin"><strong>Last Login</strong></th>
+                <th class="userIP"><strong>Client IP</strong></th>
+                <th class="userStatus"><strong>Online</strong></th>
+                <th class="userLogOut"><strong>Log out</strong></th>
+                <th class="userErase"><strong>Erase User</strong></th>
+              </tr>
+           </thead>
+            <tbody>
+            {{#each userResult}}
+                <tr class=" {{selectedClass}}">
+                    <td class="adminUserId">{{_id}}</td>
+                    <td class="adminUser">{{username}}</td>
+                    <td class="userRole">{{role}}</td>
+                    <td class="userCreated">{{createdAt}}</td>
+                    <td class="userCreatedBy">{{createdBy.username}}</td>
+                    <td class="userLastLogin">{{lastLogin}}</td>
+                    <td class="userIP">{{clientIp}}</td>
+                    <td class="userStatus {{getStatusLogin loginStatus}}"
+                         style="background-color:{{getStatusLogin loginStatus}}; color:{{getStatusLogin
+                                 loginStatus}}" >{{services.resume.loginTokens}}</td>
+                    <td class="userLogOut">
+                        <label>
+                            <input class="rTableStyle" type="checkbox" name="logOut" id="logOut"  value="{{_id}}">
+                        </label>
+                    </td>
+                    <td class="userErase">
+                        <label>
+                            <input class="rTableStyle" type="checkbox" name="deleteMe" value="{{_id}}">
+                        </label>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<template name="adminNewUser">
+    <nav class="topNav">
+        <a class="btn" href="/admin">Overview User</a>
+        <a>|</a>
+        <a class="btn" href="/overViewUser">Over View</a>
+    </nav>
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <div class="newUser">
+        <h2>New User</h2>
+    <form class="adminRegisterNewUser">
+        <input class="omInput" name="registerUser" placeholder="User Name">
+        <input class="omInput" name="registerPassword" placeholder="Password">
+        <select name="userRole" class="omInput omInputButton"  id="selectMe">
+            <option>Admin</option>
+            <option>Logistics</option>
+            <option>Quality PDI</option>
+            <option>Repair Team</option>
+            <option>Wash Bay</option>
+            <option>Loading</option>
+            <option>Operation Supervisor</option>
+            <option>Team Lead</option>
+            <option>Commission</option>
+        </select>
+        <input type="submit" value="Register" class="adminRegister">
+        <p>Roles are</p>
+        <p>Admin = Admin or SuperUser</p>
+        <p>Logistics = mostly CTD like Mary, Amanda....</p>
+        <p>PDI = Quality Guys, the best ever...</p>
+        <p>Repair Team = JoAnn's Group for Repair Machines</p>
+        <p>Wash Bay = Thomas Nelson's group like Shawn or a temp washing the Machine</p>
+        <p>Loading = Thomas Nelson's Group like Shawn, moving the Machine to the Trailer</p>
+    </form>
+    <h1>{{result}}</h1>
+    </div>
+</template>

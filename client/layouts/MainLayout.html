@@ -1,0 +1,45 @@
+<template name="mainLayout">
+    <body>
+       {{#if currentUser}}
+           {{#if isInRole 'admin'}}
+               {{> adminLayout}}
+               {{> commissionOverView}}
+           {{/if}}
+           {{#if isInRole 'commission'}}
+               {{> commissionNav}}
+               {{> commissionOverView}}
+           {{/if}}
+       {{else}}
+           {{> login}}
+       {{/if}}
+     </body>
+</template>
+
+<template name="commissionNav">
+    <div class="commissionHeadNav">
+        <nav>
+            <a  class="btn" href="/commission">Commission Tablet</a>
+            <a>|</a>
+            <a class="btn logout" href="/logout" >Logout</a>
+        </nav>
+    </div>
+</template>
+
+<template name="adminLayout">
+      <div class="templateNav">
+        <nav>
+            <a  class="btn" href="/commission">Commission Tablet</a>
+            <a>|</a>
+            <a class="btn" href="/toDoList">L O P</a>
+            <a>|</a>
+           <a class="btn btn-danger" href="/admin">Admin</a>
+            <a>|</a>
+            <a class="btn logout" href="/logout" >Logout</a>
+         </nav>
+       </div>
+</template>
+
+<template name="unAuthorized">
+    <h1>Password / Username wrong or not Authorized</h1>
+</template>
+

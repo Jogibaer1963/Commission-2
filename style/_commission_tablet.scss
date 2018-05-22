@@ -1,0 +1,241 @@
+
+.commissionTablet {
+  position: absolute;
+  top: 5em;
+  left: 2em;
+}
+
+.commissionHeadTab {
+  position: absolute;
+  top: 2em;
+  left: 3em;
+}
+
+.marginLeft {
+  margin-left: 1em;
+}
+
+.machineTablet {
+  color: #71f323;
+  white-space: nowrap;
+  width: 9em;
+}
+
+.tabletUser {
+  color: #D0E4F5;
+  margin-left: 1em;
+}
+
+.chooseMachineTable {
+  float: left;
+  position: relative;
+  top: 8em;
+}
+
+.pickedMachineField {
+  width: 2em;
+}
+
+.bodyHeight {
+  height: 250px;
+}
+
+.supplyAreaTable {
+  left: 23em;
+  position: absolute;
+  top: -2em;
+}
+
+table.supply-table {
+  width: 22em;
+  height: 50em;
+}
+
+.supplyTableHeight {
+  height: 45em;
+}
+
+
+.commissionInitials {
+  position: relative;
+  left: 1.5em;
+  width: 5em;
+}
+
+.supplyExecuteField {
+  position: relative;
+  top: -10em;
+  left: 35em;
+  color: #D0E4F5;
+}
+
+.supplyButtonField {
+  position: absolute;
+  top: 30em;
+  left: 25em;
+}
+
+.commStart {
+  float: left;
+}
+
+.commPause {
+  left: 10em;
+  position: absolute;
+
+}
+
+.commResume {
+  float: left;
+  left: 10em;
+  position: absolute;
+  top: 5em;
+
+}
+
+.commFinished {
+  left: -.2em;
+  position: absolute;
+  top: 5em;
+
+}
+
+.cancelRequest {
+  width: 240px;
+  margin-bottom: 10px;
+}
+
+.cancellationRequest {
+  position: relative;
+  top: 15em;
+}
+
+.tabletHeader {
+  position: absolute;
+
+  width: 21em;
+  left: 15em;
+}
+
+.machineIdHeader {
+  position: absolute;
+  top: -.1em;
+  left: 4em;
+  font-size: 50px;
+}
+
+.supplyIdHeader {
+  position: absolute;
+  top: 2em;
+  left: 4.5em;
+  font-size: 50px;
+}
+
+.textSupply {
+  position: absolute;
+  top: 3em;
+
+}
+
+
+
+
+
+$comm-black: #000;
+
+.comm-in-process {
+  animation: glowing 1500ms infinite;
+  color: $comm-black;
+  opacity: .4;
+  pointer-events: none;
+
+}
+
+@keyframes glowing {
+  0% { background-color: #AA3939; box-shadow: 0 0 3px  #AA5939; }
+  50% { background-color: #FFB232; box-shadow: 0 0 10px #FFB232; }
+  100% { background-color: #FFE800; box-shadow: 0 0 3px #FFE800; }
+}
+
+
+//---------------------------  Arrow Down ----------------------*/
+
+$base: 0.6rem;
+
+.arrowDown {
+  position: absolute;
+  display: flex;
+  left: 4em;
+}
+
+.arrowSide {
+  transform: rotate(-90deg);
+  position: absolute;
+  top: 35em;
+  left: 18em;
+  display: flex;
+}
+
+.arrowSide_2 {
+  transform: rotate(-90deg);
+  position: absolute;
+  top: 35em;
+  left: 15em;
+  display: flex;
+}
+
+.chevron {
+  position: absolute;
+  width: $base * 3.5;
+  height: $base * 0.8;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: move-chevron 3s ease-out infinite;
+}
+
+.chevron:first-child {
+  animation: move-chevron 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+  animation: move-chevron 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #dd7e1f;
+}
+
+.chevron:before {
+  left: 0;
+  transform: skewY(30deg);
+}
+
+.chevron:after {
+  right: 0;
+  width: 50%;
+  transform: skewY(-30deg);
+}
+
+@keyframes move-chevron {
+  25% {
+    opacity: 1;
+  }
+  33.3% {
+    opacity: 1;
+    transform: translateY($base * 3.8);
+  }
+  66.6% {
+    opacity: 1;
+    transform: translateY($base * 5.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY($base * 8) scale(0.5);
+  }
+}

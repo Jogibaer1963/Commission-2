@@ -1,0 +1,308 @@
+<template name="commissionOverView">
+    {{#if currentUser}}
+        {{#if isInRole 'admin'}}
+            {{> adminLayout}}
+            <div>
+                {{> adminButton}}
+            </div>
+        {{/if}}
+        {{#if isInRole 'commission'}}
+            {{> commissionNav}}
+        {{/if}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <div class="machineCommissionTable">
+        <div class="">
+            <table class="table table-header-rotated">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    <th class="rotate-45"><div><span>L4MSB020</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB030</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB040</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB045</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB050</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB060</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB070</span></div></th>
+                    <th class="rotate-45"><div><span>L4MSB090</span></div></th>
+                    <th class="rotate-45"><div><span>L4PAXL10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCAB10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCAB20</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCHP10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCLN20</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCOL05</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCOL10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PCOL20/30</span></div></th>
+                    <th class="rotate-45"><div><span>L4PENG10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PENG20</span></div></th>
+                    <th class="rotate-45"><div><span>L4PENG30</span></div></th>
+                    <th class="rotate-45"><div><span>L4PENG40</span></div></th>
+                    <th class="rotate-45"><div><span>L4PFDR10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PGRT10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PHYD10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PRTR10</span></div></th>
+                    <th class="rotate-45"><div><span>L4PRTR20</span></div></th>
+                    <th class="rotate-45"><div><span>L4PTHR10</span></div></th>
+                    <th class=""><strong>Machine Id</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each machineCommList}}
+                    <tr class="commissionMachine {{selectedMachine}}">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        {{#each supplyAreaList}}
+                            <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}}; color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
+                        {{/each}}
+                        <td class="commMachineField">{{machineId}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div  style="left: 2em; position: absolute; top: 10em;"> <h2>Commission Over View</h2>
+        <table>
+            <caption>Picking Result of single machine</caption>
+            <tr>
+                <th scope="col"><h3><strong>{{machineNr}}</strong></h3></th>
+                <th scope="col">Date</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Picker</th>
+            </tr>
+
+             <tr>
+                <th scope="row">L4MSB020</th>
+                  {{#with L4MSB020}}
+                     <td class="tableSizeDate">{{pickingDateAndTime}}</td>
+                     <td>{{pickingDuration}}</td>
+                     <td>{{pickerStart}}</td>
+                  {{/with}}
+             </tr>
+            <tr>
+                <th scope="row">L4MSB030</th>
+                {{#with L4MSB030}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4MSB040</th>
+                {{#with L4MSB040}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4MSB045</th>
+                {{#with L4MSB045}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+
+            <tr>
+                <th scope="row">L4MSB050</th>
+                {{#with L4MSB050}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4MSB060</th>
+                {{#with L4MSB060}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4MSB070</th>
+                {{#with L4MSB070}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4MSB090</th>
+                {{#with L4MSB090}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PAXL10</th>
+                {{#with L4PAXL10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCAB10</th>
+                {{#with L4PCAB10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCAB20</th>
+                {{#with L4PCAB20}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCHP10</th>
+                {{#with L4PCHP10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCLN20</th>
+                {{#with L4PCLN20}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCOL05</th>
+                {{#with L4PCOL05}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCOL10</th>
+                {{#with L4PCOL10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PCOL20/30</th>
+                {{#with L4PCOL20}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PENG10</th>
+                {{#with L4PENG10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PENG20</th>
+                {{#with L4PENG20}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PENG30</th>
+                {{#with L4PENG30}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PENG40</th>
+                {{#with L4PENG40}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PFDR10</th>
+                {{#with L4PFDR10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PGRT10</th>
+                {{#with L4PGRT10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PHYD10</th>
+                {{#with L4PHYD10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PRTR10</th>
+                {{#with L4PRTR10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PRTR20</th>
+                {{#with L4PRTR20}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+            <tr>
+                <th scope="row">L4PTHR10</th>
+                {{#with L4PTHR10}}
+                    <td>{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
+        </table>
+    </div>
+</template>
+
+<template name="adminButton">
+    <div  style="position: relative; top: 10em; left:41em;">
+        <h3><strong>{{alarmMachine}}</strong></h3>
+    </div>
+        <form class="newCommMachine"  style="position: relative; top: 10em; left:41em;">
+            <label for="newMachine" >Adding Machine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date in Line</label>
+            <br>
+            <input type="text" name="newMachine" id="newMachine" placeholder="Machine Number" required>
+            <label for="newDate" class="inLineDate" ></label>
+            <input type="date" name="newDate" id="newDate" required>
+            <br><br>
+            <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+        <button class="btn btn-danger removeMachine" type="button">Delete</button>
+        <button class="btn btn-success comm-statistics" type="button">Statistics</button>
+</template>

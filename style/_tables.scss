@@ -1,0 +1,335 @@
+
+
+thead {
+    background-color: lightgrey;
+}
+
+table tbody, table thead
+
+{
+    display: block;
+}
+
+table tbody {
+    overflow: auto;
+    height: 500px;
+}
+
+
+table.blueTable {
+    width: 1195px;
+}
+
+
+table.blueTable {
+    border: 1px solid #a49892;
+
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table.blueTable td, table.blueTable th {
+    border: 1px solid #AAAAAA;
+    padding: 3px 5px;
+}
+
+table.blueTable tbody td {
+  font-size: 13px;
+  word-wrap: break-word;
+}
+
+
+
+table.blueTable thead {
+  background: #1C6EA4;
+  border-bottom: 2px solid #444444;
+}
+
+table.blueTable thead th {
+  border-left: 2px solid #d0e4f5;
+  color: #FFF;
+
+  font-size: 15px;
+  font-weight: bold;
+
+
+}
+
+table.blueTable thead th:first-child {
+    border-left: none;
+}
+
+table.blueTable tfoot {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #d6e0f5;
+    border-top: 2px solid #444444;
+}
+
+table.blueTable tfoot td {
+    font-size: 14px;
+}
+
+table.blueTable tfoot .links {
+    text-align: right;
+}
+
+table.blueTable tfoot .links a{
+    display: inline-block;
+    background: #8f8e8c;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+th {
+    height: 50px;
+}
+
+
+$shipDate: 90px;
+
+$pdiOverviewMachine: 80px;
+$pdiDestination: 100px;
+$pdiTransporter: 100px;
+$pdiTruckOnOrder: 70px;
+$pdiTruckDate: 6em;
+$pdiKitList: 80px;
+$pdiComments: 450px;
+$pdiKitField: 145px;
+$headerKit: 320px;
+$pdiPDIField: 50px;
+$pdiRepField: 50px;
+$pdiWashField: 50px;
+$pdiShipField: 60px;
+$pdiLocation: 70px;
+$pdiVariantsDescription: 250px;
+$config: 60px;
+
+$partsOnOrder: 50px;
+
+
+$headerTable: 230px;
+$headerId: 80px;
+$headerStatus: 80px;
+
+$pdiTrailer: 80px;
+
+$pdiUser: 200px;
+
+//admin table
+
+table.tableAdminPos {
+  width: 853px;
+}
+
+$userId: 170px;
+$user: 80px;
+$userRole: 80px;
+$dateCreated: 120px;
+$createdBy: 50px;
+$userLastLogin: 110px;
+$clientIp: 100px;
+$loggedIn: 60px;
+$logOut: 50px;
+$eraseUser: 50px;
+
+.adminUserId {
+  max-width: $userId;
+  min-width: $userId;
+}
+
+.adminUser {
+  max-width: $user;
+  min-width: $user;
+}
+
+.userRole {
+  max-width: $userRole;
+  min-width: $userRole;
+}
+
+.userCreated {
+  max-width: $dateCreated;
+  min-width: $dateCreated;
+}
+
+.userCreatedBy {
+  max-width: $user;
+  min-width: $user;
+}
+
+.userLastLogin {
+  max-width: $userLastLogin;
+  min-width: $userLastLogin;
+}
+
+.userIP {
+  max-width: $clientIp;
+  min-width: $clientIp;
+}
+
+.userStatus {
+   max-width: $loggedIn;
+   min-width: $loggedIn;
+ }
+
+.partsOnOrder {
+  max-width: $partsOnOrder;
+  min-width: $partsOnOrder;
+}
+
+.userLogOut {
+  max-width: $logOut;
+  min-width: $logOut;
+  text-align: center;
+}
+
+.userErase {
+  max-width: $eraseUser;
+  min-width: $eraseUser;
+  text-align: center;
+}
+
+.shippingMachines {
+  height: 100px;
+}
+
+// end Admin Table
+
+.tablePdiOverview {
+  position: absolute;
+  top: 300px;
+}
+
+
+.pdiMachineField {
+  max-width: $pdiOverviewMachine;
+  min-width: $pdiOverviewMachine;
+}
+
+.pdiShipDate {
+  max-width: $shipDate;
+  min-width: $shipDate;
+}
+
+.pdiDestination {
+  max-width: $pdiDestination;
+  min-width: $pdiDestination;
+}
+
+.pdiTransporter {
+  max-width: $pdiTransporter;
+  min-width: $pdiTransporter;
+}
+
+.pdiTruckOnOrder {
+  max-width: $pdiTruckOnOrder;
+  min-width: $pdiTruckOnOrder;
+}
+
+.pdiTruckDate {
+  min-width: $pdiTruckDate;
+  max-width: $pdiTruckDate;
+}
+
+.truckDateCorrection {
+  min-width: 6.8em;
+}
+
+.pdiKitList {
+  max-width: $pdiKitList;
+  min-width: $pdiKitList;
+}
+
+.pdiComments {
+  max-width: $pdiComments;
+  min-width: $pdiComments;
+}
+
+.pdiKitField {
+  max-width: $pdiKitField;
+  min-width: $pdiKitField;
+}
+
+.pdiTireField {
+  max-width: $pdiKitField;
+  min-width: $pdiKitField;
+}
+
+.pdiPDIField {
+  max-width: $pdiPDIField;
+  min-width: $pdiPDIField;
+}
+
+.pdiRepField {
+  max-width: $pdiRepField;
+  min-width: $pdiRepField;
+}
+
+.pdiVariantDescription {
+  max-width: $pdiVariantsDescription;
+  min-width: $pdiVariantsDescription;
+}
+
+.pdiWashField {
+  max-width: $pdiWashField;
+  min-width: $pdiWashField;
+}
+
+.pdiShipField {
+  max-width: $pdiShipField;
+  min-width: $pdiShipField;
+}
+
+.pdiLocation {
+  max-width: $pdiLocation;
+  min-width: $pdiLocation;
+}
+
+.pdiConfig {
+  max-width: $config;
+  min-width: $config;
+}
+
+.pdiTrailer {
+  max-width: $pdiTrailer;
+  min-width: $pdiTrailer;
+}
+
+.headerKit {
+  max-width: $headerKit;
+  min-width: $headerKit;
+}
+
+.pdiUser {
+  max-width: $pdiUser;
+  min-width: $pdiUser;
+}
+
+table.headerTable {
+  width: $headerTable;
+}
+
+.headerId {
+  max-width: $headerId;
+  min-width: $headerId;
+}
+
+.headerShipDate {
+  max-width: $shipDate;
+  min-width: $shipDate;
+}
+
+.headerStatus {
+  max-width: $headerStatus;
+  min-width: $headerStatus;
+}
+
+.headerPos {
+  position: absolute;
+  left: 450px;
+  top: 300px;
+}
+
