@@ -37,6 +37,8 @@ Template.commTablet.helpers ({
         if(supply) {
             let pickedArea = supplyAreaList.findOne({_id: supply}).supplyArea;
             Session.set('pickedArea', pickedArea);
+            console.log('noticed');
+            Session.set('supplyChosen', 9);
             return pickedArea;
         }
     },
@@ -54,7 +56,7 @@ Template.commTablet.helpers ({
         const selectedSupplyArea = this._id;
         const selectedArea = Session.get('selectedArea');
         if (selectedArea === selectedSupplyArea) {
-            Session.set('supplyChosen', 9);
+
             return "selectedArea";
         }
     }
@@ -151,16 +153,17 @@ Template.commTablet.events ({
 
 Session.set('inActiveState', 0);
 
-Handlebars.registerHelper('inActive_0', function () {
-    let inActiveState = Session.get('inActiveState');
-    if(inActiveState === 0) {
+Handlebars.registerHelper('inActive_9', function () {
+    let inActiveState = Session.get('supplyChosen');
+    console.log('supplyChosen', inActiveState);
+    if(inActiveState !== 9) {
         return 'in-active-button'
     }
 });
 
-Handlebars.registerHelper('inActive_9', function () {
-    let inActiveState = Session.get('supplyChosen');
-    if(inActiveState !== 9) {
+Handlebars.registerHelper('inActive_0', function () {
+    let inActiveState = Session.get('inActiveState');
+    if(inActiveState === 0) {
         return 'in-active-button'
     }
 });
