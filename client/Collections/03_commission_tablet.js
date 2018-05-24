@@ -1,6 +1,9 @@
 Meteor.subscribe("pickersAtWork");
 
 
+
+
+
 Template.commTablet.helpers ({
 
 
@@ -11,6 +14,7 @@ Template.commTablet.helpers ({
             Session.set('inActiveState', k.inActive);
             Session.set('selectedMachine', k.machineNr);
             Session.set('selectedArea', k.pickerSupplyArea);
+            console.log('machine', k.machineNr);
         }
         return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {inLineDate: 1}});
     },
@@ -19,6 +23,7 @@ Template.commTablet.helpers ({
 
     supplyAreaShow: function() {
         const commMachine = Session.get('selectedMachine');
+        console.log('selected', commMachine);
         return machineCommTable.findOne({_id: commMachine});
     },
 
@@ -56,7 +61,6 @@ Template.commTablet.helpers ({
         const selectedSupplyArea = this._id;
         const selectedArea = Session.get('selectedArea');
         if (selectedArea === selectedSupplyArea) {
-
             return "selectedArea";
         }
     }
