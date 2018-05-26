@@ -10,21 +10,32 @@ Template.commTablet.helpers ({
     machineCommList: function () {
         const picker = Meteor.user().username;
         let k = pickersAtWork.findOne({_id: picker});
+        console.log('result', k);
+        if (typeof k === 'undefined') {
+            console.log('in schleife');
+          //  location.reload();
+            }
         if(k) {
             Session.set('inActiveState', k.inActive);
             Session.set('selectedMachine', k.machineNr);
             Session.set('selectedArea', k.pickerSupplyArea);
-            console.log('machine', k.machineNr);
         }
         return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {inLineDate: 1}});
     },
-
-
 
     supplyAreaShow: function() {
         const commMachine = Session.get('selectedMachine');
         console.log('selected', commMachine);
         return machineCommTable.findOne({_id: commMachine});
+    },
+
+    'selectedMachine': function(){
+        const commMachine = this._id;
+        const selectedMachine = Session.get('selectedMachine');
+        if (selectedMachine === commMachine) {
+            Session.set('commMachine', selectedMachine);
+            return "selectedMachine";
+        }
     },
 
     selectedSupplyMachine: () => {
@@ -37,7 +48,6 @@ Template.commTablet.helpers ({
         }
     },
 
-
     supplyStart: () => {
         const supply = Session.get('selectedArea');
         if(supply) {
@@ -48,14 +58,7 @@ Template.commTablet.helpers ({
         }
     },
 
-    'selectedMachine': function(){
-        const commMachine = this._id;
-        const selectedMachine = Session.get('selectedMachine');
-        if (selectedMachine === commMachine) {
-            Session.set('commMachine', selectedMachine);
-            return "selectedMachine";
-        }
-    },
+
 
     'selectedArea': function(){
         const selectedSupplyArea = this._id;
@@ -157,15 +160,9 @@ Template.commTablet.events ({
 
 Session.set('inActiveState', 0);
 
-Handlebars.registerHelper('inActive_9', function () {
-    let inActiveState = Session.get('supplyChosen');
-    if(inActiveState !== 9) {
-        return 'in-active-button'
-    }
-});
-
 Handlebars.registerHelper('inActive_0', function () {
     let inActiveState = Session.get('inActiveState');
+    console.log('inActive 0', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
@@ -175,6 +172,7 @@ Handlebars.registerHelper('inActive_0', function () {
 
 Handlebars.registerHelper('inActive_1', function () {
     let inActiveState = Session.get('inActiveState');
+    console.log('inActive 1', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
@@ -182,6 +180,7 @@ Handlebars.registerHelper('inActive_1', function () {
 
 Handlebars.registerHelper('inActive_2', function () {
     let inActiveState = Session.get('inActiveState');
+    console.log('inActive 2', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
@@ -189,6 +188,7 @@ Handlebars.registerHelper('inActive_2', function () {
 
 Handlebars.registerHelper('inActive_3', function () {
     let inActiveState = Session.get('inActiveState');
+    console.log('inActive 3', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
@@ -198,8 +198,16 @@ Handlebars.registerHelper('inActive_3', function () {
 
 Handlebars.registerHelper('inActive_4', function () {
     let inActiveState = Session.get('inActiveState');
+    console.log('inActive 4', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
 });
 
+Handlebars.registerHelper('inActive_9', function () {
+    let inActiveState = Session.get('supplyChosen');
+    console.log('inActive 9', inActiveState);
+    if(inActiveState !== 9) {
+        return 'in-active-button'
+    }
+});

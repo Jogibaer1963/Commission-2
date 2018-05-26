@@ -380,6 +380,16 @@ Template.commissionOverView.events ({
     'click .comm-statistics': (e) => {
         e.preventDefault();
         FlowRouter.go('commissionStatistics');
+    },
+
+    'click .buttonToTablet': (e) => {
+        e.preventDefault();
+        sessionStorage.clear();
+        Session.set('inActiveState', 0);
+        Session.set('commMachine', '');
+        Session.set('selectedArea', '');
+        FlowRouter.go('commission');
+        Session.set('supplyChosen', 0);
     }
 
 });
