@@ -23,11 +23,7 @@
   position: relative;
 }
 
-.templateNav {
-  left: 40em;
-  position: absolute;
-  top: 6em;
-}
+
 
 #logo {
   margin: 10px;
@@ -75,7 +71,6 @@ $comm-status: #252525;
   background-color: $comm-status;
   opacity: .5;
   pointer-events: none;
-
 }
 
 .activeButton {
