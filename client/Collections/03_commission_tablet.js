@@ -22,15 +22,6 @@ Template.commTablet.helpers ({
         return machineCommTable.findOne({_id: commMachine});
     },
 
-    'selectedMachine': () => {
-        const commMachine = this._id;
-        const selectedMachine = Session.get('selectedMachine');
-        if (selectedMachine === commMachine) {
-            Session.set('commMachine', selectedMachine);
-            return "selectedMachine";
-        }
-    },
-
     selectedSupplyMachine: () => {
         const machineNr = Session.get('commMachine');
         if(machineNr) {
@@ -52,8 +43,17 @@ Template.commTablet.helpers ({
     },
 
 
+    'selectedMachine': function(){
+        const commMachine = this._id;
+        const selectedMachine = Session.get('selectedMachine');
+        if (selectedMachine === commMachine) {
+            Session.set('commMachine', selectedMachine);
+            return "selectedMachine";
+        }
+    },
 
-    'selectedArea': () => {
+
+    'selectedArea': function() {
         const selectedSupplyArea = this._id;
         const selectedArea = Session.get('selectedArea');
         if (selectedArea === selectedSupplyArea) {
@@ -66,20 +66,21 @@ Template.commTablet.helpers ({
 
 Template.commTablet.events ({
 
-    'click .pickedMachine': (e) => {
-        e.preventDefault();
+    'click .pickedMachine': function() {
+        event.preventDefault();
         const pickedMachineId = this._id;
+        console.log(pickedMachineId);
         Session.set('selectedMachine', pickedMachineId);
     },
 
-    'click .supplyAreaList': (e) => {
-        e.preventDefault();
+    'click .supplyAreaList': function() {
+        event.preventDefault();
         const pickedSupplyArea = this._id;
         Session.set('selectedArea', pickedSupplyArea);
     },
 
 
-    'click .commStart': (e) => {
+    'click .commStart': function(e) {
         e.preventDefault();
         const userStart = Meteor.user().username;
         let status = 2;
@@ -95,7 +96,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commFinished': (e) => {
+    'click .commFinished': function(e) {
         e.preventDefault();
         const userFinished = Meteor.user().username;
         let status = 1;
@@ -112,7 +113,7 @@ Template.commTablet.events ({
                      status, userFinished, pickingTime, dateEndNow, pickingEnd);
     },
 
-    'submit .cancelForm': (e) => {
+    'submit .cancelForm': function(e) {
         e.preventDefault();
         const userCanceled = Meteor.user().username;
         const cancellationReason = event.target.cancelRequest.value;
@@ -124,7 +125,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commPause': (e) => {
+    'click .commPause': function(e) {
         e.preventDefault();
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
@@ -137,7 +138,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commResume': (e) => {
+    'click .commResume': function(e) {
         e.preventDefault();
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
