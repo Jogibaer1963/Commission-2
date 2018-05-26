@@ -10,9 +10,7 @@ Template.commTablet.helpers ({
     machineCommList: function () {
         const picker = Meteor.user().username;
         let k = pickersAtWork.findOne({_id: picker});
-        console.log('result', k);
         if (typeof k === 'undefined') {
-            console.log('in schleife');
           //  location.reload();
             }
         if(k) {
@@ -25,7 +23,6 @@ Template.commTablet.helpers ({
 
     supplyAreaShow: function() {
         const commMachine = Session.get('selectedMachine');
-        console.log('selected', commMachine);
         return machineCommTable.findOne({_id: commMachine});
     },
 
@@ -162,51 +159,51 @@ Session.set('inActiveState', 0);
 
 Handlebars.registerHelper('inActive_0', function () {
     let inActiveState = Session.get('inActiveState');
-    console.log('inActive 0', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
 });
 
-// Commission start
+// Commission start inActiveSate = 1
 
 Handlebars.registerHelper('inActive_1', function () {
     let inActiveState = Session.get('inActiveState');
-    console.log('inActive 1', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
 });
 
+// Pusg Pause button InActiveState = 2
+
 Handlebars.registerHelper('inActive_2', function () {
     let inActiveState = Session.get('inActiveState');
-    console.log('inActive 2', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
 });
 
+// Back to work, Resume button inActiveState = 3
+
 Handlebars.registerHelper('inActive_3', function () {
     let inActiveState = Session.get('inActiveState');
-    console.log('inActive 3', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
 });
 
-// finnished
+// Push finnished button inActiveState = 4, now able to choose new supply or new Machine
 
 Handlebars.registerHelper('inActive_4', function () {
     let inActiveState = Session.get('inActiveState');
-    console.log('inActive 4', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
 });
 
+// choose Supply Area inActiveState = 9
+
 Handlebars.registerHelper('inActive_9', function () {
     let inActiveState = Session.get('supplyChosen');
-    console.log('inActive 9', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }
