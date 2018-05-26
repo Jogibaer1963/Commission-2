@@ -42,7 +42,6 @@ Template.commTablet.helpers ({
         }
     },
 
-
     'selectedMachine': function(){
         const commMachine = this._id;
         const selectedMachine = Session.get('selectedMachine');
@@ -51,7 +50,6 @@ Template.commTablet.helpers ({
             return "selectedMachine";
         }
     },
-
 
     'selectedArea': function() {
         const selectedSupplyArea = this._id;
