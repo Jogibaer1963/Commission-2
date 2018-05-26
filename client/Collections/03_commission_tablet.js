@@ -1,13 +1,9 @@
 Meteor.subscribe("pickersAtWork");
 
-
-
-
-
 Template.commTablet.helpers ({
 
 
-    machineCommList: function () {
+    machineCommList: () => {
         const picker = Meteor.user().username;
         let k = pickersAtWork.findOne({_id: picker});
         if (typeof k === 'undefined') {
@@ -21,12 +17,12 @@ Template.commTablet.helpers ({
         return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {inLineDate: 1}});
     },
 
-    supplyAreaShow: function() {
+    supplyAreaShow: () => {
         const commMachine = Session.get('selectedMachine');
         return machineCommTable.findOne({_id: commMachine});
     },
 
-    'selectedMachine': function(){
+    'selectedMachine': () => {
         const commMachine = this._id;
         const selectedMachine = Session.get('selectedMachine');
         if (selectedMachine === commMachine) {
@@ -57,7 +53,7 @@ Template.commTablet.helpers ({
 
 
 
-    'selectedArea': function(){
+    'selectedArea': () => {
         const selectedSupplyArea = this._id;
         const selectedArea = Session.get('selectedArea');
         if (selectedArea === selectedSupplyArea) {
@@ -70,20 +66,20 @@ Template.commTablet.helpers ({
 
 Template.commTablet.events ({
 
-    'click .pickedMachine': function(e)  {
+    'click .pickedMachine': (e) => {
         e.preventDefault();
         const pickedMachineId = this._id;
         Session.set('selectedMachine', pickedMachineId);
     },
 
-    'click .supplyAreaList': function(e) {
+    'click .supplyAreaList': (e) => {
         e.preventDefault();
         const pickedSupplyArea = this._id;
         Session.set('selectedArea', pickedSupplyArea);
     },
 
 
-    'click .commStart': function(e) {
+    'click .commStart': (e) => {
         e.preventDefault();
         const userStart = Meteor.user().username;
         let status = 2;
@@ -99,7 +95,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commFinished': function(e) {
+    'click .commFinished': (e) => {
         e.preventDefault();
         const userFinished = Meteor.user().username;
         let status = 1;
@@ -116,7 +112,7 @@ Template.commTablet.events ({
                      status, userFinished, pickingTime, dateEndNow, pickingEnd);
     },
 
-    'submit .cancelForm': function(e) {
+    'submit .cancelForm': (e) => {
         e.preventDefault();
         const userCanceled = Meteor.user().username;
         const cancellationReason = event.target.cancelRequest.value;
@@ -128,7 +124,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commPause': function (e) {
+    'click .commPause': (e) => {
         e.preventDefault();
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
@@ -141,7 +137,7 @@ Template.commTablet.events ({
 
     },
 
-    'click .commResume': function (e) {
+    'click .commResume': (e) => {
         e.preventDefault();
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
@@ -157,7 +153,7 @@ Template.commTablet.events ({
 
 Session.set('inActiveState', 0);
 
-Handlebars.registerHelper('inActive_0', function () {
+Handlebars.registerHelper('inActive_0', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 0) {
         return 'in-active-button'
@@ -166,7 +162,7 @@ Handlebars.registerHelper('inActive_0', function () {
 
 // Commission start inActiveSate = 1
 
-Handlebars.registerHelper('inActive_1', function () {
+Handlebars.registerHelper('inActive_1', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 1) {
         return 'in-active-button'
@@ -175,7 +171,7 @@ Handlebars.registerHelper('inActive_1', function () {
 
 // Pusg Pause button InActiveState = 2
 
-Handlebars.registerHelper('inActive_2', function () {
+Handlebars.registerHelper('inActive_2', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 2) {
         return 'in-active-button'
@@ -184,7 +180,7 @@ Handlebars.registerHelper('inActive_2', function () {
 
 // Back to work, Resume button inActiveState = 3
 
-Handlebars.registerHelper('inActive_3', function () {
+Handlebars.registerHelper('inActive_3', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 3) {
         return 'in-active-button'
@@ -193,7 +189,7 @@ Handlebars.registerHelper('inActive_3', function () {
 
 // Push finnished button inActiveState = 4, now able to choose new supply or new Machine
 
-Handlebars.registerHelper('inActive_4', function () {
+Handlebars.registerHelper('inActive_4', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 4) {
         return 'in-active-button'
@@ -202,7 +198,7 @@ Handlebars.registerHelper('inActive_4', function () {
 
 // choose Supply Area inActiveState = 9
 
-Handlebars.registerHelper('inActive_9', function () {
+Handlebars.registerHelper('inActive_9', () => {
     let inActiveState = Session.get('supplyChosen');
     if(inActiveState !== 9) {
         return 'in-active-button'

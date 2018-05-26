@@ -1,10 +1,14 @@
-import {Email} from 'meteor/email';
+
 import { Random } from 'meteor/random';
 
 
 if(Meteor.isServer){
 
     Meteor.startup( function() {
+
+        Meteor.publish("usersProfil", function() {
+            return usersProfil.find();
+        });
 
         Meteor.publish("toDoMessage", function() {
             return toDoMesssage.find();
@@ -111,7 +115,7 @@ if(Meteor.isServer){
         'supplyArea': function (supplyArea) {
           supplyAreaList.insert({supplyArea: supplyArea, supplyStatus: 0});
         },
-//------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ Admin section --------------------------------------------------------------------
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
             const toDoStatus = 0;
             const clearDate = 0;
@@ -132,6 +136,22 @@ if(Meteor.isServer){
         'successfullLogout': function(logoutId, logoutDate) {
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
             usersProfil.update({username: logoutId}, {$set: {loginStatus: 0}});
+        },
+
+        'userManualDelete': function (deleteUser) {
+            for (i = 0; i < deleteUser.length; i++) {
+                const userName = usersProfil.findOne({_id: deleteUser[i]}).username;
+                Meteor.users.remove({username: userName});
+                usersProfil.remove({username: userName});
+            }
+        },
+
+        'userManualLogout': function (logOutUser) {
+            for (i = 0; i < logOutUser.length; i++) {
+                const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
+                Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
+                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
+            }
         },
 //--------------------------------------------------------  Variants -----------------------------------------------------------------------
 

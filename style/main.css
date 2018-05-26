@@ -290,6 +290,16 @@ table.headerTable {
   position: relative;
   left: 40em; }
 
+.commissionHeadNav {
+  position: absolute;
+  top: 2em;
+  left: 35em; }
+
+.templateNav {
+  left: 40em;
+  position: absolute;
+  top: 2em; }
+
 .buttonNotWorking {
   background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px); }
 
@@ -494,8 +504,9 @@ table.supply-table {
   position: relative;
   left: 50em; }
 
-.commissionHeadNav {
+.commTablet {
   position: absolute;
+  top: 11.5em;
   left: 30em; }
 
 .commHead {
@@ -596,11 +607,6 @@ table.commOverView {
   left: 40em;
   margin-top: 25px;
   position: relative; }
-
-.templateNav {
-  left: 40em;
-  position: absolute;
-  top: 6em; }
 
 #logo {
   margin: 10px; }

@@ -1,12 +1,10 @@
 <template name="admin">
-{{#if currentUser}}
+    {{#if currentUser}}
         {{> adminViewUser}}
-{{else}}
-    {{> login}}
-{{/if}}
+    {{else}}
+        {{> login}}
+    {{/if}}
 </template>
-
-
 
 <template name="adminViewUser">
     <div id="logo">
@@ -29,10 +27,10 @@
         <form class="submitAdmin">
             <button type="button" class="btn btn-danger">Send</button>
         </form>
-           <br><br><br>
+        <br><br><br>
         <table class="blueTable tableAdminPos"  cellpadding="10">
-           <thead>
-              <tr>
+            <thead>
+            <tr>
                 <th class="adminUserId"><strong>User id</strong></th>
                 <th class="adminUser"><strong>User</strong></th>
                 <th class="userRole"><strong>Role</strong></th>
@@ -43,8 +41,8 @@
                 <th class="userStatus"><strong>Online</strong></th>
                 <th class="userLogOut"><strong>Log out</strong></th>
                 <th class="userErase"><strong>Erase User</strong></th>
-              </tr>
-           </thead>
+            </tr>
+            </thead>
             <tbody>
             {{#each userResult}}
                 <tr class=" {{selectedClass}}">
@@ -56,8 +54,8 @@
                     <td class="userLastLogin">{{lastLogin}}</td>
                     <td class="userIP">{{clientIp}}</td>
                     <td class="userStatus {{getStatusLogin loginStatus}}"
-                         style="background-color:{{getStatusLogin loginStatus}}; color:{{getStatusLogin
-                                 loginStatus}}" >{{services.resume.loginTokens}}</td>
+                        style="background-color:{{getStatusLogin loginStatus}}; color:{{getStatusLogin
+                                loginStatus}}" >{{services.resume.loginTokens}}</td>
                     <td class="userLogOut">
                         <label>
                             <input class="rTableStyle" type="checkbox" name="logOut" id="logOut"  value="{{_id}}">
@@ -86,29 +84,29 @@
     </div>
     <div class="newUser">
         <h2>New User</h2>
-    <form class="adminRegisterNewUser">
-        <input class="omInput" name="registerUser" placeholder="User Name">
-        <input class="omInput" name="registerPassword" placeholder="Password">
-        <select name="userRole" class="omInput omInputButton"  id="selectMe">
-            <option>Admin</option>
-            <option>Logistics</option>
-            <option>Quality PDI</option>
-            <option>Repair Team</option>
-            <option>Wash Bay</option>
-            <option>Loading</option>
-            <option>Operation Supervisor</option>
-            <option>Team Lead</option>
-            <option>Commission</option>
-        </select>
-        <input type="submit" value="Register" class="adminRegister">
-        <p>Roles are</p>
-        <p>Admin = Admin or SuperUser</p>
-        <p>Logistics = mostly CTD like Mary, Amanda....</p>
-        <p>PDI = Quality Guys, the best ever...</p>
-        <p>Repair Team = JoAnn's Group for Repair Machines</p>
-        <p>Wash Bay = Thomas Nelson's group like Shawn or a temp washing the Machine</p>
-        <p>Loading = Thomas Nelson's Group like Shawn, moving the Machine to the Trailer</p>
-    </form>
-    <h1>{{result}}</h1>
+        <form class="adminRegisterNewUser">
+            <input class="omInput" name="registerUser" placeholder="User Name">
+            <input class="omInput" name="registerPassword" placeholder="Password">
+            <select name="userRole" class="omInput omInputButton"  id="selectMe">
+                <option>Admin</option>
+                <option>Logistics</option>
+                <option>Quality PDI</option>
+                <option>Repair Team</option>
+                <option>Wash Bay</option>
+                <option>Loading</option>
+                <option>Operation Supervisor</option>
+                <option>Team Lead</option>
+                <option>Commission</option>
+            </select>
+            <input type="submit" value="Register" class="adminRegister">
+            <p>Roles are</p>
+            <p>Admin = Admin or SuperUser</p>
+            <p>Logistics = mostly CTD like Mary, Amanda....</p>
+            <p>PDI = Quality Guys, the best ever...</p>
+            <p>Repair Team = JoAnn's Group for Repair Machines</p>
+            <p>Wash Bay = Thomas Nelson's group like Shawn or a temp washing the Machine</p>
+            <p>Loading = Thomas Nelson's Group like Shawn, moving the Machine to the Trailer</p>
+        </form>
+        <h1>{{result}}</h1>
     </div>
 </template>

@@ -8,12 +8,20 @@ Accounts.ui.config({
 Template.adminViewUser.helpers({
 
     userResult: function () {
-        return usersProfil.find();
+        return usersProfil.find().fetch();
     },
 
     usersTotal: function () {
         let totalUsers = usersProfil.find().fetch();
         return totalUsers.length;
+    },
+
+    'selectedClass': function () {
+        const checkPoint = this._id;
+        const selectedCheckPoint = Session.get('selectedMachine');
+        if (selectedCheckPoint === checkPoint) {
+            return "selected"
+        }
     }
 
 });
