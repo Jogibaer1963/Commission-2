@@ -153,7 +153,7 @@ if(Meteor.isServer){
                 usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
             }
         },
-//--------------------------------------------------------  Variants -----------------------------------------------------------------------
+//-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
         'pickingResultL4msb020': function (machineId, pickingArea) {
             if(machineId) {
