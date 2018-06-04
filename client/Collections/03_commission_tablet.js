@@ -67,7 +67,6 @@ Template.commTablet.events ({
     'click .pickedMachine': function() {
         event.preventDefault();
         const pickedMachineId = this._id;
-        console.log(pickedMachineId);
         Session.set('selectedMachine', pickedMachineId);
     },
 

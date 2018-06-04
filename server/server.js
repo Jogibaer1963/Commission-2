@@ -138,6 +138,14 @@ if(Meteor.isServer){
             usersProfil.update({username: logoutId}, {$set: {loginStatus: 0}});
         },
 
+        'userManualLogout': function (logOutUser) {
+            for (i = 0; i < logOutUser.length; i++) {
+                const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
+                Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
+                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
+            }
+        },
+
         'userManualDelete': function (deleteUser) {
             for (i = 0; i < deleteUser.length; i++) {
                 const userName = usersProfil.findOne({_id: deleteUser[i]}).username;
@@ -146,12 +154,13 @@ if(Meteor.isServer){
             }
         },
 
-        'userManualLogout': function (logOutUser) {
-            for (i = 0; i < logOutUser.length; i++) {
-                const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
-                Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
-                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
-            }
+        'newUser' : function (userConst, passwordConst, role,  createdAt, loggedUser) {
+            Accounts.createUser({username: userConst, password: passwordConst});
+            setTimeout(function () {
+            }, 1000);
+            Meteor.users.upsert({username:userConst}, {$addToSet: {roles: role}});
+            usersProfil.insert({username: userConst, role: role, createdAt: createdAt,
+                createdBy: loggedUser, loginStatus: 0});
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
