@@ -3,6 +3,7 @@
 .commNav {
   position: relative;
   left: 50em;
+  top: 2em;
 }
 
 .commTablet {
@@ -29,18 +30,17 @@
   width: 5em;
 }
 
+.toggleButton {
+  position: absolute;
+  top: 22em;
+  left: 80em;
+}
+
 .removeMachine {
   position: relative;
   left: 50em;
   top: 7.5em;
 }
-
-.comm-statistics {
-  left: 59em;
-  position: absolute;
-  top: 18.9em;
-}
-
 
 .inLineDate {
   position: absolute;

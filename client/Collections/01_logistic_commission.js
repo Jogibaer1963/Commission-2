@@ -4,7 +4,12 @@ Meteor.subscribe('machineCommTable');
 Template.commissionOverView.helpers ({
 
     machineCommList: function () {
-        return machineCommTable.find({}, {sort: {commissionStatus: 1, inLineDate: -1}});
+        let toggleComm = Session.get('toggleComm');
+        if(toggleComm === 0) {
+            return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {dateOfCreation: 1, }});
+        } else {
+            return machineCommTable.find({commissionStatus: {$gt: 25}}, {sort: {dateOfCreation: 1, }});
+        }
     },
 
     machineNr: () => {
@@ -354,8 +359,7 @@ function pickingResult(machineId, pickingArea) {
 }
 
 
-
-
+Session.set('toggleComm', 0);
 
 Template.commissionOverView.events ({
 
@@ -371,16 +375,6 @@ Template.commissionOverView.events ({
         Session.set('selectedMachine', pickedMachineId);
     },
 
-    'click .removeMachine': function (e) {
-        e.preventDefault();
-        const removableMachine = Session.get('selectedMachine');
-        Meteor.call('removeCommMachine', removableMachine);
-    },
-
-    'click .comm-statistics': (e) => {
-        e.preventDefault();
-        FlowRouter.go('commissionStatistics');
-    },
 
     'click .buttonToTablet': (e) => {
         e.preventDefault();
@@ -390,9 +384,22 @@ Template.commissionOverView.events ({
         Session.set('selectedArea', '');
         FlowRouter.go('commission');
         Session.set('supplyChosen', 0);
-    }
+    },
+
+    'click .toggleButton': (e) => {
+        e.preventDefault();
+        let k = Session.get('toggleComm');
+        if(k === 0) {
+            Session.set('toggleComm', 1);
+        } else {
+            Session.set('toggleComm', 0);
+        }
+     }
 
 });
+
+
+//-------------------------------------------- Admin Section ---------------------------------------
 
 Template.adminButton.helpers ({
 
@@ -410,8 +417,9 @@ Template.adminButton.events ({
         Session.set('alarm', '');
         const newMachine = e.target.newMachine.value;
         const inLineDate = e.target.newDate.value;
+        let dateOfCreation = Date.now();
         if(newMachine) {
-            Meteor.call('doubleMachine', newMachine,  inLineDate, function (err, response) {
+            Meteor.call('doubleMachine', newMachine,  inLineDate, dateOfCreation, function (err, response) {
                 if (response) {
                     Session.set('alarm', 'Attention, Machine already exists');
                 } else {
@@ -421,6 +429,18 @@ Template.adminButton.events ({
         }
         e.target.newMachine.value = '';
         e.target.newDate.value = '';
+    },
+
+
+    'click .removeMachine': function (e) {
+        e.preventDefault();
+        const removableMachine = Session.get('selectedMachine');
+        Meteor.call('removeCommMachine', removableMachine);
+    },
+
+    'click .comm-statistics': (e) => {
+        e.preventDefault();
+        FlowRouter.go('commissionStatistics');
     }
 
 });

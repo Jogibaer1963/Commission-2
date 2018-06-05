@@ -43,7 +43,7 @@ table tbody, table thead {
 
 table tbody {
   overflow: auto;
-  height: 500px; }
+  height: 550px; }
 
 table.blueTable {
   width: 1195px; }
@@ -502,7 +502,8 @@ table.supply-table {
     transform: translateY(4.8rem) scale(0.5); } }
 .commNav {
   position: relative;
-  left: 50em; }
+  left: 50em;
+  top: 2em; }
 
 .commTablet {
   position: absolute;
@@ -524,15 +525,15 @@ table.supply-table {
 .commMachineField {
   width: 5em; }
 
+.toggleButton {
+  position: absolute;
+  top: 22em;
+  left: 80em; }
+
 .removeMachine {
   position: relative;
   left: 50em;
   top: 7.5em; }
-
-.comm-statistics {
-  left: 59em;
-  position: absolute;
-  top: 18.9em; }
 
 .inLineDate {
   position: absolute;
@@ -599,6 +600,11 @@ table.commOverView {
   display: inline-block;
   width: 85px;
   text-align: left; }
+
+.averageSupply {
+  position: absolute;
+  top: 10em;
+  left: 2em; }
 
 .insideNavBar {
   margin-top: 25px; }

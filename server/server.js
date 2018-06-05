@@ -96,9 +96,12 @@ if(Meteor.isServer){
         },
 
 
-        'doubleMachine': (newMachine,inLineDate) => {
+        'doubleMachine': (newMachine,inLineDate, dateOfCreation) => {
                 if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
-                    machineCommTable.insert({machineId: newMachine, inLineDate: inLineDate, commissionStatus: 0});
+                    machineCommTable.insert({machineId: newMachine,
+                                            inLineDate: inLineDate,
+                                            dateOfCreation: dateOfCreation,
+                                            commissionStatus: 0});
                     supplyAreaList.find({}, {sort: {supplyPosition: 1}}).forEach(function(copy) {
                         machineCommTable.update({machineId: newMachine}, {$addToSet: {supplyAreaList: (copy)}})
                     });
