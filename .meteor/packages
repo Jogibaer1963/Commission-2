@@ -1,25 +1,24 @@
 accounts-ui@1.3.0
-accounts-password@1.5.0
+accounts-password@1.5.1
 alanning:roles
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
 dburles:collection-helpers
-ecmascript@0.10.6              # Enable ECMAScript2015+ syntax in app code
-es5-shim@4.7.0                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.11.0              # Enable ECMAScript2015+ syntax in app code
+es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers.
 erasaur:meteor-lodash
 fastclick@1.0.13
 fortawesome:fontawesome
-gwendall:auth-client-callbacks
 harrison:papa-parse
 jquery@1.11.10
 kadira:flow-router
 kadira:blaze-layout
 lfergon:exportcsv
 lookback:dropdowns
-meteor-base@1.3.0             # Packages every Meteor app needs to have
+meteor-base@1.4.0             # Packages every Meteor app needs to have
 meteorhacks:aggregate
 
 mobile-experience@1.0.5       # Packages for a great mobile UX
-mongo@1.4.2                   # The database Meteor supports right now
+mongo@1.5.0                   # The database Meteor supports right now
 mrt:moment-timezone
 
 momentjs:moment@2.16.0
@@ -28,11 +27,10 @@ raix:handlebar-helpers
 rpgeeganage:excel-builder
 session@1.1.7                 # Client-side reactive dictionary for your app
 shell-server@0.3.1             # Helpful client-side library
-standard-minifier-css@1.4.0
-standard-minifier-js@2.3.1
-tracker@1.1.3                 # Meteor's client-side reactive programming library
+standard-minifier-css@1.4.1
+standard-minifier-js@2.3.4
+tracker@1.2.0                 # Meteor's client-side reactive programming library
 themeteorchef:bert
-u2622:persistent-session
 zimme:active-route
 
 twbs:bootstrap
@@ -41,5 +39,5 @@ reactive-var@1.0.11
 dburles:mongo-collection-instances         # Allow all DB writes from clients (for prototyping)
 meteorhacks:npm
 
-
 npm-container
+underscore
