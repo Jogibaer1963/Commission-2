@@ -3,7 +3,7 @@ accounts-password@1.5.1
 alanning:roles
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
 dburles:collection-helpers
-ecmascript@0.11.0              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.11.1              # Enable ECMAScript2015+ syntax in app code
 es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers.
 erasaur:meteor-lodash
 fastclick@1.0.13
@@ -40,4 +40,4 @@ dburles:mongo-collection-instances         # Allow all DB writes from clients (f
 meteorhacks:npm
 
 npm-container
-underscore
+underscore@1.0.10

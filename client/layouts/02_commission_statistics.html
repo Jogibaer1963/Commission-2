@@ -6,181 +6,44 @@
         <div id="logo">
             <img src="claas_logo.png" />
         </div>
-        {{> averagePerSupply}}
+        {{> statisticsChoice}}
     {{else}}
         {{> login}}
     {{/if}}
 </template>
 
-<template name="averagePerSupply">
-    <div class="averageSupply">
-    <h4><strong>Average picking time per Supply Center per 5 business days</strong></h4>
-    </div>
+<template name="statisticsChoice">
+    <div class="statChoice">
+        <div>
+            <label for="dateStart"><strong>Choose Date from </strong></label>
+            <input type="date" id="dateStart">
+            <label for="dateEnd">=> to</label>
+            <input type="date" id="dateEnd">
+        </div>
+        <div>
+            <label for="machineStart"><strong>Choose Machine from</strong></label>
+            <input type="text" id="machineStart">
+            <label for="machineEnd"><strong>=> to</strong></label>
+            <input type="text" id="machineEnd">
+        </div>
+        <div>
+            {{#dropdownTrigger name="workCenters"}}
+                <button>Supply Areas</button>
+            {{/dropdownTrigger}}
+
+            {{#dropdown name="workCenters" classes="dropdown--menu" align="left"}}
+
+                <ul class="dropdown__menu">
+                    {{#each supplyArea}}
+                        <li role="menuItem"><a href="#">{{this}}</a></li>
+                    {{/each}}
+                </ul>
+
+            {{/dropdown}}
+        </div>
 
 
-    <div  style="left: 2em; position: absolute; top: 10em;">
-        <table>
-            <tr>
-                <th scope="col"><h3><strong>{{machineNr}}</strong></h3></th>
-            </tr>
 
-            <tr>
-                <th scope="row">L4MSB020</th>
-                {{#with L4MSB020}}
-                    <td class="tableSizeDate">{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB030</th>
-                {{#with L4MSB030}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB040</th>
-                {{#with L4MSB040}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB045</th>
-                {{#with L4MSB045}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
 
-            <tr>
-                <th scope="row">L4MSB050</th>
-                {{#with L4MSB050}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB060</th>
-                {{#with L4MSB060}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB070</th>
-                {{#with L4MSB070}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4MSB090</th>
-                {{#with L4MSB090}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PAXL10</th>
-                {{#with L4PAXL10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCAB10</th>
-                {{#with L4PCAB10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCAB20</th>
-                {{#with L4PCAB20}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCHP10</th>
-                {{#with L4PCHP10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCLN20</th>
-                {{#with L4PCLN20}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCOL05</th>
-                {{#with L4PCOL05}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCOL10</th>
-                {{#with L4PCOL10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PCOL20/30</th>
-                {{#with L4PCOL20}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PENG10</th>
-                {{#with L4PENG10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PENG20</th>
-                {{#with L4PENG20}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PENG30</th>
-                {{#with L4PENG30}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PENG40</th>
-                {{#with L4PENG40}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PFDR10</th>
-                {{#with L4PFDR10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PGRT10</th>
-                {{#with L4PGRT10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PHYD10</th>
-                {{#with L4PHYD10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PRTR10</th>
-                {{#with L4PRTR10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PRTR20</th>
-                {{#with L4PRTR20}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-            <tr>
-                <th scope="row">L4PTHR10</th>
-                {{#with L4PTHR10}}
-                    <td>{{pickingDateAndTime}}</td>
-                {{/with}}
-            </tr>
-        </table>
     </div>
 </template>

@@ -606,6 +606,11 @@ table.commOverView {
   top: 10em;
   left: 2em; }
 
+.statChoice {
+  position: absolute;
+  top: 10em;
+  left: 4em; }
+
 .insideNavBar {
   margin-top: 25px; }
 

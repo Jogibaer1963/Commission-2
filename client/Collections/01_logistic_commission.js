@@ -5,10 +5,10 @@ Template.commissionOverView.helpers ({
 
     machineCommList: function () {
         let toggleComm = Session.get('toggleComm');
-        if(toggleComm === 0) {
-            return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {dateOfCreation: 1, }});
-        } else {
+        if(toggleComm === 1) {
             return machineCommTable.find({commissionStatus: {$gt: 25}}, {sort: {dateOfCreation: 1, }});
+        } else {
+            return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {dateOfCreation: 1, }});
         }
     },
 
@@ -359,7 +359,7 @@ function pickingResult(machineId, pickingArea) {
 }
 
 
-Session.set('toggleComm', 0);
+Session.set('toggleComm', 1);
 
 Template.commissionOverView.events ({
 
@@ -389,10 +389,10 @@ Template.commissionOverView.events ({
     'click .toggleButton': (e) => {
         e.preventDefault();
         let k = Session.get('toggleComm');
-        if(k === 0) {
-            Session.set('toggleComm', 1);
-        } else {
+        if(k === 1) {
             Session.set('toggleComm', 0);
+        } else {
+            Session.set('toggleComm', 1);
         }
      }
 
