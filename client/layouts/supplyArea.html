@@ -1,8 +1,42 @@
 <template name="supplyArea">
-    Supply Area
-    Show Supply Areas
-    add Supply Area
-    remove Supply Area
+    {{#if currentUser}}
+        {{> supplyAreaShow}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
 
 
+<template name="supplyAreaShow">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <form class="newSupplyArea">
+       <h4><strong>Add Supply Area</strong></h4>
+        <br>
+        <label for="supplyName"></label>
+        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name">
+        <label for="supplyPosition"></label>
+        <input type="number" id="supplyPosition" name="supplyPosition" placeholder="Supply Position">
+        <button type="submit" class="btn btn-default btn-success">Submit</button>
+    </form>
+    <div class="supplyTable">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Active Areas</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each supplyAreaListed}}
+                {{#each supplyAreaList}}
+                <tr class="">
+                        <td class=""><center>{{supplyPosition}}</center>
+                            {{_id}}</td>
+                </tr>
+                    {{/each}}
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
 </template>

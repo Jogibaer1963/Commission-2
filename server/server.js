@@ -2,6 +2,7 @@
 import { Random } from 'meteor/random';
 
 
+
 if(Meteor.isServer){
 
     Meteor.startup( function() {
@@ -26,6 +27,10 @@ if(Meteor.isServer){
             return pickersAtWork.find();
         });
 
+        Meteor.publish("supplyAreaArray", function() {
+            return supplyAreaArray.find();
+        });
+
     });
 
 
@@ -34,6 +39,15 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
+
+//----------------------------------------------- New Style -----------------------------------------------------------------------
+        'addSupplyArea': (area, supplyPosition) => {
+            let newId = new Mongo.ObjectID().toString();
+            console.log(newId);
+            supplyAreaArray.update({},
+               {$push: {supplyAreaList: {_id: newId,  supplyArea: area, supplyPosition: supplyPosition, active: true}}});
+        },
+
 
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------
 
@@ -126,12 +140,12 @@ if(Meteor.isServer){
         },
 
         'unsuccessLogin': function (userVar, passwordVar, dateLogin) {
-            clientIp = this.connection.clientAddress;
+           let clientIp = this.connection.clientAddress;
             unsuccessLogin.insert({userId: userVar, password: passwordVar, dateLogin: dateLogin, clientIp: clientIp});
         },
 
         'successfullLogin': function (userVar, dateLogin) {
-            clientIp = this.connection.clientAddress;
+           let clientIp = this.connection.clientAddress;
             successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
             usersProfil.update({username: userVar}, {$set: {loginStatus: 1, lastLogin: dateLogin, clientIp: clientIp}});
         },
@@ -167,193 +181,12 @@ if(Meteor.isServer){
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
-        'pickingResultL4msb020': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 0;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb030': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 1;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb040': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 2;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb045': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 3;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb050': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 4;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-
-            }
-        },
-
-        'pickingResultL4msb060': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 5;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb070': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 6;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4msb090': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 7;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4paxl10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 8;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pcab10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 9;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-               }
-        },
-
-        'pickingResultL4pcab20': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 10;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-              }
-        },
-
-        'pickingResultL4pchp10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 11;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-                }
-        },
-
-        'pickingResultL4pcln20': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 12;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pcol05': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 13;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pcol10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 14;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pcol20': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 15;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4peng10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 16;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4peng20': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 17;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4peng30': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 18;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4peng40': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 19;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pfdr10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 20;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pgrt10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 21;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4phyd10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 22;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4prtr10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 23;
-                return serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4prtr20': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 24;
-                return   serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        },
-
-        'pickingResultL4pthr10': function (machineId, pickingArea) {
-            if(machineId) {
-                const arrayIndex = 25;
-                return  serverPickingResult(machineId, pickingArea, arrayIndex);
-            }
-        }
-
 
 
 
     });
+
+    /*
 
 function serverPickingResult(machineId, pickingArea, arrayIndex) {
     const result = machineCommTable.findOne({_id: machineId},
@@ -371,6 +204,8 @@ function serverPickingResult(machineId, pickingArea, arrayIndex) {
     let pickingDateAndTime = pickersChoice.pickingDateAndTime;
     return {pickerStart, pickingDuration, pickingDateAndTime};
     }
+
+    */
 }
 
 

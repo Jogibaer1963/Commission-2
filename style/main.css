@@ -611,6 +611,21 @@ table.commOverView {
   top: 10em;
   left: 4em; }
 
+.newSupplyArea {
+  position: absolute;
+  top: 10em;
+  left: 3em; }
+
+.supplyTable {
+  position: absolute;
+  top: 20em;
+  left: 3em; }
+
+.supplyInactive {
+  position: absolute;
+  top: 20em;
+  left: 12em; }
+
 .insideNavBar {
   margin-top: 25px; }
 
