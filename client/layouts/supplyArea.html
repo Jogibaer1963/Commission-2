@@ -11,32 +11,96 @@
     <div id="logo">
         <img src="claas_logo.png" />
     </div>
+    <div class="topNav">
+        <nav>
+            <a class="btn"  href="/adminNewUser">New User</a>
+            <a>|</a>
+            <a class="btn"  href="/supplyArea">Update Supply Area's</a>
+            <a>|</a>
+            <a class="btn"  href="/newFiskalYear" disabled>Change Fiscal Year</a>
+            <a>|</a>
+            <a class="btn" href="/manipulateDatabase" disabled>Manipulate Database</a>
+            <a>|</a>
+            <a  class="btn" href="/commissionOverView">Over View</a>
+        </nav>
+    </div>
     <form class="newSupplyArea">
        <h4><strong>Add Supply Area</strong></h4>
         <br>
-        <label for="supplyName"></label>
-        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name">
         <label for="supplyPosition"></label>
         <input type="number" id="supplyPosition" name="supplyPosition" placeholder="Supply Position">
+        <label for="supplyName"></label>
+        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name">
         <button type="submit" class="btn btn-default btn-success">Submit</button>
+    </form>
+    <form class="updateButton">
+        <label for="updatePosition"></label>
+        <input type="number" id="updatePosition" name="updatePosition">
+        <button type="submit" class="btn btn-default btn-success">Update</button>
     </form>
     <div class="supplyTable">
         <table class="table">
             <thead>
-            <tr>
-                <th>Active Areas</th>
-            </tr>
+                <tr>
+                    <th>Position</th>
+                    <th>Supply Area</th>
+                    <th>Update</th>
+                    <th>Deactivate</th>
+                </tr>
             </thead>
             <tbody>
             {{#each supplyAreaListed}}
-                {{#each supplyAreaList}}
-                <tr class="">
-                        <td class=""><center>{{supplyPosition}}</center>
-                            {{_id}}</td>
-                </tr>
-                    {{/each}}
+                    <tr class="">
+                        <td class="">{{supplyPosition}}</td>
+                        <td class="">{{_id}}</td>
+                        <td class="">
+                            <label>
+                                <input class="rTableStyle"
+                                       type="radio"
+                                       name="updatePosition"
+                                       id="upPos"
+                                       value="{{_id}}">
+                            </label>
+                        </td>
+                        <td class="">
+                            <label>
+                                <input class="rTableStyle"
+                                       type="radio"
+                                       name="deactivateSupply"
+                                       value="{{_id}}">
+                            </label>
+                        </td>
+                    </tr>
             {{/each}}
             </tbody>
         </table>
     </div>
+    <div class="deactivatedSupplyTable">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Position</th>
+                <th>Supply Area</th>
+                <th>Activate</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each deactivatedSupplyAreaListed}}
+                <tr class="">
+                    <td class="">{{supplyPosition}}</td>
+                    <td class="">{{_id}}</td>
+                    <td class="">
+                        <label>
+                            <input class="rTableStyle"
+                                   type="radio"
+                                   name="activatePosition"
+                                   value="{{_id}}">
+                        </label>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
 </template>

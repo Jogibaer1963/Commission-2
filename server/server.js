@@ -40,13 +40,26 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
-//----------------------------------------------- New Style -----------------------------------------------------------------------
+//----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
         'addSupplyArea': (area, supplyPosition) => {
-            let newId = new Mongo.ObjectID().toString();
-            console.log(newId);
-            supplyAreaArray.update({},
-               {$push: {supplyAreaList: {_id: newId,  supplyArea: area, supplyPosition: supplyPosition, active: true}}});
+            supplyAreaArray.insert({_id: area, supplyPosition: supplyPosition, active: true});
         },
+
+        'updatePositionSupplyArea': (newUpPosition, updatePosition, deactivateSupply, activeSupply) => {
+            if (updatePosition) {
+                supplyAreaArray.update({_id:newUpPosition},
+                    {$set: {supplyPosition: updatePosition}});
+            }
+            if (deactivateSupply) {
+                supplyAreaArray.upsert({_id: deactivateSupply},
+                    {$set: {active: false}});
+            }
+            if (activeSupply) {
+                supplyAreaArray.upsert({_id:activeSupply},
+                    {$set: {active: true}});
+        }
+        },
+
 
 
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------

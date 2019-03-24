@@ -1,9 +1,9 @@
-accounts-ui@1.3.0
+accounts-ui@1.3.1
 accounts-password@1.5.1
 alanning:roles
 blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
 dburles:collection-helpers
-ecmascript@0.11.1              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.12.4              # Enable ECMAScript2015+ syntax in app code
 es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers.
 erasaur:meteor-lodash
 fastclick@1.0.13
@@ -18,17 +18,17 @@ meteor-base@1.4.0             # Packages every Meteor app needs to have
 meteorhacks:aggregate
 
 mobile-experience@1.0.5       # Packages for a great mobile UX
-mongo@1.5.0                   # The database Meteor supports right now
+mongo@1.6.0                   # The database Meteor supports right now
 mrt:moment-timezone
 
 momentjs:moment@2.16.0
 pfafman:filesaver
 raix:handlebar-helpers
 rpgeeganage:excel-builder
-session@1.1.7                 # Client-side reactive dictionary for your app
-shell-server@0.3.1             # Helpful client-side library
-standard-minifier-css@1.4.1
-standard-minifier-js@2.3.4
+session@1.2.0                 # Client-side reactive dictionary for your app
+shell-server@0.4.0             # Helpful client-side library
+standard-minifier-css@1.5.2
+standard-minifier-js@2.4.0
 tracker@1.2.0                 # Meteor's client-side reactive programming library
 themeteorchef:bert
 zimme:active-route

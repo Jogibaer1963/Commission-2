@@ -1,18 +1,31 @@
 
 .newSupplyArea {
+  left: 3em;
   position: absolute;
   top: 10em;
-  left: 3em;
 }
 
 .supplyTable {
+  left: 3em;
   position: absolute;
   top: 20em;
-  left: 3em;
+}
+
+.deactivatedSupplyTable {
+  left: 50em;
+  position: absolute;
+  top: 20em;
 }
 
 .supplyInactive {
+  left: 12em;
   position: absolute;
   top: 20em;
-  left: 12em;
 }
+
+.updateButton {
+  left: 30em;
+  position: absolute;
+  top: 20em;
+}
+

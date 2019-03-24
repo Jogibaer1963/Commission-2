@@ -370,9 +370,9 @@ table.supply-table {
   color: #D0E4F5; }
 
 .supplyButtonField {
+  left: 25em;
   position: absolute;
-  top: 30em;
-  left: 25em; }
+  top: 30em; }
 
 .commStart {
   float: left; }
@@ -612,19 +612,29 @@ table.commOverView {
   left: 4em; }
 
 .newSupplyArea {
+  left: 3em;
   position: absolute;
-  top: 10em;
-  left: 3em; }
+  top: 10em; }
 
 .supplyTable {
+  left: 3em;
   position: absolute;
-  top: 20em;
-  left: 3em; }
+  top: 20em; }
+
+.deactivatedSupplyTable {
+  left: 50em;
+  position: absolute;
+  top: 20em; }
 
 .supplyInactive {
+  left: 12em;
   position: absolute;
-  top: 20em;
-  left: 12em; }
+  top: 20em; }
+
+.updateButton {
+  left: 30em;
+  position: absolute;
+  top: 20em; }
 
 .insideNavBar {
   margin-top: 25px; }
