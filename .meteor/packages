@@ -18,7 +18,7 @@ meteor-base@1.4.0             # Packages every Meteor app needs to have
 meteorhacks:aggregate
 
 mobile-experience@1.0.5       # Packages for a great mobile UX
-mongo@1.6.0                   # The database Meteor supports right now
+mongo@1.6.2                   # The database Meteor supports right now
 mrt:moment-timezone
 
 momentjs:moment@2.16.0
@@ -27,8 +27,8 @@ raix:handlebar-helpers
 rpgeeganage:excel-builder
 session@1.2.0                 # Client-side reactive dictionary for your app
 shell-server@0.4.0             # Helpful client-side library
-standard-minifier-css@1.5.2
-standard-minifier-js@2.4.0
+standard-minifier-css@1.5.3
+standard-minifier-js@2.4.1
 tracker@1.2.0                 # Meteor's client-side reactive programming library
 themeteorchef:bert
 zimme:active-route

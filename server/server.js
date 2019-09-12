@@ -42,13 +42,27 @@ if(Meteor.isServer){
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
         'addSupplyArea': (area, supplyPosition) => {
-            supplyAreaArray.insert({_id: area, supplyPosition: supplyPosition, active: true});
+            const newPosition = parseInt(supplyPosition);
+            if (area) {
+                console.log(area);
+                let supplyArea = supplyAreaArray.findOne({_id: area});
+                if (supplyArea._id === area) {
+                    return supplyArea;
+                }
+            }
+            supplyAreaArray.insert({_id: area, supplyPosition: newPosition, active: true});
         },
 
+        // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
         'updatePositionSupplyArea': (newUpPosition, updatePosition, deactivateSupply, activeSupply) => {
             if (updatePosition) {
+               const newPosition = parseInt(updatePosition);
+               supplyAreaArray.update({supplyPosition: {$gt: newPosition - 1}},
+                   {$inc: {supplyPosition: 1}});
+
                 supplyAreaArray.update({_id:newUpPosition},
-                    {$set: {supplyPosition: updatePosition}});
+                    {$set: {supplyPosition: newPosition}});
+
             }
             if (deactivateSupply) {
                 supplyAreaArray.upsert({_id: deactivateSupply},
@@ -58,6 +72,7 @@ if(Meteor.isServer){
                 supplyAreaArray.upsert({_id:activeSupply},
                     {$set: {active: true}});
         }
+
         },
 
 

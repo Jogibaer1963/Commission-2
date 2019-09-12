@@ -1,31 +1,53 @@
 
-.newSupplyArea {
+.new-supply-area {
   left: 3em;
   position: absolute;
-  top: 10em;
+  top: 15em;
 }
 
-.supplyTable {
+.supply-table {
   left: 3em;
   position: absolute;
-  top: 20em;
+  top: 23em;
 }
 
-.deactivatedSupplyTable {
+.deactivated-supply-table {
   left: 50em;
   position: absolute;
-  top: 20em;
+  top: 23em;
 }
 
-.supplyInactive {
+.supply-inactive {
   left: 12em;
   position: absolute;
   top: 20em;
 }
 
-.updateButton {
+.update-button {
   left: 30em;
   position: absolute;
-  top: 20em;
+  top: 23em;
 }
 
+$table-width-pos: 5em;
+$table-width-name: 6em;
+$warning-color: #bc1b4c;
+
+.table-pos {
+  text-align: center;
+  width: $table-width-pos;
+}
+
+.table-name {
+  text-align: center;
+  width: $table-width-name;
+}
+
+.double-entry {
+  color: $warning-color;
+  left: 10em;
+  position: absolute;
+  top: 10em;
+
+
+}

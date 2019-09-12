@@ -3,40 +3,57 @@ Meteor.subscribe('supplyAreaArray');
 Template.supplyAreaShow.helpers({
 
     supplyAreaListed: () => {
-        result = supplyAreaArray.find( {active: true}).fetch();
-        const resultMap = result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
-
+        let result = supplyAreaArray.find( {active: true}).fetch();
+        result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
         return result;
     },
 
     deactivatedSupplyAreaListed: () => {
-        result = supplyAreaArray.find( {active: false}).fetch();
-        const resultMap = result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
-        console.log(resultMap);
+        let result = supplyAreaArray.find( {active: false}).fetch();
+        result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
+        return result;
+    },
+
+    doubleSupplyArea: () => {
+        let result = Session.get('processResult');
+        if (result.active === true) {
+            result.active = 'active'
+        } else {
+            result.active = 'inactive'
+        }
         return result;
     }
 
 
 });
 
+Session.set('processResult', '');
+
 
 Template.supplyAreaShow.events({
 
-    'submit .newSupplyArea': () => {
-        event.preventDefault();
-        let newArea = event.target.supplyName.value;
-        let newPosition = event.target.supplyPosition.value;
-        Meteor.call('addSupplyArea', newArea, newPosition);
-        event.target.supplyPosition.value = '';
-        event.target.supplyName.value = '';
+    'submit .new-supply-area': (e) => {
+        e.preventDefault();
+        let newArea = e.target.supplyName.value;
+        let newPosition = e.target.supplyPosition.value;
+        Meteor.call('addSupplyArea', newArea, newPosition, (err, result) => {
+            if (result) {
+               Session.set('processResult', result);
+            } else if (err) {
+                console.log('error = ', err)
+            }
+        });
+        e.target.supplyPosition.value = '';
+        e.target.supplyName.value = '';
+
     },
 
-    'submit .updateButton': () => {
-        event.preventDefault();
+    'submit .update-button': (e) => {
+        e.preventDefault();
         const newUpPosition = [];
         const deactivate = [];
         const activate = [];
-        let updatePosition = event.target.updatePosition.value;
+        let updatePosition = e.target.updatePosition.value;
         $('input[name=updatePosition]:checked').each(function () {
            newUpPosition.push($(this).val());
         });
@@ -56,7 +73,8 @@ Template.supplyAreaShow.events({
                                         deactivateSupply,
                                         activateSupply
         );
-        event.target.updatePosition.value = '';
+        e.target.updatePosition.value = '';
+        Session.set('processResult', '');
         document.getElementById('upPos').checked = false;
     }
 
