@@ -41,36 +41,44 @@ if(Meteor.isServer){
     Meteor.methods({
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
-        'addSupplyArea': (area, supplyPosition) => {
+        'addSupplyArea': (area, supplyPosition, loggedUser) => {
             const newPosition = parseInt(supplyPosition);
             if (area) {
                 console.log(area);
                 let supplyArea = supplyAreaArray.findOne({_id: area});
-                if (supplyArea._id === area) {
-                    return supplyArea;
+                if (supplyArea) {
+                    if (supplyArea._id === area) {
+                        return supplyArea;
+                    }
                 }
             }
             supplyAreaArray.insert({_id: area, supplyPosition: newPosition, active: true});
+            let action = 'added supply area ' + area + ' at position ' + supplyPosition;
+            userUpdate(loggedUser, action);
+
         },
 
         // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
-        'updatePositionSupplyArea': (newUpPosition, updatePosition, deactivateSupply, activeSupply) => {
+        'updatePositionSupplyArea': (newUpPosition, updatePosition, deactivateSupply, activeSupply, loggedUser) => {
             if (updatePosition) {
                const newPosition = parseInt(updatePosition);
-               supplyAreaArray.update({supplyPosition: {$gt: newPosition - 1}},
-                   {$inc: {supplyPosition: 1}});
-
-                supplyAreaArray.update({_id:newUpPosition},
+                supplyAreaArray.update({_id: newUpPosition},
                     {$set: {supplyPosition: newPosition}});
-
+                let action = 'update Position for area ' + newUpPosition + ' with new Position ' + newPosition ;
+                userUpdate(loggedUser, action);
             }
             if (deactivateSupply) {
                 supplyAreaArray.upsert({_id: deactivateSupply},
                     {$set: {active: false}});
+                let action = 'Deactivated area ' + deactivateSupply;
+                userUpdate(loggedUser, action);
             }
             if (activeSupply) {
                 supplyAreaArray.upsert({_id:activeSupply},
                     {$set: {active: true}});
+                let action = 'Re-activated area ' + activeSupply;
+                userUpdate(loggedUser, action);
+
         }
 
         },
@@ -234,6 +242,12 @@ function serverPickingResult(machineId, pickingArea, arrayIndex) {
     }
 
     */
+
+     function userUpdate (loggedUser, action)  {
+        let timeStamp = Date.now();
+        userActions.insert({user: loggedUser, action: action, timeStamp: timeStamp});
+    }
+
 }
 
 

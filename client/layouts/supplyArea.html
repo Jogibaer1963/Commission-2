@@ -31,6 +31,8 @@
         <input type="number" id="updatePosition" name="updatePosition">
         <button type="submit" class="btn btn-default btn-success">Update</button>
     </form>
+
+
     <div class="double-entry">
        {{#if doubleSupplyArea}}
            <h4>Area {{doubleSupplyArea._id}} at Position
@@ -52,7 +54,7 @@
             </thead>
             <tbody>
             {{#each supplyAreaListed}}
-                    <tr class="">
+                    <tr class="active-areas">
                         <td class="table-pos">{{supplyPosition}}</td>
                         <td class="table-name">{{_id}}</td>
                         <td class="table-name">
@@ -88,7 +90,7 @@
             </thead>
             <tbody>
             {{#each deactivatedSupplyAreaListed}}
-                <tr class="">
+                <tr class="inactive-areas">
                     <td class="table-pos">{{supplyPosition}}</td>
                     <td class="table-name">{{_id}}</td>
                     <td class="table-name">

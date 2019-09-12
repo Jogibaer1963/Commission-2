@@ -1,3 +1,9 @@
+$table-width-pos: 5em;
+$table-width-name: 6em;
+$warning-color: #fd034a;
+$success-color: #03ff84;
+
+
 
 .new-supply-area {
   left: 3em;
@@ -29,9 +35,6 @@
   top: 23em;
 }
 
-$table-width-pos: 5em;
-$table-width-name: 6em;
-$warning-color: #bc1b4c;
 
 .table-pos {
   text-align: center;
@@ -48,6 +51,12 @@ $warning-color: #bc1b4c;
   left: 10em;
   position: absolute;
   top: 10em;
+}
 
+.inactive-areas {
+  background-color: $warning-color;
+}
 
+.active-areas {
+  background-color: $success-color;
 }

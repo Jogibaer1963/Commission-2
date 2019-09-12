@@ -792,10 +792,18 @@ table.commOverView {
 }
 
 .double-entry {
-  color: #bc1b4c;
+  color: #fd034a;
   left: 10em;
   position: absolute;
   top: 10em;
+}
+
+.inactive-areas {
+  background-color: #fd034a;
+}
+
+.active-areas {
+  background-color: #03ff84;
 }
 
 .insideNavBar {

@@ -36,7 +36,8 @@ Template.supplyAreaShow.events({
         e.preventDefault();
         let newArea = e.target.supplyName.value;
         let newPosition = e.target.supplyPosition.value;
-        Meteor.call('addSupplyArea', newArea, newPosition, (err, result) => {
+        const loggedUser = Meteor.user();
+        Meteor.call('addSupplyArea', newArea, newPosition, loggedUser, (err, result) => {
             if (result) {
                Session.set('processResult', result);
             } else if (err) {
@@ -53,6 +54,7 @@ Template.supplyAreaShow.events({
         const newUpPosition = [];
         const deactivate = [];
         const activate = [];
+        const loggedUser = Meteor.user();
         let updatePosition = e.target.updatePosition.value;
         $('input[name=updatePosition]:checked').each(function () {
            newUpPosition.push($(this).val());
@@ -71,7 +73,8 @@ Template.supplyAreaShow.events({
                                         newPosition,
                                         updatePosition,
                                         deactivateSupply,
-                                        activateSupply
+                                        activateSupply,
+                                        loggedUser
         );
         e.target.updatePosition.value = '';
         Session.set('processResult', '');
