@@ -5,10 +5,11 @@ Meteor.subscribe('machineCommTable');
 Template.machine_picking_list.helpers({
 
     supplyList: () => {
-      let result = supplyAreas.find({active: true}).fetch();
+      let result = supplyAreas.find().fetch();
        let returnResult = result.sort((a, b) => {
            return a.supplyPosition - b.supplyPosition;
        });
+       console.log(result);
        Session.set('returnResult', returnResult);
        return returnResult;
     },

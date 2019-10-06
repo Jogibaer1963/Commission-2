@@ -49,8 +49,9 @@ if(Meteor.isServer){
      //     insert new unique supply Area with position number
             supplyAreas.insert({_id: area,
                                     supplyPosition: 0,
-                                    active: true,
-                                   supplyStatus: supplyStatus});
+                                  //  active: true,
+                                //   supplyStatus: supplyStatus
+            });
 
             let action = 'added supply area ' + area;
             userUpdate(loggedUser, action);
@@ -64,7 +65,7 @@ if(Meteor.isServer){
             // build object for the updated Area
             let newObject = {"_id": newUpArea[0], "supplyPosition": newPos};
          // Fallunterscheidung existiert nummer oder nicht
-            let supplyAreaArray = supplyAreas.find({active: true}).fetch();
+            let supplyAreaArray = supplyAreas.find().fetch();
             let collectedSupplyPos = supplyAreaArray.map(findArea => findArea.supplyPosition);
             let foundOne = collectedSupplyPos.find((e) => e === newPos);
 
@@ -75,22 +76,23 @@ if(Meteor.isServer){
 
             } else {
 
-         // Nummer existiert, neue nummer einfügen und array neu nummerieren
+         // Nummer existiert, prüfen ob nach oben oder nach unten verschoben wird
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
                 let oldIndex = supplyAreaArray.map((e) => {return e._id}).indexOf(newArea);
                 let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos);
                 let oldPos = supplyAreaArray[oldIndex].supplyPosition;
                 let indexDiff = newIndex - oldIndex;
-
+                console.log(indexDiff, oldPos, newPos);
          // Fallunterscheidung ob Position von oben nach unten oder unten nach oben geschoben wird
 
                 if (indexDiff > 0 ) {  // nach oben
                  // neue Position wird an die Area vergeben
                 supplyAreaArray[oldIndex].supplyPosition = newPos;
+                console.log('neue Pos: ', supplyAreaArray[oldIndex].supplyPosition);
                 let counter = 1;
                 for (let i = 0; i <= indexDiff - 1; i++ ){
                     supplyAreaArray[newIndex - i].supplyPosition = newPos - counter;
-                //    console.log(i, newIndex, supplyAreaArray[newIndex - i]);
+                    console.log('i: ', i, ' New Pos: ', newPos - counter, ' Counter: ', counter, ' Area: ', supplyAreaArray[newIndex - i]);
                     counter++;
                 }
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
@@ -104,6 +106,7 @@ if(Meteor.isServer){
                     let counter = 1;
                     for (let i = 0; i <= posIndexDiff - 1; i++ ){
                         supplyAreaArray[newIndex + i].supplyPosition = newPos + counter;
+                        console.log('i: ', i, ' New Pos: ', newPos + counter, ' Counter: ', counter, ' Area: ', supplyAreaArray[newIndex + i]);
                         counter++;
                     }
                     supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);

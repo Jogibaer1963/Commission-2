@@ -3,7 +3,7 @@ Meteor.subscribe('supplyAreas');
 Template.supplyAreaShow.helpers({
 
     supplyAreaListed: () => {
-        let result = supplyAreas.find({active: true}).fetch();
+        let result = supplyAreas.find().fetch();
         result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
       //  console.log(result);
         return result;
