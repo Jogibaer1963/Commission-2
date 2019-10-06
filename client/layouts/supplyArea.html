@@ -20,27 +20,27 @@
     <form class="new-supply-area">
        <h4><strong>Add Supply Area</strong></h4>
         <br>
-        <label for="supplyPosition"></label>
-        <input type="number" id="supplyPosition" name="supplyPosition" placeholder="Supply Position">
         <label for="supplyName"></label>
-        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name">
+        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name" required>
         <button type="submit" class="btn btn-default btn-success">Submit</button>
     </form>
     <form class="update-button">
         <label for="updatePosition"></label>
-        <input type="number" id="updatePosition" name="updatePosition">
+        <input type="number" id="updatePosition" name="updatePosition" min="1" required>
         <button type="submit" class="btn btn-default btn-success">Update</button>
     </form>
-
+    <form class="activate-button">
+        <button type="submit" class="btn btn-default btn-danger">Activate / Deactivate</button>
+    </form>
 
     <div class="double-entry">
        {{#if doubleSupplyArea}}
-           <h4>Area {{doubleSupplyArea._id}} at Position
-                    {{doubleSupplyArea.supplyPosition}} already exists and is
-                    {{doubleSupplyArea.active}}</h4>
+           <h4>Area {{doubleSupplyArea._id}} exists and is
+                    {{doubleSupplyArea.active}} at Position
+                    {{doubleSupplyArea.supplyPosition}}
+                    </h4>
        {{/if}}
     </div>
-
 
     <div class="supply-table">
         <table class="table">
@@ -83,7 +83,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Position</th>
                 <th>Supply Area</th>
                 <th>Activate</th>
             </tr>
@@ -91,13 +90,12 @@
             <tbody>
             {{#each deactivatedSupplyAreaListed}}
                 <tr class="inactive-areas">
-                    <td class="table-pos">{{supplyPosition}}</td>
                     <td class="table-name">{{_id}}</td>
                     <td class="table-name">
                         <label>
                             <input class="rTableStyle"
                                    type="radio"
-                                   name="activatePosition"
+                                   name="activateSupply"
                                    value="{{_id}}">
                         </label>
                     </td>

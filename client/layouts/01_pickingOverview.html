@@ -1,0 +1,75 @@
+<template name="overview">
+    {{#if currentUser}}
+        {{#if isInRole 'admin'}}
+            {{> adminLayout}}
+            <div>
+                {{> addMachine}}
+                {{> machine_picking_list}}
+            </div>
+        {{/if}}
+        {{#if isInRole 'commission'}}
+            {{> commissionNav}}
+            {{> machine_picking_list}}
+        {{/if}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+
+</template>
+
+<template name="addMachine">
+    <div  style="position: relative; top: 10em; left:41em;">
+        <h3><strong>{{alarmMachine}}</strong></h3>
+    </div>
+    <form class="newCommMachine"  style="position: relative; top: 10em; left:41em;">
+        <label for="newMachine" >Adding Machine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date in Line</label>
+        <br>
+        <input type="text" name="newMachine" id="newMachine" placeholder="Machine Number" required>
+        <label for="newDate" class="inLineDate" ></label>
+        <input type="date" name="newDate" id="newDate" required>
+        <br><br>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+    <button class="btn btn-danger removeMachine" type="button">Delete</button>
+    <div class="commTablet">
+        <button type="button" class="btn btn-success btn-primary buttonToTablet">Tablet entry</button>
+    </div>
+</template>
+
+
+<template name="machine_picking_list">
+    <div class="machineCommissionTable">
+        <div class="">
+            <table class="table table-header-rotated">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    {{#each supplyList}}
+                        <th class="rotate-45"><div><span>{{_id}}</span></div></th>
+                    {{/each}}
+                    <th class=""><strong>Machine Id</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each machineList}}
+                    <tr class="commissionMachine {{selectedMachine}}">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        {{#each supplyAreas}}
+                            <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}}; color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
+                        {{/each}}
+                        <td class="commMachineField">{{machineId}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+

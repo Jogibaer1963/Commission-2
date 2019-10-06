@@ -22,56 +22,56 @@
         <button type="button" class="btn btn-primary btn-success toggleButton">Toggle between finished and open Machines</button>
     </div>
     <div class="machineCommissionTable">
-        <div class="">
-            <table class="table table-header-rotated">
-                <thead>
-                <tr>
-                    <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
-                    <th class="rotate-45"><div><span>L4MSB020</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB030</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB040</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB045</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB050</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB060</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB070</span></div></th>
-                    <th class="rotate-45"><div><span>L4MSB090</span></div></th>
-                    <th class="rotate-45"><div><span>L4PAXL10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCAB10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCAB20</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCHP10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCLN20</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCOL05</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCOL10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PCOL20/30</span></div></th>
-                    <th class="rotate-45"><div><span>L4PENG10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PENG20</span></div></th>
-                    <th class="rotate-45"><div><span>L4PENG30</span></div></th>
-                    <th class="rotate-45"><div><span>L4PENG40</span></div></th>
-                    <th class="rotate-45"><div><span>L4PFDR10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PGRT10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PHYD10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PRTR10</span></div></th>
-                    <th class="rotate-45"><div><span>L4PRTR20</span></div></th>
-                    <th class="rotate-45"><div><span>L4PTHR10</span></div></th>
-                    <th class=""><strong>Machine Id</strong></th>
+    <div class="">
+        <table class="table table-header-rotated">
+            <thead>
+            <tr>
+                <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                <th class="rotate-45"><div><span>L4MSB020</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB030</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB040</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB045</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB050</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB060</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB070</span></div></th>
+                <th class="rotate-45"><div><span>L4MSB090</span></div></th>
+                <th class="rotate-45"><div><span>L4PAXL10</span></div></th>
+                <th class="rotate-45"><div><span>L4PCAB10</span></div></th>
+                <th class="rotate-45"><div><span>L4PCAB20</span></div></th>
+                <th class="rotate-45"><div><span>L4PCHP10</span></div></th>
+                <th class="rotate-45"><div><span>L4PCLN20</span></div></th>
+                <th class="rotate-45"><div><span>L4PCOL05</span></div></th>
+                <th class="rotate-45"><div><span>L4PCOL10</span></div></th>
+                <th class="rotate-45"><div><span>L4PCOL20/30</span></div></th>
+                <th class="rotate-45"><div><span>L4PENG10</span></div></th>
+                <th class="rotate-45"><div><span>L4PENG20</span></div></th>
+                <th class="rotate-45"><div><span>L4PENG30</span></div></th>
+                <th class="rotate-45"><div><span>L4PENG40</span></div></th>
+                <th class="rotate-45"><div><span>L4PFDR10</span></div></th>
+                <th class="rotate-45"><div><span>L4PGRT10</span></div></th>
+                <th class="rotate-45"><div><span>L4PHYD10</span></div></th>
+                <th class="rotate-45"><div><span>L4PRTR10</span></div></th>
+                <th class="rotate-45"><div><span>L4PRTR20</span></div></th>
+                <th class="rotate-45"><div><span>L4PTHR10</span></div></th>
+                <th class=""><strong>Machine Id</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each machineCommList}}
+                <tr class="commissionMachine {{selectedMachine}}">
+                    <td class="pdiMachineField">{{machineId}}</td>
+                    <td class="pdiShipDate">{{inLineDate}}</td>
+                    {{#each supplyAreaList}}
+                        <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}}; color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
+                    {{/each}}
+                    <td class="commMachineField">{{machineId}}</td>
                 </tr>
-                </thead>
-                <tbody>
-                {{#each machineCommList}}
-                    <tr class="commissionMachine {{selectedMachine}}">
-                        <td class="pdiMachineField">{{machineId}}</td>
-                        <td class="pdiShipDate">{{inLineDate}}</td>
-                        {{#each supplyAreaList}}
-                            <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}}; color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
-                        {{/each}}
-                        <td class="commMachineField">{{machineId}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
+</div>
     <div  style="left: 2em; position: absolute; top: 10em;"> <h2>Commission Over View</h2>
         <table>
             <caption>Picking Result of single machine</caption>
@@ -82,14 +82,14 @@
                 <th scope="col">Picker</th>
             </tr>
 
-             <tr>
+            <tr>
                 <th scope="row">L4MSB020</th>
-                  {{#with L4MSB020}}
-                     <td class="tableSizeDate">{{pickingDateAndTime}}</td>
-                     <td>{{pickingDuration}}</td>
-                     <td>{{pickerStart}}</td>
-                  {{/with}}
-             </tr>
+                {{#with L4MSB020}}
+                    <td class="tableSizeDate">{{pickingDateAndTime}}</td>
+                    <td>{{pickingDuration}}</td>
+                    <td>{{pickerStart}}</td>
+                {{/with}}
+            </tr>
             <tr>
                 <th scope="row">L4MSB030</th>
                 {{#with L4MSB030}}
