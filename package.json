@@ -5,23 +5,24 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.4.2",
+    "@babel/runtime": "^7.6.3",
     "bcrypt": "^1.0.3",
-    "buffer": "^5.1.0",
+    "buffer": "^5.4.3",
     "eslint": "^4.19.1",
-    "handlebars": "^4.0.11",
+    "handlebars": "^4.4.3",
     "highcharts": "^5.0.15",
-    "install": "^0.11.0",
+    "install": "^0.11.2",
     "less": "^2.7.3",
     "meteor-node-stubs": "^0.3.2",
-    "mongodb": "^3.0.8",
-    "npm": "^6.0.1",
+    "moment": "^2.24.0",
+    "mongodb": "^3.3.2",
+    "npm": "^6.12.0",
     "qm-fs-readtxtfile": "^0.1.1",
     "read-file": "^0.2.0",
     "read-text-file": "^1.1.0",
     "spin.js": "^3.1.0",
     "sticky-table-headers": "^0.1.24",
     "strip-bom": "^3.0.0",
-    "yarn": "^1.6.0"
+    "yarn": "^1.19.1"
   }
 }

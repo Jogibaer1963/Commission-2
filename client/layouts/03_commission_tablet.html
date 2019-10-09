@@ -65,9 +65,10 @@
                 </thead>
                 <tbody class="supplyTableHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}">
                 {{#with supplyAreaShow}}
-                   {{#each supplyAreaList}}
-                    <tr class="supplyAreaList {{selectedArea}}">
-                        <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}" style="background-color: {{getCommStatus supplyStatus}}" >{{supplyArea}}</td>
+                   {{#each supplyAreas}}
+                    <tr class="supplyAreas {{selectedArea}}">
+                        <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
+                            style="background-color: {{getCommStatus supplyStatus}}" >{{_id}}</td>
                         <td class="supplyAreaField machineTablet ">{{pickerStart}}</td>
                     </tr>
                        {{/each}}

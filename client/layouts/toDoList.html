@@ -3,23 +3,17 @@
 
 <template name="toDoList">
     {{#if currentUser}}
-        {{#if isInRole 'commission'}}
-             {{> commissionNav}}
-             {{>lop}}
-           {{else}}
-             {{>lop}}
-         {{/if}}
+        {{#if isInRole 'admin'}}
+            {{> commissionNav}}
+            {{>adminLop}}
+            {{>lop}}
+        {{else}}
+            {{> commissionNav}}
+            {{>lop}}
+        {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
-</template>
-
-<template name="toDoTopNav">
-    {{#if isInRole 'commission'}}
-        {{> commissionNav}}
-        {{else}}
-            {{>lop}}
-        {{/if}}
 </template>
 
 <template name="lop">
@@ -27,40 +21,50 @@
         <img src="claas_logo.png" />
     </div>
     <div class="">
-       <div class="toDoMessage">
-         <form class="toDoMessanger">
-            <label for="messageId" class="mLocationId" ></label>
-            <input type="text" class="textBox" id="messageId" name="messageId" placeholder="Text" required>
-            <label for="newDate" class="input">Need at</label>
-            <input type="Date" class="" id="newDate" name="newDate">
-             <button type="submit" class="messangerWashBay">Add To Do</button>
-         </form>
-       </div>
-       <table class="blueTable toDoListTable">
-          <thead >
+        <div class="to-do-message">
+            <form class="toDoMessanger">
+                <label for="messageId" class="mLocationId" ></label>
+                <input type="text" class="text-box" id="messageId" name="messageId"
+                       placeholder="Your complain / wish / suggestion here" required>
+                <label for="newDate" class="input">Need at</label>
+                <input type="Date" class="" id="newDate" name="newDate">
+                <button type="submit" class="messangerWashBay">Add To Do</button>
+            </form>
+        </div>
+        <table class="blueTable toDoListTable">
+            <thead >
             <tr>
                 <th class="pdiComments"><strong>To Do</strong></th>
                 <th class="pdiShipDate"><strong>Created at</strong></th>
-               <th class="adminUser"><strong>Created by</strong></th>
-               <th class="pdiShipDate"><strong>Needed by</strong></th>
-               <th class="pdiShipDate"><strong>Cleared at</strong></th>
+                <th class="adminUser"><strong>Created by</strong></th>
+                <th class="pdiShipDate"><strong>Needed by</strong></th>
+                <th class="pdiShipDate"><strong>Cleared at</strong></th>
                 <th class="pdiShipField"><strong>Status</strong></th>
             </tr>
-          </thead>
-         <tbody>
+            </thead>
+            <tbody>
             {{#each toDoMessage}}
-               <tr class="textMessage {{selectedMessage}}">
-                  <td class="pdiComments">{{toDoText}}</td>
-                   <td class="pdiShipDate"><strong>{{dateNow}}</strong></td>
-                  <td class="adminUser"><strong>{{toDoUser}}</strong></td>
-                  <td class="pdiShipDate"><strong>{{needDate}}</strong></td>
-                   <td class="pdiShipDate"><strong>{{clearDate}}</strong></td>
-                   <td class="pdiShipField {{getToDoStatus toDoStatus}}" style="background-color:{{getToDoStatus toDoStatus}}; color:{{getToDoStatus toDoStatus}}">{{toDoStatus}}</td>
-               </tr>
+                <tr class="textMessage {{selectedMessage}}">
+                    <td class="pdiComments">{{toDoText}}</td>
+                    <td class="pdiShipDate"><strong>{{dateNow}}</strong></td>
+                    <td class="adminUser"><strong>{{toDoUser}}</strong></td>
+                    <td class="pdiShipDate"><strong>{{needDate}}</strong></td>
+                    <td class="pdiShipDate"><strong>{{clearDate}}</strong></td>
+                    <td class="pdiShipField {{getToDoStatus toDoStatus}}" style="background-color:{{getToDoStatus toDoStatus}}; color:{{getToDoStatus toDoStatus}}">{{toDoStatus}}</td>
+                </tr>
             {{/each}}
-         </tbody>
-       </table>
+            </tbody>
+        </table>
     </div>
+</template>
 
-
+<template name="adminLop">
+    <div class="adminLopMessage">
+        <form class="adminLopButtons">
+            <button type="button" class="btn btn-default btn-success inProcessToDo">start process</button>
+            <button type="button" class="btn btn-default btn-danger cancelToDo">Cancel</button>
+            <button type="button" class="btn btn-default btn-success finishedToDo">Done</button>
+            <button type="button" class="btn btn-default btn-info reOpenToDo">Re-open To Do</button>
+        </form>
+    </div>
 </template>

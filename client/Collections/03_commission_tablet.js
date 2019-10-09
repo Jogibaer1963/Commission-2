@@ -35,7 +35,7 @@ Template.commTablet.helpers ({
     supplyStart: () => {
         const supply = Session.get('selectedArea');
         if(supply) {
-            let pickedArea = supplyAreaList.findOne({_id: supply}).supplyArea;
+            let pickedArea = supplyAreas.findOne({_id: supply}).supplyArea;
             Session.set('pickedArea', pickedArea);
             Session.set('supplyChosen', 9);
             return pickedArea;
@@ -70,7 +70,7 @@ Template.commTablet.events ({
         Session.set('selectedMachine', pickedMachineId);
     },
 
-    'click .supplyAreaList': function() {
+    'click .supplyAreas': function() {
         event.preventDefault();
         const pickedSupplyArea = this._id;
         Session.set('selectedArea', pickedSupplyArea);
@@ -84,7 +84,6 @@ Template.commTablet.events ({
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
         let pickingStart = Date.now();
-        Session.set('pickingStart', pickingStart);
         Session.set('inActiveState', 1);
         let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
         Meteor.call('startPicking', pickedMachineId,
@@ -99,15 +98,13 @@ Template.commTablet.events ({
         let status = 1;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingStart = Session.get('pickingStart');
         let pickingEnd = Date.now();
-        let pickingTime = ((pickingEnd - pickingStart) / 60000).toFixed(0);
         let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
         Session.set('inActiveState', 4);
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
         Meteor.call('finishedPicking', pickedMachineId, pickedSupplyAreaId,
-                     status, userFinished, pickingTime, dateEndNow, pickingEnd);
+                     status, userFinished, dateEndNow, pickingEnd);
     },
 
     'submit .cancelForm': function(e) {

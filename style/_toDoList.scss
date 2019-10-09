@@ -1,13 +1,25 @@
 
 
 table.toDoListTable {
-  position: relative;
   margin-left: 2.5em;
+  position: relative;
   top: 14em;
   width: 60.5em;
 }
 
-.toDoMessage {
+.to-do-message {
+  left: 2.2em;
   position: relative;
-  top: 10em;
+  top: 13em;
 }
+
+.adminLopMessage {
+  left: 70em;
+  position: absolute;
+  top: 16em;
+}
+
+.text-box {
+  width: 480px;
+}
+

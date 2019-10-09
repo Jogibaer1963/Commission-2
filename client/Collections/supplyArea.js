@@ -16,6 +16,7 @@ Template.supplyAreaShow.helpers({
     },
 
     doubleSupplyArea: () => {
+
         let result = Session.get('processResult');
         if (result.active === true) {
             result.active = 'active'

@@ -1,6 +1,4 @@
 
-
-
 if(Meteor.isServer){
 
     Meteor.startup( function() {
@@ -9,12 +7,12 @@ if(Meteor.isServer){
             return usersProfil.find();
         });
 
-        Meteor.publish("toDoMessage", function() {
-            return toDoMesssage.find();
+        Meteor.publish("CommissionToDoMessage", function() {
+            return CommissionToDoMesssage.find();
         });
 
-        Meteor.publish("supplyAreaList", function() {
-            return supplyAreaList.find();
+        Meteor.publish("supplyAreas", function() {
+            return supplyAreas.find();
         });
 
         Meteor.publish("machineCommTable", function() {
@@ -23,10 +21,6 @@ if(Meteor.isServer){
 
         Meteor.publish("pickersAtWork", function() {
             return pickersAtWork.find();
-        });
-
-        Meteor.publish("supplyAreas", function() {
-            return supplyAreas.find();
         });
 
     });
@@ -49,8 +43,8 @@ if(Meteor.isServer){
      //     insert new unique supply Area with position number
             supplyAreas.insert({_id: area,
                                     supplyPosition: 0,
-                                  //  active: true,
-                                //   supplyStatus: supplyStatus
+                                    active: true,
+                                    supplyStatus: supplyStatus
             });
 
             let action = 'added supply area ' + area;
@@ -58,41 +52,61 @@ if(Meteor.isServer){
         },
 
         // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
+
         'updatePositionSupplyArea': (newUpArea, updatePosition, loggedUser) => {
             let newPos = parseInt(updatePosition);
             let newArea = newUpArea.toString();
 
             // build object for the updated Area
             let newObject = {"_id": newUpArea[0], "supplyPosition": newPos};
+
          // Fallunterscheidung existiert nummer oder nicht
+
             let supplyAreaArray = supplyAreas.find().fetch();
             let collectedSupplyPos = supplyAreaArray.map(findArea => findArea.supplyPosition);
             let foundOne = collectedSupplyPos.find((e) => e === newPos);
+            let arrayLength = supplyAreaArray.length;
 
          // Nummer nicht existent, speichern der neuen Area
+
             if(typeof foundOne === 'undefined') {
 
                 supplyAreas.upsert({_id: newArea}, {$set: {supplyPosition: newPos}});
 
+                // re-nummerierung der oberen Nummern
+                let arrayDiff = arrayLength - newPos;
+                if (arrayDiff > 0) {
+                    supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
+                    let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos-1);
+                    let counter = 0;
+                    for (let i = newIndex + 2; i <= arrayLength - 1; i++) {
+                        supplyAreaArray[newIndex + counter].supplyPosition = newPos + counter;
+                        let updateArea = supplyAreaArray[newIndex + counter + 1]._id;
+                        let updatePos = newPos + counter;
+                        supplyAreas.upsert({_id: updateArea}, {$set: {supplyPosition: updatePos}});
+                        counter++;
+                    }
+                }
+
+
+
             } else {
 
          // Nummer existiert, prüfen ob nach oben oder nach unten verschoben wird
+
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
                 let oldIndex = supplyAreaArray.map((e) => {return e._id}).indexOf(newArea);
                 let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos);
                 let oldPos = supplyAreaArray[oldIndex].supplyPosition;
                 let indexDiff = newIndex - oldIndex;
-                console.log(indexDiff, oldPos, newPos);
-         // Fallunterscheidung ob Position von oben nach unten oder unten nach oben geschoben wird
+
 
                 if (indexDiff > 0 ) {  // nach oben
                  // neue Position wird an die Area vergeben
                 supplyAreaArray[oldIndex].supplyPosition = newPos;
-                console.log('neue Pos: ', supplyAreaArray[oldIndex].supplyPosition);
                 let counter = 1;
                 for (let i = 0; i <= indexDiff - 1; i++ ){
-                    supplyAreaArray[newIndex - i].supplyPosition = newPos - counter;
-                    console.log('i: ', i, ' New Pos: ', newPos - counter, ' Counter: ', counter, ' Area: ', supplyAreaArray[newIndex - i]);
+                    supplyAreaArray[newIndex - i].supplyPosition = newPos + counter;
                     counter++;
                 }
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
@@ -106,7 +120,6 @@ if(Meteor.isServer){
                     let counter = 1;
                     for (let i = 0; i <= posIndexDiff - 1; i++ ){
                         supplyAreaArray[newIndex + i].supplyPosition = newPos + counter;
-                        console.log('i: ', i, ' New Pos: ', newPos + counter, ' Counter: ', counter, ' Area: ', supplyAreaArray[newIndex + i]);
                         counter++;
                     }
                     supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
@@ -116,9 +129,7 @@ if(Meteor.isServer){
                 supplyAreaArray.forEach((e) => {
                     supplyAreas.update({_id: e._id}, {$set: {supplyPosition: e.supplyPosition}});
                 });
-
             }
-
         },
 
 
@@ -164,76 +175,114 @@ if(Meteor.isServer){
             machineCommTable.remove({_id: removeMachine});
         },
 
+        'removeSupply': function (removeSupplyArea) {
+            supplyAreas.remove({_id: removeSupplyArea});
+        },
+
+        'supplyArea': function (supplyArea) {
+            supplyAreas.insert({supplyArea: supplyArea, supplyStatus: 0});
+        },
+
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------
 
         'startPicking': function (pickedMachineId, pickedSupplyAreaId, status, user, pickingStart, dateStartNow) {
-            pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId, pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreaList._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreaList.$.supplyStatus": status,
-                                            "supplyAreaList.$.pickerStart": user,
-                                            "supplyAreaList.$.pickingStart": pickingStart,
-                                            "supplyAreaList.$.pickingDateAndTime": dateStartNow}} )
+            pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
+                                                                      pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                            "supplyAreas.$.pickerStart": user,
+                                            "supplyAreas.$.pickingStart": pickingStart,
+                                            "supplyAreas.$.pickingDateAndTime": dateStartNow}} )
 
         },
 
-        'finishedPicking': function (pickedMachineId, pickedSupplyAreaId, status, user, pickingTime, dateEndNow, pickingEnd) {
+        'finishedPicking': function (pickedMachineId, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) {
             pickersAtWork.remove({_id: user});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreaList._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreaList.$.supplyStatus": status,
-                                            "supplyAreaList.$.pickerFinished": user,
-                                            "supplyAreaList.$.pickingTime": pickingTime,
-                                            "supplyAreaList.$.pickingEnd": pickingEnd,
-                                            "supplyAreaList.$.pickingEndDateAndTime": dateEndNow}},
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                            "supplyAreas.$.pickerFinished": user,
+                                            "supplyAreas.$.pickingEnd": pickingEnd,
+                                            "supplyAreas.$.pickingEndDateAndTime": dateEndNow}},
                                     );
             machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
         },
 
         'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
-            machineCommTable.update({_id: pickedMachineId, "supplyAreaList._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreaList.$.supplyStatus": status,
-                                            "supplyAreaList.$.pickerCanceled": user,
-                                            "supplyAreaList.$.pickerCanceledReason": cancellationReason,
-                                            "supplyAreaList.$.pickingStart": '',
-                                            "supplyAreaList.$.pickerStart": '',
-                                            "supplyAreaList.$.pickerFinished": '',
-                                            "supplyAreaList.$.pickingDateAndTime": '',
-                                            "supplyAreaList.$.pickingEnd": '',
-                                            "supplyAreaList.$.pickingTime": '',
-                                            "supplyAreaList.$.pickingEndDateAndTime": '',
-                                            "supplyAreaList.$.pickingPauseStart": '',
-                                            "supplyAreaList.$.pickingPauseEnd": ''}} )
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                            "supplyAreas.$.pickerCanceled": user,
+                                            "supplyAreas.$.pickerCanceledReason": cancellationReason,
+                                            "supplyAreas.$.pickingStart": '',
+                                            "supplyAreas.$.pickerStart": '',
+                                            "supplyAreas.$.pickerFinished": '',
+                                            "supplyAreas.$.pickingDateAndTime": '',
+                                            "supplyAreas.$.pickingEnd": '',
+                                            "supplyAreas.$.pickingTime": '',
+                                            "supplyAreas.$.pickingEndDateAndTime": '',
+                                            "supplyAreas.$.pickingPauseStart": '',
+                                            "supplyAreas.$.pickingPauseEnd": ''}} )
         },
 
         'pausePickingStart': function (pickedMachineId, pickedSupplyAreaId, status, pickingPauseStart, user) {
              pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
-             machineCommTable.update({_id: pickedMachineId, "supplyAreaList._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreaList.$.supplyStatus": status,
-                                        "supplyAreaList.$.pickingPauseStart": pickingPauseStart }})
+             machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                        "supplyAreas.$.pickingPauseStart": pickingPauseStart }})
 
         },
 
         'pausePickingEnd': function (pickedMachineId, pickedSupplyAreaId, status, pickingPauseEnd, user) {
             pickersAtWork.upsert({_id: user}, {$set: {inActive: 3}});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreaList._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreaList.$.supplyStatus": status,
-                                            "supplyAreaList.$.pickingPauseEnd": pickingPauseEnd}})
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                            "supplyAreas.$.pickingPauseEnd": pickingPauseEnd}})
 
         },
 
 
+//------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 
-        'removeSupply': function (removeSupplyArea) {
-          supplyAreaList.remove({_id: removeSupplyArea});
+        'analyze': () => {
+          let result = machineCommTable.find().fetch();
+          let counter = 0;
+          let pickingEnd = '';
+          const listResult = [];
+          result.forEach((element)  => {
+               listResult[counter] =  element.supplyAreas;
+               counter++;
+            });
+            listResult[0].forEach((element) => {
+                if(typeof element.pickingEnd !== 'undefined') {
+                    let area = element._id;
+                    let picker = element.pickerStart;
+                    let pickingStart = element.pickingStart;
+                    let pickingEnd;
+                    let pickingDuration = ((pickingEnd - pickingStart) / 60000).toFixed(0);
+                    console.log(picker, ' need for Area ', area, pickingDuration, ' minutes')
+                }
+            });
         },
 
-        'supplyArea': function (supplyArea) {
-          supplyAreaList.insert({supplyArea: supplyArea, supplyStatus: 0});
-        },
+
+
 //------------------------------------------------------ Admin section --------------------------------------------------------------------
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
             const toDoStatus = 0;
             const clearDate = 0;
-            toDoMesssage.insert({toDoText, dateNow, needDate, clearDate, toDoUser, toDoStatus});
+            CommissionToDoMesssage.insert({toDoText, dateNow, needDate, clearDate, toDoUser, toDoStatus});
+        },
+
+        'setToDo': (inProcessItem, status) => {
+            if(status === 0) {
+                CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: status}});
+            } else if(status === 1) {
+                CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: status}});
+            } else if(status === 2) {
+                let dateNow = moment().format('L');
+                CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: status, clearDate: dateNow}});
+            } else if(status === 3) {
+                CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: 1, clearDate: 're-opened'}});
+            }
         },
 
         'unsuccessLogin': function (userVar, passwordVar, dateLogin) {
@@ -287,8 +336,8 @@ if(Meteor.isServer){
 
 function serverPickingResult(machineId, pickingArea, arrayIndex) {
     const result = machineCommTable.findOne({_id: machineId},
-        {"supplyAreaList.supplyArea" : pickingArea});
-    const pickersChoice = result.supplyAreaList[arrayIndex];
+        {"supplyAreas.supplyArea" : pickingArea});
+    const pickersChoice = result.supplyAreas[arrayIndex];
     let pickerStart = pickersChoice.pickerStart;
     let pickingPauseStart = pickersChoice.pickingPauseStart;
     let pickingPauseEnd = pickersChoice.pickingPauseEnd;

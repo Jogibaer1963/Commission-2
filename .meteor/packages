@@ -41,3 +41,7 @@ meteorhacks:npm
 
 npm-container
 underscore@1.0.10
+
+
+
+highcharts:highcharts-meteor

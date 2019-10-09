@@ -9,13 +9,15 @@ Template.machine_picking_list.helpers({
        let returnResult = result.sort((a, b) => {
            return a.supplyPosition - b.supplyPosition;
        });
-       console.log(result);
        Session.set('returnResult', returnResult);
        return returnResult;
     },
 
     machineList: () => {
-        let result = machineCommTable.find({commissionStatus: 0}).fetch();
+        return machineCommTable.find({commissionStatus: {$lte: 26}}).fetch();
+        /*
+        // sort machines list in case supply area order is changed
+
         for (let i = 0; i <= result.length - 1; i++) {
             for (let j = 0; j <= result[i].supplyAreas.length - 1; j++) {
                 let supplyActive = result[i].supplyAreas[j];
@@ -27,14 +29,28 @@ Template.machine_picking_list.helpers({
             let listResult = supplyResult.filter(val => val);
             console.log('listResult: ', listResult);
         }
-        console.log(result);
-        return result;
-    }
+
+         */
+      //  return result;
+    },
+
 
 
 });
 
+Template.machine_picking_list.events({
 
+        'click .buttonToTablet': (e) => {
+            e.preventDefault();
+            sessionStorage.clear();
+            Session.set('inActiveState', 0);
+            Session.set('commMachine', '');
+            Session.set('selectedArea', '');
+            FlowRouter.go('commission');
+            Session.set('supplyChosen', 0);
+        }
+
+});
 
 Template.addMachine.helpers ({
 
@@ -73,16 +89,6 @@ Template.addMachine.events ({
     'click .comm-statistics': (e) => {
         e.preventDefault();
         FlowRouter.go('commissionStatistics');
-    },
-
-    'click .buttonToTablet': (e) => {
-        e.preventDefault();
-        sessionStorage.clear();
-        Session.set('inActiveState', 0);
-        Session.set('commMachine', '');
-        Session.set('selectedArea', '');
-        FlowRouter.go('commission');
-        Session.set('supplyChosen', 0);
-    },
+    }
 });
 

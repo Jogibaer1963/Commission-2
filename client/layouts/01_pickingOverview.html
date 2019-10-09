@@ -35,13 +35,13 @@
         <button class="btn btn-success" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger removeMachine" type="button">Delete</button>
-    <div class="commTablet">
-        <button type="button" class="btn btn-success btn-primary buttonToTablet">Tablet entry</button>
-    </div>
 </template>
 
 
 <template name="machine_picking_list">
+    <div class="commTablet">
+        <button type="button" class="btn btn-success btn-primary buttonToTablet">Tablet entry</button>
+    </div>
     <div class="machineCommissionTable">
         <div class="">
             <table class="table table-header-rotated">
@@ -61,7 +61,8 @@
                         <td class="pdiMachineField">{{machineId}}</td>
                         <td class="pdiShipDate">{{inLineDate}}</td>
                         {{#each supplyAreas}}
-                            <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}}; color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
+                            <td class="{{getStatusColor supplyStatus}}" style="background-color:{{getStatusColor supplyStatus}};
+                                    color:{{getStatusColor supplyStatus}}" >{{supplyStatus}}</td>
                         {{/each}}
                         <td class="commMachineField">{{machineId}}</td>
                     </tr>
