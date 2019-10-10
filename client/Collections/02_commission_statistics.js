@@ -1,20 +1,22 @@
 import { Template } from 'meteor/templating';
 const Highcharts = require('highcharts');
+Meteor.subscribe('pickers');
 
-Template.statisticsChoice.helpers({
+Template.statistics.helpers({
 
     createChart: function () {
         // Gather data:
-
-
           let  tasksData = [{
                 y: 5,
                 name: "Incomplete"
             }, {
-                y: 3,
-                name: "Complete"
-            }];
-        // Use Meteor.defer() to craete chart after DOM is ready:
+              y: 3,
+              name: "Complete"
+          }, {
+              y: 3,
+              name: "unknown"
+          }];
+        // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart', {
@@ -24,13 +26,28 @@ Template.statisticsChoice.helpers({
                 }]
             });
         });
-    }
+    },
+
+    pickersTable: () => {
+        return pickers.find().fetch();
+    },
 
 
 });
 
 
-Template.statisticsChoice.events({
+Template.statistics.events({
+
+    'submit .inputNewPicker': (e) => {
+        (e).preventDefault();
+        let newPicker = e.target.newPicker.value;
+        console.log(newPicker);
+        Meteor.call('addPicker', newPicker);
+        e.target.newPicker.value = '';
+    },
+
+
+
 
     'click .startAnalyze': (e) => {
         e.preventDefault();

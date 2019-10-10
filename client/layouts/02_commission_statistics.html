@@ -6,46 +6,42 @@
         <div id="logo">
             <img src="claas_logo.png" />
         </div>
-        {{> statisticsChoice}}
+        {{> statistics}}
     {{else}}
         {{> login}}
     {{/if}}
 </template>
 
-<template name="statisticsChoice">
-    <div class="statChoice">
-        <div>
-            <label for="dateStart"><strong>Choose Date from </strong></label>
-            <input type="date" id="dateStart">
-            <label for="dateEnd">=> to</label>
-            <input type="date" id="dateEnd">
-        </div>
-        <div>
-            <label for="machineStart"><strong>Choose Machine from</strong></label>
-            <input type="text" id="machineStart">
-            <label for="machineEnd"><strong>=> to</strong></label>
-            <input type="text" id="machineEnd">
-        </div>
-        <div>
-            {{#dropdownTrigger name="workCenters"}}
-                <button>Supply Areas</button>
-            {{/dropdownTrigger}}
-
-            {{#dropdown name="workCenters" classes="dropdown--menu" align="left"}}
-
-                <ul class="dropdown__menu">
-                    {{#each supplyArea}}
-                        <li role="menuItem"><a href="#">{{this}}</a></li>
-                    {{/each}}
-                </ul>
-
-            {{/dropdown}}
-            <button class="btn btn-default btn-success startAnalyze">Analyze</button>
-            <div id="chart">{{createChart}}</div>
-        </div>
-
-
-
-
+<template name="statistics">
+    <div class="pickers-table">
+        <table class="">
+            <thead>
+            <tr>
+                <th class=""><strong>Picker</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each pickersTable}}
+                <tr class="">{{_id}}</tr>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="diagram" id="chart">{{createChart}}</div>
+
+
+
+
+
+
 </template>

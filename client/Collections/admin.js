@@ -51,6 +51,7 @@ Template.adminViewUser.events({
 Template.adminNewUser.events({
     'submit .adminRegisterNewUser': function (event) {
         event.preventDefault();
+        let roleConst = '';
         const userConst = event.target.registerUser.value;
         const passwordConst = event.target.registerPassword.value;
         const role = event.target.userRole.value;
@@ -70,8 +71,8 @@ Template.adminNewUser.events({
             roleConst = 'Ops_admin'
         }   else if (role === 'Team Lead') {
             roleConst = 'teamLead'
-        }else if (role === 'Commission') {
-            roleConst = 'commission'
+        }else if (role === 'Picker') {
+            roleConst = 'Picker'
         }
 
         event.target.registerUser.value = '';

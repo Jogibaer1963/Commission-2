@@ -23,6 +23,10 @@ if(Meteor.isServer){
             return pickersAtWork.find();
         });
 
+        Meteor.publish("pickers", function() {
+            return pickers.find();
+        });
+
     });
 
 
@@ -242,6 +246,12 @@ if(Meteor.isServer){
 
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 
+        'addNewPicker': (newPicker) => {
+
+        },
+
+
+
         'analyze': () => {
           let result = machineCommTable.find().fetch();
           let counter = 0;
@@ -324,6 +334,11 @@ if(Meteor.isServer){
             Meteor.users.upsert({username:userConst}, {$addToSet: {roles: role}});
             usersProfil.insert({username: userConst, role: role, createdAt: createdAt,
                 createdBy: loggedUser, loginStatus: 0});
+
+            if(role === 'Picker') {
+                let newPicker = userConst.toLowerCase()
+;                pickers.insert({_id: newPicker});
+            }
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
