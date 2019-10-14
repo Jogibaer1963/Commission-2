@@ -136,8 +136,6 @@ if(Meteor.isServer){
             }
         },
 
-
-
         'activateSupply': (deactivateSupply, activeSupply, loggedUser) => {
             if (deactivateSupply) {
                 supplyAreas.upsert({_id: deactivateSupply},
@@ -196,8 +194,12 @@ if(Meteor.isServer){
                                     {$set: {"supplyAreas.$.supplyStatus": status,
                                             "supplyAreas.$.pickerStart": user,
                                             "supplyAreas.$.pickingStart": pickingStart,
-                                            "supplyAreas.$.pickingDateAndTime": dateStartNow}} )
-
+                                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+            let findPicker = pickers.find().fetch();
+            let result = findPicker.find(picker => picker._id === user);
+            if(typeof result === 'undefined') {
+                pickers.insert({_id: user});
+            }
         },
 
         'finishedPicking': function (pickedMachineId, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) {
@@ -334,11 +336,6 @@ if(Meteor.isServer){
             Meteor.users.upsert({username:userConst}, {$addToSet: {roles: role}});
             usersProfil.insert({username: userConst, role: role, createdAt: createdAt,
                 createdBy: loggedUser, loginStatus: 0});
-
-            if(role === 'Picker') {
-                let newPicker = userConst.toLowerCase()
-;                pickers.insert({_id: newPicker});
-            }
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 

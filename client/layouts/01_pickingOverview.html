@@ -7,20 +7,19 @@
                 {{> machine_picking_list}}
             </div>
         {{/if}}
-        {{#if isInRole 'commission'}}
+        {{#if isInRole  'Picker'}}
             {{> commissionNav}}
             {{> machine_picking_list}}
         {{/if}}
     {{else}}
-        {{> login}}
+       {{> login}}
     {{/if}}
-    <div id="logo">
-        <img src="claas_logo.png" />
-    </div>
-
 </template>
 
 <template name="addMachine">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
     <div  style="position: relative; top: 10em; left:41em;">
         <h3><strong>{{alarmMachine}}</strong></h3>
     </div>
