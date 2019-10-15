@@ -211,6 +211,31 @@ if(Meteor.isServer){
                                             "supplyAreas.$.pickingEndDateAndTime": dateEndNow}},
                                     );
             machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
+
+            const result = machineCommTable.findOne({_id: pickedMachineId});
+            let machineId = result.machineId;
+            let pickersArea = result.supplyAreas,
+            pickersResult =  pickersArea.find((e) => {
+                return e._id === pickedSupplyAreaId;
+               });
+            let pickingPauseStart = pickersResult.pickingPauseStart;
+            let pickingPauseEnd = pickersResult.pickingPauseEnd;
+            if(!pickingPauseEnd) {
+                pickingPauseStart = 1;
+                pickingPauseEnd = 1;
+            }
+            let pickingDuration = ((pickersResult.pickingEnd - pickersResult.pickingStart -
+                (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
+            let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+            let pickersObject = {supplyArea: pickedSupplyAreaId, duration: pickingDuration, date: pickingDateAndTime};
+
+            pickers.update({_id: user},
+                          {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
+                                                          duration: pickingDuration,
+                                                          date: pickingDateAndTime}}} );
+
+
+
         },
 
         'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
@@ -339,10 +364,15 @@ if(Meteor.isServer){
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
-
-
-
     });
+
+    function pickerInfo(supply, Areas) {
+        console.log(Areas);
+        let result = supply._id === 'L4MSB20';
+        console.log('result : ', result);
+        return result
+    }
+
 
     /*
 
