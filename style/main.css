@@ -763,8 +763,9 @@ table.commOverView {
 }
 
 .diagram {
+  left: 20em;
   position: absolute;
-  top: 40em;
+  top: 10em;
 }
 
 .new-supply-area {

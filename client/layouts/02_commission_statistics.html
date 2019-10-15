@@ -7,6 +7,7 @@
             <img src="claas_logo.png" />
         </div>
         {{> statistics}}
+        {{> graphs}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -28,12 +29,8 @@
         </table>
     </div>
 
+</template>
 
+<template name="graphs">
     <div class="diagram" id="chart">{{createChart}}</div>
-
-
-
-
-
-
 </template>

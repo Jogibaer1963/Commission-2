@@ -227,8 +227,6 @@ if(Meteor.isServer){
             let pickingDuration = ((pickersResult.pickingEnd - pickersResult.pickingStart -
                 (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
-            let pickersObject = {supplyArea: pickedSupplyAreaId, duration: pickingDuration, date: pickingDateAndTime};
-
             pickers.update({_id: user},
                           {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
                                                           duration: pickingDuration,
