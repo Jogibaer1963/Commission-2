@@ -8,8 +8,7 @@ Template.commTablet.helpers ({
         let k = pickersAtWork.findOne({_id: picker});
         if (typeof k === 'undefined') {
           //  location.reload();
-            }
-        if(k) {
+            } else  {
             Session.set('inActiveState', k.inActive);
             Session.set('selectedMachine', k.machineNr);
             Session.set('selectedArea', k.pickerSupplyArea);
@@ -35,11 +34,9 @@ Template.commTablet.helpers ({
     supplyStart: () => {
         const supply = Session.get('selectedArea');
         if(supply) {
-            let pickedArea = supplyAreas.findOne({_id: supply}).supplyArea;
-            Session.set('pickedArea', pickedArea);
             Session.set('supplyChosen', 9);
-            return pickedArea;
         }
+        return supply;
     },
 
     'selectedMachine': function(){
@@ -67,6 +64,7 @@ Template.commTablet.events ({
     'click .pickedMachine': function() {
         event.preventDefault();
         const pickedMachineId = this._id;
+        Session.set('inActiveState', 5);
         Session.set('selectedMachine', pickedMachineId);
     },
 
@@ -164,7 +162,7 @@ Handlebars.registerHelper('inActive_1', () => {
     }
 });
 
-// Pusg Pause button InActiveState = 2
+// Push Pause button InActiveState = 2
 
 Handlebars.registerHelper('inActive_2', () => {
     let inActiveState = Session.get('inActiveState');
@@ -182,11 +180,20 @@ Handlebars.registerHelper('inActive_3', () => {
     }
 });
 
-// Push finnished button inActiveState = 4, now able to choose new supply or new Machine
+// Push finished button inActiveState = 4, now able to choose new supply or new Machine
 
 Handlebars.registerHelper('inActive_4', () => {
     let inActiveState = Session.get('inActiveState');
     if(inActiveState === 4) {
+        return 'in-active-button'
+    }
+});
+
+// Machine is chosen => Toggle button inactive
+
+Handlebars.registerHelper('inActive_5', () => {
+    let inActiveState = Session.get('inActiveState');
+    if(inActiveState === 5) {
         return 'in-active-button'
     }
 });

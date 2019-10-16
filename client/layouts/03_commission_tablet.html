@@ -78,19 +78,27 @@
         </div>
         <div class="supplyExecuteField">
             <div class="tabletHeader">
-               <h1>Machine Id:</h1> <h1 class="machineIdHeader">{{selectedSupplyMachine}}</h1>
-               <h1 class="textSupply">Supply Area:</h1> <h1 class="supplyIdHeader">{{supplyStart}}</h1>
+               <h1>Machine Id:</h1> <h1 class="machine-id-header">{{selectedSupplyMachine}}</h1>
+               <h1 class="text-supply">Supply Area: {{supplyStart}}</h1>
             </div>
             <div class="arrowSide_2">
                 <div class="chevron"></div>
                 <div class="chevron"></div>
                 <div class="chevron"></div>
             </div>
+            <div>
+                <button type="button" class="btn btn-default btn-danger toggle-supply
+                                            ">Toggle => MANY Machines ONE Supply Area</button>
+            </div>
             <div class="supplyButtonField" >
-               <button type="button" class="btn btn-lg btn-success commStart {{inActive_1}} {{inActive_2}} {{inActive_3}} {{inActive_9}}">Start</button>
-               <button class="btn btn-lg btn-primary commPause {{inActive_2}} {{inActive_4}} {{inActive_0}}">Pause</button>
-               <button class="btn btn-lg btn-primary commResume {{inActive_1}} {{inActive_3}} {{inActive_4}} {{inActive_0}}">Resume</button>
-               <button class="btn btn-lg btn-success commFinished {{inActive_2}} {{inActive_4}} {{inActive_0}}">Finished</button>
+               <button type="button" class="btn btn-lg btn-success commStart
+                                            {{inActive_1}} {{inActive_2}} {{inActive_3}} {{inActive_9}}">Start</button>
+               <button class="btn btn-lg btn-primary commPause
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Pause</button>
+               <button class="btn btn-lg btn-primary commResume
+                                            {{inActive_0}} {{inActive_1}} {{inActive_3}} {{inActive_4}} ">Resume</button>
+               <button class="btn btn-lg btn-success commFinished
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Finished</button>
             </div>
       </div>
     </div>

@@ -47,8 +47,11 @@
 }
 
 table.supply-table {
-  width: 22em;
   height: 50em;
+  position: absolute;
+  top: 20em;
+  width: 22em;
+
 }
 
 .supplyTableHeight {
@@ -112,34 +115,35 @@ table.supply-table {
 }
 
 .tabletHeader {
+  left: -7em;
   position: absolute;
-
   width: 21em;
-  left: 15em;
 }
 
-.machineIdHeader {
+
+.machine-id-header {
+  font-size: 50px;
+  left: 4em;
   position: absolute;
   top: -.1em;
-  left: 4em;
-  font-size: 50px;
 }
 
 .supplyIdHeader {
+  font-size: 50px;
   position: absolute;
   top: 2em;
-  left: 4.5em;
-  font-size: 50px;
+
 }
 
-.textSupply {
+.text-supply {
+  width: 50em;
+}
+
+.toggle-supply {
+  left: 17em;
   position: absolute;
-  top: 3em;
-
+  top: 13em;
 }
-
-
-
 
 
 $comm-black: #000;
