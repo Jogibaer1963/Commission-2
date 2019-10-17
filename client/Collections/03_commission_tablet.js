@@ -1,5 +1,9 @@
 Meteor.subscribe("pickersAtWork");
 
+
+
+
+
 Template.commTablet.helpers ({
 
 
@@ -64,7 +68,7 @@ Template.commTablet.events ({
     'click .pickedMachine': function() {
         event.preventDefault();
         const pickedMachineId = this._id;
-        Session.set('inActiveState', 5);
+       // Session.set('inActiveState', 5);
         Session.set('selectedMachine', pickedMachineId);
     },
 
@@ -144,10 +148,13 @@ Template.commTablet.events ({
 
 });
 
-Session.set('inActiveState', 0);
 
 Handlebars.registerHelper('inActive_0', () => {
     let inActiveState = Session.get('inActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    console.log('inActive 0 ', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
@@ -157,6 +164,10 @@ Handlebars.registerHelper('inActive_0', () => {
 
 Handlebars.registerHelper('inActive_1', () => {
     let inActiveState = Session.get('inActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    console.log('inActive 1 ', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
@@ -166,6 +177,10 @@ Handlebars.registerHelper('inActive_1', () => {
 
 Handlebars.registerHelper('inActive_2', () => {
     let inActiveState = Session.get('inActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    console.log('inActive 2 ', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
@@ -175,6 +190,10 @@ Handlebars.registerHelper('inActive_2', () => {
 
 Handlebars.registerHelper('inActive_3', () => {
     let inActiveState = Session.get('inActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    console.log('inActive 3 ', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
@@ -184,16 +203,11 @@ Handlebars.registerHelper('inActive_3', () => {
 
 Handlebars.registerHelper('inActive_4', () => {
     let inActiveState = Session.get('inActiveState');
-    if(inActiveState === 4) {
-        return 'in-active-button'
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
     }
-});
-
-// Machine is chosen => Toggle button inactive
-
-Handlebars.registerHelper('inActive_5', () => {
-    let inActiveState = Session.get('inActiveState');
-    if(inActiveState === 5) {
+    console.log('inActive 4 ', inActiveState);
+    if(inActiveState === 4) {
         return 'in-active-button'
     }
 });
@@ -202,6 +216,10 @@ Handlebars.registerHelper('inActive_5', () => {
 
 Handlebars.registerHelper('inActive_9', () => {
     let inActiveState = Session.get('supplyChosen');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    console.log('inActive 9 ', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }
