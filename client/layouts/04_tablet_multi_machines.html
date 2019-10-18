@@ -1,0 +1,106 @@
+<template name="multiMachines">
+    {{#if currentUser}}
+        <div class="tabletCommissioning">
+            {{> commTablet_2}}
+        </div>
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="commTablet_2">
+    <style>
+        body{
+            background-color:black;
+        }
+    </style>
+    <div class="commissionHeadTab">
+        <div class="commissionHeadTab">
+            <nav>
+                <a  class="btn" href="/commission"><strong>Back</strong></a>
+            </nav>
+        </div>
+    </div>
+    <div class="commissionTablet">
+        <div >
+            <h3 class="machineTablet">Tablet User</h3>
+            <h3 class="tabletUser">{{currentUser.username}}</h3>
+        </div>
+
+        <div class="chooseMachineTable">
+                <table class="blueTable pdiMachineField">
+                    <thead >
+                        <tr>
+                            <th class="pdiMachineField "><strong>Machines</strong></th>
+                            <th class="pdiShipDate "><strong>Date in Line</strong></th>
+                            <th class=""><strong>Check</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#each machineCommList_2}}
+                        <tr >
+                            <td class="pdiMachineField tabletUser" >{{machineId}}</td>
+                            <td class="pdiShipDate tabletUser" >{{inLineDate}}</td>
+                            <td class="">
+                                <label>
+                                    <input type="checkbox" class="userLogOut" name="machine" id="machine"  value="{{_id}}">
+                                </label>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+
+        </div>
+        <!--
+        <div class="arrowSide">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+
+        <div class="supplyAreaTable">
+            <table class="blueTable supply-table" >
+                <thead>
+                <tr>
+                    <th class="userLastLogin"><strong>Supply Area</strong></th>
+                    <th class="userLastLogin"><strong>Picker</strong></th>
+                </tr>
+                </thead>
+                <tbody class="supplyTableHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}">
+                {{#with supplyAreaShow_2}}
+                    {{#each supplyAreas}}
+                        <tr class="supplyAreas {{selectedArea}}">
+                            <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
+                                style="background-color: {{getCommStatus supplyStatus}}" >{{_id}}</td>
+                            <td class="supplyAreaField machineTablet ">{{pickerStart}}</td>
+                        </tr>
+                    {{/each}}
+                {{/with}}
+                </tbody>
+            </table>
+        </div>
+        <div class="supplyExecuteField">
+            <div class="tabletHeader">
+                <h1>Machine Id:</h1> <h1 class="machine-id-header">{{selectedSupplyMachine}}</h1>
+                <h1 class="text-supply">Supply Area: {{supplyStart}}</h1>
+            </div>
+            <div class="arrowSide_2">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="supplyButtonField" >
+                <button type="button" class="btn btn-lg btn-success commStart
+                                            {{inActive_1}} {{inActive_2}} {{inActive_3}} {{inActive_9}}">Start</button>
+                <button class="btn btn-lg btn-primary commPause
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Pause</button>
+                <button class="btn btn-lg btn-primary commResume
+                                            {{inActive_0}} {{inActive_1}} {{inActive_3}} {{inActive_4}} ">Resume</button>
+                <button class="btn btn-lg btn-success commFinished
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Finished</button>
+            </div>
+        </div>
+        -->
+    </div>
+</template>

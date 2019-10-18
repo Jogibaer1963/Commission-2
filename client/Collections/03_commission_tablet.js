@@ -17,7 +17,8 @@ Template.commTablet.helpers ({
             Session.set('selectedMachine', k.machineNr);
             Session.set('selectedArea', k.pickerSupplyArea);
         }
-        return machineCommTable.find({commissionStatus: {$lt: 26}}, {sort: {inLineDate: 1}});
+        return machineCommTable.find({commissionStatus: {$lt: 26}},
+                                        {sort: {inLineDate: 1}});
     },
 
     supplyAreaShow: () => {
@@ -145,6 +146,11 @@ Template.commTablet.events ({
         Meteor.call('pausePickingEnd', pickedMachineId, pickedSupplyAreaId,
                      pickingStatus, pickingPauseEnd, user);
     },
+
+    'click .toggle-supply': (e) => {
+        e.preventDefault();
+        FlowRouter.go('/multiMachines');
+    }
 
 });
 

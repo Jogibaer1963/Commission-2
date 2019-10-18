@@ -1,3 +1,5 @@
+$tablet-color: #71f323;
+$tablet-user: #D0E4F5;
 
 .commissionTablet {
   position: absolute;
@@ -16,13 +18,13 @@
 }
 
 .machineTablet {
-  color: #71f323;
+  color: $tablet-color;
   white-space: nowrap;
   width: 9em;
 }
 
 .tabletUser {
-  color: #D0E4F5;
+  color: $tablet-user;
   margin-left: 1em;
 }
 
@@ -34,6 +36,10 @@
 
 .pickedMachineField {
   width: 2em;
+}
+
+.pickedMachine {
+  z-index: 3;
 }
 
 .bodyHeight {

@@ -440,6 +440,10 @@ table.toDoListTable {
   width: 2em;
 }
 
+.pickedMachine {
+  z-index: 3;
+}
+
 .bodyHeight {
   height: 250px;
 }

@@ -14,27 +14,8 @@ Template.machine_picking_list.helpers({
     },
 
     machineList: () => {
-        return machineCommTable.find({commissionStatus: {$lte: 26}}).fetch();
-        /*
-        // sort machines list in case supply area order is changed
-
-        for (let i = 0; i <= result.length - 1; i++) {
-            for (let j = 0; j <= result[i].supplyAreas.length - 1; j++) {
-                let supplyActive = result[i].supplyAreas[j];
-                if (supplyActive.active === false) {
-                    result.supplyAreas.splice(result[i].supplyAreas[j], 1);
-                }
-            }
-            let supplyResult = result[i].supplyAreas;
-            let listResult = supplyResult.filter(val => val);
-            console.log('listResult: ', listResult);
-        }
-
-         */
-      //  return result;
+        return machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
     },
-
-
 
 });
 
