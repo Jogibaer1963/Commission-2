@@ -43,14 +43,16 @@
                             <td class="pdiShipDate tabletUser" >{{inLineDate}}</td>
                             <td class="">
                                 <label>
-                                    <input type="checkbox" class="userLogOut" name="machine" id="machine"  value="{{_id}}">
+                                    <input type="checkbox" class="userLogOut" name="machine" id="machine"  value={{machineId}}>
                                 </label>
                             </td>
                         </tr>
                     {{/each}}
                     </tbody>
                 </table>
-
+            <form class="multiMachines">
+                <button type="button" class="btn btn-danger">Send</button>
+            </form>
         </div>
         <!--
         <div class="arrowSide">

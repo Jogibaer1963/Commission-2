@@ -268,6 +268,79 @@ if(Meteor.isServer){
 
         },
 
+        'multipleMachines': (machineIds, loggedUser) => {
+            let supplyArray0 = [];
+            let supplyArray1 = [];
+            let supplyArray2 = [];
+            let supplyArray3 = [];
+            let supplyArray4 = [];
+            let supplyArray5 = [];
+            let supplyArray6 = [];
+            let newSet = [];
+            /*
+            let supplyArray7 = [];
+            let supplyArray8 = [];
+            let supplyArray9 = [];
+
+             */
+
+
+            // building arrays of available supply areas for max 6 machines.
+            let k = 0;
+            machineIds.forEach((machine) => {
+             let result =   machineCommTable.findOne({machineId: machine});
+             let resultArray = result.supplyAreas;
+                resultArray.forEach((supplyActive) => {
+                    if(supplyActive.supplyStatus === 0) {
+                        eval('supplyArray' + k).push(supplyActive._id);
+                    }
+                });
+                k++;
+            });
+
+            // compare first array with 2nd, 3rd, 4th.. and eliminate single array values not matching other arrays
+            let finalArray = [];
+            for (let i = 1; i <= k; i++) {
+                supplyArray0.forEach((e1) => {
+                    eval('supplyArray' + (i)).forEach((e2) => {
+                        if(e1 === e2) {
+                          finalArray.push(e1);
+                        }
+                    })
+                });
+               supplyArray0 = finalArray;
+            }
+
+            // identify supply area with highest number (areas available for all selected machines
+
+            let sortedArray = supplyArray0.slice().sort();
+            let countedNames = sortedArray.reduce(function (allNames, name) {
+                if (name in allNames) {
+                    allNames[name]++;
+                }
+                else {
+                    allNames[name] = 1;
+                }
+                return allNames;
+            }, {});
+
+            let arr = Object.values(countedNames);
+            let key = Object.keys(countedNames);
+            let max = Math.max(...arr);
+            let i = 0;
+
+            // create array with available areas and store it in pickersATWork
+
+            arr.forEach((element) => {
+                 if (element >= max) {
+                     let identifiedSupply = key[i];
+                     newSet.push(identifiedSupply);
+                 }
+                 i++;
+            });
+
+            pickersAtWork.upsert({_id: loggedUser.username }, {$set: {machines: machineIds, supplySet: newSet}})
+        },
 
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 

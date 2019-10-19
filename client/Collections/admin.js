@@ -29,8 +29,8 @@ Template.adminViewUser.helpers({
 
 Template.adminViewUser.events({
 
-    "click .submitAdmin": function () {
-        event.preventDefault();
+    "click .submitAdmin": function (e) {
+        e.preventDefault();
         const logOutUser = [];
         const deleteUser = [];
         $('input[name=logOut]:checked').each(function () {
