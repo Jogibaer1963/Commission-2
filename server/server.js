@@ -369,6 +369,40 @@ if(Meteor.isServer){
             }
         },
 
+
+        'multi-finished': (pickedMachineId, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
+            pickersAtWork.remove({_id: user});
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                {$set: {"supplyAreas.$.supplyStatus": status,
+                        "supplyAreas.$.pickerFinished": user,
+                        "supplyAreas.$.pickingEnd": pickingEnd,
+                        "supplyAreas.$.pickingEndDateAndTime": dateEndNow}},
+            );
+            machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
+
+            const result = machineCommTable.findOne({_id: pickedMachineId});
+            let machineId = result.machineId;
+            let pickersArea = result.supplyAreas,
+                pickersResult =  pickersArea.find((e) => {
+                    return e._id === pickedSupplyAreaId;
+                });
+            let pickingPauseStart = pickersResult.pickingPauseStart;
+            let pickingPauseEnd = pickersResult.pickingPauseEnd;
+            if(!pickingPauseEnd) {
+                pickingPauseStart = 1;
+                pickingPauseEnd = 1;
+            }
+            let pickingDuration = ((pickersResult.pickingEnd - pickersResult.pickingStart -
+                (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
+            let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+            pickers.update({_id: user},
+                {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
+                            duration: pickingDuration,
+                            date: pickingDateAndTime}}} );
+
+
+
+        },
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 
         'addNewPicker': (newPicker) => {

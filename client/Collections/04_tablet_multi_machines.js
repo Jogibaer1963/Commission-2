@@ -84,7 +84,7 @@ Template.commTablet_2.events ({
         e.preventDefault();
         const userFinished = Meteor.user().username;
         let status = 1;
-        let pickedMachineId = Session.get('selectedMachine');
+        let pickedMachines = Session.get('multiMachinesId');
         let pickedSupplyAreaId = Session.get('selectedArea');
         let pickingEnd = Date.now();
         let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
@@ -92,11 +92,11 @@ Template.commTablet_2.events ({
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
 
-        /*
-        Meteor.call('finishedPicking', pickedMachineId, pickedSupplyAreaId,
+
+        Meteor.call('finishedPicking', pickedMachines, pickedSupplyAreaId,
             status, userFinished, dateEndNow, pickingEnd);
 
-         */
+
     },
 
     'submit .cancelForm': function(e) {
