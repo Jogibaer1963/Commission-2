@@ -4,41 +4,35 @@ thead {
     background-color: lightgrey;
 }
 
-table tbody, table thead
-
-{
-    display: block;
+table tbody, table thead {
+  display: block;
 }
 
 table tbody {
-    overflow: auto;
-    height: 550px;
+  overflow: auto;
 }
 
 
 table.blueTable {
-    width: 1195px;
+  width: 1195px;
 }
 
-
 table.blueTable {
-    border: 1px solid #a49892;
+  border: 1px solid #a49892;
+  border-collapse: collapse;
+  text-align: left;
 
-    text-align: left;
-    border-collapse: collapse;
 }
 
 table.blueTable td, table.blueTable th {
-    border: 1px solid #AAAAAA;
-    padding: 3px 5px;
+  border: 1px solid #AAAAAA;
+  padding: 3px 5px;
 }
 
 table.blueTable tbody td {
   font-size: 13px;
   word-wrap: break-word;
 }
-
-
 
 table.blueTable thead {
   background: #1C6EA4;
@@ -48,11 +42,8 @@ table.blueTable thead {
 table.blueTable thead th {
   border-left: 2px solid #d0e4f5;
   color: #FFF;
-
   font-size: 15px;
   font-weight: bold;
-
-
 }
 
 table.blueTable thead th:first-child {
@@ -60,11 +51,11 @@ table.blueTable thead th:first-child {
 }
 
 table.blueTable tfoot {
-    font-size: 14px;
-    font-weight: bold;
-    color: #FFFFFF;
-    background: #d6e0f5;
-    border-top: 2px solid #444444;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #d6e0f5;
+  border-top: 2px solid #444444;
 }
 
 table.blueTable tfoot td {
@@ -72,19 +63,19 @@ table.blueTable tfoot td {
 }
 
 table.blueTable tfoot .links {
-    text-align: right;
+  text-align: right;
 }
 
 table.blueTable tfoot .links a{
-    display: inline-block;
-    background: #8f8e8c;
-    color: #FFFFFF;
-    padding: 2px 8px;
-    border-radius: 5px;
+  display: inline-block;
+  background: #8f8e8c;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
 }
 
 th {
-    height: 50px;
+  height: 50px;
 }
 
 

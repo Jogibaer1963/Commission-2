@@ -27,7 +27,10 @@
             <h3 class="tabletUser">{{currentUser.username}}</h3>
         </div>
 
-        <div class="chooseMachineTable">
+        <div class="choose-machine-table">
+            <div class="tabletUser head-liner">
+                <h3>Chose Multiple Machines</h3>
+            </div>
                 <table class="blueTable pdiMachineField">
                     <thead >
                         <tr>
@@ -50,59 +53,55 @@
                     {{/each}}
                     </tbody>
                 </table>
-            <form class="multiMachines">
-                <button type="button" class="btn btn-danger">Send</button>
+            <form class="multiMachines multi-button">
+                <button type="button" class="btn btn-danger">Submit chosen Machines</button>
             </form>
         </div>
-        <!--
-        <div class="arrowSide">
+
+        <div class="arrow-side-multi">
             <div class="chevron"></div>
             <div class="chevron"></div>
             <div class="chevron"></div>
         </div>
 
-        <div class="supplyAreaTable">
-            <table class="blueTable supply-table" >
+        <div class="supply-multi-machines">
+            <table class="supply-multi-table" >
                 <thead>
                 <tr>
                     <th class="userLastLogin"><strong>Supply Area</strong></th>
-                    <th class="userLastLogin"><strong>Picker</strong></th>
                 </tr>
                 </thead>
-                <tbody class="supplyTableHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}">
-                {{#with supplyAreaShow_2}}
-                    {{#each supplyAreas}}
+                <tbody class="{{inActive_1}} {{inActive_2}} {{inActive_3}}">
+                    {{#each supplySet}}
                         <tr class="supplyAreas {{selectedArea}}">
                             <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
                                 style="background-color: {{getCommStatus supplyStatus}}" >{{_id}}</td>
-                            <td class="supplyAreaField machineTablet ">{{pickerStart}}</td>
                         </tr>
                     {{/each}}
-                {{/with}}
                 </tbody>
             </table>
         </div>
+
         <div class="supplyExecuteField">
             <div class="tabletHeader">
-                <h1>Machine Id:</h1> <h1 class="machine-id-header">{{selectedSupplyMachine}}</h1>
+                <h2>Machine Id:</h2> <h2 class="multi-id-header">{{selectedMultiMachines}}</h2>
                 <h1 class="text-supply">Supply Area: {{supplyStart}}</h1>
             </div>
-            <div class="arrowSide_2">
+            <div class="arrow-side-2">
                 <div class="chevron"></div>
                 <div class="chevron"></div>
                 <div class="chevron"></div>
             </div>
-            <div class="supplyButtonField" >
-                <button type="button" class="btn btn-lg btn-success commStart
+            <div class="supply-button-field" >
+                <button type="button" class="btn btn-lg btn-success multi-start
                                             {{inActive_1}} {{inActive_2}} {{inActive_3}} {{inActive_9}}">Start</button>
-                <button class="btn btn-lg btn-primary commPause
+                <button class="btn btn-lg btn-primary multi-pause
                                             {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Pause</button>
-                <button class="btn btn-lg btn-primary commResume
+                <button class="btn btn-lg btn-primary multi-resume
                                             {{inActive_0}} {{inActive_1}} {{inActive_3}} {{inActive_4}} ">Resume</button>
-                <button class="btn btn-lg btn-success commFinished
+                <button class="btn btn-lg btn-success multi-finished
                                             {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Finished</button>
             </div>
         </div>
-        -->
     </div>
 </template>

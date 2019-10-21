@@ -1,0 +1,121 @@
+.multi-button {
+  left: 20em;
+  position: absolute;
+  top: .1em;
+}
+
+.choose-machine-table {
+  float: left;
+  left: 2em;
+  position: relative;
+  top: 8em;
+}
+
+.head-liner {
+  left: -2em;
+  position: absolute;
+  top: -6em;
+  width: 20em;
+}
+
+.multi-id-header {
+  font-size: 30px;
+  left: 6em;
+  position: absolute;
+  top: -.1em;
+}
+
+.arrow-side-multi {
+  display: flex;
+  left: 25em;
+  position: absolute;
+  top: 25em;
+  transform: rotate(-90deg);
+}
+
+.supply-multi-machines {
+  left: 38em;
+  position: absolute;
+  top: -5em;
+}
+
+table.supply-multi-table {
+  border: 1px solid #a49892;
+  border-collapse: collapse;
+  height: 10em;
+  position: absolute;
+  text-align: left;
+  top: 20em;
+  width: 5em;
+}
+
+table.supply-multi-table thead {
+  background: #1C6EA4;
+  border-bottom: 2px solid #444444;
+  border-left: 2px solid #d0e4f5;
+  color: #FFF;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+table.supply-multi-table tbody td {
+  font-size: 13px;
+  word-wrap: break-word;
+}
+
+table.supply-multi-table td, table.supply-multi-table th {
+  border: 1px solid #aaa;
+  padding: 3px 5px;
+}
+
+.supply-button-field {
+  left: 20em;
+  position: absolute;
+  text-align: left;
+  top: 20em;
+}
+
+.arrow-side-2 {
+  display: flex;
+  left: 13em;
+  position: absolute;
+  top: 25em;
+  transform: rotate(-90deg);
+}
+
+
+.multi-start {
+  float: left;
+}
+
+.multi-pause {
+  left: 10em;
+  position: absolute;
+
+}
+
+.multi-resume {
+  float: left;
+  left: 10em;
+  position: absolute;
+  top: 5em;
+
+}
+
+.multi-finished {
+  left: -.2em;
+  position: absolute;
+  top: 5em;
+
+}
+
+.cancel-request {
+  margin-bottom: 10px;
+  width: 240px;
+}
+
+.cancellation-request {
+  position: relative;
+  top: 15em;
+}
+

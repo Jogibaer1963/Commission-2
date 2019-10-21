@@ -66,15 +66,15 @@ Template.commTablet.helpers ({
 
 Template.commTablet.events ({
 
-    'click .pickedMachine': function() {
-        event.preventDefault();
+    'click .pickedMachine': function(e) {
+        e.preventDefault();
         const pickedMachineId = this._id;
        // Session.set('inActiveState', 5);
         Session.set('selectedMachine', pickedMachineId);
     },
 
-    'click .supplyAreas': function() {
-        event.preventDefault();
+    'click .supplyAreas': function(e) {
+        e.preventDefault();
         const pickedSupplyArea = this._id;
         Session.set('selectedArea', pickedSupplyArea);
     },
@@ -160,7 +160,7 @@ Handlebars.registerHelper('inActive_0', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 0 ', inActiveState);
+ //   console.log('inActive 0 ', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
@@ -173,7 +173,7 @@ Handlebars.registerHelper('inActive_1', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 1 ', inActiveState);
+ //   console.log('inActive 1 ', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
@@ -186,7 +186,7 @@ Handlebars.registerHelper('inActive_2', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 2 ', inActiveState);
+ //   console.log('inActive 2 ', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
@@ -199,7 +199,7 @@ Handlebars.registerHelper('inActive_3', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 3 ', inActiveState);
+ //   console.log('inActive 3 ', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
@@ -212,7 +212,7 @@ Handlebars.registerHelper('inActive_4', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 4 ', inActiveState);
+ //   console.log('inActive 4 ', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
@@ -225,7 +225,7 @@ Handlebars.registerHelper('inActive_9', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 9 ', inActiveState);
+ //   console.log('inActive 9 ', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }

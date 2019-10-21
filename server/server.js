@@ -268,6 +268,8 @@ if(Meteor.isServer){
 
         },
 
+        // ----------------------------------  Multi machines one supply Area
+
         'multipleMachines': (machineIds, loggedUser) => {
             let supplyArray0 = [];
             let supplyArray1 = [];
@@ -277,6 +279,7 @@ if(Meteor.isServer){
             let supplyArray5 = [];
             let supplyArray6 = [];
             let newSet = [];
+            let newObjectSet = [];
             /*
             let supplyArray7 = [];
             let supplyArray8 = [];
@@ -338,8 +341,32 @@ if(Meteor.isServer){
                  }
                  i++;
             });
+            newSet.forEach((element) => {
+                let newObject = {_id: element, supplyStatus: 0};
+                newObjectSet.push(newObject)
+            });
+            pickersAtWork.upsert({_id: loggedUser.username },
+                                 {$set: {machines: machineIds, supplySet: newObjectSet}})
+        },
 
-            pickersAtWork.upsert({_id: loggedUser.username }, {$set: {machines: machineIds, supplySet: newSet}})
+
+
+        'startPickingMultiMachines': (pickedMachines,  pickedSupplyAreaId, status, user,
+                                      pickingStart, dateStartNow ) => {
+
+            pickedMachines.forEach((element) => {
+                machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {"supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerStart": user,
+                            "supplyAreas.$.pickingStart": pickingStart,
+                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+            });
+
+            let findPicker = pickers.find().fetch();
+            let result = findPicker.find(picker => picker._id === user);
+            if(typeof result === 'undefined') {
+                pickers.insert({_id: user});
+            }
         },
 
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------

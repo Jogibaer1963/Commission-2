@@ -53,7 +53,6 @@ table tbody, table thead {
 
 table tbody {
   overflow: auto;
-  height: 550px;
 }
 
 table.blueTable {
@@ -62,8 +61,8 @@ table.blueTable {
 
 table.blueTable {
   border: 1px solid #a49892;
-  text-align: left;
   border-collapse: collapse;
+  text-align: left;
 }
 
 table.blueTable td, table.blueTable th {
@@ -409,6 +408,12 @@ table.toDoListTable {
   left: 2em;
 }
 
+.chooseMachineTable {
+  left: 1em;
+  position: absolute;
+  top: 18em;
+}
+
 .commissionHeadTab {
   position: absolute;
   top: 2em;
@@ -428,12 +433,6 @@ table.toDoListTable {
 .tabletUser {
   color: #D0E4F5;
   margin-left: 1em;
-}
-
-.chooseMachineTable {
-  float: left;
-  position: relative;
-  top: 8em;
 }
 
 .pickedMachineField {
@@ -472,10 +471,10 @@ table.supply-table {
 }
 
 .supplyExecuteField {
-  position: relative;
-  top: -10em;
-  left: 35em;
   color: #D0E4F5;
+  left: 35em;
+  position: absolute;
+  top: -1em;
 }
 
 .supplyButtonField {
