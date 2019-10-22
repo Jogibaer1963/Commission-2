@@ -44,7 +44,7 @@
                         <tr >
                             <td class="pdiMachineField tabletUser" >{{machineId}}</td>
                             <td class="pdiShipDate tabletUser" >{{inLineDate}}</td>
-                            <td class="">
+                            <td class="{{inActive_1}} {{inActive_2}} {{inActive_3}}">
                                 <label>
                                     <input type="checkbox" class="userLogOut" name="machine" id="machine"  value={{machineId}}>
                                 </label>
@@ -53,7 +53,7 @@
                     {{/each}}
                     </tbody>
                 </table>
-            <form class="multiMachines multi-button">
+            <form class="multiMachines multi-button {{inActive_1}} {{inActive_2}} {{inActive_3}}">
                 <button type="button" class="btn btn-danger">Submit chosen Machines</button>
             </form>
         </div>
@@ -68,7 +68,7 @@
             <table class="supply-multi-table" >
                 <thead>
                 <tr>
-                    <th class="userLastLogin"><strong>Supply Area</strong></th>
+                    <th class="userLastLogin"><strong>Available Supply Area</strong></th>
                 </tr>
                 </thead>
                 <tbody class="{{inActive_1}} {{inActive_2}} {{inActive_3}}">
@@ -100,7 +100,7 @@
                 <button class="btn btn-lg btn-primary multi-resume
                                             {{inActive_0}} {{inActive_1}} {{inActive_3}} {{inActive_4}} ">Resume</button>
                 <button class="btn btn-lg btn-success multi-finished
-                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Finished</button>
+                                       <!--     {{inActive_0}} {{inActive_2}} {{inActive_4}} -->">Finished</button>
             </div>
         </div>
     </div>

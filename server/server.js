@@ -362,6 +362,13 @@ if(Meteor.isServer){
                             "supplyAreas.$.pickingDateAndTime": dateStartNow}});
             });
 
+            let supplySet = [{_id: pickedSupplyAreaId, supplyStatus: 2}];
+            pickersAtWork.upsert({_id: user},
+                                {machines: pickedMachines,
+                                         inActive: 1,
+                                         multi: true,
+                                         supplySet: supplySet});
+
             let findPicker = pickers.find().fetch();
             let result = findPicker.find(picker => picker._id === user);
             if(typeof result === 'undefined') {
@@ -370,39 +377,91 @@ if(Meteor.isServer){
         },
 
 
-        'multi-finished': (pickedMachineId, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
-            pickersAtWork.remove({_id: user});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                {$set: {"supplyAreas.$.supplyStatus": status,
-                        "supplyAreas.$.pickerFinished": user,
-                        "supplyAreas.$.pickingEnd": pickingEnd,
-                        "supplyAreas.$.pickingEndDateAndTime": dateEndNow}},
-            );
-            machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
+        'multi-finished': (pickedMachines, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
+            let machineNumbers = pickedMachines.length;
+            let pickersResult = pickersAtWork.findOne({_id: user});
 
-            const result = machineCommTable.findOne({_id: pickedMachineId});
-            let machineId = result.machineId;
-            let pickersArea = result.supplyAreas,
-                pickersResult =  pickersArea.find((e) => {
-                    return e._id === pickedSupplyAreaId;
-                });
-            let pickingPauseStart = pickersResult.pickingPauseStart;
-            let pickingPauseEnd = pickersResult.pickingPauseEnd;
-            if(!pickingPauseEnd) {
-                pickingPauseStart = 1;
-                pickingPauseEnd = 1;
-            }
-            let pickingDuration = ((pickersResult.pickingEnd - pickersResult.pickingStart -
-                (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
-            let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
-            pickers.update({_id: user},
-                {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
-                            duration: pickingDuration,
-                            date: pickingDateAndTime}}} );
+            pickersResult.machines.forEach((element) => {
 
+                machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {"supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerFinished": user,
+                            "supplyAreas.$.pickingEnd": pickingEnd,
+                            "supplyAreas.$.pickingEndDateAndTime": dateEndNow}});
 
+                machineCommTable.update({machineId: element}, {$inc: {commissionStatus: 1}});
 
+                const result = machineCommTable.findOne({machineId: element});
+
+                let machineId = result.machineId;
+                let pickersArea = result.supplyAreas,
+                    pickersResult =  pickersArea.find((e) => {
+                        return e._id === pickedSupplyAreaId;
+                    });
+
+                let pickingPauseStart = pickersResult.pickingPauseStart;
+                let pickingPauseEnd = pickersResult.pickingPauseEnd;
+                if(!pickingPauseEnd) {
+                    pickingPauseStart = 0;
+                    pickingPauseEnd = 0;
+                }
+                let pickingDuration = ((pickingEnd - pickersResult.pickingStart -
+                    (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
+                let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+
+                pickers.update({_id: user},
+                    {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
+                                duration: (pickingDuration / machineNumbers),
+                                date: pickingDateAndTime}}} );
+
+                pickersAtWork.remove({_id: user});
+            });
         },
+
+        'multi-pause': (pickedMachines, pickedSupplyAreaId, status, pickingPauseStart, user) => {
+                 pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
+
+                 pickedMachines.forEach((element) => {
+                     machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
+                         {$set: {"supplyAreas.$.supplyStatus": status,
+                                 "supplyAreas.$.pickingPauseStart": pickingPauseStart }})
+                 });
+        },
+
+        'multi-resume': (pickedMachines, pickedSupplyAreaId, status, pickingPauseEnd, user) => {
+            pickersAtWork.upsert({_id: user}, {$set: {inActive: 3}});
+
+            pickedMachines.forEach((element) => {
+                machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
+                    {
+                        $set: {
+                            "supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickingPauseEnd": pickingPauseEnd}});
+            });
+        },
+
+        'multi-cancel': () => {
+
+            /*
+             'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                                    {$set: {"supplyAreas.$.supplyStatus": status,
+                                            "supplyAreas.$.pickerCanceled": user,
+                                            "supplyAreas.$.pickerCanceledReason": cancellationReason,
+                                            "supplyAreas.$.pickingStart": '',
+                                            "supplyAreas.$.pickerStart": '',
+                                            "supplyAreas.$.pickerFinished": '',
+                                            "supplyAreas.$.pickingDateAndTime": '',
+                                            "supplyAreas.$.pickingEnd": '',
+                                            "supplyAreas.$.pickingTime": '',
+                                            "supplyAreas.$.pickingEndDateAndTime": '',
+                                            "supplyAreas.$.pickingPauseStart": '',
+                                            "supplyAreas.$.pickingPauseEnd": ''}} )
+             */
+        },
+
+
+
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 
         'addNewPicker': (newPicker) => {

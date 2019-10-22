@@ -16,6 +16,9 @@ Template.commTablet.helpers ({
             Session.set('inActiveState', k.inActive);
             Session.set('selectedMachine', k.machineNr);
             Session.set('selectedArea', k.pickerSupplyArea);
+            if(k.multi === true) {
+                FlowRouter.go('/multiMachines');
+            }
         }
         return machineCommTable.find({commissionStatus: {$lt: 26}},
                                         {sort: {inLineDate: 1}});
