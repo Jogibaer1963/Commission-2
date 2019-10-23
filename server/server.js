@@ -346,7 +346,9 @@ if(Meteor.isServer){
                 newObjectSet.push(newObject)
             });
             pickersAtWork.upsert({_id: loggedUser.username },
-                                 {$set: {machines: machineIds, supplySet: newObjectSet}})
+                                 {$set: { multi: true,
+                                                 machines: machineIds,
+                                                 supplySet: newObjectSet}})
         },
 
 
@@ -380,6 +382,7 @@ if(Meteor.isServer){
         'multi-finished': (pickedMachines, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
             let machineNumbers = pickedMachines.length;
             let pickersResult = pickersAtWork.findOne({_id: user});
+            pickersAtWork.remove({_id: user});
 
             pickersResult.machines.forEach((element) => {
 
@@ -414,11 +417,11 @@ if(Meteor.isServer){
                                 duration: (pickingDuration / machineNumbers),
                                 date: pickingDateAndTime}}} );
 
-                pickersAtWork.remove({_id: user});
             });
         },
 
         'multi-pause': (pickedMachines, pickedSupplyAreaId, status, pickingPauseStart, user) => {
+            
                  pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
 
                  pickedMachines.forEach((element) => {

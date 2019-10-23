@@ -1,3 +1,5 @@
+Session.set('supplyChosen', 0);
+
 
 Template.commTablet_2.helpers ({
 
@@ -20,45 +22,44 @@ Template.commTablet_2.helpers ({
         const selectedSupplyArea = this._id;
         const selectedArea = Session.get('selectedArea');
         if (selectedArea === selectedSupplyArea) {
+            Session.set('supplyChosen', 9);
             return "selectedArea";
         }
     },
 
     selectedMultiMachines: () => {
-        let machinesId = Session.get('multiMachinesId');
-        if (machinesId === '' ) {
             const picker = Meteor.user().username;
             let result = pickersAtWork.findOne({_id: picker, multi: true});
             if (typeof result === 'undefined') {
                 // nothing to share
             } else {
                 let machines = result.machines;
-                Session.set('supplyChosen', 9);
+
                 Session.set('multiMachinesId', machines);
                 return machines;
             }
-        } else {
-            return machinesId;
-        }
     },
 
     supplyStart: () => {
-        let supplyId =  Session.get('selectedArea');
-        if (supplyId === '') {
             const picker = Meteor.user().username;
             let result = pickersAtWork.findOne({_id: picker, multi: true});
-            if (typeof result === 'undefined') {
-                // nothing to share
+            if(typeof result === 'undefined') {
+                //nothing to share
             } else {
-                let supply = result.supplySet[0]._id;
-                Session.set('supplyChosen', 9);
-                Session.set('selectedArea', supply);
-                return supply;
-                }
-        } else {
-            Session.set('supplyChosen', 9);
-            return supplyId;
-        }
+                let supplySetLength = result.supplySet.length;
+                    if (supplySetLength === 1) {
+                        let supply = result.supplySet[0]._id;
+
+                        Session.set('selectedArea', supply);
+                        return supply;
+                    } else {
+
+                       return Session.get('selectedArea');
+
+                        }
+            }
+
+
     },
 
 
@@ -83,22 +84,30 @@ Template.commTablet_2.events ({
         $('input[name=machine]:checked').each(function () {
             machineIds.push($(this).val());
         });
-        Session.set('multiMachinesId', machineIds);
-        Meteor.call('multipleMachines', machineIds, loggedUser);
+        if (machineIds.length === 0) {
+            // do nothing
+        } else {
+            Session.set('multiMachinesId', machineIds);
+            Meteor.call('multipleMachines', machineIds, loggedUser);
+        }
+        $('input[type="checkbox"]:checked').prop('checked',false);
     },
 
-    'click .multi-start': (e) => {
-        e.preventDefault();
-        const userStart = Meteor.user().username;
-        let status = 2;
-        let pickedMachines = Session.get('multiMachinesId');
-        let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingStart = Date.now();
-        Session.set('inActiveState', 1);
-        let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
-        Meteor.call('startPickingMultiMachines', pickedMachines,
-            pickedSupplyAreaId, status, userStart,
-            pickingStart, dateStartNow);
+        'click .multi-start': (e) => {
+            e.preventDefault();
+            const userStart = Meteor.user().username;
+            let status = 2;
+            let pickedMachines = Session.get('multiMachinesId');
+            let pickedSupplyAreaId = Session.get('selectedArea');
+            let pickingStart = Date.now();
+            Session.set('inActiveState', 1);
+            let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
+
+            Meteor.call('startPickingMultiMachines', pickedMachines,
+                pickedSupplyAreaId, status, userStart,
+                pickingStart, dateStartNow);
+
+
     },
 
     'click .multi-finished': (e) => {
@@ -112,11 +121,12 @@ Template.commTablet_2.events ({
         Session.set('inActiveState', 4);
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
-        Session.set('multiMachinesId', '');
-        Session.set('selectedArea', '');
-
+        console.log(pickedMachines);
         Meteor.call('multi-finished', pickedMachines, pickedSupplyAreaId,
             status, userFinished, dateEndNow, pickingEnd);
+
+        Session.set('multiMachinesId', '');
+        Session.set('selectedArea', '');
     },
 
 
@@ -234,10 +244,10 @@ Handlebars.registerHelper('inActive_4', () => {
 
 Handlebars.registerHelper('inActive_9', () => {
     let inActiveState = Session.get('supplyChosen');
+    console.log('inactive ', inActiveState);
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 9 ', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }
