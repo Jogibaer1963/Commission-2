@@ -244,7 +244,6 @@ Handlebars.registerHelper('inActive_4', () => {
 
 Handlebars.registerHelper('inActive_9', () => {
     let inActiveState = Session.get('supplyChosen');
-    console.log('inactive ', inActiveState);
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }

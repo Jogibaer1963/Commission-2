@@ -224,12 +224,13 @@ if(Meteor.isServer){
                 pickingPauseStart = 1;
                 pickingPauseEnd = 1;
             }
-            let pickingDuration = ((pickersResult.pickingEnd - pickersResult.pickingStart -
+            let pickingDuration = parseInt((pickersResult.pickingEnd - pickersResult.pickingStart -
                 (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+            let duration = parseInt(pickingDuration);
             pickers.update({_id: user},
                           {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
-                                                          duration: pickingDuration,
+                                                          duration:duration,
                                                           date: pickingDateAndTime}}} );
 
 
@@ -401,7 +402,6 @@ if(Meteor.isServer){
                     pickersResult =  pickersArea.find((e) => {
                         return e._id === pickedSupplyAreaId;
                     });
-
                 let pickingPauseStart = pickersResult.pickingPauseStart;
                 let pickingPauseEnd = pickersResult.pickingPauseEnd;
                 if(!pickingPauseEnd) {
@@ -409,12 +409,15 @@ if(Meteor.isServer){
                     pickingPauseEnd = 0;
                 }
                 let pickingDuration = ((pickingEnd - pickersResult.pickingStart -
-                    (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
+                                        (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
                 let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+                let durationCalc = pickingDuration / machineNumbers;
+                let duration = parseInt(durationCalc);
+                console.log('Duration ', duration, durationCalc);
 
                 pickers.update({_id: user},
                     {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
-                                duration: (pickingDuration / machineNumbers),
+                                duration: duration,
                                 date: pickingDateAndTime}}} );
 
             });
@@ -467,12 +470,6 @@ if(Meteor.isServer){
 
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 
-        'addNewPicker': (newPicker) => {
-
-        },
-
-
-
         'analyze': () => {
           let result = machineCommTable.find().fetch();
           let counter = 0;
@@ -493,6 +490,31 @@ if(Meteor.isServer){
                 }
             });
         },
+
+        'day': (_id) => {
+            pickers.findOne({_id: _id});
+
+
+        },
+
+        'week': (_id) => {
+            pickers.findOne({_id: _id});
+
+        },
+
+        'month': (_id) => {
+            pickers.findOne({_id: _id});
+
+        },
+
+        'year': (_id) => {
+            pickers.findOne({_id: _id});
+
+        },
+
+
+
+
 
 
 

@@ -7,29 +7,45 @@
             <img src="claas_logo.png" />
         </div>
         {{> statistics}}
-        {{> graphs}}
     {{else}}
         {{> login}}
     {{/if}}
 </template>
 
 <template name="statistics">
+
+
+        <div class="chosen-picker">
+            <h3>Selected Picker: {{analyzePicker}}</h3>
+        </div>
+
     <div class="pickers-table ">
-        <table class="table">
-            <thead>
+        <table class="analyze-table">
+            <thead class="analyze-table-head">
             <tr>
                 <th class=""><strong>Picker</strong></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="analyze-table-body">
             {{#each pickersTable}}
-                <tr class="">{{_id}}</tr>
+            <tr class="pickersArea  {{selectedPicker}}">
+                <td class="">{{_id}}</td>
+            </tr>
             {{/each}}
             </tbody>
         </table>
     </div>
-</template>
 
-<template name="graphs">
-    <div class="diagram" id="chart">{{createChart}}</div>
+    <div class="button-list">
+        <button class="btn btn-default btn-success analyzeDay">Day</button>
+        <button class="btn btn-default btn-success analyzeWeek">Week</button>
+        <button class="btn btn-default btn-success analyzeMonth">Month</button>
+        <button class="btn btn-default btn-success analyzeYear">Year</button>
+    </div>
+
+
+    <div>
+        <div class="diagram" id="chart">{{createChart}}</div>
+    </div>
+
 </template>
