@@ -228,10 +228,24 @@ if(Meteor.isServer){
                 (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
             let duration = parseInt(pickingDuration);
+            let timeNow = (Date.now()/1000).toFixed(0);
+            let resultObj =  {machine: machineId,
+                              supplyArea: pickedSupplyAreaId,
+                              pickingTime: timeNow,
+                              duration: duration,
+                              date: pickingDateAndTime,
+                              multi: false};
+            let identifier = pickedSupplyAreaId + timeNow;
+
+            pickers.update({_id: user}, {$set: {[identifier]: resultObj} } );
+
+            /*
             pickers.update({_id: user},
                           {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
                                                           duration:duration,
                                                           date: pickingDateAndTime}}} );
+
+             */
 
 
 
@@ -381,6 +395,7 @@ if(Meteor.isServer){
 
 
         'multi-finished': (pickedMachines, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
+
             let machineNumbers = pickedMachines.length;
             let pickersResult = pickersAtWork.findOne({_id: user});
             pickersAtWork.remove({_id: user});
@@ -395,32 +410,38 @@ if(Meteor.isServer){
 
                 machineCommTable.update({machineId: element}, {$inc: {commissionStatus: 1}});
 
-                const result = machineCommTable.findOne({machineId: element});
+            });
 
-                let machineId = result.machineId;
+                const result = machineCommTable.findOne({machineId: pickedMachines[0]});
+
                 let pickersArea = result.supplyAreas,
-                    pickersResult =  pickersArea.find((e) => {
+                    pickersStorage =  pickersArea.find((e) => {
                         return e._id === pickedSupplyAreaId;
                     });
-                let pickingPauseStart = pickersResult.pickingPauseStart;
-                let pickingPauseEnd = pickersResult.pickingPauseEnd;
+
+                let pickingPauseStart = pickersStorage.pickingPauseStart;
+                let pickingPauseEnd = pickersStorage.pickingPauseEnd;
                 if(!pickingPauseEnd) {
                     pickingPauseStart = 0;
                     pickingPauseEnd = 0;
                 }
-                let pickingDuration = ((pickingEnd - pickersResult.pickingStart -
+                let pickingDuration = ((pickingEnd - pickersStorage.pickingStart -
                                         (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
-                let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+                let pickingDateAndTime = pickersStorage.pickingEndDateAndTime;
                 let durationCalc = pickingDuration / machineNumbers;
                 let duration = parseInt(durationCalc);
-                console.log('Duration ', duration, durationCalc);
+                let timeNow = (Date.now()/1000).toFixed(0);
+                let resultObj =  {machine: pickedMachines,
+                                  supplyArea: pickedSupplyAreaId,
+                                  pickingTime: timeNow,
+                                  duration: duration,
+                                  date: pickingDateAndTime,
+                                  pickingPauseStart: pickingPauseStart,
+                                  pickingPauseEnd: pickingPauseEnd,
+                                  multi: true};
+                let identifier = pickedSupplyAreaId + timeNow;
 
-                pickers.update({_id: user},
-                    {$push: {[machineId]: {supplyArea: pickedSupplyAreaId,
-                                duration: duration,
-                                date: pickingDateAndTime}}} );
-
-            });
+                 pickers.update({_id: user}, {$set: {[identifier]: resultObj} } );
         },
 
         'multi-pause': (pickedMachines, pickedSupplyAreaId, status, pickingPauseStart, user) => {
@@ -492,23 +513,66 @@ if(Meteor.isServer){
         },
 
         'day': (_id) => {
-            pickers.findOne({_id: _id});
 
+            let resultArray = [];
+            let newResultArray = [];
+            let timeNow = new Date();
+            let result =  pickers.findOne({_id: _id});
+            let objectArray = Object.keys(result);
+                objectArray.forEach((element) => {
+                    if (element === '_id') {
+                  //     console.log('_id detected');
+                    } else {
+                        let resultObject = result[element];
+                        resultArray.push(resultObject.supplyArea);
+                    }
+                });
+            let newArray = (resultArray.filter((e, i, a) => a.indexOf(e) === i)).sort();
+                newArray.forEach((element) => {
+                    let object_id = {_id: element};
+                    newResultArray.push(object_id);
+                });
+            return newResultArray;
+        },
 
+        'getData': (selectedArea, picker) => {
+            let resultArray = [];
+            let dateArray = [];
+            let selected = selectedArea;
+            let result =  pickers.findOne({_id: picker});
+            let objectArray = Object.keys(result);
+            objectArray.forEach((element) => {
+                if (element === '_id') {
+                    //     console.log('_id detected');
+                } else {
+                    let resultObject = result[element];
+                    if ( resultObject.supplyArea === selected) {
+                        resultArray.push(resultObject.duration);
+                        dateArray.push(resultObject.date);
+                    }
+                }
+            });
+            return [resultArray, dateArray];
         },
 
         'week': (_id) => {
-            pickers.findOne({_id: _id});
+            // calculate week day today (0 - 6)
+            let timeNow = new Date();
+            console.log('Today is the ', timeNow.getDay(), ' Day in this week');
+         //   let result =  pickers.findOne({_id: _id});
+
 
         },
 
         'month': (_id) => {
-            pickers.findOne({_id: _id});
+            let result =  pickers.findOne({_id: _id});
+            console.log(result);
 
         },
 
         'year': (_id) => {
-            pickers.findOne({_id: _id});
+            let result =  pickers.findOne({_id: _id});
+            console.log(result);
 
         },
 

@@ -818,6 +818,16 @@ table.commOverView {
   text-align: center;
 }
 
+.supplied-area-table {
+  left: 10em;
+  position: absolute;
+  top: 16em;
+}
+
+.spacing {
+  padding: 8px;
+}
+
 .new-supply-area {
   left: 3em;
   position: absolute;
