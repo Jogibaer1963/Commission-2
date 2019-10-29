@@ -9,10 +9,28 @@ $table-head: #1cbdee;
   top: 10em;
 }
 
-.diagram {
+.diagram-1 {
   left: 20em;
   position: absolute;
   top: 20em;
+}
+
+.diagram-2 {
+  left: 20em;
+  position: absolute;
+  top: 40em;
+}
+
+.diagram-3 {
+  left: 20em;
+  position: absolute;
+  top: 60em;
+}
+
+.diagram-4 {
+  left: 20em;
+  position: absolute;
+  top: 80em;
 }
 
 .start-analyze {
@@ -24,7 +42,7 @@ $table-head: #1cbdee;
 .chosen-picker {
   left: 10em;
   position: absolute;
-  top: 12em;
+  top: 9em;
 }
 
 .button-list {
@@ -59,7 +77,7 @@ $table-head: #1cbdee;
 .supplied-area-table {
   left: 10em;
   position: absolute;
-  top: 16em;
+  top: 14em;
 }
 
 .spacing {

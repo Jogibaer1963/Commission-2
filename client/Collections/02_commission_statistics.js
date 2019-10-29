@@ -19,23 +19,68 @@ Template.statistics.helpers({
        return Session.get('data');
     },
 
-    createChart: function () {
-
+    dayChart: function () {
         // Gather data:
         let  tasksData = Session.get('graphData');
         let categories = Session.get('categories');
+        let supplyArea = Session.get('analyzeArea');
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
-            Highcharts.chart('chart', {
+            Highcharts.chart('chart_1', {
                 chart: {
                     height: 300,
+                    width: 900,
                     type: 'line'
                 },
                 yAxis: {
                     categories: [],
+                        title: {enabled: true,
+                            text: 'Picking Time in Minutes',
+                            style: {
+                                fontWeight: 'normal'
+                            }
+                        }
+                },
+                xAxis: {
+                    categories: categories,
                     title: {
                         enabled: true,
+                        text: 'Picking per date',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                title: {
+                    text: 'Per Day   Supply Area : ' + supplyArea,
+                     },
+                series: [{
+                    type: 'line',
+                    data: tasksData
+                }]
+            });
+        });
+    },
+
+
+    weekChart: function () {
+        // Gather data:
+        let  tasksData = Session.get('graphData');
+        let categories = Session.get('categories');
+        let supplyArea = Session.get('analyzeArea');
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_2', {
+                chart: {
+                    height: 300,
+                    width: 900,
+                    type: 'line'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
                         text: 'Picking Time in Minutes',
                         style: {
                             fontWeight: 'normal'
@@ -53,8 +98,98 @@ Template.statistics.helpers({
                     }
                 },
                 title: {
-                    text: 'L4MSB020'
-                     },
+                    text: 'Per Week   Supply Area : ' + supplyArea,
+                },
+                series: [{
+                    type: 'line',
+                    data: tasksData
+                }]
+            });
+        });
+    },
+
+
+    monthChart: function () {
+        // Gather data:
+        let  tasksData = Session.get('graphData');
+        let categories = Session.get('categories');
+        let supplyArea = Session.get('analyzeArea');
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_3', {
+                chart: {
+                    height: 300,
+                    width: 900,
+                    type: 'line'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in Minutes',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Picking per date',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                title: {
+                    text: 'Per Month   Supply Area : ' + supplyArea,
+                },
+                series: [{
+                    type: 'line',
+                    data: tasksData
+                }]
+            });
+        });
+    },
+
+
+   yearChart: function () {
+        // Gather data:
+        let  tasksData = Session.get('graphData');
+        let categories = Session.get('categories');
+        let supplyArea = Session.get('analyzeArea');
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_4', {
+                chart: {
+                    height: 300,
+                    width: 900,
+                    type: 'line'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in Minutes',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep' ],
+                    title: {
+                        enabled: true,
+                        text: 'Picking per date',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                title: {
+                    text: 'Per Year   Supply Area : ' + supplyArea,
+                },
                 series: [{
                     type: 'line',
                     data: tasksData
@@ -90,6 +225,18 @@ Template.statistics.events({
         Session.set('data', '');
         const selectedPicker = this._id;
         Session.set('selectedPicker', selectedPicker);
+        if (typeof selectedPicker === 'undefined') {
+            console.log('undefined');
+        } else {
+            Meteor.call('day', selectedPicker, (error, result) => {
+                if(error) {
+                    console.log('Error', error);
+                } else {
+                    Session.set('data', result);
+                }
+            });
+        }
+
     },
 
     'click .analyzeArea': function(e) {

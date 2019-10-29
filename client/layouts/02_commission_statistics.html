@@ -34,14 +34,14 @@
             </tbody>
         </table>
     </div>
-
+    <!--
     <div class="button-list">
         <button class="btn btn-default btn-success analyzeDay">Start</button>
         <button class="btn btn-default btn-success analyzeWeek" disabled>Last Week</button>
         <button class="btn btn-default btn-success analyzeMonth" disabled>Last Month</button>
         <button class="btn btn-default btn-success analyzeYear" disabled>Year</button>
     </div>
-
+    -->
     <div class="supplied-area-table">
         <table>
             <thead>
@@ -59,8 +59,22 @@
         </table>
     </div>
 
-    <div>
-        <div class="diagram" id="chart">{{createChart}}</div>
+    <div class="diagram-1">
+        <div  id="chart_1">{{dayChart}}</div>
     </div>
+
+    <div class="diagram-2" >
+        <div id="chart_2">{{weekChart}}</div>
+    </div>
+
+    <div class="diagram-3" >
+        <div id="chart_3">{{monthChart}}</div>
+    </div>
+
+    <div class="diagram-4" >
+        <div id="chart_4">{{yearChart}}</div>
+    </div>
+
+
 
 </template>
