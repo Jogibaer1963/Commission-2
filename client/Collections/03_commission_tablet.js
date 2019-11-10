@@ -89,12 +89,10 @@ Template.commTablet.events ({
         let status = 2;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingStart = Date.now();
         Session.set('inActiveState', 1);
-        let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
         Meteor.call('startPicking', pickedMachineId,
                     pickedSupplyAreaId, status, userStart,
-                    pickingStart, dateStartNow);
+                    );
 
     },
 
@@ -104,19 +102,17 @@ Template.commTablet.events ({
         let status = 1;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingEnd = Date.now();
-        let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
         Session.set('inActiveState', 4);
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
         Meteor.call('finishedPicking', pickedMachineId, pickedSupplyAreaId,
-                     status, userFinished, dateEndNow, pickingEnd);
+                     status, userFinished);
     },
 
     'submit .cancelForm': function(e) {
         e.preventDefault();
         const userCanceled = Meteor.user().username;
-        const cancellationReason = event.target.cancelRequest.value;
+        const cancellationReason = e.target.cancelRequest.value;
         let status = 0;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
@@ -130,11 +126,10 @@ Template.commTablet.events ({
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingPauseStart = Date.now();
         let pickingStatus = 3;
         Session.set('inActiveState', 2);
         Meteor.call('pausePickingStart', pickedMachineId, pickedSupplyAreaId,
-                     pickingStatus, pickingPauseStart, user);
+                     pickingStatus, user);
 
     },
 
@@ -143,11 +138,10 @@ Template.commTablet.events ({
         const user = Meteor.user().username;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        let pickingPauseEnd = Date.now();
         let pickingStatus = 2;
         Session.set('inActiveState',3);
         Meteor.call('pausePickingEnd', pickedMachineId, pickedSupplyAreaId,
-                     pickingStatus, pickingPauseEnd, user);
+                     pickingStatus, user);
     },
 
     'click .toggle-supply': (e) => {

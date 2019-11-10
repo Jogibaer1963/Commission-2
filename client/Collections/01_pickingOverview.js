@@ -19,7 +19,7 @@ Template.machine_picking_list.helpers({
 
 });
 
-Template.machine_picking_list.events({
+Template.tabletEntry.events({
 
         'click .buttonToTablet': (e) => {
             e.preventDefault();

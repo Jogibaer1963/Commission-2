@@ -4,13 +4,20 @@
             {{> adminLayout}}
             <div>
                 {{> addMachine}}
+                {{> tabletEntry}}
                 {{> machine_picking_list}}
+
             </div>
         {{/if}}
         {{#if isInRole  'Picker'}}
             {{> commissionNav}}
+            {{> tabletEntry}}
             {{> machine_picking_list}}
         {{/if}}
+        {{#if isInRole 'teamLead'}}
+            {{> machine_picking_list}}
+            {{> teamLead}}
+            {{/if}}
     {{else}}
        {{> login}}
     {{/if}}
@@ -36,11 +43,15 @@
     <button class="btn btn-danger removeMachine" type="button">Delete</button>
 </template>
 
-
-<template name="machine_picking_list">
+<template name="tabletEntry">
     <div class="commTablet">
         <button type="button" class="btn btn-success btn-primary buttonToTablet">Tablet entry</button>
     </div>
+</template>
+
+
+<template name="machine_picking_list">
+
     <div class="machineCommissionTable">
         <div class="">
             <table class="table table-header-rotated">
@@ -72,4 +83,17 @@
     </div>
 </template>
 
-
+<template name="teamLead">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <form class="newCommMessage"  style="position: relative; top: 10em; left:41em;">
+        <label for="newPart">Part request or Message to Commissioning</label>
+        <br>
+        <input type="text" name="newPart" id="newPart" placeholder="Part Nr" required>
+        <label for="newMessage" class="message" ></label>
+        <input type="text" name="newMessage" id="newMessage" placeholder="Message" required>
+        <br><br>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</template>

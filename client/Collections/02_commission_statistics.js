@@ -19,6 +19,16 @@ Template.statistics.helpers({
        return Session.get('data');
     },
 
+    areasCount: () => {
+        // server returns data from method 'day'
+        return Session.get('resultCount');
+    },
+
+    average: () => {
+        // server returns data from method 'day'
+        return Session.get('average');
+    },
+
     dayChart: function () {
         // Gather data:
         let  tasksData = Session.get('graphData');
@@ -46,7 +56,7 @@ Template.statistics.helpers({
                     categories: categories,
                     title: {
                         enabled: true,
-                        text: 'Picking per date',
+                        text: 'Picked today',
                         style: {
                             fontWeight: 'normal'
                         }
@@ -228,10 +238,11 @@ Template.statistics.events({
         if (typeof selectedPicker === 'undefined') {
             console.log('undefined');
         } else {
-            Meteor.call('day', selectedPicker, (error, result) => {
+            Meteor.call('pickerReturn', selectedPicker, (error, result) => {
                 if(error) {
                     console.log('Error', error);
                 } else {
+                    console.log(result);
                     Session.set('data', result);
                 }
             });
@@ -241,6 +252,7 @@ Template.statistics.events({
 
     'click .analyzeArea': function(e) {
         e.preventDefault();
+        let durationResult = [];
         const selectedArea = this._id;
         let picker = Session.get('selectedPicker');
         Session.set('analyzeArea', selectedArea);
@@ -248,50 +260,21 @@ Template.statistics.events({
             if (error) {
                 console.log(error)
             } else {
-                Session.set('graphData', result[0]);
-                Session.set('categories', result[1]);
+                let i = 0;
+                Session.set('resultCount', result[0]);
+                result[1].forEach((element) => {
+                    durationResult.push(parseInt(element));
+                    i =  i + parseInt(element);
+                });
+                let average = i /result[1].length;
+                console.log('average: ', i);
+                Session.set('average', average);
+                console.log('data return : ', durationResult);
+                Session.set('graphData', durationResult);
+                Session.set('categories', result[2]);
             }
         })
     },
-
-    'click .analyzeDay': (e) => {
-        e.preventDefault();
-        let _id = Session.get('chosenPicker');
-        if (typeof _id === 'undefined') {
-            console.log('undefined');
-        } else {
-            Meteor.call('day', _id, (error, result) => {
-                if(error) {
-                    console.log('Error', error);
-                } else {
-                    Session.set('data', result);
-                }
-            });
-        }
-    },
-
-    'click .analyzeWeek': (e) => {
-        e.preventDefault();
-        let _id = Session.get('chosenPicker');
-        Meteor.call('week', _id);
-
-    },
-
-    'click .analyzeMonth': (e) => {
-        e.preventDefault();
-        let _id = Session.get('chosenPicker');
-        Meteor.call('month', _id);
-
-    },
-
-    'click .analyzeYear': (e) => {
-        e.preventDefault();
-        let _id = Session.get('chosenPicker');
-        Meteor.call('year', _id);
-
-    },
-
-
 
 });
 
