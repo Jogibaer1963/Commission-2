@@ -852,6 +852,12 @@ table.commOverView {
   padding: 8px;
 }
 
+.daily-picks {
+  left: 10em;
+  position: absolute;
+  top: 14em;
+}
+
 .new-supply-area {
   left: 3em;
   position: absolute;

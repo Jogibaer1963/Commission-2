@@ -43,7 +43,9 @@ Template.adminViewUser.events({
         });
         Meteor.call('userManualDelete', deleteUser);
         document.getElementById('logOut').checked=false;
-    },
+    }
+
+
 
 
 });

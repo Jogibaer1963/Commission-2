@@ -6,7 +6,7 @@
         <div id="logo">
             <img src="claas_logo.png" />
         </div>
-        {{> statistics}}
+        {{> dailyResult}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -56,9 +56,6 @@
         </table>
     </div>
 
-
-
-
     <div class="diagram-1">
         <div  id="chart_1">{{dayChart}}</div>
     </div>
@@ -76,6 +73,16 @@
     </div>
 
 -->
+</template>
 
+<template name="dailyResult">
+
+<div class="daily-picks">
+    <h3>Today picked : {{resultToday.dayCount}} carts with an overall average of {{resultToday.averageDuration}} min</h3>
+</div>
+
+    <div class="diagram-1">
+        <div  id="chart_1">{{dayChart}}</div>
+    </div>
 
 </template>
