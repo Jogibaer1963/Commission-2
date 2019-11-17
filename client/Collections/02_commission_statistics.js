@@ -11,25 +11,32 @@ Template.dailyResult.helpers({
         let pickingResult = [];
         let resultOfTheDay = [];
         let result = pickers.find({}).fetch();
+        Session.set('result', result);
         let pickingString = pickingToDay();
+       // console.log('Picking String ', pickingString);
         result.forEach((element) => {
+       //    console.log('element: ', element[pickingString]);
             try {
            dayCount = dayCount + element[pickingString].length;
+       //    console.log('day count: ', dayCount);
                 } catch {
-
+       //         console.log('error')
                 }
             if (typeof  element[pickingString] !== 'undefined') {
             pickingResult[k] = element[pickingString];
+       //     console.log(element[pickingString]);
             k ++;
             }
             try {
             for (let i = 0; i <= k; i++) {
                 pickingResult[0].concat(pickingResult[i+1]);
+       //         console.log('inside loop: ', i, pickingResult[i]);
             }
             } catch {
-                console.log('error')
+            //    console.log('error')
             }
         });
+     //   console.log(pickingResult);
         pickingResult.forEach((element) => {
             element.forEach((element2) => {
                 resultOfTheDay.push(element2);
@@ -50,7 +57,7 @@ Template.dailyResult.helpers({
                         loopArray.push(element.duration);
                         counter++;
                     } else {
-                        console.log('else');
+                     //   console.log('else');
                     }
                 });
             let summary =  (((loopArray.reduce((a,b) => a + b, 0)) / loopArray.length) / 60000).toFixed(0);
@@ -58,19 +65,85 @@ Template.dailyResult.helpers({
             loopArray = [];
             dayResult.push(counter);
        }
-        console.log('Average per supply ', averagePerSupply);
+        let durationAverage = (averagePerSupply.reduce((a,b) => a + b, 0) / averagePerSupply.length).toFixed(0);
         Session.set('averagePerSupply', averagePerSupply);
         Session.set('dayResult', dayResult);
         Session.set('uniqueAreas', uniqueAreas);
-        let durationAverage = averagePerSupply.reduce((a,b) => a + b, 0) / averagePerSupply.length;
-        console.log('Duration Average ', durationAverage);
+      //  console.log(dayCount, durationAverage, uniqueAreas);
            return {
                dayCount: dayCount,
                averageDuration: durationAverage,
                uniqueAreas: uniqueAreas.length
            }
-
     },
+
+    runningResult: () => {
+        let objectCount = [];
+        let arraySummery = [];
+        let newArray = [];
+        let result = Session.get('result');
+      //  console.log(result);
+        let resultObj = Object.keys(result);
+        if (resultObj.length > 1) {
+            for (let k = 0; k <= resultObj.length -1; k++) {
+              let objectArray = result[k];
+              objectCount[k] = Object.keys(objectArray);
+              objectCount[k].pop();
+            }
+        } else {
+          //  console.log('else')
+        }
+        let combinedArray = objectCount.flat(1);
+        let uniqueTime = combinedArray.filter((x, i, a) => a.indexOf(x) === i);
+        uniqueTime.forEach((element) => {
+            let timeObject = element;
+            result.forEach((element2) => {
+                arraySummery.push(element2[timeObject])
+            });
+        });
+        let annualSummary = arraySummery.flat(1);
+      //  console.log(annualSummary);
+        annualSummary.forEach((element) => {
+            try {
+                newArray.push(element.supplyArea);
+            } catch {
+            }
+        });
+        let totalDuration = [];
+        let durationGraph = [];
+        let counter = [];
+        let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
+     //   console.log(uniqueSupplyAreas);
+        uniqueSupplyAreas.forEach((element) => {
+          //  console.log(element);
+            let i = 1;
+            annualSummary.forEach((element2) => {
+                try {
+                    if (element === element2.supplyArea) {
+                      //  console.log(element, element2.duration);
+                        totalDuration.push(element2.duration);
+                        i++
+                      //  console.log(totalDuration);
+                    } else {
+                 //       console.log('else')
+                    }
+                } catch {
+                }
+            });
+            let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+            counter.push(i);
+            durationGraph.push(parseInt(averageDuration));
+            totalDuration = [];
+            i = 1;
+        });
+        console.log(uniqueSupplyAreas);
+        console.log(durationGraph);
+        console.log('carts ',counter);
+        Session.set('carts', counter);
+        Session.set('totalResultSupply', uniqueSupplyAreas);
+        Session.set('totalResultDuration', durationGraph);
+    },
+
 
     dayChart: function () {
         // Gather data:
@@ -81,41 +154,30 @@ Template.dailyResult.helpers({
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_1', {
-
                 title: {
                 text: 'Picked carts today per Supply Area'
             },
-
+                tooltip: {
+                    shared: true
+                },
                 chart: {
-
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-                        stops: [
-                            [0, '#2a2a2b'],
-                            [1, '#3e3e40']
-                        ]
-                    },
                     style: {
                         fontFamily: '\'Unica One\', sans-serif'
                     },
                     plotBorderColor: '#606063',
-
-
                     height: 300,
                     width: 900,
-                    type: 'line'
+                    zoomType: 'xy'
                 },
-
                 yAxis: {
                     categories: [],
                     title: {enabled: true,
-                        text: 'Picked Today',
+                        text: 'Average Picking Time per Cart',
                         style: {
                             fontWeight: 'normal'
                         }
                     }
                 },
-
                 xAxis: {
                     categories: categories,
                     title: {
@@ -126,23 +188,27 @@ Template.dailyResult.helpers({
                         }
                     }
                 },
-
                 series: [
                     {
-                    name: 'Carts Picked',
-                    type: 'line',
-                    data: tasksData
-                }
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: averagePerSupply
+                    },
+                    {
+                        name: 'Carts Picked',
+                        type: 'spline',
+                        data: tasksData
+                    }
                 ]
             });
         });
     },
 
-    averagePerCart: function () {
+    runningAnnualResult: function () {
         // Gather data:
-        let averagePerSupply = Session.get('averagePerSupply');
-        let  tasksData = Session.get('dayResult');
-        let categories = Session.get('uniqueAreas');
+        let averagePerSupply = Session.get('totalResultDuration');
+        let cartsCounter = Session.get('carts');
+        let categories = Session.get('totalResultSupply');
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -150,6 +216,10 @@ Template.dailyResult.helpers({
 
                 title: {
                     text: 'Picked carts today per Supply Area'
+                },
+
+                tooltip: {
+                    shared: true
                 },
 
                 chart: {
@@ -169,7 +239,7 @@ Template.dailyResult.helpers({
 
                     height: 300,
                     width: 900,
-                    type: 'column'
+                    zoomType: 'xy'
                 },
 
                 yAxis: {
@@ -196,15 +266,18 @@ Template.dailyResult.helpers({
                 series: [
                     {
                         name: 'Average picking time in min',
+                        type: 'column',
                         data: averagePerSupply
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: cartsCounter
                     }
                 ]
             });
         });
     },
-
-
-
 
 });
 
@@ -221,277 +294,5 @@ function pickingToDay () {
     return (pickingDate + pickingDay + pickingMonth + pickingYear);
 }
 
-Template.statistics.helpers({
 
-    pickersTable: () => {
-        return pickers.find().fetch();
-    },
-
-    analyzePicker: () => {
-        return Session.get('chosenPicker')
-    },
-
-    detectedSupplyAreas: () => {
-        // server returns data from method 'day'
-       return Session.get('data');
-    },
-
-    areasCount: () => {
-        // server returns data from method 'day'
-        return Session.get('resultCount');
-
-    },
-
-    average: () => {
-        // server returns data from method 'day'
-        return Session.get('average');
-    },
-
-    dayChart: function () {
-        // Gather data:
-        let  tasksData = Session.get('dayResult');
-        let categories = Session.get('uniqueAreas');
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_1', {
-                chart: {
-                    height: 300,
-                    width: 900,
-                    type: 'line'
-                },
-                yAxis: {
-                    categories: [],
-                        title: {enabled: true,
-                            text: 'Picked Today',
-                            style: {
-                                fontWeight: 'normal'
-                            }
-                        }
-                },
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        enabled: true,
-                        text: 'Picked today',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                title: {
-                    text: 'Per Day   Supply Area'
-                     },
-                series: [{
-                    type: 'line',
-                    data: tasksData
-                }]
-            });
-        });
-    },
-
-
-    weekChart: function () {
-        // Gather data:
-        let  tasksData = Session.get('graphData');
-        let categories = Session.get('categories');
-        let supplyArea = Session.get('analyzeArea');
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_2', {
-                chart: {
-                    height: 300,
-                    width: 900,
-                    type: 'line'
-                },
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Picking Time in Minutes',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        enabled: true,
-                        text: 'Picking per date',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                title: {
-                    text: 'Per Week   Supply Area : ' + supplyArea,
-                },
-                series: [{
-                    type: 'line',
-                    data: tasksData
-                }]
-            });
-        });
-    },
-
-
-    monthChart: function () {
-        // Gather data:
-        let  tasksData = Session.get('graphData');
-        let categories = Session.get('categories');
-        let supplyArea = Session.get('analyzeArea');
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_3', {
-                chart: {
-                    height: 300,
-                    width: 900,
-                    type: 'line'
-                },
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Picking Time in Minutes',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        enabled: true,
-                        text: 'Picking per date',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                title: {
-                    text: 'Per Month   Supply Area : ' + supplyArea,
-                },
-                series: [{
-                    type: 'line',
-                    data: tasksData
-                }]
-            });
-        });
-    },
-
-
-   yearChart: function () {
-        // Gather data:
-        let  tasksData = Session.get('graphData');
-        let categories = Session.get('categories');
-        let supplyArea = Session.get('analyzeArea');
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_4', {
-                chart: {
-                    height: 300,
-                    width: 900,
-                    type: 'line'
-                },
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Picking Time in Minutes',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                xAxis: {
-                    categories: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep' ],
-                    title: {
-                        enabled: true,
-                        text: 'Picking per date',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                title: {
-                    text: 'Per Year   Supply Area : ' + supplyArea,
-                },
-                series: [{
-                    type: 'line',
-                    data: tasksData
-                }]
-            });
-        });
-    },
-
-    'selectedPicker': function() {
-        const selectedPickers = this._id;
-        const selectedPicker = Session.get('selectedPicker');
-        if (selectedPicker === selectedPickers) {
-            Session.set('chosenPicker', selectedPicker);
-            return "selectedArea";
-        }
-    },
-
-    'selectedSupplyArea': function() {
-        const selectedPickers = this._id;
-        const selectedPicker = Session.get('analyzeArea');
-        if (selectedPicker === selectedPickers) {
-         //   Session.set('chosenPicker', selectedPicker);
-            return "selectedArea";
-        }
-    },
-});
-
-
-Template.statistics.events({
-
-    'click .pickersArea': function(e) {
-        e.preventDefault();
-        Session.set('data', '');
-        const selectedPicker = this._id;
-        Session.set('selectedPicker', selectedPicker);
-        if (typeof selectedPicker === 'undefined') {
-            console.log('undefined');
-        } else {
-            Meteor.call('pickerReturn', selectedPicker, (error, result) => {
-                if(error) {
-                    console.log('Error', error);
-                } else {
-                    console.log(result);
-                    Session.set('data', result);
-                }
-            });
-        }
-
-    },
-
-    'click .analyzeArea': function(e) {
-        e.preventDefault();
-        let durationResult = [];
-        const selectedArea = this._id;
-        let picker = Session.get('selectedPicker');
-        Session.set('analyzeArea', selectedArea);
-        Meteor.call('getData', selectedArea, picker, (error, result) => {
-            if (error) {
-                console.log(error)
-            } else {
-                let i = 0;
-                Session.set('resultCount', result[0]);
-                result[1].forEach((element) => {
-                    durationResult.push(parseInt(element));
-                    i =  i + parseInt(element);
-                });
-                let average = i /result[1].length;
-                console.log('average: ', i);
-                Session.set('average', average);
-                console.log('data return : ', durationResult);
-                Session.set('graphData', durationResult);
-                Session.set('categories', result[2]);
-            }
-        })
-    },
-
-});
 

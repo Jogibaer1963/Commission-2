@@ -12,58 +12,6 @@
     {{/if}}
 </template>
 
-<template name="statistics">
-
-        <div class="chosen-picker">
-            <h3>Selected Picker: {{analyzePicker}}</h3>
-        </div>
-
-    <div class="areas-total">
-        <h3>Picked today: {{areasCount}},  average picking time: {{average}} min</h3>
-    </div>
-
-    <div class="pickers-table ">
-        <table class="analyze-table">
-            <thead class="analyze-table-head">
-            <tr>
-                <th class=""><strong>Picker</strong></th>
-            </tr>
-            </thead>
-            <tbody class="analyze-table-body">
-            {{#each pickersTable}}
-            <tr class="pickersArea  {{selectedPicker}}">
-                <td class="">{{_id}}</td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-
-    <div class="supplied-area-table">
-        <table>
-            <thead>
-            <tr>
-                <th><strong>Supplied Areas</strong></th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each detectedSupplyAreas}}
-            <tr class="analyzeArea {{selectedSupplyArea}}">
-                <td class="spacing">{{_id}}</td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-
-    <div class="diagram-1">
-        <div  id="chart_1">{{dayChart}}</div>
-    </div>
-
-
-
-</template>
-
 <template name="dailyResult">
 
     <div class="daily-picks">
@@ -74,8 +22,26 @@
         <div  id="chart_1">{{dayChart}}</div>
     </div>
 
-    <div class="diagram-2" >
-        <div id="chart_2">{{averagePerCart}}</div>
+    <!-- Last 5 Days overview, including todays result -->
+
+    <div class="running-result">
+        <h3>Annual Overview</h3>
+        <div class="diagram-2">
+            <div  id="chart_2">{{runningAnnualResult}}</div>
+        </div>
     </div>
 
+    <!--
+    <div class="overview-month">
+        <h3>Overview this month</h3>
+    </div>
+
+    <div class="overview-last-month">
+        <h3>Overview last month</h3>
+    </div>
+
+    <div class="overview-running-year">
+        <h3>Annual Overview</h3>
+    </div>
+-->
 </template>
