@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import {duration} from "moment";
 const Highcharts = require('highcharts');
 Meteor.subscribe('pickers');
 
@@ -21,8 +22,12 @@ Template.dailyResult.helpers({
             pickingResult[k] = element[pickingString];
             k ++;
             }
+            try {
             for (let i = 0; i <= k; i++) {
                 pickingResult[0].concat(pickingResult[i+1]);
+            }
+            } catch {
+                console.log('error')
             }
         });
         pickingResult.forEach((element) => {
@@ -35,46 +40,72 @@ Template.dailyResult.helpers({
             supplyPerDay.push(element.supplyArea);
         });
         let dayResult = [];
-        let durationPerDay = [];
+        let averagePerSupply = [];
+        let loopArray = [];
         let uniqueAreas = supplyPerDay.filter((x, i, a) => a.indexOf(x) === i);
         for (let k = 0; k <= uniqueAreas.length - 1; k++) {
-            let counter = 1;
+            let counter = 0;
                 resultOfTheDay.forEach((element) => {
                     if (uniqueAreas[k] === element.supplyArea) {
-                        durationPerDay.push(element.duration);
+                        loopArray.push(element.duration);
                         counter++;
+                    } else {
+                        console.log('else');
                     }
                 });
+            let summary =  (((loopArray.reduce((a,b) => a + b, 0)) / loopArray.length) / 60000).toFixed(0);
+            averagePerSupply.push(parseInt(summary));
+            loopArray = [];
             dayResult.push(counter);
-        }
+       }
+        console.log('Average per supply ', averagePerSupply);
+        Session.set('averagePerSupply', averagePerSupply);
         Session.set('dayResult', dayResult);
         Session.set('uniqueAreas', uniqueAreas);
-       let durationAverage = ((durationPerDay.reduce((a,b) => a + b, 0) / durationPerDay.length) / 60000).toFixed(0);
-
-
-
-
-       return {
-           dayCount:dayCount,
-           averageDuration:durationAverage
-       };
-
+        let durationAverage = averagePerSupply.reduce((a,b) => a + b, 0) / averagePerSupply.length;
+        console.log('Duration Average ', durationAverage);
+           return {
+               dayCount: dayCount,
+               averageDuration: durationAverage,
+               uniqueAreas: uniqueAreas.length
+           }
 
     },
 
     dayChart: function () {
         // Gather data:
+        let averagePerSupply = Session.get('averagePerSupply');
         let  tasksData = Session.get('dayResult');
         let categories = Session.get('uniqueAreas');
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_1', {
+
+                title: {
+                text: 'Picked carts today per Supply Area'
+            },
+
                 chart: {
+
+                    backgroundColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                        stops: [
+                            [0, '#2a2a2b'],
+                            [1, '#3e3e40']
+                        ]
+                    },
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
                     height: 300,
                     width: 900,
                     type: 'line'
                 },
+
                 yAxis: {
                     categories: [],
                     title: {enabled: true,
@@ -84,6 +115,7 @@ Template.dailyResult.helpers({
                         }
                     }
                 },
+
                 xAxis: {
                     categories: categories,
                     title: {
@@ -94,16 +126,83 @@ Template.dailyResult.helpers({
                         }
                     }
                 },
-                title: {
-                    text: 'Picked carts today per Supply Area'
-                },
-                series: [{
+
+                series: [
+                    {
+                    name: 'Carts Picked',
                     type: 'line',
                     data: tasksData
-                }]
+                }
+                ]
             });
         });
     },
+
+    averagePerCart: function () {
+        // Gather data:
+        let averagePerSupply = Session.get('averagePerSupply');
+        let  tasksData = Session.get('dayResult');
+        let categories = Session.get('uniqueAreas');
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_2', {
+
+                title: {
+                    text: 'Picked carts today per Supply Area'
+                },
+
+                chart: {
+
+                    backgroundColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                        stops: [
+                            [0, '#2a2a2b'],
+                            [1, '#3e3e40']
+                        ]
+                    },
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 300,
+                    width: 900,
+                    type: 'column'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        data: averagePerSupply
+                    }
+                ]
+            });
+        });
+    },
+
 
 
 
