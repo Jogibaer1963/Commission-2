@@ -136,9 +136,6 @@ Template.dailyResult.helpers({
             totalDuration = [];
             i = 1;
         });
-        console.log(uniqueSupplyAreas);
-        console.log(durationGraph);
-        console.log('carts ',counter);
         Session.set('carts', counter);
         Session.set('totalResultSupply', uniqueSupplyAreas);
         Session.set('totalResultDuration', durationGraph);
@@ -224,20 +221,13 @@ Template.dailyResult.helpers({
 
                 chart: {
 
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-                        stops: [
-                            [0, '#2a2a2b'],
-                            [1, '#3e3e40']
-                        ]
-                    },
                     style: {
                         fontFamily: '\'Unica One\', sans-serif'
                     },
                     plotBorderColor: '#606063',
 
 
-                    height: 300,
+                    height: 500,
                     width: 900,
                     zoomType: 'xy'
                 },
