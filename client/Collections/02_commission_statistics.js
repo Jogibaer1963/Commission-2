@@ -1,5 +1,4 @@
 import { Template } from 'meteor/templating';
-import {duration} from "moment";
 const Highcharts = require('highcharts');
 Meteor.subscribe('pickers');
 
@@ -95,6 +94,7 @@ Template.dailyResult.helpers({
         }
         let combinedArray = objectCount.flat(1);
         let uniqueTime = combinedArray.filter((x, i, a) => a.indexOf(x) === i);
+        console.log('unique time ', uniqueTime);
         uniqueTime.forEach((element) => {
             let timeObject = element;
             result.forEach((element2) => {
@@ -212,7 +212,7 @@ Template.dailyResult.helpers({
             Highcharts.chart('chart_2', {
 
                 title: {
-                    text: 'Picked carts today per Supply Area'
+                    text: 'Annual Overview of picked carts and average picking time'
                 },
 
                 tooltip: {

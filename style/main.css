@@ -861,7 +861,13 @@ table.commOverView {
 .running-result {
   left: 10em;
   position: absolute;
-  top: 50em;
+  top: 40em;
+}
+
+.admins-bar {
+  left: 30em;
+  position: absolute;
+  top: 2em;
 }
 
 .new-supply-area {

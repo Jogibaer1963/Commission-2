@@ -1,6 +1,8 @@
 <template name="admin">
     {{#if currentUser}}
-        {{> adminViewUser}}
+        {{#if isInRole 'admin'}}
+           {{> adminViewUser}}
+            {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -14,15 +16,11 @@
         <nav>
             <a class="btn btn-success"  href="/adminNewUser">New User</a>
             <a>|</a>
-            <a class="btn btn-info"  href="/supplyArea">Update Supply Area's</a>
+            <a class="btn btn-success"  href="/commissionAnalysis">Commissions Analysis</a>
             <a>|</a>
-            <a class="btn btn-default"  href="/newFiskalYear" disabled>Change Fiscal Year</a>
+            <a class="btn btn-info" href="/">Back to over view</a>
             <a>|</a>
-            <a class="btn btn-default" href="/manipulateDatabase" disabled>Manipulate Database</a>
-            <a>|</a>
-            <a  class="btn btn-success" href="/">Over View</a>
-            <a>|</a>
-            <a class="btn btn-default btn-info shippingApp" href="http://10.40.1.47:3000/admin" >Shipping App</a>
+            <a class="btn btn-default btn-danger shippingApp" href="http://10.40.1.47:3000/admin" >Switch to Shipping App</a>
 
         </nav>
     </div>

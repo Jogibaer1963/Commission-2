@@ -1,6 +1,11 @@
-<template name="supplyArea">
+<template name="commissionAnalysis">
     {{#if currentUser}}
+        {{#if isInRole 'admin'}}
         {{> supplyAreaShow}}
+        <div id="logo">
+            <img src="claas_logo.png" />
+        </div>
+            {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -8,12 +13,13 @@
 
 
 <template name="supplyAreaShow">
-    <div id="logo">
-        <img src="claas_logo.png" />
-    </div>
+
     <div class="topNav">
         <nav>
             <a class="btn btn-danger"  disabled>Manipulate Database</a>
+            <a>|</a>
+            <a class="btn btn-danger"  disabled>Manipulate Supply Areas</a>
+            <a>|</a>
             <a  class="btn btn-success" href="admin">Back to Admin</a>
         </nav>
     </div>

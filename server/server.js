@@ -427,23 +427,23 @@ if(Meteor.isServer){
                     pickingPauseStart = 0;
                     pickingPauseEnd = 0;
                 }
-                let pickingDuration = ((pickingEnd - pickersStorage.pickingStart -
-                                        (pickingPauseEnd - pickingPauseStart)) / 60000).toFixed(0);
+                let pickingDuration = (pickingEnd - pickersStorage.pickingStart -
+                                        (pickingPauseEnd - pickingPauseStart));
                 let pickingDateAndTime = pickersStorage.pickingEndDateAndTime;
                 let durationCalc = pickingDuration / machineNumbers;
                 let duration = parseInt(durationCalc);
                 let timeNow = (Date.now()/1000).toFixed(0);
-                let resultObj =  {machine: pickedMachines,
-                                  supplyArea: pickedSupplyAreaId,
-                                  pickingTime: timeNow,
-                                  duration: duration,
-                                  date: pickingDateAndTime,
-                                  pickingPauseStart: pickingPauseStart,
-                                  pickingPauseEnd: pickingPauseEnd,
-                                  multi: true};
-                let identifier = pickedSupplyAreaId + timeNow;
+                let pickingString = pickingToDay();
+                pickedMachines.forEach((element) => {
+                    let resultObj =  {machine: element,
+                        supplyArea: pickedSupplyAreaId,
+                        pickingTime: timeNow,
+                        duration: duration,
+                        date: pickingDateAndTime,
+                        multi: true};
+                     pickers.update({_id: user}, {$addToSet: {[pickingString]: resultObj}});
+                });
 
-                 pickers.update({_id: user}, {$set: {[identifier]: resultObj} } );
         },
 
         'multi-pause': (pickedMachines, pickedSupplyAreaId, status, pickingPauseStart, user) => {
