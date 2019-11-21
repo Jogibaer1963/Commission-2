@@ -1,18 +1,18 @@
-.submitAdmin {
+.submit-admin {
+  left: 65em;
   position: absolute;
-  left: 57em;
 }
 
-.totalUsers {
+.total-users {
   margin-left: 25px;
   position: absolute;
-  top: 100px;
+  top: 35em;
 }
 
-.newUser {
+.new-user {
+  margin-left: 4em;
   position: absolute;
   top: 120px;
-  margin-left: 10px;
 }
 
 #logo {
@@ -868,6 +868,23 @@ table.commOverView {
   left: 30em;
   position: absolute;
   top: 2em;
+}
+
+.pickers-head {
+  left: 5em;
+  position: absolute;
+  top: 10em;
+}
+
+.pickers-overview {
+  left: 5em;
+  position: absolute;
+  top: 15em;
+}
+
+.pickers-width {
+  text-align: center;
+  width: 120px;
 }
 
 .new-supply-area {

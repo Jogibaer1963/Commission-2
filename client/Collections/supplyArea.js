@@ -5,7 +5,7 @@ Template.supplyAreaShow.helpers({
     supplyAreaListed: () => {
         let result = supplyAreas.find().fetch();
         result.sort((a, b) => (a.supplyPosition > b.supplyPosition) ? 1: -1 );
-      //  console.log(result);
+        console.log(result);
         return result;
     },
 
@@ -16,7 +16,6 @@ Template.supplyAreaShow.helpers({
     },
 
     doubleSupplyArea: () => {
-
         let result = Session.get('processResult');
         if (result.active === true) {
             result.active = 'active'
@@ -86,7 +85,6 @@ Template.supplyAreaShow.events({
                                     loggedUser
         );
     }
-
 
 });
 

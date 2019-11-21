@@ -1,0 +1,38 @@
+<template name="adminManipulate">
+    {{#if currentUser}}
+        {{#if isInRole 'admin'}}
+            <div class="topNav">
+                <nav>
+                    <a  class="btn btn-success" href="admin">Back to Admin</a>
+                </nav>
+            </div>
+            {{> database}}
+            <div id="logo">
+                <img src="claas_logo.png" />
+            </div>
+        {{/if}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="database">
+    <div class="pickers-head">
+        <h3>Adjust Database for: {{chosenPicker}}</h3>
+    </div>
+    <div class="pickers-overview">
+        <h4>Chosen Picker</h4>
+        <table class="table table-striped table-bordered">
+            <tbody>
+            {{#each pickers}}
+                <tr class="pickersName {{selected}}">
+                    <td class="pickers-width">{{_id}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="pickers-result">
+        {{pickersResult}}
+    </div>
+</template>

@@ -1,36 +1,73 @@
 <template name="admin">
     {{#if currentUser}}
         {{#if isInRole 'admin'}}
-           {{> adminViewUser}}
+           {{> adminView}}
             {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
 </template>
 
-<template name="adminViewUser">
+<template name="adminView">
     <div id="logo">
         <img src="claas_logo.png" />
     </div>
     <div class="topNav">
         <nav>
-            <a class="btn btn-success"  href="/adminNewUser">New User</a>
+            <a class="btn btn-info"  href="/adminNewUser">New User</a>
             <a>|</a>
             <a class="btn btn-success"  href="/commissionAnalysis">Commissions Analysis</a>
             <a>|</a>
             <a class="btn btn-info" href="/">Back to over view</a>
             <a>|</a>
-            <a class="btn btn-default btn-danger shippingApp" href="http://10.40.1.47:3000/admin" >Switch to Shipping App</a>
-
+            <a class="btn btn-default btn-danger shippingApp" href="http://10.40.1.47:3000/" >Switch to Shipping App</a>
         </nav>
     </div>
-    <div class="totalUsers">
+
+</template>
+
+<template name="adminNewUser">
+    <nav class="topNav">
+        <a class="btn btn-default btn-info" href="/admin">Overview Admin</a>
+        <a>|</a>
+        <a class="btn btn-default btn-success" href="/">Over View</a>
+    </nav>
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <div class="new-user">
+        <h2>New User</h2>
+        <form class="adminRegisterNewUser">
+            <input class="omInput" name="registerUser" placeholder="User Name">
+            <input class="omInput" name="registerPassword" placeholder="Password">
+            <select name="userRole" class="omInput omInputButton"  id="selectMe">
+                <option>Admin</option>
+                <option>Logistics</option>
+                <option>Quality PDI</option>
+                <option>Repair Team</option>
+                <option>Wash Bay</option>
+                <option>Loading</option>
+                <option>Operation Supervisor</option>
+                <option>Team Lead</option>
+                <option>Picker</option>
+            </select>
+            <input type="submit" value="Register" class="adminRegister">
+            <p>Roles are</p>
+            <p>Admin = Admin or SuperUser</p>
+            <p>Logistics = mostly CTD like Mary, Amanda....</p>
+            <p>PDI = Quality Guys, the best ever...</p>
+            <p>Repair Team = JoAnn's Group for Repair Machines</p>
+            <p>Wash Bay = Thomas Nelson's group like Shawn or a temp washing the Machine</p>
+            <p>Loading = Thomas Nelson's Group like Shawn, moving the Machine to the Trailer</p>
+        </form>
+        <h1>{{result}}</h1>
+    </div>
+    <div class="total-users">
         <h2>Users Total: {{usersTotal}}</h2>
         <br>
-        <form class="submitAdmin">
+        <form class="submit-admin">
             <button type="button" class="btn btn-danger">Send</button>
         </form>
-        <br><br><br>
         <table class="blueTable tableAdminPos"  cellpadding="10">
             <thead>
             <tr>
@@ -76,43 +113,5 @@
             {{/each}}
             </tbody>
         </table>
-    </div>
-</template>
-
-<template name="adminNewUser">
-    <nav class="topNav">
-        <a class="btn" href="/admin">Overview User</a>
-        <a>|</a>
-        <a class="btn" href="/overViewUser">Over View</a>
-    </nav>
-    <div id="logo">
-        <img src="claas_logo.png" />
-    </div>
-    <div class="newUser">
-        <h2>New User</h2>
-        <form class="adminRegisterNewUser">
-            <input class="omInput" name="registerUser" placeholder="User Name">
-            <input class="omInput" name="registerPassword" placeholder="Password">
-            <select name="userRole" class="omInput omInputButton"  id="selectMe">
-                <option>Admin</option>
-                <option>Logistics</option>
-                <option>Quality PDI</option>
-                <option>Repair Team</option>
-                <option>Wash Bay</option>
-                <option>Loading</option>
-                <option>Operation Supervisor</option>
-                <option>Team Lead</option>
-                <option>Picker</option>
-            </select>
-            <input type="submit" value="Register" class="adminRegister">
-            <p>Roles are</p>
-            <p>Admin = Admin or SuperUser</p>
-            <p>Logistics = mostly CTD like Mary, Amanda....</p>
-            <p>PDI = Quality Guys, the best ever...</p>
-            <p>Repair Team = JoAnn's Group for Repair Machines</p>
-            <p>Wash Bay = Thomas Nelson's group like Shawn or a temp washing the Machine</p>
-            <p>Loading = Thomas Nelson's Group like Shawn, moving the Machine to the Trailer</p>
-        </form>
-        <h1>{{result}}</h1>
     </div>
 </template>

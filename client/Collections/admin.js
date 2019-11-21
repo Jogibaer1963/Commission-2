@@ -4,8 +4,11 @@ Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
 });
 
+Template.adminNewUser.helpers({
 
-Template.adminViewUser.helpers({
+    result: function () {
+        return Session.get('message');
+    },
 
     userResult: function () {
         return usersProfil.find().fetch();
@@ -23,34 +26,10 @@ Template.adminViewUser.helpers({
             return "selected"
         }
     }
-
-});
-
-
-Template.adminViewUser.events({
-
-    "click .submitAdmin": function (e) {
-        e.preventDefault();
-        const logOutUser = [];
-        const deleteUser = [];
-        $('input[name=logOut]:checked').each(function () {
-            logOutUser.push($(this).val());
-        });
-        Meteor.call('userManualLogout', logOutUser);
-
-        $('input[name=deleteMe]:checked').each(function () {
-            deleteUser.push($(this).val());
-        });
-        Meteor.call('userManualDelete', deleteUser);
-        document.getElementById('logOut').checked=false;
-    }
-
-
-
-
 });
 
 Template.adminNewUser.events({
+
     'submit .adminRegisterNewUser': function (event) {
         event.preventDefault();
         let roleConst = '';
@@ -81,7 +60,8 @@ Template.adminNewUser.events({
         event.target.registerPassword.value = '';
         const createdAt =  moment().format('MMMM Do YYYY, h:mm:ss a');
         const loggedUser = Meteor.user();
-        Meteor.call('newUser', userConst, passwordConst, roleConst, createdAt, loggedUser, function(err) {
+        Meteor.call('newUser', userConst, passwordConst,
+                            roleConst, createdAt, loggedUser, function(err) {
             if (err === undefined) {
                 const messageSend = 'Attention: User ' + userConst + ' successfull created';
                 Session.set('message', messageSend);
@@ -90,12 +70,23 @@ Template.adminNewUser.events({
                 Session.set('message', message);
             }
         });
+    },
+
+    "click .submit-admin": function (e) {
+        e.preventDefault();
+        const logOutUser = [];
+        const deleteUser = [];
+        $('input[name=logOut]:checked').each(function () {
+            logOutUser.push($(this).val());
+        });
+        Meteor.call('userManualLogout', logOutUser);
+
+        $('input[name=deleteMe]:checked').each(function () {
+            deleteUser.push($(this).val());
+        });
+        Meteor.call('userManualDelete', deleteUser);
+        document.getElementById('logOut').checked=false;
     }
+
 });
 
-Template.adminNewUser.helpers({
-
-    result: function () {
-        return Session.get('message');
-    }
-});
