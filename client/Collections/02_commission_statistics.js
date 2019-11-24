@@ -81,8 +81,9 @@ Template.dailyResult.helpers({
         let arraySummery = [];
         let newArray = [];
         let result = Session.get('result');
-      //  console.log(result);
+
         let resultObj = Object.keys(result);
+
         if (resultObj.length > 1) {
             for (let k = 0; k <= resultObj.length -1; k++) {
               let objectArray = result[k];
@@ -92,9 +93,9 @@ Template.dailyResult.helpers({
         } else {
           //  console.log('else')
         }
+
         let combinedArray = objectCount.flat(1);
         let uniqueTime = combinedArray.filter((x, i, a) => a.indexOf(x) === i);
-        console.log('unique time ', uniqueTime);
         uniqueTime.forEach((element) => {
             let timeObject = element;
             result.forEach((element2) => {
@@ -139,6 +140,10 @@ Template.dailyResult.helpers({
         Session.set('carts', counter);
         Session.set('totalResultSupply', uniqueSupplyAreas);
         Session.set('totalResultDuration', durationGraph);
+
+
+
+
     },
 
 

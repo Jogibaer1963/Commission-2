@@ -7,6 +7,11 @@
             <img src="claas_logo.png" />
         </div>
         {{> dailyResult}}
+            {{#if isInRole 'admin'}}
+                    <div>
+                      <a class="btn btn-danger admins-button"  href="commissionAnalysis.html">Commissions Analysis</a>
+                    </div>
+                {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
@@ -30,19 +35,6 @@
             <div  id="chart_2">{{runningAnnualResult}}</div>
         </div>
     </div>
-<!--
-    <div class="overview-month">
-        <h3>Overview this month</h3>
-    </div>
-
-    <div class="overview-last-month">
-        <h3>Overview last month</h3>
-    </div>
-
-    <div class="overview-running-year">
-        <h3>Annual Overview</h3>
-    </div>
--->
 </template>
 
 <template name="adminStatistics">

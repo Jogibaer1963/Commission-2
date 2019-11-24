@@ -765,6 +765,12 @@ table.commOverView {
   left: 2em;
 }
 
+.admins-button {
+  left: 30em;
+  position: absolute;
+  top: 2em;
+}
+
 .pickers-table {
   left: 3em;
   position: absolute;
@@ -781,12 +787,6 @@ table.commOverView {
   left: 10em;
   position: absolute;
   top: 5em;
-}
-
-.diagram-3 {
-  left: 20em;
-  position: absolute;
-  top: 60em;
 }
 
 .diagram-4 {
@@ -885,6 +885,18 @@ table.commOverView {
 .pickers-width {
   text-align: center;
   width: 120px;
+}
+
+.diagram-3 {
+  left: 20em;
+  position: absolute;
+  top: -30em;
+}
+
+.analysis-selection {
+  left: 16em;
+  position: absolute;
+  top: 40em;
 }
 
 .new-supply-area {

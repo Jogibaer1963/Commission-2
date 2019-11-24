@@ -15,9 +15,11 @@
 <template name="analysis">
     <div class="topNav">
         <nav>
+            <a class="btn btn-info" href="/commissionStatistics">Back to Statistics</a>
+            <a>|</a>
             <a class="btn btn-danger" href="adminManipulate" >Adjust Database</a>
             <a>|</a>
-            <a  class="btn btn-success" href="admin">Back to Admin</a>
+            <a class="btn btn-success" href="admin">Back to Admin</a>
         </nav>
     </div>
 </template>
@@ -41,16 +43,44 @@
     <div class="pickers-result">
         {{pickersResult}}
     </div>
-
+    <div class="running-result">
+        {{pickersAnnualResult}}
+        <div class="diagram-3">
+            <div  id="chart_3">{{pickersAnnualChartResult}}</div>
+        </div>
+    </div>
+    <div class="analysis-selection">
+            <label for="fromRange">Range from to&nbsp;</label>
+            <input type="radio" id="fromRange" name="range">
+                <br>
+            <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
+            <input type="radio" id="specificDate" name="range">
+                <br>
+            <label for="specificMonth">Specific Month</label>
+            <input type="radio" id="specificMonth" name="range">
+                {{#if fromRange}}
+                    <div>
+                        <label for="fromDate">Range from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="date" name="fromDate" id="fromDate">
+                        <label for="toDate">To</label>
+                        <input type="date" name="toDate" id="toDate">
+                        <button class="btn btn-default btn-success" type="submit">Submit</button>
+                    </div>
+                {{else if specificDate}}
+                    <div>
+                        <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="date" name="specificDate" id="specificDate">
+                        <button class="btn btn-default btn-success" type="submit">Submit</button>
+                    </div>
+                {{else if specificMonth}}
+                    <div>
+                        <label for="specificMonth">Specific Month&nbsp;</label>
+                        <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
+                        <button class="btn btn-default btn-success" type="submit">Submit</button>
+                    </div>
+                {{/if}}
+    </div>
 </template>
-
-
-
-
-
-
-
-
 
 <template name="supplyAreaShow">
     <div class="topNav">

@@ -2,6 +2,11 @@
 $base-color: #000;
 $table-head: #1cbdee;
 
+.admins-button {
+  left: 30em;
+  position: absolute;
+  top: 2em;
+}
 
 .pickers-table {
   left: 3em;
@@ -19,12 +24,6 @@ $table-head: #1cbdee;
   left: 10em;
   position: absolute;
   top: 5em;
-}
-
-.diagram-3 {
-  left: 20em;
-  position: absolute;
-  top: 60em;
 }
 
 .diagram-4 {
@@ -124,3 +123,16 @@ $table-head: #1cbdee;
   text-align: center;
   width: 120px;
 }
+
+.diagram-3 {
+  left: 20em;
+  position: absolute;
+  top: -30em;
+}
+
+.analysis-selection {
+  left: 16em;
+  position: absolute;
+  top: 40em;
+}
+
