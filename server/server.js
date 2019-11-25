@@ -611,10 +611,8 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 1;
             });
-            console.log(uniqueSupply, durationGraph, counter);
             let returnArray = [];
             returnArray.push(uniqueSupply, durationGraph, counter);
-
             return returnArray;
         },
 
