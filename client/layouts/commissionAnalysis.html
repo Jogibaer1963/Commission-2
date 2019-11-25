@@ -58,27 +58,40 @@
                 <br>
             <label for="specificMonth">Specific Month</label>
             <input type="radio" id="specificMonth" name="range">
+
                 {{#if fromRange}}
-                    <div>
-                        <label for="fromDate">Range from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="date" name="fromDate" id="fromDate">
-                        <label for="toDate">To</label>
-                        <input type="date" name="toDate" id="toDate">
-                        <button class="btn btn-default btn-success" type="submit">Submit</button>
-                    </div>
+                    <form class="choseRange">
+                        <div>
+                            <label for="fromDate">Range from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input type="date" name="fromDate" id="fromDate">
+                            <label for="toDate">To</label>
+                            <input type="date" name="toDate" id="toDate">
+                            <button class="btn btn-default btn-success" type="submit">Submit</button>
+                        </div>
+                    </form>
                 {{else if specificDate}}
-                    <div>
-                        <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input type="date" name="specificDate" id="specificDate">
-                        <button class="btn btn-default btn-success" type="submit">Submit</button>
-                    </div>
+                    <form class="choseDate">
+                        <div>
+                            <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input type="date" name="specificDate" id="specificDate">
+                            <button class="btn btn-default btn-success" type="submit">Submit</button>
+                        </div>
+                    </form>
                 {{else if specificMonth}}
-                    <div>
-                        <label for="specificMonth">Specific Month&nbsp;</label>
-                        <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
-                        <button class="btn btn-default btn-success" type="submit">Submit</button>
-                    </div>
+                    <form class="choseMonth">
+                        <div>
+                            <label for="specificMonth">Specific Month&nbsp;</label>
+                            <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
+                            <button class="btn btn-default btn-success" type="submit">Submit</button>
+                        </div>
+                    </form>
                 {{/if}}
+    </div>
+
+    <div class="month-result">
+        <div class="diagram-4">
+            <div  id="chart_4">{{pickersMonthChartResult}}</div>
+        </div>
     </div>
 </template>
 

@@ -56,19 +56,19 @@ Template.analysisOverView.helpers({
            let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
            uniqueSupplyAreas.forEach((element) => {
            //  console.log(element);
-           let i = 1;
-           annualSummary.forEach((element2) => {
-               try {
-                   if (element === element2.supplyArea) {
-                       //  console.log(element, element2.duration);
-                       totalDuration.push(element2.duration);
-                       i++
-                       //  console.log(totalDuration);
-                   } else {
-                       //       console.log('else')
+               let i = 1;
+               annualSummary.forEach((element2) => {
+                   try {
+                       if (element === element2.supplyArea) {
+                           //  console.log(element, element2.duration);
+                           totalDuration.push(element2.duration);
+                           i++
+                           //  console.log(totalDuration);
+                       } else {
+                           //       console.log('else')
+                       }
+                   } catch {
                    }
-               } catch {
-               }
            });
            let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
            counter.push(i);
@@ -151,6 +151,75 @@ Template.analysisOverView.helpers({
         });
     },
 
+    pickersMonthChartResult: function () {
+        // Gather data:
+        let averagePerSupply = Session.get('monthDuration');
+        let cartsCounter = Session.get('monthCart');
+        let categories = Session.get('monthSupply');
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_4', {
+
+                title: {
+                    text: ' Overview of picked carts and average picking time for Month'
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: averagePerSupply
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: cartsCounter
+                    }
+
+                ]
+            });
+        });
+    },
+
 });
 
 
@@ -160,6 +229,12 @@ Template.analysisOverView.events({
         e.preventDefault();
         let pickersName = this._id;
         Session.set('chosenPicker', pickersName);
+        Session.set('fromRange', false);
+        Session.set('specificDate', false);
+        Session.set('specificMonth', false);
+        Session.set('monthSupply',  false);
+        Session.set('monthDuration',  false);
+        Session.set('monthCart',  false);
     },
 
     'change #fromRange': (e) => {
@@ -183,6 +258,39 @@ Template.analysisOverView.events({
         Session.set('specificMonth', true);
     },
 
+    'submit .choseRange': (e) => {
+        e.preventDefault();
+        let rangeFrom = e.target.fromDate.value;
+        let rangeTo = e.target.toDate.value;
+        console.log(rangeFrom, rangeTo)
+
+    },
+
+    'submit .choseDate': (e) => {
+        e.preventDefault();
+        let day = e.target.specificDate.value;
+        console.log(day);
+
+    },
+
+    'submit .choseMonth': function (e) {
+        e.preventDefault();
+        let picker = Session.get('chosenPicker');
+        let month = e.target.specificMonth.value;
+        let chosenMonth = month.slice(5, 8);
+        let chosenYear = month.slice(0, 4);
+        let trueMonth = ('0' + (parseInt(chosenMonth) -1)).slice(-2) ; // month start with 0 ** January = 00
+        // build range for specific month dd-week day--month-year
+        let monthStart = trueMonth + chosenYear;
+        Meteor.call('chosenMonth',monthStart, picker, function(err, response) {
+            if (response) {
+                Session.set('monthSupply', response[0]);
+                Session.set('monthDuration', response[1]);
+                Session.set('monthCart', response[2]);
+            } else {
+            }
+        })
+    }
 
 
 
@@ -194,5 +302,8 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('specificMonth', false);
     Session.set('pickersAnnualResult', false);
     Session.set('chosenPicker', false);
+    Session.set('monthSupply',  false);
+    Session.set('monthDuration',  false);
+    Session.set('monthCart',  false);
 
 });

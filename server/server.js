@@ -557,6 +557,67 @@ if(Meteor.isServer){
 
         },
 
+        'chosenMonth': (trueMonth, picker) => {
+            let result = pickers.find({_id: picker}).fetch();
+            let monthResult = result[0];
+            let objResult = Object.keys(result[0]);
+            objResult.pop();
+            let monthRange = [];
+            let arraySumm = [];
+            objResult.forEach((element) => {
+                if (element.slice(4) === trueMonth) {
+                    monthRange.push(element);
+                }
+            });
+            monthRange.forEach((element) => {
+               arraySumm.push(monthResult[element]);
+            });
+            let objectSumm = [];
+            for (let i = 0; i <= arraySumm.length - 1; i++) {
+                arraySumm[i].forEach((element) => {
+                    objectSumm.push(element);
+                })
+            }
+            let supplySumm = [];
+           objectSumm.forEach((element) => {
+               supplySumm.push(element.supplyArea)
+           });
+            let totalDuration = [];
+            let durationGraph = [];
+            let counter = [];
+           let uniqueSupply = supplySumm.filter((x, i, a) => a.indexOf(x) === i);
+         //   console.log(uniqueSupply);
+
+            uniqueSupply.forEach((element) => {
+                //  console.log(element);
+                let i = 1;
+                objectSumm.forEach((element2) => {
+                    try {
+                        if (element === element2.supplyArea) {
+                            //  console.log(element, element2.duration);
+                            totalDuration.push(element2.duration);
+                            i++
+                            //  console.log(totalDuration);
+                        } else {
+                            //       console.log('else')
+                        }
+                    } catch(e) {
+                    }
+                });
+
+                let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+                counter.push(i);
+                durationGraph.push(parseInt(averageDuration));
+                totalDuration = [];
+                i = 1;
+            });
+            console.log(uniqueSupply, durationGraph, counter);
+            let returnArray = [];
+            returnArray.push(uniqueSupply, durationGraph, counter);
+
+            return returnArray;
+        },
+
 
 //------------------------------------------------------ Admin section --------------------------------------------------------------------
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
