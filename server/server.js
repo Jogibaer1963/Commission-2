@@ -1,13 +1,10 @@
-import { Random } from 'meteor/random'
-
-
 
 if(Meteor.isServer){
 
     Meteor.startup( function() {
 
         Meteor.publish("usersProfil", function() {
-            return usersProfil.find();
+            return pickers.find();
         });
 
         Meteor.publish("CommissionToDoMessage", function() {
@@ -556,6 +553,46 @@ if(Meteor.isServer){
             return returnArray;
 
         },
+
+        'chosenDate': (dateString, picker) => {
+         //   console.log(dateString, picker);
+            let errorNothingPicked = 'Nothing picked at this Date';
+            let result = pickers.find({_id: picker}).fetch();
+            let daySupply = [];
+            let dayDuration = [];
+            let durationGraph = [];
+            let counter = [];
+            let pickersDate = result[0][dateString];
+            try {
+            pickersDate.forEach((element) => {
+               daySupply.push(element.supplyArea);
+            });
+            } catch(e) {
+                console.log('error');
+                return errorNothingPicked;
+
+            }
+            let uniqueSupply = daySupply.filter((x, i, a) => a.indexOf(x) === i);
+            uniqueSupply.forEach((element) => {
+                let i = 1;
+                pickersDate.forEach((element2) => {
+                    if (element === element2.supplyArea) {
+                        dayDuration.push(element2.duration);
+                        i++
+                    } else {
+                    }
+
+                });
+                let averageDuration = ((dayDuration.reduce((a,b) => a + b, 0) / dayDuration.length) / 60000).toFixed(0);
+                counter.push(i - 1);
+                durationGraph.push(parseInt(averageDuration));
+               dayDuration = [];
+                i = 1;
+            });
+         return [uniqueSupply, durationGraph, counter];
+        },
+
+
 
         'chosenMonth': (trueMonth, picker) => {
             let result = pickers.find({_id: picker}).fetch();

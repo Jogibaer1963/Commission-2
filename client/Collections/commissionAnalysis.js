@@ -50,31 +50,31 @@ Template.analysisOverView.helpers({
            } catch {
            }
         });
-        let totalDuration = [];
+           let totalDuration = [];
            let durationGraph = [];
            let counter = [];
            let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
            uniqueSupplyAreas.forEach((element) => {
            //  console.log(element);
                let i = 1;
-               annualSummary.forEach((element2) => {
-                   try {
-                       if (element === element2.supplyArea) {
-                           //  console.log(element, element2.duration);
-                           totalDuration.push(element2.duration);
-                           i++
-                           //  console.log(totalDuration);
-                       } else {
-                           //       console.log('else')
+                   annualSummary.forEach((element2) => {
+                       try {
+                           if (element === element2.supplyArea) {
+                               //  console.log(element, element2.duration);
+                               totalDuration.push(element2.duration);
+                               i++
+                               //  console.log(totalDuration);
+                           } else {
+                               //       console.log('else')
+                           }
+                       } catch {
                        }
-                   } catch {
-                   }
-           });
-           let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
-           counter.push(i);
-           durationGraph.push(parseInt(averageDuration));
-           totalDuration = [];
-           i = 1;
+                   });
+               let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+               counter.push(i);
+               durationGraph.push(parseInt(averageDuration));
+               totalDuration = [];
+               i = 1;
        });
 
        Session.set('pickersAnnualCart', counter);
@@ -153,6 +153,8 @@ Template.analysisOverView.helpers({
 
     pickersMonthChartResult: function () {
         // Gather data:
+        let errorPickingDate = Session.get('errorPickingDate');
+        console.log(errorPickingDate);
         let averagePerSupply = Session.get('monthDuration');
         let cartsCounter = Session.get('monthCart');
         let categories = Session.get('monthSupply');
@@ -268,9 +270,27 @@ Template.analysisOverView.events({
 
     'submit .choseDate': (e) => {
         e.preventDefault();
+        let picker = Session.get('chosenPicker');
         let day = e.target.specificDate.value;
-        console.log(day);
+        let dayMonth = day.slice(8, 10);
+        let month = day.slice(5, 7) - 1;
+        let year = day.slice(0, 4);
+        let dayOfWeek = new Date(day).getDay() + 1;
+        let dateString = dayMonth + "0" + dayOfWeek + month + year;
+       Meteor.call('chosenDate', dateString, picker, function(err, response) {
+           if (response) {
+               if (response === '\'Nothing picked at this Date\'') {
+                   Session.set('errorPickingDate', 'Nothing picked at this Date')
+                   console.log('response', response)
+               } else {
+               Session.set('monthSupply', response[0]);
+               Session.set('monthDuration', response[1]);
+               Session.set('monthCart', response[2]);
+               }
+           } else {
 
+           }
+       })
     },
 
     'submit .choseMonth': function (e) {
