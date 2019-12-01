@@ -57,21 +57,18 @@ if(Meteor.isServer){
 
         // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
 
-        'updatePositionSupplyArea': (newUpArea, updatePosition, loggedUser) => {
+        'updatePositionSupplyArea': (newUpArea, updatePosition) => {
             let newPos = parseInt(updatePosition);
             let newArea = newUpArea.toString();
 
-            // build object for the updated Area
-            let newObject = {"_id": newUpArea[0], "supplyPosition": newPos};
-
-         // Fallunterscheidung existiert nummer oder nicht
+         // number exists or not
 
             let supplyAreaArray = supplyAreas.find().fetch();
             let collectedSupplyPos = supplyAreaArray.map(findArea => findArea.supplyPosition);
             let foundOne = collectedSupplyPos.find((e) => e === newPos);
             let arrayLength = supplyAreaArray.length;
 
-         // Nummer nicht existent, speichern der neuen Area
+         // number not exists, store new area
 
             if(typeof foundOne === 'undefined') {
 
@@ -92,21 +89,18 @@ if(Meteor.isServer){
                     }
                 }
 
-
-
             } else {
 
-         // Nummer existiert, prüfen ob nach oben oder nach unten verschoben wird
+                // Number exists, check if move up or down
 
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
                 let oldIndex = supplyAreaArray.map((e) => {return e._id}).indexOf(newArea);
                 let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos);
-                let oldPos = supplyAreaArray[oldIndex].supplyPosition;
                 let indexDiff = newIndex - oldIndex;
 
 
-                if (indexDiff > 0 ) {  // nach oben
-                 // neue Position wird an die Area vergeben
+                if (indexDiff > 0 ) {  // move up
+                 // new position assigned to area
                 supplyAreaArray[oldIndex].supplyPosition = newPos;
                 let counter = 1;
                 for (let i = 0; i <= indexDiff - 1; i++ ){
@@ -115,10 +109,10 @@ if(Meteor.isServer){
                 }
                 supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
 
-                } else if (indexDiff < 0) {   // nach unten
+                } else if (indexDiff < 0) {   // move down
                     let posIndexDiff = Math.abs(indexDiff);
 
-                    // neue Position wird an die Area vergeben
+                    // new position assigned to area
                     supplyAreaArray[oldIndex].supplyPosition = newPos;
 
                     let counter = 1;
@@ -173,6 +167,11 @@ if(Meteor.isServer){
             }
         },
 
+        'deactivateMachine': (machineCompleted) => {
+            machineCommTable.update({machineId: machineCompleted}, {$set: {active: false}});
+
+        },
+
         'removeCommMachine': function (removeMachine) {
             machineCommTable.remove({_id: removeMachine});
         },
@@ -205,6 +204,7 @@ if(Meteor.isServer){
         },
 
         'finishedPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
+
             let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a');
             let pickingEndTime = Date.now();
             pickersAtWork.remove({_id: user});
@@ -221,19 +221,20 @@ if(Meteor.isServer){
             machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
 
             const result = machineCommTable.findOne({_id: pickedMachineId});
+
             let machineId = result.machineId;
             let pickersArea = result.supplyAreas,
                 pickersResult = pickersArea.find((e) => {
                     return e._id === pickedSupplyAreaId;
                 });
-            let pickingPauseStart = pickersResult.pickingPauseStart;
-            let pickingPauseEnd = pickersResult.pickingPauseEnd;
-            if (!pickingPauseEnd) {
-                pickingPauseStart = 1;
-                pickingPauseEnd = 1;
+            let pauseStart = pickersResult.pickingPauseStart;
+            let pauseEnd = pickersResult.pickingPauseEnd;
+            if (!pauseEnd) {
+                pauseStart = 1;
+                pauseEnd = 1;
             }
             let pickingDuration = (pickersResult.pickerEnd - pickersResult.pickingStart) -
-                (pickingPauseEnd - pickingPauseStart);
+                (pauseEnd - pauseStart);
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
             let duration = parseInt(pickingDuration);
             let pickingString = pickingToDay();
@@ -292,16 +293,11 @@ if(Meteor.isServer){
             let supplyArray4 = [];
             let supplyArray5 = [];
             let supplyArray6 = [];
-            let newSet = [];
-            let newObjectSet = [];
-            /*
             let supplyArray7 = [];
             let supplyArray8 = [];
             let supplyArray9 = [];
-
-             */
-
-
+            let newSet = [];
+            let newObjectSet = [];
             // building arrays of available supply areas for max 6 machines.
             let k = 0;
             machineIds.forEach((machine) => {
@@ -341,14 +337,15 @@ if(Meteor.isServer){
                 return allNames;
             }, {});
 
-            let arr = Object.values(countedNames);
+            let arr1 = Object.values(countedNames);
+            console.log('Array 1 ', arr1);
             let key = Object.keys(countedNames);
-            let max = Math.max(...arr);
+            let max = Math.max(...arr1);
             let i = 0;
 
             // create array with available areas and store it in pickersATWork
 
-            arr.forEach((element) => {
+            arr1.forEach((element) => {
                  if (element >= max) {
                      let identifiedSupply = key[i];
                      newSet.push(identifiedSupply);
@@ -551,45 +548,49 @@ if(Meteor.isServer){
             });
             returnArray.push(areasCount, dateArray, timestamp);
             return returnArray;
-
         },
 
         'chosenDate': (dateString, picker) => {
          //   console.log(dateString, picker);
-            let errorNothingPicked = 'Nothing picked at this Date';
             let result = pickers.find({_id: picker}).fetch();
             let daySupply = [];
             let dayDuration = [];
             let durationGraph = [];
             let counter = [];
+            let searchResult = 0;
             let pickersDate = result[0][dateString];
             try {
             pickersDate.forEach((element) => {
                daySupply.push(element.supplyArea);
+                searchResult = 1;
             });
             } catch(e) {
-                console.log('error');
-                return errorNothingPicked;
-
+               // console.log('error in loop');
+                searchResult = 0;
             }
             let uniqueSupply = daySupply.filter((x, i, a) => a.indexOf(x) === i);
             uniqueSupply.forEach((element) => {
-                let i = 1;
+                let i = 0;
                 pickersDate.forEach((element2) => {
                     if (element === element2.supplyArea) {
                         dayDuration.push(element2.duration);
                         i++
                     } else {
                     }
-
                 });
                 let averageDuration = ((dayDuration.reduce((a,b) => a + b, 0) / dayDuration.length) / 60000).toFixed(0);
-                counter.push(i - 1);
+                counter.push(i);
                 durationGraph.push(parseInt(averageDuration));
                dayDuration = [];
-                i = 1;
+                i = 0;
             });
-         return [uniqueSupply, durationGraph, counter];
+            if(searchResult === 1) {
+                return [uniqueSupply, durationGraph, counter];
+            } else {
+                console.log('Nothing picked at this Date');
+                return 'Nothing picked at this Date';
+            }
+
         },
 
 
@@ -627,7 +628,7 @@ if(Meteor.isServer){
 
             uniqueSupply.forEach((element) => {
                 //  console.log(element);
-                let i = 1;
+                let i = 0;
                 objectSumm.forEach((element2) => {
                     try {
                         if (element === element2.supplyArea) {
@@ -646,7 +647,7 @@ if(Meteor.isServer){
                 counter.push(i);
                 durationGraph.push(parseInt(averageDuration));
                 totalDuration = [];
-                i = 1;
+                i = 0;
             });
             let returnArray = [];
             returnArray.push(uniqueSupply, durationGraph, counter);
@@ -724,7 +725,7 @@ if(Meteor.isServer){
         userActions.insert({user: loggedUser, action: action, timeStamp: timeStamp});
       }
 
-    function pickingToDay (dateString) {
+    function pickingToDay () {
         let today = Date.now();
         let timeResult = new Date(today);
         let pickingMonth = timeResult.getMonth();

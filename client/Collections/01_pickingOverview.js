@@ -14,10 +14,42 @@ Template.machine_picking_list.helpers({
     },
 
     machineList: () => {
-        return machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
+        return machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
+    },
+
+    inactiveMachineList: () => {
+        return machineCommTable.find({active: false}).fetch();
+    },
+
+    'selectedMachine': function(){
+        const commMachine = this.machineId;
+        const selectedMachine = Session.get('selectedMachine');
+        if (selectedMachine === commMachine) {
+            Session.set('commMachine', selectedMachine);
+            return "selectedMachine";
+        }
     },
 
 });
+
+Template.machine_picking_list.events({
+
+    'click .commissionMachine': function (e) {
+            e.preventDefault();
+            let selectedMachine = this.machineId;
+            Session.set('selectedMachine', selectedMachine);
+    },
+
+    'click .buttonComplete': (e) => {
+        e.preventDefault();
+        let machineCompleted = Session.get('selectedMachine');
+        console.log(machineCompleted);
+        Meteor.call('deactivateMachine', machineCompleted);
+    },
+
+
+});
+
 
 Template.tabletEntry.events({
 

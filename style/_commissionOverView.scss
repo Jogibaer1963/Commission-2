@@ -1,15 +1,44 @@
 
 
 .commNav {
-  position: relative;
   left: 50em;
+  position: relative;
   top: 2em;
 }
 
-.commTablet {
+.comm-tablet {
+  left: 30em;
   position: absolute;
   top: 11.5em;
-  left: 30em;
+}
+
+.comm-tablet-machine-list {
+  left: 10em;
+  position: absolute;
+  top: 20em;
+}
+
+.fixed-header tbody {
+  display: block;
+  height: 50em;
+  overflow: auto;
+  width: 100%;
+}
+
+.fixed-header thead tr {
+  display: block;
+}
+
+.header-completed {
+  left: 110em;
+  position: absolute;
+  top: 21em;
+}
+
+.inactive-machine-table {
+  left: 110em;
+  position: absolute;
+  top: 26em;
 }
 
 .commHead {

@@ -6,7 +6,6 @@
                 {{> addMachine}}
                 {{> tabletEntry}}
                 {{> machine_picking_list}}
-
             </div>
         {{/if}}
         {{#if isInRole  'Picker'}}
@@ -15,6 +14,7 @@
             {{> machine_picking_list}}
         {{/if}}
         {{#if isInRole 'teamLead'}}
+            {{> teamLeadNav}}
             {{> machine_picking_list}}
             {{> teamLead}}
             {{/if}}
@@ -41,20 +41,25 @@
         <button class="btn btn-success" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger removeMachine" type="button">Delete</button>
+
 </template>
 
 <template name="tabletEntry">
-    <div class="commTablet">
+    <div class="comm-tablet">
         <button type="button" class="btn btn-success btn-primary buttonToTablet">Tablet entry</button>
     </div>
 </template>
 
 
 <template name="machine_picking_list">
-
+    {{#if isInRole 'admin'}}
+            <div class="comm-tablet-machine-list">
+                <button type="button" class="btn btn-danger btn-primary buttonComplete">Mark Machine as complete</button>
+            </div>
+        {{/if}}
     <div class="machineCommissionTable">
         <div class="">
-            <table class="table table-header-rotated">
+            <table class="table table-header-rotated fixed-header">
                 <thead>
                 <tr>
                     <th class="pdiMachineField"><strong>Machine Id</strong></th>
@@ -81,6 +86,27 @@
             </table>
         </div>
     </div>
+    <div class="header-completed">
+        <h4>Completed Machines</h4>
+    </div>
+       <div class="inactive-machine-table">
+            <table class="table fixed-header">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each inactiveMachineList}}
+                    <tr class="commissionMachine {{selectedMachine}}">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="pdiShipDate">{{inLineDate}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
 </template>
 
 <template name="teamLead">

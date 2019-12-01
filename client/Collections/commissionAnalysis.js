@@ -1,6 +1,8 @@
 Meteor.subscribe('pickers');
 const Highcharts = require('highcharts');
 
+Session.set('errorPickingDate', false);
+
 Template.analysisOverView.helpers({
 
     pickers: () => {
@@ -56,7 +58,7 @@ Template.analysisOverView.helpers({
            let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
            uniqueSupplyAreas.forEach((element) => {
            //  console.log(element);
-               let i = 1;
+               let i = 0;
                    annualSummary.forEach((element2) => {
                        try {
                            if (element === element2.supplyArea) {
@@ -74,7 +76,7 @@ Template.analysisOverView.helpers({
                counter.push(i);
                durationGraph.push(parseInt(averageDuration));
                totalDuration = [];
-               i = 1;
+               i = 0;
        });
 
        Session.set('pickersAnnualCart', counter);
@@ -151,20 +153,36 @@ Template.analysisOverView.helpers({
         });
     },
 
+
+
     pickersMonthChartResult: function () {
         // Gather data:
+
         let errorPickingDate = Session.get('errorPickingDate');
-        console.log(errorPickingDate);
-        let averagePerSupply = Session.get('monthDuration');
-        let cartsCounter = Session.get('monthCart');
-        let categories = Session.get('monthSupply');
+        console.log('error', errorPickingDate);
+
+            console.log('false error day', errorPickingDate);
+
+            console.log('in drawing mode');
+        let monthName = Session.get('monthName');
+        let averagePerSupply = Session.get('Duration');
+        let cartsCounter = Session.get('Cart');
+        let categories = Session.get('Supply');
+        let titleText = '';
+
+        if(errorPickingDate) {
+            titleText = errorPickingDate;
+        } else {
+             titleText = ' Overview of picked carts and average picking time for ' + monthName;
+        }
+
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_4', {
 
                 title: {
-                    text: ' Overview of picked carts and average picking time for Month'
+                    text: titleText
                 },
 
                 tooltip: {
@@ -220,7 +238,9 @@ Template.analysisOverView.helpers({
                 ]
             });
         });
+
     },
+
 
 });
 
@@ -276,16 +296,22 @@ Template.analysisOverView.events({
         let month = day.slice(5, 7) - 1;
         let year = day.slice(0, 4);
         let dayOfWeek = new Date(day).getDay() + 1;
+        if(dayOfWeek === 7) {
+            dayOfWeek = 0;
+        }
+        console.log(dayOfWeek);
         let dateString = dayMonth + "0" + dayOfWeek + month + year;
        Meteor.call('chosenDate', dateString, picker, function(err, response) {
            if (response) {
-               if (response === '\'Nothing picked at this Date\'') {
-                   Session.set('errorPickingDate', 'Nothing picked at this Date')
+               console.log(response);
+               if (response === 'Nothing picked at this Date') {
+                   Session.set('errorPickingDate', 'Nothing picked at this Date');
                    console.log('response', response)
                } else {
-               Session.set('monthSupply', response[0]);
-               Session.set('monthDuration', response[1]);
-               Session.set('monthCart', response[2]);
+               Session.set('Supply', response[0]);
+               Session.set('Duration', response[1]);
+               Session.set('Cart', response[2]);
+               console.log('arrays sent')
                }
            } else {
 
@@ -295,18 +321,23 @@ Template.analysisOverView.events({
 
     'submit .choseMonth': function (e) {
         e.preventDefault();
+        let monthName = ['January', 'February', 'March', 'April', 'May', 'June',
+                         'July', 'August', 'September', 'October', 'November', 'December'];
         let picker = Session.get('chosenPicker');
         let month = e.target.specificMonth.value;
+        console.log(month);
         let chosenMonth = month.slice(5, 8);
         let chosenYear = month.slice(0, 4);
         let trueMonth = ('0' + (parseInt(chosenMonth) -1)).slice(-2) ; // month start with 0 ** January = 00
+        console.log(trueMonth, monthName[chosenMonth - 1]);
+        Session.set('monthName', monthName[chosenMonth - 1]);
         // build range for specific month dd-week day--month-year
         let monthStart = trueMonth + chosenYear;
         Meteor.call('chosenMonth',monthStart, picker, function(err, response) {
             if (response) {
-                Session.set('monthSupply', response[0]);
-                Session.set('monthDuration', response[1]);
-                Session.set('monthCart', response[2]);
+                Session.set('Supply', response[0]);
+                Session.set('Duration', response[1]);
+                Session.set('Cart', response[2]);
             } else {
             }
         })
@@ -322,8 +353,9 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('specificMonth', false);
     Session.set('pickersAnnualResult', false);
     Session.set('chosenPicker', false);
-    Session.set('monthSupply',  false);
-    Session.set('monthDuration',  false);
-    Session.set('monthCart',  false);
+    Session.set('Supply',  false);
+    Session.set('Duration',  false);
+    Session.set('Cart',  false);
+    Session.set('errorPickingDate', false);
 
 });

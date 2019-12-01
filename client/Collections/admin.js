@@ -11,7 +11,9 @@ Template.adminNewUser.helpers({
     },
 
     userResult: function () {
+        console.log('users');
         return usersProfil.find().fetch();
+
     },
 
     usersTotal: function () {
