@@ -40,13 +40,22 @@ Template.analysisOverView.helpers({
         try {
         let result = sessionResult[0];
         let resultObj = Object.keys(result);
-        resultObj.pop();
+        for (let i = 0; i < resultObj.length; i++) {
+            if (resultObj[i] === "_id") {
+                resultObj.splice(i, 1);
+                i--;
+            }
+        }
+
+
+        console.log(resultObj);
         resultObj.forEach((element) => {
            arraySummery.push(result[element]);
         });
         } catch {}
         let annualSummary = arraySummery.flat(1);
         annualSummary.forEach((element) => {
+
            try {
                newArray.push(element.supplyArea);
            } catch {
@@ -55,30 +64,31 @@ Template.analysisOverView.helpers({
            let totalDuration = [];
            let durationGraph = [];
            let counter = [];
-           let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
+           let uniqueSupplyAreas = newArray.filter((x, i,a) => a.indexOf(x) === i);
            uniqueSupplyAreas.forEach((element) => {
-           //  console.log(element);
+        //     console.log(element);
                let i = 0;
                    annualSummary.forEach((element2) => {
                        try {
                            if (element === element2.supplyArea) {
-                               //  console.log(element, element2.duration);
+                            //    console.log(element, element2.duration);
                                totalDuration.push(element2.duration);
-                               i++
-                               //  console.log(totalDuration);
+                               i++;
+                           //     console.log(totalDuration);
                            } else {
-                               //       console.log('else')
+                                     console.log('else')
                            }
                        } catch {
                        }
                    });
                let averageDuration = ((totalDuration.reduce((a,b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+           //    console.log('duration: ', averageDuration);
                counter.push(i);
                durationGraph.push(parseInt(averageDuration));
                totalDuration = [];
                i = 0;
        });
-
+       // console.log(uniqueSupplyAreas);
        Session.set('pickersAnnualCart', counter);
        Session.set('pickersAnnualSupplyAreas', uniqueSupplyAreas);
        Session.set('pickersAnnualDuration', durationGraph);
@@ -90,6 +100,7 @@ Template.analysisOverView.helpers({
         let averagePerSupply = Session.get('pickersAnnualDuration');
         let cartsCounter = Session.get('pickersAnnualCart');
         let categories = Session.get('pickersAnnualSupplyAreas');
+        console.log(averagePerSupply, cartsCounter, categories);
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
