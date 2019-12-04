@@ -81,9 +81,7 @@ Template.dailyResult.helpers({
         let arraySummery = [];
         let newArray = [];
         let result = Session.get('result');
-
         let resultObj = Object.keys(result);
-
         if (resultObj.length > 1) {
             for (let k = 0; k <= resultObj.length -1; k++) {
               let objectArray = result[k];
@@ -93,8 +91,15 @@ Template.dailyResult.helpers({
         } else {
           //  console.log('else')
         }
-
         let combinedArray = objectCount.flat(1);
+        // eliminate _id
+        for (let i = 0; i < combinedArray.length; i++) {
+            if (combinedArray[i] === "_id") {
+                combinedArray.splice(i, 1);
+                i--;
+            }
+        }
+       // console.log(combinedArray);
         let uniqueTime = combinedArray.filter((x, i, a) => a.indexOf(x) === i);
         uniqueTime.forEach((element) => {
             let timeObject = element;

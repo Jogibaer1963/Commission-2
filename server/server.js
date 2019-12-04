@@ -599,7 +599,12 @@ if(Meteor.isServer){
             let result = pickers.find({_id: picker}).fetch();
             let monthResult = result[0];
             let objResult = Object.keys(result[0]);
-            objResult.pop();
+            for (let i = 0; i < objResult.length; i++) {
+                if (objResult[i] === "_id") {
+                    objResult.splice(i, 1);
+                    i--;
+                }
+            }
             let monthRange = [];
             let arraySumm = [];
             objResult.forEach((element) => {

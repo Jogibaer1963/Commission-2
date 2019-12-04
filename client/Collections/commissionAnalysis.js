@@ -46,9 +46,7 @@ Template.analysisOverView.helpers({
                 i--;
             }
         }
-
-
-        console.log(resultObj);
+       // console.log(resultObj);
         resultObj.forEach((element) => {
            arraySummery.push(result[element]);
         });
@@ -76,7 +74,7 @@ Template.analysisOverView.helpers({
                                i++;
                            //     console.log(totalDuration);
                            } else {
-                                     console.log('else')
+                                 //    console.log('else')
                            }
                        } catch {
                        }
@@ -100,7 +98,7 @@ Template.analysisOverView.helpers({
         let averagePerSupply = Session.get('pickersAnnualDuration');
         let cartsCounter = Session.get('pickersAnnualCart');
         let categories = Session.get('pickersAnnualSupplyAreas');
-        console.log(averagePerSupply, cartsCounter, categories);
+     //   console.log(averagePerSupply, cartsCounter, categories);
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -170,11 +168,11 @@ Template.analysisOverView.helpers({
         // Gather data:
 
         let errorPickingDate = Session.get('errorPickingDate');
-        console.log('error', errorPickingDate);
+       // console.log('error', errorPickingDate);
 
-            console.log('false error day', errorPickingDate);
+        //    console.log('false error day', errorPickingDate);
 
-            console.log('in drawing mode');
+       //     console.log('in drawing mode');
         let monthName = Session.get('monthName');
         let averagePerSupply = Session.get('Duration');
         let cartsCounter = Session.get('Cart');
@@ -310,7 +308,7 @@ Template.analysisOverView.events({
         if(dayOfWeek === 7) {
             dayOfWeek = 0;
         }
-        console.log(dayOfWeek);
+       // console.log(dayOfWeek);
         let dateString = dayMonth + "0" + dayOfWeek + month + year;
        Meteor.call('chosenDate', dateString, picker, function(err, response) {
            if (response) {
@@ -336,11 +334,11 @@ Template.analysisOverView.events({
                          'July', 'August', 'September', 'October', 'November', 'December'];
         let picker = Session.get('chosenPicker');
         let month = e.target.specificMonth.value;
-        console.log(month);
+      //  console.log(month);
         let chosenMonth = month.slice(5, 8);
         let chosenYear = month.slice(0, 4);
         let trueMonth = ('0' + (parseInt(chosenMonth) -1)).slice(-2) ; // month start with 0 ** January = 00
-        console.log(trueMonth, monthName[chosenMonth - 1]);
+    //    console.log(trueMonth, monthName[chosenMonth - 1]);
         Session.set('monthName', monthName[chosenMonth - 1]);
         // build range for specific month dd-week day--month-year
         let monthStart = trueMonth + chosenYear;
