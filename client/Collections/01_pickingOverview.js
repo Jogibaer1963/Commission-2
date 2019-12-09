@@ -16,7 +16,6 @@ Template.machine_picking_list.helpers({
     machineList: () => {
         let machineResult = [];
         let result = machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
-     //   console.log('Result : ', result);
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; i++ ) {
                if (element.supplyAreas[i].active === false) {
@@ -25,7 +24,6 @@ Template.machine_picking_list.helpers({
            }
            machineResult.push(element);
          });
-       // console.log('Final Result: ', machineResult);
         return machineResult;
 
 
