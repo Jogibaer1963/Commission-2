@@ -23,7 +23,55 @@
             <a class="btn btn-default btn-danger shippingApp" href="http://10.40.1.47:3000/" >Switch to Shipping App</a>
         </nav>
     </div>
-
+    <div class="deactivate-button">
+         <button type="button" class="btn btn-danger btn-default setInactive">Set Area inactive</button>
+    </div>
+    <div class="active-supply">
+        <h4><strong>Active Supply</strong></h4>
+        <table class="table fixed-header">
+            <thead>
+            <tr>
+                <th class="">Supply Area</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each supplyArea}}
+            <tr class="table-size area {{selectedArea}}">
+                <th>{{_id}}</th>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="reactivate-button">
+        <form class="reactivate">
+            <button class="btn btn-success btn-default reActivate">Set Area Active</button>
+        </form>
+    </div>
+    <div class="inactive-supply">
+        <h4><strong>Inactive Supply</strong></h4>
+        <table class="table fixed-header">
+            <thead>
+            <tr>
+                <th class="">Supply Area</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each inActive}}
+                <tr class="table-size inactiveArea {{selectedInactiveArea}}">
+                    <th>{{_id}}</th>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="add-area">
+        <form class="addingArea">
+            <label for="addNewArea"></label>
+            <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area">
+            <button type="submit" class="btn btn-success btn-default">Submit new Area</button>
+        </form>
+    </div>
 </template>
 
 <template name="adminNewUser">
@@ -98,7 +146,11 @@
                                 loginStatus}}" >{{services.resume.loginTokens}}</td>
                     <td class="userLogOut">
                         <label>
-                            <input class="rTableStyle" type="checkbox" name="logOut" id="logOut"  value="{{_id}}">
+                            <input class="rTableStyle"
+                                   type="checkbox"
+                                   name="logOut"
+                                   id="logOut"
+                                   value="{{_id}}">
                         </label>
                     </td>
                     <td class="userErase">

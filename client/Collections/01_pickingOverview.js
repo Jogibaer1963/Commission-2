@@ -5,7 +5,7 @@ Meteor.subscribe('machineCommTable');
 Template.machine_picking_list.helpers({
 
     supplyList: () => {
-      let result = supplyAreas.find().fetch();
+      let result = supplyAreas.find({active: true}).fetch();
        let returnResult = result.sort((a, b) => {
            return a.supplyPosition - b.supplyPosition;
        });
@@ -14,7 +14,21 @@ Template.machine_picking_list.helpers({
     },
 
     machineList: () => {
-        return machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
+        let machineResult = [];
+        let result = machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
+     //   console.log('Result : ', result);
+        result.forEach((element) => {
+           for (let i = 0; i <= element.supplyAreas.length - 1; i++ ) {
+               if (element.supplyAreas[i].active === false) {
+                   element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1)
+               }
+           }
+           machineResult.push(element);
+         });
+       // console.log('Final Result: ', machineResult);
+        return machineResult;
+
+
     },
 
     inactiveMachineList: () => {
@@ -43,7 +57,7 @@ Template.machine_picking_list.events({
     'click .buttonComplete': (e) => {
         e.preventDefault();
         let machineCompleted = Session.get('selectedMachine');
-        console.log(machineCompleted);
+     //   console.log(machineCompleted);
         Meteor.call('deactivateMachine', machineCompleted);
     },
 

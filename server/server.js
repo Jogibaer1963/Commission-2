@@ -1,10 +1,11 @@
+import {Meteor} from "meteor/meteor";
 
 if(Meteor.isServer){
 
     Meteor.startup( function() {
 
-        Meteor.publish("usersProfil", function() {
-            return pickers.find();
+        Meteor.publish("usersProfile", function() {
+            return usersProfile.find();
         });
 
         Meteor.publish("CommissionToDoMessage", function() {
@@ -34,6 +35,7 @@ if(Meteor.isServer){
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
         'addSupplyArea': (area, loggedUser) => {
+            let supplyCount = (supplyAreas.find().fetch()).length;
             const supplyStatus = 0;
      //     check if supply Area already exists, if so send error back to client
             if (area) {
@@ -45,111 +47,32 @@ if(Meteor.isServer){
                 }
             }
      //     insert new unique supply Area with position number
+
             supplyAreas.insert({_id: area,
-                                    supplyPosition: 0,
+                                    supplyPosition: supplyCount + 1,
                                     active: true,
                                     supplyStatus: supplyStatus
             });
+            let object = {_id: area,
+                          supplyPosition: parseInt(supplyCount + 1),
+                          active: true,
+                          supplyStatus: 0
+                                };
+            try {
+                machineCommTable.upsert({}, {$push: {'supplyAreas': object}}, {multi: true});
+            } catch (e) {
+                console.log(e)
+            }
+
 
             let action = 'added supply area ' + area;
-            userUpdate(loggedUser, action);
+           // userUpdate(loggedUser, action);
+
+
         },
 
         // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
 
-        'updatePositionSupplyArea': (newUpArea, updatePosition) => {
-            let newPos = parseInt(updatePosition);
-            let newArea = newUpArea.toString();
-
-         // number exists or not
-
-            let supplyAreaArray = supplyAreas.find().fetch();
-            let collectedSupplyPos = supplyAreaArray.map(findArea => findArea.supplyPosition);
-            let foundOne = collectedSupplyPos.find((e) => e === newPos);
-            let arrayLength = supplyAreaArray.length;
-
-         // number not exists, store new area
-
-            if(typeof foundOne === 'undefined') {
-
-                supplyAreas.upsert({_id: newArea}, {$set: {supplyPosition: newPos}});
-
-                // re-nummerierung der oberen Nummern
-                let arrayDiff = arrayLength - newPos;
-                if (arrayDiff > 0) {
-                    supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
-                    let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos-1);
-                    let counter = 0;
-                    for (let i = newIndex + 2; i <= arrayLength - 1; i++) {
-                        supplyAreaArray[newIndex + counter].supplyPosition = newPos + counter;
-                        let updateArea = supplyAreaArray[newIndex + counter + 1]._id;
-                        let updatePos = newPos + counter;
-                        supplyAreas.upsert({_id: updateArea}, {$set: {supplyPosition: updatePos}});
-                        counter++;
-                    }
-                }
-
-            } else {
-
-                // Number exists, check if move up or down
-
-                supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
-                let oldIndex = supplyAreaArray.map((e) => {return e._id}).indexOf(newArea);
-                let newIndex = supplyAreaArray.map((e) => {return e.supplyPosition}).indexOf(newPos);
-                let indexDiff = newIndex - oldIndex;
-
-
-                if (indexDiff > 0 ) {  // move up
-                 // new position assigned to area
-                supplyAreaArray[oldIndex].supplyPosition = newPos;
-                let counter = 1;
-                for (let i = 0; i <= indexDiff - 1; i++ ){
-                    supplyAreaArray[newIndex - i].supplyPosition = newPos + counter;
-                    counter++;
-                }
-                supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
-
-                } else if (indexDiff < 0) {   // move down
-                    let posIndexDiff = Math.abs(indexDiff);
-
-                    // new position assigned to area
-                    supplyAreaArray[oldIndex].supplyPosition = newPos;
-
-                    let counter = 1;
-                    for (let i = 0; i <= posIndexDiff - 1; i++ ){
-                        supplyAreaArray[newIndex + i].supplyPosition = newPos + counter;
-                        counter++;
-                    }
-                    supplyAreaArray.sort((a,b) => a.supplyPosition - b.supplyPosition);
-
-                }
-                // write new order to database
-                supplyAreaArray.forEach((e) => {
-                    supplyAreas.update({_id: e._id}, {$set: {supplyPosition: e.supplyPosition}});
-                });
-            }
-        },
-
-        'activateSupply': (deactivateSupply, activeSupply, loggedUser) => {
-            if (deactivateSupply) {
-                supplyAreas.upsert({_id: deactivateSupply},
-                    {$set: {active: false, supplyPosition: 0}});
-                let action = 'Deactivated area ' + deactivateSupply;
-                // updating machine table machineCommTable
-
-                // user action recorder
-                userUpdate(loggedUser, action);
-            }
-            if (activeSupply) {
-                supplyAreas.upsert({_id:activeSupply},
-                    {$set: {active: true}});
-                let action = 'Re-activated area ' + activeSupply;
-                // updating machine table machineCommTable
-
-                // user action recorder
-                userUpdate(loggedUser, action);
-            }
-        },
 
 // Adding and removing Machine, filling the database machineCommTable with pre sets
 
@@ -176,12 +99,16 @@ if(Meteor.isServer){
             machineCommTable.remove({_id: removeMachine});
         },
 
-        'removeSupply': function (removeSupplyArea) {
-            supplyAreas.remove({_id: removeSupplyArea});
+        'deactivateArea': function (area) {
+            supplyAreas.update({_id: area}, {$set: {active: false}});
+            machineCommTable.update({"supplyAreas._id": area},
+                                {$set: {"supplyAreas.$.active": false}}, {multi: true});
         },
 
-        'supplyArea': function (supplyArea) {
-            supplyAreas.insert({supplyArea: supplyArea, supplyStatus: 0});
+        'reactivateArea': function (area) {
+            supplyAreas.update({_id: area}, {$set: {active: true}});
+            machineCommTable.update({"supplyAreas._id": area},
+                {$set: {'supplyAreas.$.active': true}}, {multi: true});
         },
 
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------

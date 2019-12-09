@@ -1,4 +1,6 @@
-Meteor.subscribe("usersProfil");
+Meteor.subscribe("usersProfile");
+
+
 
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -11,13 +13,12 @@ Template.adminNewUser.helpers({
     },
 
     userResult: function () {
-        console.log('users');
-        return usersProfil.find().fetch();
+        return usersProfile.find().fetch();
 
     },
 
     usersTotal: function () {
-        let totalUsers = usersProfil.find().fetch();
+        let totalUsers = usersProfile.find().fetch();
         return totalUsers.length;
     },
 
@@ -92,3 +93,69 @@ Template.adminNewUser.events({
 
 });
 
+Template.adminView.helpers({
+
+    supplyArea: () => {
+      return supplyAreas.find({active: true}).fetch();
+    },
+
+    inActive: () => {
+        return supplyAreas.find({active: false}).fetch();
+    },
+
+    'selectedArea': function () {
+        let areaId = this._id;
+        let deactivate = Session.get('deactivateSupplyArea');
+        if (areaId === deactivate) {
+            return 'selectedArea';
+        }
+    },
+
+    'selectedInactiveArea': function () {
+        let areaId = this._id;
+        let deactivate = Session.get('reactivateSupplyArea');
+        if (areaId === deactivate) {
+            return 'selectedArea';
+        }
+    }
+
+});
+
+Template.adminView.events({
+
+   'click .area': function (e) {
+       e.preventDefault();
+       let area = this._id;
+       Session.set('deactivateSupplyArea', area);
+   },
+
+    'click .inactiveArea': function (e) {
+        e.preventDefault();
+        let area = this._id;
+        Session.set('reactivateSupplyArea', area);
+    },
+
+    'click .setInactive': (e) => {
+       e.preventDefault();
+       let area = Session.get('deactivateSupplyArea');
+       Meteor.call('deactivateArea', area);
+       Session.set('deactivateSupplyArea', false);
+    },
+
+    'click .reActivate': (e) => {
+       e.preventDefault();
+        let area = Session.get('reactivateSupplyArea');
+        Meteor.call('reactivateArea', area);
+        Session.set('reactivateSupplyArea', false);
+    },
+
+    'submit .addingArea': (e) => {
+       e.preventDefault();
+       let newArea = e.target.addNewArea.value;
+       Meteor.call('addSupplyArea', newArea);
+       target.addNewArea.value = '';
+    }
+
+
+
+});

@@ -1,591 +1,504 @@
 .submit-admin {
   left: 65em;
-  position: absolute;
-}
+  position: absolute; }
 
 .total-users {
   margin-left: 25px;
   position: absolute;
-  top: 35em;
-}
+  top: 35em; }
 
 .new-user {
   margin-left: 4em;
   position: absolute;
-  top: 120px;
-}
+  top: 120px; }
+
+.deactivate-button {
+  left: 20em;
+  position: absolute;
+  top: 10em; }
+
+.reactivate-button {
+  left: 35em;
+  position: absolute;
+  top: 10em; }
+
+.add-area {
+  left: 50em;
+  position: absolute;
+  top: 10em; }
+
+.active-supply {
+  left: 20em;
+  position: absolute;
+  top: 15em; }
+
+.inactive-supply {
+  left: 35em;
+  position: absolute;
+  top: 15em; }
+
+.table-size table {
+  height: 50px; }
 
 #logo {
   position: absolute;
   top: 4em;
-  left: 2em;
-}
+  left: 2em; }
 
 .loginImage {
-  margin-top: 100px;
-}
+  margin-top: 100px; }
 
 .userName {
   position: absolute;
   top: 150px;
-  left: 25px;
-}
+  left: 25px; }
 
 .loginPasswd {
   position: absolute;
   top: 220px;
-  left: 25px;
-}
+  left: 25px; }
 
 .loginButton {
   position: absolute;
   top: 290px;
-  left: 25px;
-}
+  left: 25px; }
 
 thead {
-  background-color: lightgrey;
-}
+  background-color: lightgrey; }
 
 table tbody, table thead {
-  display: block;
-}
+  display: block; }
 
 table tbody {
-  overflow: auto;
-}
+  overflow: auto; }
 
 table.blueTable {
-  width: 1195px;
-}
+  width: 1195px; }
 
 table.blueTable {
   border: 1px solid #a49892;
   border-collapse: collapse;
-  text-align: left;
-}
+  text-align: left; }
 
 table.blueTable td, table.blueTable th {
   border: 1px solid #AAAAAA;
-  padding: 3px 5px;
-}
+  padding: 3px 5px; }
 
 table.blueTable tbody td {
   font-size: 13px;
-  word-wrap: break-word;
-}
+  word-wrap: break-word; }
 
 table.blueTable thead {
   background: #1C6EA4;
-  border-bottom: 2px solid #444444;
-}
+  border-bottom: 2px solid #444444; }
 
 table.blueTable thead th {
   border-left: 2px solid #d0e4f5;
   color: #FFF;
   font-size: 15px;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 table.blueTable thead th:first-child {
-  border-left: none;
-}
+  border-left: none; }
 
 table.blueTable tfoot {
   font-size: 14px;
   font-weight: bold;
   color: #FFFFFF;
   background: #d6e0f5;
-  border-top: 2px solid #444444;
-}
+  border-top: 2px solid #444444; }
 
 table.blueTable tfoot td {
-  font-size: 14px;
-}
+  font-size: 14px; }
 
 table.blueTable tfoot .links {
-  text-align: right;
-}
+  text-align: right; }
 
 table.blueTable tfoot .links a {
   display: inline-block;
   background: #8f8e8c;
   color: #FFFFFF;
   padding: 2px 8px;
-  border-radius: 5px;
-}
+  border-radius: 5px; }
 
 th {
-  height: 50px;
-}
+  height: 50px; }
 
 table.tableAdminPos {
-  width: 853px;
-}
+  width: 853px; }
 
 .adminUserId {
   max-width: 170px;
-  min-width: 170px;
-}
+  min-width: 170px; }
 
 .adminUser {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .userRole {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .userCreated {
   max-width: 120px;
-  min-width: 120px;
-}
+  min-width: 120px; }
 
 .userCreatedBy {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .userLastLogin {
   max-width: 110px;
-  min-width: 110px;
-}
+  min-width: 110px; }
 
 .userIP {
   max-width: 100px;
-  min-width: 100px;
-}
+  min-width: 100px; }
 
 .userStatus {
   max-width: 60px;
-  min-width: 60px;
-}
+  min-width: 60px; }
 
 .partsOnOrder {
   max-width: 50px;
-  min-width: 50px;
-}
+  min-width: 50px; }
 
 .userLogOut {
   max-width: 50px;
   min-width: 50px;
-  text-align: center;
-}
+  text-align: center; }
 
 .userErase {
   max-width: 50px;
   min-width: 50px;
-  text-align: center;
-}
+  text-align: center; }
 
 .shippingMachines {
-  height: 100px;
-}
+  height: 100px; }
 
 .tablePdiOverview {
   position: absolute;
-  top: 300px;
-}
+  top: 300px; }
 
 .pdiMachineField {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .pdiShipDate {
   max-width: 90px;
-  min-width: 90px;
-}
+  min-width: 90px; }
 
 .pdiDestination {
   max-width: 100px;
-  min-width: 100px;
-}
+  min-width: 100px; }
 
 .pdiTransporter {
   max-width: 100px;
-  min-width: 100px;
-}
+  min-width: 100px; }
 
 .pdiTruckOnOrder {
   max-width: 70px;
-  min-width: 70px;
-}
+  min-width: 70px; }
 
 .pdiTruckDate {
   min-width: 6em;
-  max-width: 6em;
-}
+  max-width: 6em; }
 
 .truckDateCorrection {
-  min-width: 6.8em;
-}
+  min-width: 6.8em; }
 
 .pdiKitList {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .pdiComments {
   max-width: 450px;
-  min-width: 450px;
-}
+  min-width: 450px; }
 
 .pdiKitField {
   max-width: 145px;
-  min-width: 145px;
-}
+  min-width: 145px; }
 
 .pdiTireField {
   max-width: 145px;
-  min-width: 145px;
-}
+  min-width: 145px; }
 
 .pdiPDIField {
   max-width: 50px;
-  min-width: 50px;
-}
+  min-width: 50px; }
 
 .pdiRepField {
   max-width: 50px;
-  min-width: 50px;
-}
+  min-width: 50px; }
 
 .pdiVariantDescription {
   max-width: 250px;
-  min-width: 250px;
-}
+  min-width: 250px; }
 
 .pdiWashField {
   max-width: 50px;
-  min-width: 50px;
-}
+  min-width: 50px; }
 
 .pdiShipField {
   max-width: 60px;
-  min-width: 60px;
-}
+  min-width: 60px; }
 
 .pdiLocation {
   max-width: 70px;
-  min-width: 70px;
-}
+  min-width: 70px; }
 
 .pdiConfig {
   max-width: 60px;
-  min-width: 60px;
-}
+  min-width: 60px; }
 
 .pdiTrailer {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .headerKit {
   max-width: 320px;
-  min-width: 320px;
-}
+  min-width: 320px; }
 
 .pdiUser {
   max-width: 200px;
-  min-width: 200px;
-}
+  min-width: 200px; }
 
 table.headerTable {
-  width: 230px;
-}
+  width: 230px; }
 
 .headerId {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .headerShipDate {
   max-width: 90px;
-  min-width: 90px;
-}
+  min-width: 90px; }
 
 .headerStatus {
   max-width: 80px;
-  min-width: 80px;
-}
+  min-width: 80px; }
 
 .headerPos {
   position: absolute;
   left: 450px;
-  top: 300px;
-}
+  top: 300px; }
 
 .inProcess {
   animation: glowing 1500ms infinite;
-  color: transparent;
-}
+  color: transparent; }
 
 @keyframes glowing {
   0% {
     background-color: #AA3939;
-    box-shadow: 0 0 3px #AA5939;
-  }
+    box-shadow: 0 0 3px  #AA5939; }
   50% {
     background-color: #FFB232;
-    box-shadow: 0 0 10px #FFB232;
-  }
+    box-shadow: 0 0 10px #FFB232; }
   100% {
     background-color: #FFE800;
-    box-shadow: 0 0 3px #FFE800;
-  }
-}
+    box-shadow: 0 0 3px #FFE800; } }
 @keyframes Siglowing {
   0% {
     background-color: #481317;
-    box-shadow: 0 0 3px #AA5939;
-  }
+    box-shadow: 0 0 3px  #AA5939; }
   50% {
     background-color: #cb2aff;
-    box-shadow: 0 0 10px #ffd855;
-  }
+    box-shadow: 0 0 10px #ffd855; }
   100% {
     background-color: #1cbdee;
-    box-shadow: 0 0 3px #ec67ff;
-  }
-}
+    box-shadow: 0 0 3px #ec67ff; } }
 .not-active {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
-  color: black;
-}
+  color: black; }
 
 .repairNavButton {
   position: relative;
-  left: 40em;
-}
+  left: 40em; }
 
 .commissionHeadNav {
   position: absolute;
   top: 2em;
-  left: 35em;
-}
+  left: 35em; }
 
 .templateNav {
   left: 40em;
   position: absolute;
-  top: 2em;
-}
+  top: 2em; }
 
 .buttonNotWorking {
-  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px);
-}
+  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px); }
 
 table.toDoListTable {
   margin-left: 2.5em;
   position: relative;
   top: 14em;
-  width: 60.5em;
-}
+  width: 60.5em; }
 
 .to-do-message {
   left: 2.2em;
   position: relative;
-  top: 13em;
-}
+  top: 13em; }
 
 .adminLopMessage {
   left: 70em;
   position: absolute;
-  top: 16em;
-}
+  top: 16em; }
 
 .text-box {
-  width: 480px;
-}
+  width: 480px; }
 
 .commissionTablet {
   position: absolute;
   top: 5em;
-  left: 2em;
-}
+  left: 2em; }
 
 .chooseMachineTable {
   left: 1em;
   position: absolute;
-  top: 18em;
-}
+  top: 18em; }
 
 .commissionHeadTab {
   position: absolute;
   top: 2em;
-  left: 3em;
-}
+  left: 3em; }
 
 .marginLeft {
-  margin-left: 1em;
-}
+  margin-left: 1em; }
 
 .machineTablet {
   color: #71f323;
   white-space: nowrap;
-  width: 9em;
-}
+  width: 9em; }
 
 .tabletUser {
   color: #D0E4F5;
-  margin-left: 1em;
-}
+  margin-left: 1em; }
 
 .pickedMachineField {
-  width: 2em;
-}
+  width: 2em; }
 
 .pickedMachine {
-  z-index: 3;
-}
+  z-index: 3; }
 
 .bodyHeight {
-  height: 250px;
-}
+  height: 250px; }
 
 .supplyAreaTable {
   left: 23em;
   position: absolute;
-  top: -2em;
-}
+  top: -2em; }
 
 table.supply-table {
   height: 50em;
   position: absolute;
   top: 20em;
-  width: 22em;
-}
+  width: 22em; }
 
 .supplyTableHeight {
-  height: 45em;
-}
+  height: 45em; }
 
 .commissionInitials {
   position: relative;
   left: 1.5em;
-  width: 5em;
-}
+  width: 5em; }
 
 .supplyExecuteField {
   color: #D0E4F5;
   left: 35em;
   position: absolute;
-  top: -1em;
-}
+  top: -1em; }
 
 .supplyButtonField {
   left: 25em;
   position: absolute;
-  top: 30em;
-}
+  top: 30em; }
 
 .commStart {
-  float: left;
-}
+  float: left; }
 
 .commPause {
   left: 10em;
-  position: absolute;
-}
+  position: absolute; }
 
 .commResume {
   float: left;
   left: 10em;
   position: absolute;
-  top: 5em;
-}
+  top: 5em; }
 
 .commFinished {
-  left: -0.2em;
+  left: -.2em;
   position: absolute;
-  top: 5em;
-}
+  top: 5em; }
 
 .cancelRequest {
   width: 240px;
-  margin-bottom: 10px;
-}
+  margin-bottom: 10px; }
 
 .cancellationRequest {
   position: relative;
-  top: 15em;
-}
+  top: 15em; }
 
 .tabletHeader {
   left: -7em;
   position: absolute;
-  width: 21em;
-}
+  width: 21em; }
 
 .machine-id-header {
   font-size: 50px;
   left: 4em;
   position: absolute;
-  top: -0.1em;
-}
+  top: -.1em; }
 
 .supplyIdHeader {
   font-size: 50px;
   position: absolute;
-  top: 2em;
-}
+  top: 2em; }
 
 .text-supply {
-  width: 50em;
-}
+  width: 50em; }
 
 .toggle-supply {
   left: 43em;
   position: absolute;
-  top: 13em;
-}
+  top: 13em; }
 
 .comm-in-process {
   animation: glowing 1500ms infinite;
   color: #000;
-  opacity: 0.4;
-  pointer-events: none;
-}
+  opacity: .4;
+  pointer-events: none; }
 
 @keyframes glowing {
   0% {
     background-color: #AA3939;
-    box-shadow: 0 0 3px #AA5939;
-  }
+    box-shadow: 0 0 3px  #AA5939; }
   50% {
     background-color: #FFB232;
-    box-shadow: 0 0 10px #FFB232;
-  }
+    box-shadow: 0 0 10px #FFB232; }
   100% {
     background-color: #FFE800;
-    box-shadow: 0 0 3px #FFE800;
-  }
-}
+    box-shadow: 0 0 3px #FFE800; } }
 .arrowDown {
   position: absolute;
   display: flex;
-  left: 4em;
-}
+  left: 4em; }
 
 .arrowSide {
   transform: rotate(-90deg);
   position: absolute;
   top: 35em;
   left: 18em;
-  display: flex;
-}
+  display: flex; }
 
 .arrowSide_2 {
   transform: rotate(-90deg);
   position: absolute;
   top: 35em;
   left: 15em;
-  display: flex;
-}
+  display: flex; }
 
 .chevron {
   position: absolute;
@@ -593,149 +506,121 @@ table.supply-table {
   height: 0.48rem;
   opacity: 0;
   transform: scale(0.5);
-  animation: move-chevron 3s ease-out infinite;
-}
+  animation: move-chevron 3s ease-out infinite; }
 
 .chevron:first-child {
-  animation: move-chevron 3s ease-out 1s infinite;
-}
+  animation: move-chevron 3s ease-out 1s infinite; }
 
 .chevron:nth-child(2) {
-  animation: move-chevron 3s ease-out 2s infinite;
-}
+  animation: move-chevron 3s ease-out 2s infinite; }
 
 .chevron:before,
 .chevron:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   height: 100%;
   width: 50%;
-  background: #dd7e1f;
-}
+  background: #dd7e1f; }
 
 .chevron:before {
   left: 0;
-  transform: skewY(30deg);
-}
+  transform: skewY(30deg); }
 
 .chevron:after {
   right: 0;
   width: 50%;
-  transform: skewY(-30deg);
-}
+  transform: skewY(-30deg); }
 
 @keyframes move-chevron {
   25% {
-    opacity: 1;
-  }
+    opacity: 1; }
   33.3% {
     opacity: 1;
-    transform: translateY(2.28rem);
-  }
+    transform: translateY(2.28rem); }
   66.6% {
     opacity: 1;
-    transform: translateY(3.12rem);
-  }
+    transform: translateY(3.12rem); }
   100% {
     opacity: 0;
-    transform: translateY(4.8rem) scale(0.5);
-  }
-}
+    transform: translateY(4.8rem) scale(0.5); } }
 .commNav {
   left: 50em;
   position: relative;
-  top: 2em;
-}
+  top: 2em; }
 
 .comm-tablet {
   left: 30em;
   position: absolute;
-  top: 11.5em;
-}
+  top: 11.5em; }
 
 .comm-tablet-machine-list {
   left: 10em;
   position: absolute;
-  top: 20em;
-}
+  top: 20em; }
 
 .fixed-header tbody {
   display: block;
   height: 50em;
   overflow: auto;
-  width: 100%;
-}
+  width: 100%; }
 
 .fixed-header thead tr {
-  display: block;
-}
+  display: block; }
 
 .header-completed {
   left: 110em;
   position: absolute;
-  top: 21em;
-}
+  top: 21em; }
 
 .inactive-machine-table {
   left: 110em;
   position: absolute;
-  top: 26em;
-}
+  top: 26em; }
 
 .commHead {
   position: relative;
   left: 20em;
   font-weight: bolder;
   font-size: x-large;
-  margin-bottom: 5em;
-}
+  margin-bottom: 5em; }
 
 .machineCommissionTable {
   left: 10em;
   position: absolute;
-  top: 26em;
-}
+  top: 26em; }
 
 .commMachineField {
-  width: 5em;
-}
+  width: 5em; }
 
 .toggleButton {
   position: absolute;
   top: 22em;
-  left: 80em;
-}
+  left: 80em; }
 
 .removeMachine {
   position: relative;
   left: 50em;
-  top: 7.5em;
-}
+  top: 7.5em; }
 
 .inLineDate {
   position: absolute;
-  top: -0.1em;
-}
+  top: -.1em; }
 
 table.commOverView {
   left: 2em;
   position: absolute;
-  top: 20em;
-}
+  top: 20em; }
 
 .alarmHead {
   position: absolute;
-  top: -4em;
-}
+  top: -4em; }
 
 .tableSizeDate {
-  width: 8em;
-}
+  width: 8em; }
 
 .table-header-rotated th.row-header {
-  width: auto;
-}
+  width: auto; }
 
 .table-header-rotated td {
   width: 40px;
@@ -743,8 +628,7 @@ table.commOverView {
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
   vertical-align: middle;
-  text-align: center;
-}
+  text-align: center; }
 
 .table-header-rotated th.rotate-45 {
   height: 80px;
@@ -755,8 +639,7 @@ table.commOverView {
   vertical-align: bottom;
   padding: 0;
   font-size: 12px;
-  line-height: 0.8;
-}
+  line-height: 0.8; }
 
 .table-header-rotated th.rotate-45 > div {
   position: relative;
@@ -771,8 +654,7 @@ table.commOverView {
   overflow: hidden;
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
-  border-top: 1px solid #dddddd;
-}
+  border-top: 1px solid #dddddd; }
 
 .table-header-rotated th.rotate-45 span {
   -ms-transform: skew(45deg, 0deg) rotate(315deg);
@@ -785,72 +667,60 @@ table.commOverView {
   left: -25px;
   display: inline-block;
   width: 85px;
-  text-align: left;
-}
+  text-align: left; }
 
 .averageSupply {
   position: absolute;
   top: 10em;
-  left: 2em;
-}
+  left: 2em; }
 
 .admins-button {
   left: 30em;
   position: absolute;
-  top: 2em;
-}
+  top: 2em; }
 
 .pickers-table {
   left: 3em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .diagram-1 {
   left: 20em;
   position: absolute;
-  top: 20em;
-}
+  top: 20em; }
 
 .diagram-2 {
   left: 10em;
   position: absolute;
-  top: 5em;
-}
+  top: 5em; }
 
 .diagram-4 {
   left: 30em;
   position: absolute;
-  top: 50em;
-}
+  top: 50em; }
 
 .start-analyze {
   left: 20em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .chosen-picker {
   left: 10em;
   position: absolute;
-  top: 8em;
-}
+  top: 8em; }
 
 .areas-total {
   left: 10em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .button-list {
   left: 10em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .analyze-table {
-  border: 1px solid #000;
-}
+  border: 1px solid #000; }
 
 .analyze-table-head {
   background-color: #1cbdee;
@@ -861,174 +731,145 @@ table.commOverView {
   padding-left: 4px;
   padding-top: 4px;
   text-align: center;
-  width: 65px;
-}
+  width: 65px; }
 
 .analyze-table-body {
   border: 1px solid #000;
   font-size: 16px;
   font-weight: bold;
-  text-align: center;
-}
+  text-align: center; }
 
 .supplied-area-table {
   left: 10em;
   position: absolute;
-  top: 14em;
-}
+  top: 14em; }
 
 .spacing {
-  padding: 8px;
-}
+  padding: 8px; }
 
 .daily-picks {
   left: 10em;
   position: absolute;
-  top: 14em;
-}
+  top: 14em; }
 
 .running-result {
   left: 10em;
   position: absolute;
-  top: 40em;
-}
+  top: 40em; }
 
 .admins-bar {
   left: 30em;
   position: absolute;
-  top: 2em;
-}
+  top: 2em; }
 
 .pickers-head {
   left: 5em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .pickers-overview {
   left: 5em;
   position: absolute;
-  top: 15em;
-}
+  top: 15em; }
 
 .pickers-width {
   text-align: center;
-  width: 120px;
-}
+  width: 120px; }
 
 .diagram-3 {
   left: 20em;
   position: absolute;
-  top: -30em;
-}
+  top: -30em; }
 
 .analysis-selection {
-  left: 16em;
+  left: 6em;
   position: absolute;
-  top: 40em;
-}
+  top: 40em; }
 
 .new-supply-area {
   left: 3em;
   position: absolute;
-  top: 15em;
-}
+  top: 15em; }
 
 .supply-table {
   left: 3em;
   position: absolute;
-  top: 23em;
-}
+  top: 23em; }
 
 .deactivated-supply-table {
   left: 50em;
   position: absolute;
-  top: 23em;
-}
+  top: 23em; }
 
 .supply-inactive {
   left: 12em;
   position: absolute;
-  top: 20em;
-}
+  top: 20em; }
 
 .update-button {
   left: 30em;
   position: absolute;
-  top: 23em;
-}
+  top: 23em; }
 
 .activate-button {
   left: 37em;
   position: absolute;
-  top: 27em;
-}
+  top: 27em; }
 
 .table-pos {
   text-align: center;
-  width: 5em;
-}
+  width: 5em; }
 
 .table-name {
   text-align: center;
-  width: 6em;
-}
+  width: 6em; }
 
 .double-entry {
   color: #fd034a;
   left: 10em;
   position: absolute;
-  top: 10em;
-}
+  top: 10em; }
 
 .inactive-areas {
-  background-color: #fd034a;
-}
+  background-color: #fd034a; }
 
 .active-areas {
-  background-color: #03ff84;
-}
+  background-color: #03ff84; }
 
 .multi-button {
   left: 20em;
   position: absolute;
-  top: 0.1em;
-}
+  top: .1em; }
 
 .choose-machine-table {
   float: left;
   left: 2em;
   position: relative;
-  top: 8em;
-}
+  top: 8em; }
 
 .head-liner {
   left: -2em;
   position: absolute;
   top: -6em;
-  width: 20em;
-}
+  width: 20em; }
 
 .multi-id-header {
   font-size: 30px;
   left: 6em;
   position: absolute;
-  top: -0.1em;
-}
+  top: -.1em; }
 
 .arrow-side-multi {
   display: flex;
   left: 25em;
   position: absolute;
   top: 25em;
-  transform: rotate(-90deg);
-}
+  transform: rotate(-90deg); }
 
 .supply-multi-machines {
   left: 38em;
   position: absolute;
-  top: -5em;
-}
+  top: -5em; }
 
 table.supply-multi-table {
   border: 1px solid #a49892;
@@ -1037,8 +878,7 @@ table.supply-multi-table {
   position: absolute;
   text-align: left;
   top: 20em;
-  width: 5em;
-}
+  width: 5em; }
 
 table.supply-multi-table thead {
   background: #1C6EA4;
@@ -1046,127 +886,102 @@ table.supply-multi-table thead {
   border-left: 2px solid #d0e4f5;
   color: #FFF;
   font-size: 15px;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 table.supply-multi-table tbody td {
   font-size: 13px;
-  word-wrap: break-word;
-}
+  word-wrap: break-word; }
 
 table.supply-multi-table td, table.supply-multi-table th {
   border: 1px solid #aaa;
-  padding: 3px 5px;
-}
+  padding: 3px 5px; }
 
 .supply-button-field {
   left: 20em;
   position: absolute;
   text-align: left;
-  top: 20em;
-}
+  top: 20em; }
 
 .arrow-side-2 {
   display: flex;
   left: 13em;
   position: absolute;
   top: 25em;
-  transform: rotate(-90deg);
-}
+  transform: rotate(-90deg); }
 
 .multi-start {
-  float: left;
-}
+  float: left; }
 
 .multi-pause {
   left: 10em;
-  position: absolute;
-}
+  position: absolute; }
 
 .multi-resume {
   float: left;
   left: 10em;
   position: absolute;
-  top: 5em;
-}
+  top: 5em; }
 
 .multi-finished {
-  left: -0.2em;
+  left: -.2em;
   position: absolute;
-  top: 5em;
-}
+  top: 5em; }
 
 .cancel-request {
   margin-bottom: 10px;
-  width: 240px;
-}
+  width: 240px; }
 
 .cancellation-request {
   position: relative;
-  top: 15em;
-}
+  top: 15em; }
 
 .insideNavBar {
-  margin-top: 25px;
-}
+  margin-top: 25px; }
 
 .topNav {
   left: 40em;
   margin-top: 25px;
-  position: relative;
-}
+  position: relative; }
 
 #logo {
-  margin: 10px;
-}
+  margin: 10px; }
 
 .selected {
-  background-color: #978f93;
-}
+  background-color: #978f93; }
 
 .selectedMachine {
-  background-color: #978f93;
-}
+  background-color: #978f93; }
 
 .selectedArea {
-  background-color: #978f93;
-}
+  background-color: #978f93; }
 
 .selectedBackgroundGreen {
-  background-color: green;
-}
+  background-color: green; }
 
 .individualNavigation {
-  font-size: 16px;
-}
+  font-size: 16px; }
 
 .navigation {
-  margin-left: 25px;
-}
+  margin-left: 25px; }
 
 .marginMain {
-  margin-left: 25px;
-}
+  margin-left: 25px; }
 
 .mainLayout {
   color: #000;
   left: 560px;
-  position: relative;
-}
+  position: relative; }
 
 .in-active-button {
   background-color: #252525;
-  opacity: 0.5;
-  pointer-events: none;
-}
+  opacity: .5;
+  pointer-events: none; }
 
 .activeButton {
   opacity: 1;
-  pointer-events: auto;
-}
+  pointer-events: auto; }
 
 .inActive {
-  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px);
-}
+  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px); }
 
 /*# sourceMappingURL=main.css.map */
