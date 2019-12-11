@@ -17,16 +17,19 @@ Template.machine_picking_list.helpers({
         let machineResult = [];
         let result = machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
         result.forEach((element) => {
-           for (let i = 0; i <= element.supplyAreas.length - 1; i++ ) {
+           for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
                if (element.supplyAreas[i].active === false) {
-                   element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1)
+                   try {
+                   element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
+                   i-- ;
+                   } catch {
+
+                   }
                }
            }
            machineResult.push(element);
          });
         return machineResult;
-
-
     },
 
     inactiveMachineList: () => {

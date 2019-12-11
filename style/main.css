@@ -40,6 +40,11 @@
 .table-size table {
   height: 50px; }
 
+.commission-admin {
+  left: 70em;
+  position: absolute;
+  top: 2em; }
+
 #logo {
   position: absolute;
   top: 4em;
@@ -545,7 +550,7 @@ table.supply-table {
     opacity: 0;
     transform: translateY(4.8rem) scale(0.5); } }
 .commNav {
-  left: 50em;
+  left: 40em;
   position: relative;
   top: 2em; }
 

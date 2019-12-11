@@ -8,8 +8,10 @@
         </div>
         {{> dailyResult}}
             {{#if isInRole 'admin'}}
-                    <div>
-                      <a class="btn btn-danger admins-button"  href="commissionAnalysis.html">Commissions Analysis</a>
+                    <div class="commission-admin">
+                      <a class="btn btn-danger"  href="commissionAnalysis.html">Commissions Analysis</a>
+                      <a>|</a>
+                      <a class="btn btn-danger" href="admin.html">Admin</a>
                     </div>
                 {{/if}}
     {{else}}
