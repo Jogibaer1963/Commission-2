@@ -4,7 +4,7 @@ Session.set('supplyChosen', 0);
 Template.commTablet_2.helpers ({
 
     machineCommList_2: () => {
-        return machineCommTable.find({commissionStatus: {$lt: 26}},
+        return machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
             {sort: {inLineDate: 1}});
     },
 

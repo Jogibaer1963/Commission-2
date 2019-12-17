@@ -20,7 +20,7 @@ Template.commTablet.helpers ({
                 FlowRouter.go('/multiMachines');
             }
         }
-        return machineCommTable.find({commissionStatus: {$lt: 26}},
+        return machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
                                         {sort: {inLineDate: 1}});
     },
 

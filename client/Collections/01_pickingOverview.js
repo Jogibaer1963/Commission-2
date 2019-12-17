@@ -33,7 +33,8 @@ Template.machine_picking_list.helpers({
     },
 
     inactiveMachineList: () => {
-        return machineCommTable.find({active: false}).fetch();
+        return machineCommTable.find({active: false},
+            {sort: {inLineDate: -1}}).fetch();
     },
 
     'selectedMachine': function(){
