@@ -33,6 +33,14 @@
         </table>
     </div>
     <div class="pickers-result">
-        {{pickersResult}}
+        <table>
+            <tbody>
+                {{#each pickersResult}}
+                    <tr>
+                        <td> {{machine}}</td>
+                    </tr>
+                 {{/each}}
+            </tbody>
+    </table>
     </div>
 </template>

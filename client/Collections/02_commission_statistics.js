@@ -80,7 +80,26 @@ Template.dailyResult.helpers({
         let objectCount = [];
         let arraySummery = [];
         let newArray = [];
+        let machineResult = [];
         let result = Session.get('result');
+        /*
+        console.log(result);
+        result.forEach((element) => {
+            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
+                if (element.supplyAreas[i].active === false) {
+                    try {
+                        element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
+                        i-- ;
+                    } catch {
+
+                    }
+                }
+            }
+            machineResult.push(element);
+        });
+        console.log(machineResult);
+
+         */
         let resultObj = Object.keys(result);
         if (resultObj.length > 1) {
             for (let k = 0; k <= resultObj.length -1; k++) {
@@ -145,11 +164,9 @@ Template.dailyResult.helpers({
         Session.set('carts', counter);
         Session.set('totalResultSupply', uniqueSupplyAreas);
         Session.set('totalResultDuration', durationGraph);
-
-
-
-
     },
+
+
 
 
     dayChart: function () {

@@ -15,7 +15,7 @@ Template.machine_picking_list.helpers({
 
     machineList: () => {
         let machineResult = [];
-        let result = machineCommTable.find({commissionStatus: {$lt: 26}}).fetch();
+        let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
                if (element.supplyAreas[i].active === false) {

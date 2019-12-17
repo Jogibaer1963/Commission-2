@@ -81,7 +81,8 @@ if(Meteor.isServer){
                 machineCommTable.insert({machineId: newMachine,
                     inLineDate: inLineDate,
                     dateOfCreation: dateOfCreation,
-                    commissionStatus: 0});
+                    commissionStatus: 0,
+                    active: true});
                 supplyAreas.find({active: true}, {sort: {supplyPosition: 1}}).forEach(function(copy) {
                     machineCommTable.update({machineId: newMachine}, {$addToSet: {supplyAreas: (copy)}})
                 });
