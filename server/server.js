@@ -175,6 +175,7 @@ if(Meteor.isServer){
                 multi: false
             };
             pickers.update({_id: user, }, {$addToSet: {[pickingString]: pickingObj}});
+            return 'success';
         },
 
         'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
@@ -587,7 +588,46 @@ if(Meteor.isServer){
             return returnArray;
         },
 
+        'selectedAreaAnalysis': function (area, picker) {
+            let result = pickers.find({_id: picker}).fetch();
+            let objResult = Object.keys(result[0]);
+            // eliminate _id from Array (should go in a function)
+            for (let i = 0; i < objResult.length; i++) {
+                if (objResult[i] === "_id") {
+                    objResult.splice(i, 1);
+                    i--;
+                }
+            }
+            let oneArray = [];
+            let objectResult = {};
+            objResult.forEach((element) => {
+                result[0][element].forEach((element2) => {
+                   if (area === element2.supplyArea) {
+                       let duration = (element2.duration / 60000).toFixed(0);
+                       objectResult = {duration: duration,
+                                       machine: element2.machine,
+                                       pickingTime: element2.pickingTime,
+                                        supply: element2.supplyArea,
+                                        objectKey: element
+                                       };
+                       oneArray.push(objectResult);
+                   }
+               });
+            });
+            oneArray.sort((a,b) => a.pickingTime - b.pickingTime);
+            return oneArray;
+        },
 
+        'changeTime': (picker, machine, area, inputResult, objectKey) => {
+            let result = pickers.findOne({_id: picker})[objectKey];
+            result.forEach((element) => {
+                if (element.supplyArea === area && element.machine === machine) {
+                    element.duration = inputResult * 60000;
+                }
+            });
+           pickers.update({_id: picker}, {$set: {[objectKey]: result}});
+           return 'updated successfully'
+        },
 //------------------------------------------------------ Admin section --------------------------------------------------------------------
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
             const toDoStatus = 0;
@@ -616,27 +656,27 @@ if(Meteor.isServer){
         'successfullLogin': function (userVar, dateLogin) {
            let clientIp = this.connection.clientAddress;
             successfullLogin.insert({userId: userVar, dateLogin: dateLogin, clientIp: clientIp});
-            usersProfil.update({username: userVar}, {$set: {loginStatus: 1, lastLogin: dateLogin, clientIp: clientIp}});
+            usersProfile.update({username: userVar}, {$set: {loginStatus: 1, lastLogin: dateLogin, clientIp: clientIp}});
         },
 
         'successfullLogout': function(logoutId, logoutDate) {
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
-            usersProfil.update({username: logoutId}, {$set: {loginStatus: 0}});
+            usersProfile.update({username: logoutId}, {$set: {loginStatus: 0}});
         },
 
         'userManualLogout': function (logOutUser) {
             for ( let i = 0; i < logOutUser.length; i++) {
-                const userName = usersProfil.findOne({_id: logOutUser[i]}).username;
+                const userName = usersProfile.findOne({_id: logOutUser[i]}).username;
                 Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
-                usersProfil.upsert({username: userName}, {$set: {loginStatus: 0}});
+                usersProfile.upsert({username: userName}, {$set: {loginStatus: 0}});
             }
         },
 
         'userManualDelete': function (deleteUser) {
             for (let i = 0; i < deleteUser.length; i++) {
-                const userName = usersProfil.findOne({_id: deleteUser[i]}).username;
+                const userName = usersProfile.findOne({_id: deleteUser[i]}).username;
                 Meteor.users.remove({username: userName});
-                usersProfil.remove({username: userName});
+                usersProfile.remove({username: userName});
             }
         },
 
@@ -645,7 +685,7 @@ if(Meteor.isServer){
             setTimeout(function () {
             }, 1000);
             Meteor.users.upsert({username:userConst}, {$addToSet: {roles: role}});
-            usersProfil.insert({username: userConst, role: role, createdAt: createdAt,
+            usersProfile.insert({username: userConst, role: role, createdAt: createdAt,
                 createdBy: loggedUser, loginStatus: 0});
         },
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------

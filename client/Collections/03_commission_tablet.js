@@ -106,7 +106,13 @@ Template.commTablet.events ({
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
         Meteor.call('finishedPicking', pickedMachineId, pickedSupplyAreaId,
-                     status, userFinished);
+                     status, userFinished, function (err, response) {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log('save finished', response)
+                        }
+            });
     },
 
     'submit .cancelForm': function(e) {

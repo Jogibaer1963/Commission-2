@@ -18,10 +18,6 @@
             <a class="btn btn-info" href="/">Overview</a>
             <a>|</a>
             <a class="btn btn-info" href="/commissionStatistics">Back to Statistics</a>
-            <a>|</a>
-            <a class="btn btn-danger" href="adminManipulate" >Adjust Database</a>
-            <a>|</a>
-            <a class="btn btn-default btn-danger" href="admin.html">Admin</a>
         </nav>
     </div>
 </template>
@@ -45,159 +41,97 @@
     <div class="pickers-result">
         {{pickersResult}}
     </div>
+    <!--                     Annual Result Graph                  -->
     <div class="running-result">
         {{pickersAnnualResult}}
         <div class="diagram-3">
             <div  id="chart_3">{{pickersAnnualChartResult}}</div>
         </div>
     </div>
-    <div class="analysis-selection">
-            <label for="fromRange">Range from to&nbsp;</label>
-            <input type="radio" id="fromRange" name="range">
-            <br>
-            <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" id="specificDate" name="range">
-            <br>
-            <label for="specificMonth">Specific Month</label>
-            <input type="radio" id="specificMonth" name="range">
-            <br>
-            <label for="specificMonth">Specific Work Area</label>
-            <input type="radio" id="specificMonth" name="range">
-            <br>
-            <label for="specificMonth">Specific Month</label>
-            <input type="radio" id="specificMonth" name="range">
+    <!--   -->
+    {{#if pickerChosen}}
+        <div class="analysis-selection">
+                <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
+                <input type="checkbox" id="specificDate" name="date">
+                <br>
+                <label for="specificMonth">Specific Month</label>
+                <input type="checkbox" id="specificMonth" name="month">
+                <br>
+                <label for="specificWorkArea">Specific Work Area</label>
+                <input type="checkbox" id="specificWorkArea" name="area">
+                <br>
+                    {{#if specificDate}}
+                        <form class="choseDate">
+                            <div>
+                                <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input type="date" name="specificDate" id="specificDate">
+                                <button class="btn btn-default btn-success" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    {{else if specificMonth}}
+                        <form class="choseMonth">
+                            <div>
+                                <label for="specificMonth">Specific Month&nbsp;</label>
+                                <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
+                                <button class="btn btn-default btn-success" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    {{else if specificArea}}
+                        <div class="specific-supply">
+                            <h4><strong>Active Supply</strong></h4>
+                            <table class="table fixed-header">
+                                <thead>
+                                <tr>
+                                    <th class="">Supply Area </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each supplyArea}}
+                                        <tr class="table-size area {{selectedArea}}">
+                                            <th class="table-height">{{_id}}</th>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="single-supply">
+                            <h3>Supply Area :  {{singleSupplyHead}}</h3>
+                            <table class="table fixed-header ">
+                                <thead>
+                                <tr>
+                                    <th class="">Machine</th>
+                                    <th class="">Duration</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{#each singleSupply}}
+                                    <tr class="table-size supplyMachine {{selectedTime}}">
+                                        <td class="table-height">{{machine}}</td>
+                                        <td class="table-height" style="width: 65px; vertical-align: center">{{duration}}</td>
+                                    </tr>
+                                {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="edit-time">
+                            <form class="editTime">
+                                <label for="editTime">Edit Time</label>
+                                <input type="number" name="editTime" id="editTime" placeholder="New time in min" required>
+                                <button type="submit" class="btn btn-default btn-danger edit-time-button">Submit</button>
+                            </form>
+                        </div>
+                    {{/if}}
+        </div>
+     {{/if}}
 
-                {{#if fromRange}}
-                    <form class="choseRange">
-                        <div>
-                            <label for="fromDate">Range from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <input type="date" name="fromDate" id="fromDate">
-                            <label for="toDate">To</label>
-                            <input type="date" name="toDate" id="toDate">
-                            <button class="btn btn-default btn-success" type="submit">Submit</button>
-                        </div>
-                    </form>
-                {{else if specificDate}}
-                    <form class="choseDate">
-                        <div>
-                            <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <input type="date" name="specificDate" id="specificDate">
-                            <button class="btn btn-default btn-success" type="submit">Submit</button>
-                        </div>
-                    </form>
-                {{else if specificMonth}}
-                    <form class="choseMonth">
-                        <div>
-                            <label for="specificMonth">Specific Month&nbsp;</label>
-                            <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
-                            <button class="btn btn-default btn-success" type="submit">Submit</button>
-                        </div>
-                    </form>
-                {{/if}}
-    </div>
 
-    <div class="month-result">
+    <div class="area-result">
         <div class="diagram-4">
-            <div  id="chart_4">{{pickersMonthChartResult}}</div>
+            <div  id="chart_4">{{areaResult}}</div>
         </div>
     </div>
-</template>
 
-<template name="supplyAreaShow">
-    <div class="topNav">
-        <nav>
-            <a class="btn btn-danger"  disabled>Manipulate Database</a>
-            <a>|</a>
-            <a class="btn btn-danger"  disabled>Manipulate Supply Areas</a>
-            <a>|</a>
-            <a  class="btn btn-success" href="admin">Back to Admin</a>
-        </nav>
-    </div>
-    <form class="new-supply-area">
-       <h4><strong>Add Supply Area</strong></h4>
-        <br>
-        <label for="supplyName"></label>
-        <input type="text" id="supplyName" name="supplyName" placeholder="Supply Name" required>
-        <button type="submit" class="btn btn-default btn-success" disabled>Submit</button>
-    </form>
-    <form class="update-button">
-        <label for="updatePosition"></label>
-        <input type="number" id="updatePosition" name="updatePosition" min="1" required>
-        <button type="submit" class="btn btn-default btn-success" disabled>Update</button>
-    </form>
-    <form class="activate-button">
-        <button type="submit" class="btn btn-default btn-danger" disabled>Activate / Deactivate</button>
-    </form>
-
-    <div class="double-entry">
-       {{#if doubleSupplyArea}}
-           <h4>Area {{doubleSupplyArea._id}} exists and is
-                    {{doubleSupplyArea.active}} at Position
-                    {{doubleSupplyArea.supplyPosition}}
-                    </h4>
-       {{/if}}
-    </div>
-    <div class="supply-table">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Supply Area</th>
-                    <th>Update</th>
-                    <th>Deactivate</th>
-                </tr>
-            </thead>
-            <tbody>
-            {{#each supplyAreaListed}}
-                    <tr class="active-areas">
-                        <td class="table-pos">{{supplyPosition}}</td>
-                        <td class="table-name">{{_id}}</td>
-                        <td class="table-name">
-                            <label>
-                                <input class="rTableStyle"
-                                       type="radio"
-                                       name="updatePosition"
-                                       id="upPos"
-                                       value="{{_id}}">
-                            </label>
-                        </td>
-                        <td class="table-name">
-                            <label>
-                                <input class="rTableStyle"
-                                       type="radio"
-                                       name="deactivateSupply"
-                                       value="{{_id}}">
-                            </label>
-                        </td>
-                    </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <div class="deactivated-supply-table">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Supply Area</th>
-                <th>Activate</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each deactivatedSupplyAreaListed}}
-                <tr class="inactive-areas">
-                    <td class="table-name">{{_id}}</td>
-                    <td class="table-name">
-                        <label>
-                            <input class="rTableStyle"
-                                   type="radio"
-                                   name="activateSupply"
-                                   value="{{_id}}">
-                        </label>
-                    </td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
 
 </template>
+

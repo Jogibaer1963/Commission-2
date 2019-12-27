@@ -27,9 +27,9 @@ $table-head: #1cbdee;
 }
 
 .diagram-4 {
-  left: 30em;
+  left: 35em;
   position: absolute;
-  top: 50em;
+  top: 58em;
 }
 
 .start-analyze {
@@ -135,4 +135,31 @@ $table-head: #1cbdee;
   position: absolute;
   top: 40em;
 }
+
+.table-height {
+  height: 30px;
+}
+
+.single-supply {
+  left: 15em;
+  position: absolute;
+  top: 2.8em;
+}
+
+.selected-time {
+  background-color: hsl(14, 100%, 53%);
+}
+
+.edit-time {
+  left: 30em;
+  position: absolute;
+  top: 8em;
+}
+
+.edit-time-button {
+  margin-top: 15px;
+}
+
+
+
 

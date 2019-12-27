@@ -121,7 +121,6 @@ Template.commTablet_2.events ({
         Session.set('inActiveState', 4);
         Session.set('selectedArea', '');
         Session.set('supplyChosen', 0);
-        console.log(pickedMachines);
         Meteor.call('multi-finished', pickedMachines, pickedSupplyAreaId,
             status, userFinished, dateEndNow, pickingEnd);
 

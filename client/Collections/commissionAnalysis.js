@@ -2,6 +2,7 @@ Meteor.subscribe('pickers');
 const Highcharts = require('highcharts');
 
 Session.set('errorPickingDate', false);
+Session.set('01-supplyMachine', false);
 
 Template.analysisOverView.helpers({
 
@@ -13,6 +14,11 @@ Template.analysisOverView.helpers({
         return Session.get('chosenPicker');
     },
 
+    pickerChosen: () => {
+        let picker = Session.get('chosenPicker');
+        return picker !== false;
+    },
+
     pickersResult: () => {
         let chosenPicker = Session.get('chosenPicker');
             if (chosenPicker) {
@@ -21,8 +27,21 @@ Template.analysisOverView.helpers({
             }
     },
 
-    fromRange: () => {
-        return Session.get('fromRange')
+    'selectedArea': function () {
+        let areaId = this._id;
+        let deactivate = Session.get('deactivateSupplyArea');
+        if (areaId === deactivate) {
+            return 'selectedArea';
+        }
+    },
+
+    supplyArea: () => {
+        return supplyAreas.find({active: true}).fetch();
+    },
+
+
+    specificArea: () => {
+        return Session.get('specificArea')
     },
 
     specificDate: () => {
@@ -164,55 +183,41 @@ Template.analysisOverView.helpers({
 
 
 
-    pickersMonthChartResult: function () {
+    areaResult: function () {
         // Gather data:
+        let areaResult = Session.get('response');
 
-        let errorPickingDate = Session.get('errorPickingDate');
-       // console.log('error', errorPickingDate);
+              // machines & minutes
+        let machines = [];
+        let minutes = [];
+        areaResult.forEach((element) => {
+            machines.push( element.machine);
+            minutes.push(parseFloat(element.duration));
+        });
 
-        //    console.log('false error day', errorPickingDate);
-
-       //     console.log('in drawing mode');
-        let monthName = Session.get('monthName');
-        let averagePerSupply = Session.get('Duration');
-        let cartsCounter = Session.get('Cart');
-        let categories = Session.get('Supply');
         let titleText = '';
-
-        if(errorPickingDate) {
-            titleText = errorPickingDate;
-        } else {
-             titleText = ' Overview of picked carts and average picking time for ' + monthName;
-        }
 
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_4', {
-
                 title: {
                     text: titleText
                 },
-
                 tooltip: {
-                    shared: true
+                    shared: false
                 },
-
                 chart: {
-
                     style: {
                         fontFamily: '\'Unica One\', sans-serif'
                     },
                     plotBorderColor: '#606063',
-
-
                     height: 500,
                     width: 900,
                     zoomType: 'xy'
                 },
 
                 yAxis: {
-                    categories: [],
                     title: {enabled: true,
                         text: 'Picking Time in min',
                         style: {
@@ -222,33 +227,54 @@ Template.analysisOverView.helpers({
                 },
 
                 xAxis: {
-                    categories: categories,
+                    categories: machines,
                     title: {
                         enabled: true,
-                        text: 'Areas Picked',
+                        text: 'Machines',
                         style: {
                             fontWeight: 'normal'
                         }
                     }
                 },
-
-                series: [
-                    {
-                        name: 'Average picking time in min',
-                        type: 'column',
-                        data: averagePerSupply
-                    },
-                    {
-                        name: 'Carts picked',
-                        type: 'spline',
-                        data: cartsCounter
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
                     }
-
-                ]
+                },
+                 series: [
+                {
+                    name: 'Picking time in min',
+                    data: minutes
+                },
+                {
+                    name: 'Machines',
+                    data: machines
+                }
+            ]
             });
         });
+    },
+
+    singleSupplyHead: function() {
+      return Session.get('chosenArea');
+    },
+
+    singleSupply: function() {
+        return Session.get('response');
+    },
+
+    'selectedTime': function () {
+        let areaId = this.machine;
+        let machine = Session.get('01-supplyMachine');
+        if (areaId === machine) {
+            return 'selected-time';
+        }
 
     },
+
 
 
 });
@@ -256,46 +282,96 @@ Template.analysisOverView.helpers({
 
 Template.analysisOverView.events({
 
+    'click .area': function (e) {
+        e.preventDefault();
+        let area = this._id;
+        Session.set('chosenArea', area);
+        let picker = Session.get('chosenPicker');
+        getArea(area, picker);
+        /*
+        Meteor.call('selectedAreaAnalysis', area, picker, function (err, response) {
+            if (err) {
+                console.log(err);
+            } else {
+                Session.set('response', response);
+            }
+        });
+
+         */
+    },
+
+    'click .supplyMachine': function (e) {
+        e.preventDefault();
+        Session.set('keyObject',this.objectKey);
+        Session.set('01-supplyMachine', this.machine);
+    },
+
+    'submit .editTime': function(e) {
+        e.preventDefault();
+        let inputResult = e.target.editTime.value;
+        let machine = Session.get('01-supplyMachine');
+        let area = Session.get('chosenArea');
+        let objectKey = Session.get('keyObject');
+        let picker = Session.get('chosenPicker');
+        Meteor.call('changeTime', picker, machine, area,
+                       inputResult, objectKey, function (err, response) {
+                if (err)
+                {
+                    console.log(err);
+                } else {
+                    console.log('success', response);
+                getArea(area, picker)
+                }
+        });
+        e.target.editTime.value = '';
+        Session.set('01-supplyMachine', '');
+        console.log(Session.get('response'));
+
+    },
+
     'click .pickersName': function(e) {
         e.preventDefault();
         let pickersName = this._id;
         Session.set('chosenPicker', pickersName);
-        Session.set('fromRange', false);
+        Session.set('specificArea', false);
         Session.set('specificDate', false);
         Session.set('specificMonth', false);
         Session.set('monthSupply',  false);
         Session.set('monthDuration',  false);
         Session.set('monthCart',  false);
-    },
+        document.getElementById("specificMonth").checked = false;
+        document.getElementById("specificWorkArea").checked = false;
+        document.getElementById("specificDate").checked = false;
 
-    'change #fromRange': (e) => {
-        e.preventDefault();
-        Session.set('fromRange', true);
-        Session.set('specificDate', false);
-        Session.set('specificMonth', false);
     },
 
     'change #specificDate': (e) => {
         e.preventDefault();
-        Session.set('fromRange', false);
+        Session.set('specificArea', false);
         Session.set('specificDate', true);
         Session.set('specificMonth', false);
+        document.getElementById("specificMonth").checked = false;
+        document.getElementById("specificWorkArea").checked = false;
     },
 
     'change #specificMonth': (e) => {
         e.preventDefault();
-        Session.set('fromRange', false);
+        Session.set('specificArea', false);
         Session.set('specificDate', false);
         Session.set('specificMonth', true);
+        document.getElementById("specificWorkArea").checked = false;
+        document.getElementById("specificDate").checked = false;
     },
 
-    'submit .choseRange': (e) => {
+    'change #specificWorkArea': (e) => {
         e.preventDefault();
-        let rangeFrom = e.target.fromDate.value;
-        let rangeTo = e.target.toDate.value;
-        console.log(rangeFrom, rangeTo)
-
+        Session.set('specificArea', true);
+        Session.set('specificDate', false);
+        Session.set('specificMonth', false);
+        document.getElementById("specificMonth").checked = false;
+        document.getElementById("specificDate").checked = false;
     },
+
 
     'submit .choseDate': (e) => {
         e.preventDefault();
@@ -356,8 +432,19 @@ Template.analysisOverView.events({
 
 });
 
+function getArea (area, picker) {
+    Meteor.call('selectedAreaAnalysis', area, picker, function (err, response) {
+        if (err) {
+            console.log(err);
+        } else {
+            Session.set('response', response);
+        }
+    });
+}
+
 Template.analysisOverView.onDestroyed(() => {
-    Session.set('fromRange', false);
+    Session.set('01-supplyMachine', false);
+    Session.set('specificArea', false);
     Session.set('specificDate', false);
     Session.set('specificMonth', false);
     Session.set('pickersAnnualResult', false);
