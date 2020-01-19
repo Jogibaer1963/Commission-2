@@ -125,12 +125,38 @@
         </div>
      {{/if}}
 
+    {{#if diagramDate}}
+            <div class="">
+                <div class="diagram-4">
+                    <div  id="chart_5">{{pickersChartResult}}</div>
+                </div>
+            </div>
+    {{/if}}
 
-    <div class="area-result">
-        <div class="diagram-4">
-            <div  id="chart_4">{{areaResult}}</div>
+    {{#if diagramMonth}}
+        <div class="area-result">
+            <div class="diagram-4">
+                <div  id="chart_5">{{pickersChartResult}}</div>
+            </div>
         </div>
-    </div>
+    {{/if}}
+
+    {{#if diagramArea}}
+            <div class="area-result">
+                <div class="diagram-4">
+                    <div  id="chart_4">{{areaResult}}</div>
+                </div>
+            </div>
+    {{/if}}
+
+    {{#if diagramError}}
+        <div class="area-result">
+            <div class="diagram-4">
+                <div ><h1>Nothing picked at this Date</h1></div>
+            </div>
+        </div>
+    {{/if}}
+
 
 
 </template>

@@ -112,12 +112,14 @@ Template.analysisOverView.helpers({
 
     },
 
+
+
     pickersAnnualChartResult: function () {
         // Gather data:
-        let averagePerSupply = Session.get('pickersAnnualDuration');
-        let cartsCounter = Session.get('pickersAnnualCart');
-        let categories = Session.get('pickersAnnualSupplyAreas');
-     //   console.log(averagePerSupply, cartsCounter, categories);
+        let supplyArea = Session.get('pickersAnnualSupplyAreas');
+        let timePerCart = Session.get('pickersAnnualDuration');
+        let cartsTotal = Session.get('pickersAnnualCart');
+        //   console.log(averagePerSupply, cartsCounter, categories);
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -155,7 +157,7 @@ Template.analysisOverView.helpers({
                 },
 
                 xAxis: {
-                    categories: categories,
+                    categories: supplyArea,
                     title: {
                         enabled: true,
                         text: 'Areas Picked',
@@ -169,19 +171,17 @@ Template.analysisOverView.helpers({
                     {
                         name: 'Average picking time in min',
                         type: 'column',
-                        data: averagePerSupply
+                        data: timePerCart
                     },
                     {
                         name: 'Carts picked',
                         type: 'spline',
-                        data: cartsCounter
+                        data: cartsTotal
                     }
                 ]
             });
         });
     },
-
-
 
     areaResult: function () {
         // Gather data:
@@ -258,6 +258,75 @@ Template.analysisOverView.helpers({
         });
     },
 
+    pickersChartResult: function () {
+        // Gather data:
+        let averagePerSupply = Session.get('Duration');
+        let cartsCounter = Session.get('Cart');
+        let categories = Session.get('Supply');
+        //   console.log(averagePerSupply, cartsCounter, categories);
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_5', {
+
+                title: {
+                    text: 'Carts and Average Time per Day per Supply Area'
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: averagePerSupply
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: cartsCounter
+                    }
+                ]
+            });
+        });
+    },
+
     singleSupplyHead: function() {
       return Session.get('chosenArea');
     },
@@ -275,7 +344,28 @@ Template.analysisOverView.helpers({
 
     },
 
+    errorPickingDate: function () {
+        Session.set('Supply', '');
+        Session.set('Duration', '');
+        Session.set('Cart', '');
+        return Session.get('errorPickingDate');
+    },
 
+    diagramDate: function () {
+        return Session.get('diagramDate');
+    },
+
+    diagramMonth: function () {
+        return Session.get('diagramMonth');
+    },
+
+    diagramArea: function () {
+        return Session.get('diagramArea');
+    },
+
+    diagramError: function () {
+        return Session.get('errorResponse')
+    }
 
 });
 
@@ -288,16 +378,6 @@ Template.analysisOverView.events({
         Session.set('chosenArea', area);
         let picker = Session.get('chosenPicker');
         getArea(area, picker);
-        /*
-        Meteor.call('selectedAreaAnalysis', area, picker, function (err, response) {
-            if (err) {
-                console.log(err);
-            } else {
-                Session.set('response', response);
-            }
-        });
-
-         */
     },
 
     'click .supplyMachine': function (e) {
@@ -339,6 +419,10 @@ Template.analysisOverView.events({
         Session.set('monthSupply',  false);
         Session.set('monthDuration',  false);
         Session.set('monthCart',  false);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
         document.getElementById("specificMonth").checked = false;
         document.getElementById("specificWorkArea").checked = false;
         document.getElementById("specificDate").checked = false;
@@ -350,6 +434,10 @@ Template.analysisOverView.events({
         Session.set('specificArea', false);
         Session.set('specificDate', true);
         Session.set('specificMonth', false);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
         document.getElementById("specificMonth").checked = false;
         document.getElementById("specificWorkArea").checked = false;
     },
@@ -359,6 +447,10 @@ Template.analysisOverView.events({
         Session.set('specificArea', false);
         Session.set('specificDate', false);
         Session.set('specificMonth', true);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
         document.getElementById("specificWorkArea").checked = false;
         document.getElementById("specificDate").checked = false;
     },
@@ -368,6 +460,10 @@ Template.analysisOverView.events({
         Session.set('specificArea', true);
         Session.set('specificDate', false);
         Session.set('specificMonth', false);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
         document.getElementById("specificMonth").checked = false;
         document.getElementById("specificDate").checked = false;
     },
@@ -384,19 +480,20 @@ Template.analysisOverView.events({
         if(dayOfWeek === 7) {
             dayOfWeek = 0;
         }
-       // console.log(dayOfWeek);
         let dateString = dayMonth + "0" + dayOfWeek + month + year;
        Meteor.call('chosenDate', dateString, picker, function(err, response) {
            if (response) {
                console.log(response);
                if (response === 'Nothing picked at this Date') {
-                   Session.set('errorPickingDate', 'Nothing picked at this Date');
-                   console.log('response', response)
+                   Session.set('errorResponse', 'Nothing picked at this Date');
                } else {
                Session.set('Supply', response[0]);
                Session.set('Duration', response[1]);
                Session.set('Cart', response[2]);
-               console.log('arrays sent')
+               Session.set('errorPickingDate', '');
+               Session.set('diagramDate', true);
+               Session.set('diagramMonth', false);
+               Session.set('diagramArea', false);
                }
            } else {
 
@@ -423,6 +520,10 @@ Template.analysisOverView.events({
                 Session.set('Supply', response[0]);
                 Session.set('Duration', response[1]);
                 Session.set('Cart', response[2]);
+                Session.set('diagramDate', false);
+                Session.set('diagramMonth', true);
+                Session.set('diagramArea', false);
+                Session.set('errorResponse', false);
             } else {
             }
         })
@@ -438,6 +539,9 @@ function getArea (area, picker) {
             console.log(err);
         } else {
             Session.set('response', response);
+            Session.set('diagramDate', false);
+            Session.set('diagramMonth', false);
+            Session.set('diagramArea', true);
         }
     });
 }
@@ -453,5 +557,9 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('Duration',  false);
     Session.set('Cart',  false);
     Session.set('errorPickingDate', false);
-
+    Session.set('diagram', 1);
+    Session.set('diagramDate', false);
+    Session.set('diagramMonth', false);
+    Session.set('diagramArea', false);
+    Session.set('errorResponse', false);
 });

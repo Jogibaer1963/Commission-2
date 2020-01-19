@@ -699,6 +699,11 @@ table.commOverView {
   position: absolute;
   top: 5em; }
 
+.diagram-3 {
+  left: 20em;
+  position: absolute;
+  top: -30em; }
+
 .diagram-4 {
   left: 35em;
   position: absolute;
@@ -780,11 +785,6 @@ table.commOverView {
 .pickers-width {
   text-align: center;
   width: 120px; }
-
-.diagram-3 {
-  left: 20em;
-  position: absolute;
-  top: -30em; }
 
 .analysis-selection {
   left: 6em;
