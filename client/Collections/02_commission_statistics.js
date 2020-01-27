@@ -4,6 +4,13 @@ Meteor.subscribe('pickers');
 
 Template.dailyResult.helpers({
 
+    loggedInUser: () => {
+        const loggedUser = Meteor.user();
+        Session.set('loggedUser', loggedUser);
+        console.log(loggedUser);
+        return loggedUser;
+    },
+
     resultToday: () => {
         let dayCount = 0;
         let k = 0;
@@ -310,6 +317,15 @@ function pickingToDay () {
     let pickingYear = timeResult.getFullYear();
     return (pickingDate + pickingDay + pickingMonth + pickingYear);
 }
+
+Template.dailyResult.events({
+
+   'click .details-button': function (e) {
+        e.preventDefault();
+
+   }
+
+});
 
 
 

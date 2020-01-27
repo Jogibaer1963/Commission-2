@@ -21,6 +21,11 @@
 
 <template name="dailyResult">
 
+    <div class="logged-user">
+        <h3 style="font-weight: bolder">User: {{loggedInUser.username}}</h3>
+        <button class="btn btn-default btn-success details-button">Details</button>
+    </div>
+
     <div class="daily-picks">
         <h3>From {{resultToday.uniqueAreas}} Supply Area were {{resultToday.dayCount}} carts picked with an overall average of {{resultToday.averageDuration}} min</h3>
     </div>

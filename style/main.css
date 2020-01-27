@@ -810,6 +810,16 @@ table.commOverView {
 .edit-time-button {
   margin-top: 15px; }
 
+.logged-user {
+  left: 8em;
+  position: absolute;
+  top: 9em; }
+
+.details-button {
+  left: 20em;
+  position: absolute;
+  top: 1em; }
+
 .new-supply-area {
   left: 3em;
   position: absolute;
