@@ -166,6 +166,7 @@ if(Meteor.isServer){
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
             let duration = parseInt(pickingDuration);
             let pickingString = pickingToDay();
+            console.log('pickingString', pickingString);
             let pickingObj =  {
                 machine: machineId,
                 supplyArea: pickedSupplyAreaId,
@@ -525,6 +526,7 @@ if(Meteor.isServer){
 
 
         'chosenMonth': (trueMonth, picker) => {
+
             let result = pickers.find({_id: picker}).fetch();
             let monthResult = result[0];
             let objResult = Object.keys(result[0]);
@@ -536,11 +538,13 @@ if(Meteor.isServer){
             }
             let monthRange = [];
             let arraySumm = [];
+            console.log(objResult, trueMonth);
             objResult.forEach((element) => {
                 if (element.slice(4) === trueMonth) {
                     monthRange.push(element);
                 }
             });
+            console.log(monthRange);
             monthRange.forEach((element) => {
                arraySumm.push(monthResult[element]);
             });
@@ -583,6 +587,7 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             });
+            console.log(uniqueSupply, durationGraph, counter);
             let returnArray = [];
             returnArray.push(uniqueSupply, durationGraph, counter);
             return returnArray;
@@ -702,12 +707,18 @@ if(Meteor.isServer){
         let today = Date.now();
         let timeResult = new Date(today);
         let pickingMonth = timeResult.getMonth();
+            if (pickingMonth === 0) {
+                pickingMonth = '00';
+            }
         let pickingDate = timeResult.getDate();
         if (pickingDate < 10) {
             pickingDate = "0" + timeResult.getDate()
         }
         let pickingDay = "0" + timeResult.getDay() ;
+        console.log('Hallo');
+        console.log('timeResult', timeResult.getDay());
         let pickingYear = timeResult.getFullYear();
+        console.log(pickingDate , pickingDay, pickingMonth, pickingYear);
         return (pickingDate + pickingDay + pickingMonth + pickingYear);
     }
 

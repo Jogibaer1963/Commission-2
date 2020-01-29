@@ -709,6 +709,11 @@ table.commOverView {
   position: absolute;
   top: 58em; }
 
+.diagram-9 {
+  left: 35em;
+  position: absolute;
+  top: 88em; }
+
 .start-analyze {
   left: 20em;
   position: absolute;
@@ -758,7 +763,7 @@ table.commOverView {
   padding: 8px; }
 
 .daily-picks {
-  left: 10em;
+  left: 25em;
   position: absolute;
   top: 14em; }
 
@@ -790,6 +795,11 @@ table.commOverView {
   left: 6em;
   position: absolute;
   top: 40em; }
+
+.analysis-selection-single {
+  left: 6em;
+  position: absolute;
+  top: 80em; }
 
 .table-height {
   height: 30px; }

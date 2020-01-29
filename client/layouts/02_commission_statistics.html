@@ -7,6 +7,7 @@
             <img src="claas_logo.png" />
         </div>
         {{> dailyResult}}
+        {{> singleResults}}
             {{#if isInRole 'admin'}}
                     <div class="commission-admin">
                       <a class="btn btn-danger"  href="commissionAnalysis.html">Commissions Analysis</a>
@@ -19,13 +20,11 @@
     {{/if}}
 </template>
 
-<template name="dailyResult">
 
+<template name="dailyResult">
     <div class="logged-user">
         <h3 style="font-weight: bolder">User: {{loggedInUser.username}}</h3>
-        <button class="btn btn-default btn-success details-button">Details</button>
     </div>
-
     <div class="daily-picks">
         <h3>From {{resultToday.uniqueAreas}} Supply Area were {{resultToday.dayCount}} carts picked with an overall average of {{resultToday.averageDuration}} min</h3>
     </div>
@@ -44,8 +43,107 @@
     </div>
 </template>
 
-<template name="adminStatistics">
-    <div class="admins-bar">
-        <button class="btn btn-default btn-success">Advanced Statistics</button>
+
+
+<template name="singleResults">
+
+    <div class="analysis-selection-single">
+        <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
+        <input type="checkbox" id="specificDate" name="date">
+        <br>
+        <label for="specificMonth">Specific Month</label>
+        <input type="checkbox" id="specificMonth" name="month">
+        <br>
+        <label for="specificWorkArea">Specific Work Area</label>
+        <input type="checkbox" id="specificWorkArea" name="area">
+        <br>
+        {{#if specificDate}}
+            <form class="choseDate">
+                <div>
+                    <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="date" name="specificDate" id="specificDate">
+                    <button class="btn btn-default btn-success" type="submit">Submit</button>
+                </div>
+            </form>
+        {{else if specificMonth}}
+            <form class="choseMonth">
+                <div>
+                    <label for="specificMonth">Specific Month&nbsp;</label>
+                    <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
+                    <button class="btn btn-default btn-success" type="submit">Submit</button>
+                </div>
+            </form>
+        {{else if specificArea}}
+            <div class="specific-supply">
+                <h4><strong>Active Supply</strong></h4>
+                <table class="table fixed-header">
+                    <thead>
+                    <tr>
+                        <th class="">Supply Area </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each supplyArea}}
+                        <tr class="table-size area {{selectedArea}}">
+                            <th class="table-height">{{_id}}</th>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="single-supply">
+                <h3>Supply Area :  {{singleSupplyHead}}</h3>
+                <table class="table fixed-header ">
+                    <thead>
+                    <tr>
+                        <th class="">Machine</th>
+                        <th class="">Duration</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each singleSupply}}
+                        <tr class="table-size supplyMachine {{selectedTime}}">
+                            <td class="table-height">{{machine}}</td>
+                            <td class="table-height" style="width: 65px; vertical-align: center">{{duration}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        {{/if}}
     </div>
+
+    {{#if diagramDate}}
+        <div class="">
+            <div class="diagram-9">
+                <div  id="chart_5">{{pickersChartResult}}</div>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if diagramMonth}}
+        <div class="area-result">
+            <div class="diagram-9">
+                <div  id="chart_5">{{pickersChartResult}}</div>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if diagramArea}}
+        <div class="area-result">
+            <div class="diagram-9">
+                <div  id="chart_4">{{areaResult}}</div>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if diagramError}}
+        <div class="area-result">
+            <div class="diagram-9">
+                <div ><h1>Nothing picked at this Date</h1></div>
+            </div>
+        </div>
+    {{/if}}
+
 </template>
