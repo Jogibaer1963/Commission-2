@@ -166,7 +166,6 @@ if(Meteor.isServer){
             let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
             let duration = parseInt(pickingDuration);
             let pickingString = pickingToDay();
-            console.log('pickingString', pickingString);
             let pickingObj =  {
                 machine: machineId,
                 supplyArea: pickedSupplyAreaId,
@@ -538,13 +537,11 @@ if(Meteor.isServer){
             }
             let monthRange = [];
             let arraySumm = [];
-            console.log(objResult, trueMonth);
             objResult.forEach((element) => {
                 if (element.slice(4) === trueMonth) {
                     monthRange.push(element);
                 }
             });
-            console.log(monthRange);
             monthRange.forEach((element) => {
                arraySumm.push(monthResult[element]);
             });
@@ -715,10 +712,7 @@ if(Meteor.isServer){
             pickingDate = "0" + timeResult.getDate()
         }
         let pickingDay = "0" + timeResult.getDay() ;
-        console.log('Hallo');
-        console.log('timeResult', timeResult.getDay());
         let pickingYear = timeResult.getFullYear();
-        console.log(pickingDate , pickingDay, pickingMonth, pickingYear);
         return (pickingDate + pickingDay + pickingMonth + pickingYear);
     }
 
