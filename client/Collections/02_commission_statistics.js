@@ -21,6 +21,7 @@ Template.dailyResult.helpers({
         let resultOfTheDay = [];
         let result = pickers.find({}).fetch();
         Session.set('result', result);
+       // console.log(result);
         let pickingString = pickingToDay();
        // console.log('Picking String ', pickingString);
         result.forEach((element) => {
@@ -51,6 +52,7 @@ Template.dailyResult.helpers({
                 resultOfTheDay.push(element2);
             });
         });
+        console.log(resultOfTheDay);
         let supplyPerDay = [];
         resultOfTheDay.forEach((element) => {
             supplyPerDay.push(element.supplyArea);
@@ -74,11 +76,12 @@ Template.dailyResult.helpers({
             loopArray = [];
             dayResult.push(counter);
        }
+       // console.log(averagePerSupply);
         let durationAverage = (averagePerSupply.reduce((a,b) => a + b, 0) / averagePerSupply.length).toFixed(0);
         Session.set('averagePerSupply', averagePerSupply);
         Session.set('dayResult', dayResult);
         Session.set('uniqueAreas', uniqueAreas);
-      //  console.log(dayCount, durationAverage, uniqueAreas);
+       // console.log(dayCount, durationAverage, uniqueAreas);
            return {
                dayCount: dayCount,
                averageDuration: durationAverage,
@@ -701,6 +704,9 @@ function pickingToDay () {
     let today = Date.now();
     let timeResult = new Date(today);
     let pickingMonth = timeResult.getMonth();
+    if (pickingMonth === 0) {
+        pickingMonth = '00';
+    }
     let pickingDate = timeResult.getDate();
     if (pickingDate < 10) {
         pickingDate = "0" + timeResult.getDate()
