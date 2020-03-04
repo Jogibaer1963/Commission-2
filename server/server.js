@@ -77,15 +77,20 @@ if(Meteor.isServer){
 // Adding and removing Machine, filling the database machineCommTable with pre sets
 
         'doubleMachine': (newMachine, inLineDate, dateOfCreation) => {
+
             if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
+             //   console.log("inside", newMachine, dateOfCreation, inLineDate);
                 machineCommTable.insert({machineId: newMachine,
                     inLineDate: inLineDate,
                     dateOfCreation: dateOfCreation,
                     commissionStatus: 0,
                     active: true});
+            //    console.log(newMachine);
+                /*
                 supplyAreas.find({active: true}, {sort: {supplyPosition: 1}}).forEach(function(copy) {
                     machineCommTable.update({machineId: newMachine}, {$addToSet: {supplyAreas: (copy)}})
                 });
+                */
             } else {
                 return newMachine;
             }
@@ -178,20 +183,27 @@ if(Meteor.isServer){
             return 'success';
         },
 
-        'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreas.$.supplyStatus": status,
-                                            "supplyAreas.$.pickerCanceled": user,
-                                            "supplyAreas.$.pickerCanceledReason": cancellationReason,
-                                            "supplyAreas.$.pickingStart": '',
-                                            "supplyAreas.$.pickerStart": '',
-                                            "supplyAreas.$.pickerFinished": '',
-                                            "supplyAreas.$.pickingDateAndTime": '',
-                                            "supplyAreas.$.pickingEnd": '',
-                                            "supplyAreas.$.pickingTime": '',
-                                            "supplyAreas.$.pickingEndDateAndTime": '',
-                                            "supplyAreas.$.pickingPauseStart": '',
-                                            "supplyAreas.$.pickingPauseEnd": ''}} )
+        'canceledMultiPicking': function (userCanceled, pickedMachineId, pickedSupplyAreaId) {
+            let status = 0;
+            pickedMachineId.forEach((element) => {
+                machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {"supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerCanceled": userCanceled,
+                            "supplyAreas.$.pickingStart": '',
+                            "supplyAreas.$.pickerStart": '',
+                            "supplyAreas.$.pickerFinished": '',
+                            "supplyAreas.$.pickingDateAndTime": '',
+                            "supplyAreas.$.pickingEnd": '',
+                            "supplyAreas.$.pickingTime": '',
+                            "supplyAreas.$.pickingEndDateAndTime": '',
+                            "supplyAreas.$.pickingPauseStart": '',
+                            "supplyAreas.$.pickingPauseEnd": ''}} )
+            });
+            pickersAtWork.remove({_id: userCanceled});
+        },
+
+        'quickRemove': function (userCanceled) {
+            pickersAtWork.remove({_id: userCanceled});
         },
 
         'pausePickingStart': function (pickedMachineId, pickedSupplyAreaId, status, user) {
@@ -267,7 +279,7 @@ if(Meteor.isServer){
             }, {});
 
             let arr1 = Object.values(countedNames);
-            console.log('Array 1 ', arr1);
+         //   console.log('Array 1 ', arr1);
             let key = Object.keys(countedNames);
             let max = Math.max(...arr1);
             let i = 0;
@@ -516,7 +528,7 @@ if(Meteor.isServer){
             if(searchResult === 1) {
                 return [uniqueSupply, durationGraph, counter];
             } else {
-                console.log('Nothing picked at this Date');
+              //  console.log('Nothing picked at this Date');
                 return 'Nothing picked at this Date';
             }
 
@@ -584,7 +596,7 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             });
-            console.log(uniqueSupply, durationGraph, counter);
+          //  console.log(uniqueSupply, durationGraph, counter);
             let returnArray = [];
             returnArray.push(uniqueSupply, durationGraph, counter);
             return returnArray;

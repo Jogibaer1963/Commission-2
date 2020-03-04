@@ -126,6 +126,7 @@ Template.commTablet_2.events ({
 
         Session.set('multiMachinesId', '');
         Session.set('selectedArea', '');
+        FlowRouter.go('/commission');
     },
 
 
@@ -156,20 +157,22 @@ Template.commTablet_2.events ({
             pickingStatus, pickingPauseEnd, user);
     },
 
-    'submit .cancelForm': function(e) {
-        e.preventDefault();
+    'click .cancel-multi': function(e) {
+      e.preventDefault();
         const userCanceled = Meteor.user().username;
         let pickedMachineId = Session.get('multiMachinesId');
         let pickedSupplyAreaId = Session.get('selectedArea');
-        const cancellationReason = e.target.cancelRequest.value;
-        let status = 0;
-
-        /*
-        Meteor.call('canceledPicking', pickedMachineId, pickedSupplyAreaId,
-            status, userCanceled, cancellationReason);
-
-         */
-
+       // console.log(pickedMachineId, pickedSupplyAreaId);
+        if (typeof pickedSupplyAreaId === 'undefined') {
+        //    console.log('inside 1');
+            Meteor.call('quickRemove', userCanceled);
+        }
+        if(pickedSupplyAreaId) {
+          //  console.log('inside 2');
+            Meteor.call('canceledMultiPicking', userCanceled,
+                               pickedMachineId, pickedSupplyAreaId);
+        }
+        FlowRouter.go("/");
     },
 
 

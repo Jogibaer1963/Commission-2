@@ -356,7 +356,7 @@ table.toDoListTable {
 
 .commissionTablet {
   position: absolute;
-  top: 5em;
+  top: 5.5em;
   left: 2em; }
 
 .chooseMachineTable {
@@ -366,7 +366,7 @@ table.toDoListTable {
 
 .commissionHeadTab {
   position: absolute;
-  top: 2em;
+  top: 1em;
   left: 3em; }
 
 .marginLeft {
@@ -978,6 +978,11 @@ table.supply-multi-table td, table.supply-multi-table th {
 .cancellation-request {
   position: relative;
   top: 15em; }
+
+.cancel-multi {
+  left: 24em;
+  position: absolute;
+  top: 39em; }
 
 .insideNavBar {
   margin-top: 25px; }

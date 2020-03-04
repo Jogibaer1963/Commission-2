@@ -97,6 +97,7 @@ Template.addMachine.events ({
         const newMachine = e.target.newMachine.value;
         const inLineDate = e.target.newDate.value;
         let dateOfCreation = Date.now();
+        // console.log(newMachine, dateOfCreation);
         if(newMachine) {
             Meteor.call('doubleMachine', newMachine,  inLineDate, dateOfCreation, function (err, response) {
                 if (response) {
