@@ -52,7 +52,7 @@ Template.dailyResult.helpers({
                 resultOfTheDay.push(element2);
             });
         });
-        console.log(resultOfTheDay);
+       // console.log(resultOfTheDay);
         let supplyPerDay = [];
         resultOfTheDay.forEach((element) => {
             supplyPerDay.push(element.supplyArea);
@@ -225,13 +225,19 @@ Template.dailyResult.helpers({
         let averagePerSupply = Session.get('totalResultDuration');
         let cartsCounter = Session.get('carts');
         let categories = Session.get('totalResultSupply');
+       // console.log(averagePerSupply, cartsCounter, categories);
+        let average = (averagePerSupply.reduce((a,b) => a + b , 0) / averagePerSupply.length).toFixed(0);
+        let annualCarts = cartsCounter.reduce((a,b) => a + b, 0);
+        let annualCategories = categories.length;
+       // console.log(average, annualCarts);
+        let titleText = annualCarts + ' ' + 'Carts picked for ' + annualCategories + ' Cost centers with an average of ' + average + ' min';
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_2', {
 
                 title: {
-                    text: 'Annual Overview of picked carts and average picking time'
+                    text: titleText
                 },
 
                 tooltip: {
@@ -359,7 +365,7 @@ Template.singleResults.helpers({
         let averagePerSupply = Session.get('Duration');
         let cartsCounter = Session.get('Cart');
         let categories = Session.get('Supply');
-        //   console.log(averagePerSupply, cartsCounter, categories);
+        console.log(averagePerSupply, cartsCounter, categories);
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:

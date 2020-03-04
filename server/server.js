@@ -537,8 +537,9 @@ if(Meteor.isServer){
 
 
         'chosenMonth': (trueMonth, picker) => {
-
+       //     console.log(trueMonth, picker);
             let result = pickers.find({_id: picker}).fetch();
+            //console.log(result);
             let monthResult = result[0];
             let objResult = Object.keys(result[0]);
             for (let i = 0; i < objResult.length; i++) {
@@ -547,6 +548,7 @@ if(Meteor.isServer){
                     i--;
                 }
             }
+           // console.log(monthResult);
             let monthRange = [];
             let arraySumm = [];
             objResult.forEach((element) => {
@@ -571,7 +573,7 @@ if(Meteor.isServer){
             let durationGraph = [];
             let counter = [];
            let uniqueSupply = supplySumm.filter((x, i, a) => a.indexOf(x) === i);
-         //   console.log(uniqueSupply);
+         //  console.log(uniqueSupply);
 
             uniqueSupply.forEach((element) => {
                 //  console.log(element);
@@ -579,12 +581,12 @@ if(Meteor.isServer){
                 objectSumm.forEach((element2) => {
                     try {
                         if (element === element2.supplyArea) {
-                            //  console.log(element, element2.duration);
+                          //    console.log(element, element2.duration);
                             totalDuration.push(element2.duration);
-                            i++
-                            //  console.log(totalDuration);
+                            i++;
+                          //    console.log(totalDuration);
                         } else {
-                            //       console.log('else')
+                     //              console.log('else')
                         }
                     } catch(e) {
                     }
@@ -596,9 +598,10 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             });
-          //  console.log(uniqueSupply, durationGraph, counter);
+      //    console.log(uniqueSupply, durationGraph, counter);
             let returnArray = [];
             returnArray.push(uniqueSupply, durationGraph, counter);
+       //     console.log(returnArray);
             return returnArray;
         },
 

@@ -110,13 +110,6 @@ Template.analysisOverView.helpers({
         Session.set('pickersAnnualCart', counter);
         Session.set('pickersAnnualSupplyAreas', uniqueSupplyAreas);
         Session.set('pickersAnnualDuration', durationGraph);
-        console.log("counter: ", counter, " ", "pickersAnnualAreas: ", uniqueSupplyAreas, " ", "pickersAnnualDuration: ", durationGraph);
-        let annualCartCounter = counter.reduce((a, b) => a + b, 0);
-        let annualSupplyAreas = uniqueSupplyAreas.length;
-        let annualDurationCounter = (durationGraph.reduce((a,b) => a + b, 0)/ durationGraph.length).toFixed(0);
-        Session.set('annualCartCounter', annualCartCounter);
-        Session.set('annualSupplyAreas', annualSupplyAreas);
-        Session.set('annualDurationCounter', annualDurationCounter);
     },
 
 
@@ -127,13 +120,17 @@ Template.analysisOverView.helpers({
         let timePerCart = Session.get('pickersAnnualDuration');
         let cartsTotal = Session.get('pickersAnnualCart');
         //   console.log(averagePerSupply, cartsCounter, categories);
+        let annualSupply = supplyArea.length;
+        let annualAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
+        let annualCarts = cartsTotal.reduce((a,b) => a + b, 0);
         // Use Meteor.defer() to create chart after DOM is ready:
+        let titleText = annualCarts + ' Carts picked for ' + annualSupply + ' Supply Areas with an average of ' + annualAverage + ' min';
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_3', {
 
                 title: {
-                    text: 'Annual Overview of picked carts and average picking time'
+                    text: titleText
                 },
 
                 tooltip: {
