@@ -294,7 +294,6 @@ Template.dailyResult.helpers({
         });
     },
 
-
     pickersAnnualResult: () => {
         let arraySummery = [];
         let newArray = [];
