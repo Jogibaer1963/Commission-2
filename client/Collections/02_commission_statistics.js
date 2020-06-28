@@ -637,31 +637,23 @@ Template.singleResults.events({
 
     'submit .choseMonth': function (e) {
         e.preventDefault();
-        const loggedUser = Meteor.user();
-        let monthName = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
+        let picker = Session.get('chosenPicker');
         let month = e.target.specificMonth.value;
-        //  console.log(month);
-        let chosenMonth = month.slice(5, 8);
-        let chosenYear = month.slice(0, 4);
-        let trueMonth = ('0' + (parseInt(chosenMonth) -1)).slice(-2) ; // month start with 0 ** January = 00
-        //    console.log(trueMonth, monthName[chosenMonth - 1]);
-        Session.set('monthName', monthName[chosenMonth - 1]);
-        // build range for specific month dd-week day--month-year
-        let monthStart = trueMonth + chosenYear;
-        Meteor.call('chosenMonth',monthStart, loggedUser.username, function(err, response) {
+        Meteor.call('chosenMonth', month, picker, function (err, response) {
             if (response) {
-                Session.set('Supply', response[0]);
-                Session.set('Duration', response[1]);
-                Session.set('Cart', response[2]);
+                Session.set('monthMachine', response[0]);
+                Session.set('monthSupplyArea', response[1]);
+                Session.set('monthPickingTime', response[2]);
+                Session.set('monthDuration', response[3]);
+                Session.set('monthDate', response[4]);
                 Session.set('diagramDate', false);
                 Session.set('diagramMonth', true);
                 Session.set('diagramArea', false);
-                Session.set('errorResponse', false);
             } else {
             }
         })
     },
+
 
     'click .area': function (e) {
         e.preventDefault();

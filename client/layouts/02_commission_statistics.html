@@ -7,7 +7,7 @@
             <img src="claas_logo.png" />
         </div>
         {{> dailyResult}}
-        {{> singleResults}}
+    <!--    {{> singleResults}}  -->
             {{#if isInRole 'admin'}}
                     <div class="commission-admin">
                       <a class="btn btn-danger"  href="commissionAnalysis.html">Commissions Analysis</a>
@@ -46,7 +46,6 @@
 
 
 <template name="singleResults">
-
     <div class="analysis-selection-single">
         <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
         <input type="checkbox" id="specificDate" name="date">
@@ -117,7 +116,7 @@
     {{#if diagramDate}}
         <div class="">
             <div class="diagram-9">
-                <div  id="chart_5">{{pickersChartResult}}</div>
+                <div  id="chart_5">{{pickersDayChartResult}}</div>
             </div>
         </div>
     {{/if}}
@@ -125,7 +124,7 @@
     {{#if diagramMonth}}
         <div class="area-result">
             <div class="diagram-9">
-                <div  id="chart_5">{{pickersChartResult}}</div>
+                <div  id="chart_5">{{pickersMonthChartResult}}</div>
             </div>
         </div>
     {{/if}}

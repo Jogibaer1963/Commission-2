@@ -1,8 +1,8 @@
 <template name="admin">
-    {{#if currentUser}}
-        {{#if isInRole 'admin'}}
+{{#if currentUser}}-->
+     {{#if isInRole 'admin'}}
            {{> adminView}}
-            {{/if}}
+             {{/if}}
     {{else}}
         {{> login}}
     {{/if}}
