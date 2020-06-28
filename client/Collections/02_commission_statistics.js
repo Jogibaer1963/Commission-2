@@ -356,7 +356,7 @@ Template.dailyResult.helpers({
 
 
 });
-
+/*
 Template.singleResults.helpers({
 
     pickersChartResult: function () {
@@ -666,6 +666,7 @@ Template.singleResults.events({
 
 });
 
+
 function getArea (area, picker) {
     Meteor.call('selectedAreaAnalysis', area, picker, function (err, response) {
         if (err) {
@@ -696,7 +697,7 @@ Template.singleResults.onDestroyed(() => {
     Session.set('diagramArea', false);
     Session.set('errorResponse', false);
 });
-
+*/
 function pickingToDay () {
     let today = Date.now();
     let timeResult = new Date(today);
@@ -712,6 +713,7 @@ function pickingToDay () {
     let pickingYear = timeResult.getFullYear();
     return (pickingDate + pickingDay + pickingMonth + pickingYear);
 }
+
 
 
 
