@@ -1,5 +1,8 @@
 import {Meteor} from "meteor/meteor";
+/*
 import {unix} from "moment";
+
+ */
 
 if(Meteor.isServer){
 
@@ -35,7 +38,7 @@ if(Meteor.isServer){
     Meteor.methods({
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
-        'addSupplyArea': (area, loggedUser) => {
+        'addSupplyArea': (area) => {
             let supplyCount = (supplyAreas.find().fetch()).length;
             const supplyStatus = 0;
      //     check if supply Area already exists, if so send error back to client
@@ -65,10 +68,11 @@ if(Meteor.isServer){
                 console.log(e)
             }
 
-
+/*
             let action = 'added supply area ' + area;
            // userUpdate(loggedUser, action);
 
+ */
 
         },
 
@@ -233,6 +237,7 @@ if(Meteor.isServer){
 
         'multipleMachines': (machineIds, loggedUser) => {
             let supplyArray0 = [];
+            /*
             let supplyArray1 = [];
             let supplyArray2 = [];
             let supplyArray3 = [];
@@ -242,6 +247,7 @@ if(Meteor.isServer){
             let supplyArray7 = [];
             let supplyArray8 = [];
             let supplyArray9 = [];
+             */
             let newSet = [];
             let newObjectSet = [];
             // building arrays of available supply areas for max 6 machines.
@@ -552,6 +558,9 @@ if(Meteor.isServer){
            let supplyArea = [];
            let machine = [];
            let duration = [];
+           let counter = [];
+           let totalDuration = [];
+           let durationGraph = [];
 
            // building the month string and get days per month
            let chosenYear = month.slice(0, 4);
@@ -562,7 +571,7 @@ if(Meteor.isServer){
            let minDate = (chosenYear + '-' + chosenMonth + '-' + '01').toString();
            let maxDate =  (chosenYear + '-' + chosenMonth + '-' + dayMax).toString();
            let unixMinDate = new Date(minDate).getTime();
-           let unixMaxDate = new Date(maxDate).getTime();
+           let unixMaxDate = new Date(maxDate).getTime() + 86400000;
           // console.log('Min date ', minDate, unixMinDate);
            let result = pickers.find({_id: picker}).fetch();
            let objResult = Object.keys(result[0]);
@@ -596,8 +605,83 @@ if(Meteor.isServer){
                 duration.push(element.duration);
                 date.push(element.date);
             })
+            let uniqueSupply = supplyArea.filter((x, i, a) => a.indexOf(x) === i);
+            uniqueSupply.forEach((element) => {
+                let i = 0;
+                transferResult.forEach((element2) => {
+                    if (element === element2.supplyArea) {
+                        totalDuration.push(element2.duration);
+                        i++;
+                    }
+                });
+                let averageDuration = ((totalDuration.reduce((a, b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+                counter.push(i);
+                durationGraph.push(parseInt(averageDuration));
+                totalDuration = [];
+                i = 0;
+            })
+
             // console.log(transferResult);
-            return [machine, supplyArea, pickingTime, duration, date];
+            return [machine, supplyArea, pickingTime, duration, date, counter, uniqueSupply, durationGraph];
+        },
+
+        'chosenRange': function(dateX, dateY, picker) {
+            let compactData = [];
+            let transferResult = [];
+            // Arrays for result send to client
+            let supplyArea = [];
+            let totalDuration = [];
+            let counter = [];
+            let durationGraph = [];
+            let pickingResult = {};
+            // load complete list for specific picker
+            let result = pickers.find({_id: picker}).fetch();
+            // find keys (containing the wanted data's) for each single picking day and put them into an Array
+            let objResult = Object.keys(result[0]);
+            for (let i = 0; i < objResult.length; i++) {
+                if (objResult[i] === "_id") {
+                    objResult.splice(i, 1);
+                    i--;
+                }
+            }
+            objResult.forEach((element) => {
+                compactData = result[0][element];
+                compactData.forEach((element2) => {
+                    if (element2.pickingTime >= dateX && element2.pickingTime <= dateY) {
+                        pickingResult = {
+                            pickingTime : element2.pickingTime,
+                            duration : element2.duration,
+                            machine : element2.machine,
+                            supplyArea : element2.supplyArea,
+                            date : element2.date
+                        }
+                        transferResult.push(pickingResult);
+                    }
+                });
+            })
+            transferResult.sort((a,b) => (a.pickingTime > b.pickingTime) ? 1 :
+                (b.pickingTime > a.pickingTime) ? -1 : 0);
+            transferResult.forEach((element) => {
+                supplyArea.push(element.supplyArea);
+            })
+            // extract unique supply Areas served during dateX & dateY
+            let uniqueSupply = supplyArea.filter((x, i, a) => a.indexOf(x) === i);
+            uniqueSupply.forEach((element) => {
+                let i = 0;
+                transferResult.forEach((element2) => {
+                        if (element === element2.supplyArea) {
+                            totalDuration.push(element2.duration);
+                            i++;
+                        }
+                });
+                let averageDuration = ((totalDuration.reduce((a, b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
+                counter.push(i);
+                durationGraph.push(parseInt(averageDuration));
+                totalDuration = [];
+                i = 0;
+            })
+
+            return [counter, uniqueSupply, durationGraph];
         },
 
         'selectedAreaAnalysis': function (area, picker) {
@@ -613,7 +697,6 @@ if(Meteor.isServer){
             let oneArray = [];
             let objectResult = {};
             objResult.forEach((element) => {
-                console.log(element);
                 result[0][element].forEach((element2) => {
                   //  console.log('element2: ', element2);
                    if (area === element2.supplyArea) {
@@ -708,10 +791,13 @@ if(Meteor.isServer){
     });
 
     // physical database is 09_userAction
+    /*
      function userUpdate (loggedUser, action)  {
         let timeStamp = Date.now();
         userActions.insert({user: loggedUser, action: action, timeStamp: timeStamp});
       }
+
+     */
 
     function pickingToDay () {
         let today = Date.now();
@@ -727,6 +813,7 @@ if(Meteor.isServer){
         let pickingDay = "0" + timeResult.getDay() ;
         let pickingYear = timeResult.getFullYear();
         return (pickingDate + pickingDay + pickingMonth + pickingYear);
+        // Format 01-31, 0-6, 0-11, YYYY
     }
 
     function getDaysInMonth(month, year) {

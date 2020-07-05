@@ -57,6 +57,9 @@
                 <label for="specificMonth">Specific Month</label>
                 <input type="checkbox" id="specificMonth" name="month">
                 <br>
+                <label for="range">Range from to</label>
+                <input type="checkbox" id="range" name="range">
+                <br>
                 <label for="specificWorkArea">Specific Work Area</label>
                 <input type="checkbox" id="specificWorkArea" name="area">
                 <br>
@@ -74,6 +77,18 @@
                                 <label for="specificMonth">Specific Month&nbsp;</label>
                                 <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
                                 <button class="btn btn-default btn-success" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    {{else if range}}
+                        <form class="range">
+                            <div class="range-1">
+                                <label for="range1">From</label>
+                                <input type="date" name="range1" min="2019-10" value="2019-10" id="range1">
+                            </div>
+                            <div class="range-2">
+                                <label for="range2">to</label>
+                                <input class="range-input-2" type="date" name="range2" min="2019-10" value="2019-10" id="range2">
+                                <button class="btn btn-default btn-success btn-range-2" type="submit">Submit</button>
                             </div>
                         </form>
                     {{else if specificArea}}
@@ -137,6 +152,14 @@
         <div class="area-result">
             <div class="diagram-4">
                 <div  id="chart_5">{{pickersMonthChartResult}}</div>
+            </div>
+        </div>
+    {{/if}}
+
+    {{#if diagramRange}}
+        <div class="area-result">
+            <div class="diagram-4">
+                <div  id="chart_5">{{pickersRangeChartResult}}</div>
             </div>
         </div>
     {{/if}}

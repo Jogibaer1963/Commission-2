@@ -39,7 +39,6 @@ Template.analysisOverView.helpers({
         return supplyAreas.find({active: true}).fetch();
     },
 
-
     specificArea: () => {
         return Session.get('specificArea')
     },
@@ -50,6 +49,10 @@ Template.analysisOverView.helpers({
 
     specificMonth: () => {
         return Session.get('specificMonth')
+    },
+
+    range: () => {
+        return Session.get('range')
     },
 
     pickersAnnualResult: () => {
@@ -65,48 +68,36 @@ Template.analysisOverView.helpers({
                     i--;
                 }
             }
-            // console.log(resultObj);
             resultObj.forEach((element) => {
                 arraySummery.push(result[element]);
             });
-        } catch {
-        }
+        } catch {}
         let annualSummary = arraySummery.flat(1);
         annualSummary.forEach((element) => {
-
             try {
                 newArray.push(element.supplyArea);
-            } catch {
-            }
+            } catch {}
         });
         let totalDuration = [];
         let durationGraph = [];
         let counter = [];
         let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
         uniqueSupplyAreas.forEach((element) => {
-            //     console.log(element);
             let i = 0;
             annualSummary.forEach((element2) => {
                 try {
                     if (element === element2.supplyArea) {
-                        //    console.log(element, element2.duration);
                         totalDuration.push(element2.duration);
                         i++;
-                        //     console.log(totalDuration);
-                    } else {
-                        //    console.log('else')
-                    }
-                } catch {
-                }
+                    } else {}
+                } catch {}
             });
             let averageDuration = ((totalDuration.reduce((a, b) => a + b, 0) / totalDuration.length) / 60000).toFixed(0);
-            //    console.log('duration: ', averageDuration);
             counter.push(i);
             durationGraph.push(parseInt(averageDuration));
             totalDuration = [];
             i = 0;
         });
-        // console.log(uniqueSupplyAreas);
         Session.set('pickersAnnualCart', counter);
         Session.set('pickersAnnualSupplyAreas', uniqueSupplyAreas);
         Session.set('pickersAnnualDuration', durationGraph);
@@ -128,28 +119,21 @@ Template.analysisOverView.helpers({
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_3', {
-
                 title: {
                     text: titleText
                 },
-
                 tooltip: {
                     shared: true
                 },
-
                 chart: {
-
                     style: {
                         fontFamily: '\'Unica One\', sans-serif'
                     },
                     plotBorderColor: '#606063',
-
-
                     height: 500,
                     width: 900,
                     zoomType: 'xy'
                 },
-
                 yAxis: {
                     categories: [],
                     title: {enabled: true,
@@ -159,7 +143,6 @@ Template.analysisOverView.helpers({
                         }
                     }
                 },
-
                 xAxis: {
                     categories: supplyArea,
                     title: {
@@ -170,7 +153,6 @@ Template.analysisOverView.helpers({
                         }
                     }
                 },
-
                 series: [
                     {
                         name: 'Average picking time in min',
@@ -187,20 +169,227 @@ Template.analysisOverView.helpers({
         });
     },
 
+    //  Day Chart
+
+    pickersDayChartResult: function () {
+        // Use Meteor.defer() to create chart after DOM is ready:
+        // Gather data:
+        let pickingDay = Session.get('pickingDay');
+        let timePerCart = Session.get('Duration');
+        let cartsCounter = Session.get('Cart');
+        let categories = Session.get('Supply');
+        //   console.log(averagePerSupply, cartsCounter, categories);
+        // Use Meteor.defer() to create chart after DOM is ready:
+        let daylieAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
+        let daylieCarts = cartsCounter.reduce((a,b) => a + b, 0);
+        let titleText = 'At ' + pickingDay + ' were ' + daylieCarts + ' Carts picked for ' +
+                                categories.length + ' Supply Areas with an average of ' +
+                                daylieAverage + ' min';
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_5', {
+                title: {
+                    text: titleText
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: timePerCart
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: cartsCounter
+                    }
+                ]
+            });
+        });
+    },
+
+    // Month Chart
+
+    pickersMonthChartResult: function () {
+        // Use Meteor.defer() to create chart after DOM is ready:
+        // Gather data:
+        let counter = Session.get('monthCounter');
+        let categories = Session.get('monthUniqueSupply');
+        let monthDurationGraph = Session.get('monthDurationGraph');
+        let monthMachine = Session.get('monthMachine');
+        let monthSupplyArea = Session.get('monthSupplyArea');
+        let monthDuration = Session.get('monthDuration');
+        let monthDate = Session.get('monthDate');
+
+        let months_arr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        let monthPickingTime = Session.get('monthPickingTime');
+        let monthDisplay = months_arr[(new Date(monthPickingTime[0])).getMonth()];
+
+        let monthSupplyTotal = monthSupplyArea.length;
+        let monthDurationAverage = (monthDuration.reduce((a,b) => a + b, 0) / monthDuration.length).toFixed(0);
+
+        let titleText = 'At ' + monthDisplay + ' were ' + monthSupplyTotal + ' Carts picked for ' +
+            ' with an average of ' + (monthDurationAverage/60000).toFixed(0) + ' min';
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_5', {
+                title: {
+                    text: titleText
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: monthDurationGraph
+                    },
+                    {
+                        name: 'Carts Picked',
+                        type: 'spline',
+                        data: counter
+                    }
+                ]
+            });
+        });
+    },
+
+    pickersRangeChartResult: function () {
+        // Use Meteor.defer() to create chart after DOM is ready:
+        // Gather data:
+        let counter = Session.get('rangeCounter');
+        let categories = Session.get('rangeUniqueSupply');
+        let durationGraph = Session.get('rangeDurationGraph');
+        let fromDate = Session.get('fromDate');
+        let toDate = Session.get('toDate');
+        let titleText = "From " + fromDate + " to " + toDate + " were " + (counter.reduce((a,b) => a + b, )) + " Carts picked";
+
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_5', {
+                title: {
+                    text: titleText
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: durationGraph
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: counter
+                    }
+                ]
+            });
+        });
+    },
+
+
+
+
     areaResult: function () {
         // Gather data:
         let areaResult = Session.get('response');
-
-              // machines & minutes
+        // machines & minutes
         let machines = [];
         let minutes = [];
         areaResult.forEach((element) => {
             machines.push( element.machine);
             minutes.push(parseFloat(element.duration));
         });
-
         let titleText = '';
-
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -248,181 +437,18 @@ Template.analysisOverView.helpers({
                         enableMouseTracking: false
                     }
                 },
-                 series: [
-                {
-                    name: 'Picking time in min',
-                    data: minutes
-                },
-                {
-                    name: 'Machines',
-                    data: machines
-                }
-            ]
-            });
-        });
-    },
-
-    //  Day Chart
-
-    pickersDayChartResult: function () {
-        // Use Meteor.defer() to create chart after DOM is ready:
-        // Gather data:
-        let pickingDay = Session.get('pickingDay');
-        let timePerCart = Session.get('Duration');
-        let cartsCounter = Session.get('Cart');
-        let categories = Session.get('Supply');
-        //   console.log(averagePerSupply, cartsCounter, categories);
-        // Use Meteor.defer() to create chart after DOM is ready:
-        let daylieAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
-        let daylieCarts = cartsCounter.reduce((a,b) => a + b, 0);
-        let titleText = 'At ' + pickingDay + ' were ' + daylieCarts + ' Carts picked for ' +
-                                categories.length + ' Supply Areas with an average of ' +
-                                daylieAverage + ' min';
-
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_5', {
-
-                title: {
-                    text: titleText
-                },
-
-                tooltip: {
-                    shared: true
-                },
-
-                chart: {
-
-                    style: {
-                        fontFamily: '\'Unica One\', sans-serif'
-                    },
-                    plotBorderColor: '#606063',
-
-
-                    height: 500,
-                    width: 900,
-                    zoomType: 'xy'
-                },
-
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Picking Time in min',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        enabled: true,
-                        text: 'Areas Picked',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-
                 series: [
                     {
-                        name: 'Average picking time in min',
-                        type: 'column',
-                        data: timePerCart
+                        name: 'Picking time in min',
+                        data: minutes
                     },
                     {
-                        name: 'Carts picked',
-                        type: 'spline',
-                        data: cartsCounter
+                        name: 'Machines',
+                        data: machines
                     }
                 ]
             });
         });
-    },
-
-    // Month Chart
-
-    pickersMonthChartResult: function () {
-        // Use Meteor.defer() to create chart after DOM is ready:
-        // Gather data:
-        let months_arr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        let monthMachine = Session.get('monthMachine');
-        let monthSupplyArea = Session.get('monthSupplyArea');
-        let monthPickingTime = Session.get('monthPickingTime');
-        let monthDuration = Session.get('monthDuration');
-        let monthDate = Session.get('monthDate');
-        let monthDisplay = months_arr[(new Date(monthPickingTime[0])).getMonth()];
-        let monthSupplyTotal = monthSupplyArea.length;
-        let monthDurationAverage = (monthDuration.reduce((a,b) => a + b, 0) / monthDuration.length).toFixed(0);
-
-        let titleText = 'At ' + monthDisplay + ' were ' + monthSupplyTotal + ' Carts picked for ' +
-            ' with an average of ' + (monthDurationAverage/60000).toFixed(0) + ' min';
-        return titleText;
-
-/*
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('chart_5', {
-
-                title: {
-                    text: titleText
-                },
-
-                tooltip: {
-                    shared: true
-                },
-
-                chart: {
-
-                    style: {
-                        fontFamily: '\'Unica One\', sans-serif'
-                    },
-                    plotBorderColor: '#606063',
-                    height: 500,
-                    width: 900,
-                    zoomType: 'xy'
-                },
-
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Picking Time in min',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        enabled: true,
-                        text: 'Areas Picked',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-
-                series: [
-                    {
-                        name: 'Average picking time in min',
-                        type: 'column',
-                        data: monthDuration
-                    },
-                    {
-                        name: 'Supply Areas',
-                        type: 'spline',
-                        data: monthSupplyArea
-                    }
-                ]
-            });
-
-
-        });
-
- */
     },
 
 
@@ -456,6 +482,10 @@ Template.analysisOverView.helpers({
 
     diagramMonth: function () {
         return Session.get('diagramMonth');
+    },
+
+    diagramRange: function () {
+        return Session.get('diagramRange');
     },
 
     diagramArea: function () {
@@ -515,17 +545,21 @@ Template.analysisOverView.events({
         Session.set('specificArea', false);
         Session.set('specificDate', false);
         Session.set('specificMonth', false);
+        Session.set('range', false);
         Session.set('monthSupply',  false);
         Session.set('monthDuration',  false);
         Session.set('monthCart',  false);
         Session.set('diagramDate', false);
         Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
         Session.set('diagramArea', false);
         Session.set('errorResponse', false);
+        try {
         document.getElementById("specificMonth").checked = false;
+        document.getElementById("range").checked = false;
         document.getElementById("specificWorkArea").checked = false;
         document.getElementById("specificDate").checked = false;
-
+        } catch {}
     },
 
     'change #specificDate': (e) => {
@@ -533,11 +567,14 @@ Template.analysisOverView.events({
         Session.set('specificArea', false);
         Session.set('specificDate', true);
         Session.set('specificMonth', false);
+        Session.set('range', false);
         Session.set('diagramDate', false);
         Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
         Session.set('diagramArea', false);
         Session.set('errorResponse', false);
         document.getElementById("specificMonth").checked = false;
+        document.getElementById("range").checked = false;
         document.getElementById("specificWorkArea").checked = false;
     },
 
@@ -546,12 +583,31 @@ Template.analysisOverView.events({
         Session.set('specificArea', false);
         Session.set('specificDate', false);
         Session.set('specificMonth', true);
+        Session.set('range', false);
         Session.set('diagramDate', false);
         Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
+        document.getElementById("specificWorkArea").checked = false;
+        document.getElementById("range").checked = false;
+        document.getElementById("specificDate").checked = false;
+    },
+
+    'change #range': (e) => {
+        e.preventDefault();
+        Session.set('specificArea', false);
+        Session.set('specificDate', false);
+        Session.set('specificMonth', false);
+        Session.set('range', true);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
         Session.set('diagramArea', false);
         Session.set('errorResponse', false);
         document.getElementById("specificWorkArea").checked = false;
         document.getElementById("specificDate").checked = false;
+        document.getElementById("specificMonth").checked = false;
     },
 
     'change #specificWorkArea': (e) => {
@@ -559,11 +615,14 @@ Template.analysisOverView.events({
         Session.set('specificArea', true);
         Session.set('specificDate', false);
         Session.set('specificMonth', false);
+        Session.set('range', false);
         Session.set('diagramDate', false);
         Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
         Session.set('diagramArea', false);
         Session.set('errorResponse', false);
         document.getElementById("specificMonth").checked = false;
+        document.getElementById("range").checked = false;
         document.getElementById("specificDate").checked = false;
     },
 
@@ -593,6 +652,7 @@ Template.analysisOverView.events({
                Session.set('errorPickingDate', '');
                Session.set('diagramDate', true);
                Session.set('diagramMonth', false);
+                   Session.set('diagramRange', false);
                Session.set('diagramArea', false);
                }
            } else {
@@ -612,12 +672,48 @@ Template.analysisOverView.events({
                 Session.set('monthPickingTime', response[2]);
                 Session.set('monthDuration', response[3]);
                 Session.set('monthDate', response[4]);
+                Session.set('monthCounter', response[5]);
+                Session.set('monthUniqueSupply', response[6]);
+                Session.set('monthDurationGraph', response[7]);
                 Session.set('diagramDate', false);
                 Session.set('diagramMonth', true);
+                Session.set('diagramRange', false);
                 Session.set('diagramArea', false);
             } else {
             }
         })
+    },
+
+    'submit .range': function (e) {
+        e.preventDefault();
+        let picker = Session.get('chosenPicker');
+        let presentDay = (new Date()).getFullYear() + '-' + ((new Date()).getMonth() + 1) + '-' + (new Date()).getDate();
+        let dateZ = Date.parse(presentDay)
+        let date1 = (e.target.range1.value);
+        let dateX = Date.parse(date1);
+        let date2 = e.target.range2.value;
+        let dateY = Date.parse(date2) + 86400000;
+        if (dateY <= dateX || dateX >= dateZ) {
+            alert("2nd Date can't be equal or lower than 1st Date or greater than today. Please correct")
+        } else {
+            Meteor.call('chosenRange', dateX, dateY, picker, function (err, response) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    Session.set('rangeCounter', response[0]);
+                    Session.set('rangeUniqueSupply', response[1]);
+                    Session.set('rangeDurationGraph', response[2]);
+                    Session.set('fromDate', date1);
+                    Session.set('toDate', date2);
+                    Session.set('diagramDate', false);
+                    Session.set('diagramMonth', false);
+                    Session.set('diagramRange', true);
+                    Session.set('diagramArea', false);
+                }
+            })
+        }
+
+
     }
 });
 
@@ -629,6 +725,7 @@ function getArea (area, picker) {
             Session.set('response', response);
             Session.set('diagramDate', false);
             Session.set('diagramMonth', false);
+            Session.set('diagramRange', false);
             Session.set('diagramArea', true);
         }
     });
@@ -639,6 +736,7 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('specificArea', false);
     Session.set('specificDate', false);
     Session.set('specificMonth', false);
+    Session.set('range', false);
     Session.set('pickersAnnualResult', false);
     Session.set('chosenPicker', false);
     Session.set('Supply',  false);
@@ -648,6 +746,7 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('diagram', 1);
     Session.set('diagramDate', false);
     Session.set('diagramMonth', false);
+    Session.set('diagramRange', false);
     Session.set('diagramArea', false);
     Session.set('errorResponse', false);
 });
