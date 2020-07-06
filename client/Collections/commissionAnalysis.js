@@ -246,10 +246,10 @@ Template.analysisOverView.helpers({
         let counter = Session.get('monthCounter');
         let categories = Session.get('monthUniqueSupply');
         let monthDurationGraph = Session.get('monthDurationGraph');
-        let monthMachine = Session.get('monthMachine');
+       // let monthMachine = Session.get('monthMachine');
         let monthSupplyArea = Session.get('monthSupplyArea');
         let monthDuration = Session.get('monthDuration');
-        let monthDate = Session.get('monthDate');
+      //  let monthDate = Session.get('monthDate');
 
         let months_arr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         let monthPickingTime = Session.get('monthPickingTime');

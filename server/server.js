@@ -91,11 +91,11 @@ if(Meteor.isServer){
                     commissionStatus: 0,
                     active: true});
             //    console.log(newMachine);
-                /*
+
                 supplyAreas.find({active: true}, {sort: {supplyPosition: 1}}).forEach(function(copy) {
                     machineCommTable.update({machineId: newMachine}, {$addToSet: {supplyAreas: (copy)}})
                 });
-                */
+
             } else {
                 return newMachine;
             }
