@@ -126,7 +126,7 @@ Template.commTablet_2.events ({
 
         Session.set('multiMachinesId', '');
         Session.set('selectedArea', '');
-        FlowRouter.go('/commission');
+        FlowRouter.go('/');
     },
 
 

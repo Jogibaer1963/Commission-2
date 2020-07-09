@@ -237,7 +237,6 @@ if(Meteor.isServer){
 
         'multipleMachines': (machineIds, loggedUser) => {
             let supplyArray0 = [];
-            /*
             let supplyArray1 = [];
             let supplyArray2 = [];
             let supplyArray3 = [];
@@ -247,7 +246,6 @@ if(Meteor.isServer){
             let supplyArray7 = [];
             let supplyArray8 = [];
             let supplyArray9 = [];
-             */
             let newSet = [];
             let newObjectSet = [];
             // building arrays of available supply areas for max 6 machines.
@@ -346,7 +344,7 @@ if(Meteor.isServer){
 
             let machineNumbers = pickedMachines.length;
             let pickersResult = pickersAtWork.findOne({_id: user});
-            pickersAtWork.remove({_id: user});
+
 
             pickersResult.machines.forEach((element) => {
 
@@ -389,6 +387,7 @@ if(Meteor.isServer){
                         multi: true};
                      pickers.update({_id: user}, {$addToSet: {[pickingString]: resultObj}});
                 });
+            pickersAtWork.remove({_id: user});
 
         },
 
