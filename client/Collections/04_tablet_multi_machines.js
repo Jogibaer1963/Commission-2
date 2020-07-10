@@ -34,7 +34,6 @@ Template.commTablet_2.helpers ({
                 // nothing to share
             } else {
                 let machines = result.machines;
-
                 Session.set('multiMachinesId', machines);
                 return machines;
             }
@@ -49,17 +48,12 @@ Template.commTablet_2.helpers ({
                 let supplySetLength = result.supplySet.length;
                     if (supplySetLength === 1) {
                         let supply = result.supplySet[0]._id;
-
                         Session.set('selectedArea', supply);
                         return supply;
                     } else {
-
                        return Session.get('selectedArea');
-
                         }
             }
-
-
     },
 
 
@@ -102,7 +96,6 @@ Template.commTablet_2.events ({
             let pickingStart = Date.now();
             Session.set('inActiveState', 1);
             let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
-
             Meteor.call('startPickingMultiMachines', pickedMachines,
                 pickedSupplyAreaId, status, userStart,
                 pickingStart, dateStartNow);
@@ -123,7 +116,6 @@ Template.commTablet_2.events ({
         Session.set('supplyChosen', 0);
         Meteor.call('multi-finished', pickedMachines, pickedSupplyAreaId,
             status, userFinished, dateEndNow, pickingEnd);
-
         Session.set('multiMachinesId', '');
         Session.set('selectedArea', '');
         FlowRouter.go('/');
@@ -139,7 +131,6 @@ Template.commTablet_2.events ({
         let pickingPauseStart = Date.now();
         let pickingStatus = 3;
         Session.set('inActiveState', 2);
-
         Meteor.call('multi-pause', pickedMachines, pickedSupplyAreaId,
             pickingStatus, pickingPauseStart, user);
     },
@@ -152,7 +143,6 @@ Template.commTablet_2.events ({
         let pickingPauseEnd = Date.now();
         let pickingStatus = 2;
         Session.set('inActiveState',3);
-
         Meteor.call('multi-resume', pickedMachines, pickedSupplyAreaId,
             pickingStatus, pickingPauseEnd, user);
     },
@@ -162,13 +152,10 @@ Template.commTablet_2.events ({
         const userCanceled = Meteor.user().username;
         let pickedMachineId = Session.get('multiMachinesId');
         let pickedSupplyAreaId = Session.get('selectedArea');
-       // console.log(pickedMachineId, pickedSupplyAreaId);
         if (typeof pickedSupplyAreaId === 'undefined') {
-        //    console.log('inside 1');
             Meteor.call('quickRemove', userCanceled);
         }
         if(pickedSupplyAreaId) {
-          //  console.log('inside 2');
             Meteor.call('canceledMultiPicking', userCanceled,
                                pickedMachineId, pickedSupplyAreaId);
         }
@@ -184,7 +171,6 @@ Handlebars.registerHelper('inActive_0', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 0 ', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
@@ -197,7 +183,6 @@ Handlebars.registerHelper('inActive_1', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 1 ', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
@@ -210,7 +195,6 @@ Handlebars.registerHelper('inActive_2', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 2 ', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
@@ -223,7 +207,6 @@ Handlebars.registerHelper('inActive_3', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 3 ', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
@@ -236,7 +219,6 @@ Handlebars.registerHelper('inActive_4', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    //   console.log('inActive 4 ', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
