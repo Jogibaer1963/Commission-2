@@ -12,28 +12,54 @@
   position: absolute;
   top: 120px; }
 
-.deactivate-button {
+.add-fiscal-year {
+  left: 70em;
+  position: absolute;
+  top: 19em; }
+
+.fiscal-year-admin {
+  position: relative;
+  top: 20em;
+  left: 70em; }
+
+.font-style {
+  font-weight: bold;
+  font-size: 22px; }
+
+.active-inactive-pickers {
+  left: 70em;
+  position: relative;
+  top: 30em; }
+
+.pickers-id {
+  min-width: 120px;
+  text-align: center; }
+
+.supply-frame {
   left: 20em;
+  position: absolute;
+  top: 10em; }
+
+.deactivate-button {
   position: absolute;
   top: 10em; }
 
 .reactivate-button {
-  left: 35em;
+  left: 15em;
   position: absolute;
   top: 10em; }
 
 .add-area {
-  left: 50em;
+  left: 30em;
   position: absolute;
-  top: 10em; }
+  top: 8em; }
 
 .active-supply {
-  left: 20em;
   position: absolute;
   top: 15em; }
 
 .inactive-supply {
-  left: 35em;
+  left: 15em;
   position: absolute;
   top: 15em; }
 
@@ -76,9 +102,6 @@ table tbody, table thead {
 
 table tbody {
   overflow: auto; }
-
-table.blueTable {
-  width: 1195px; }
 
 table.blueTable {
   border: 1px solid #a49892;
@@ -714,6 +737,15 @@ table.commOverView {
   position: absolute;
   top: 88em; }
 
+.analytics {
+  left: 10em;
+  position: relative; }
+
+.fiscal-year {
+  position: relative;
+  top: 11.7em;
+  left: -7em; }
+
 .start-analyze {
   left: 20em;
   position: absolute;
@@ -794,7 +826,7 @@ table.commOverView {
 .analysis-selection {
   left: 6em;
   position: absolute;
-  top: 40em; }
+  top: 44em; }
 
 .analysis-selection-single {
   left: 6em;
@@ -815,7 +847,7 @@ table.commOverView {
 .edit-time {
   left: 30em;
   position: absolute;
-  top: 8em; }
+  top: 7em; }
 
 .edit-time-button {
   margin-top: 15px; }

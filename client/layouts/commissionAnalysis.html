@@ -23,161 +23,180 @@
 </template>
 
 <template name="analysisOverView">
-    <div class="pickers-head">
-       <h3>Chosen Picker: {{chosenPicker}}</h3>
-    </div>
-    <div class="pickers-overview">
-<h4>Pickers Result</h4>
-        <table class="table table-striped table-bordered">
-            <tbody>
-            {{#each pickers}}
-            <tr class="pickersName {{selected}}">
-                <td class="pickers-width">{{_id}}</td>
-            </tr>
+    <div class="analytics">
+
+        <!--                   Choose Year                            -->
+        <div class="fiscal-year">
+            <h4>Chose Fiscal Year</h4>
+            <h4> being displayed</h4>
+            <br>
+            {{#each availableFiscalYear}}
+                <tr class="fiscal-year {{selected}}">
+                    <td class="pickers-width font-style">{{year}}</td>
+                </tr>
             {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <div class="pickers-result">
-        {{pickersResult}}
-    </div>
-    <!--                     Annual Result Graph                  -->
-    <div class="running-result">
-        {{pickersAnnualResult}}
-        <div class="diagram-3">
-            <div  id="chart_3">{{pickersAnnualChartResult}}</div>
+
+
         </div>
-    </div>
-    <!--   -->
-    {{#if pickerChosen}}
-        <div class="analysis-selection">
-                <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
-                <input type="checkbox" id="specificDate" name="date">
-                <br>
-                <label for="specificMonth">Specific Month</label>
-                <input type="checkbox" id="specificMonth" name="month">
-                <br>
-                <label for="range">Range from to</label>
-                <input type="checkbox" id="range" name="range">
-                <br>
-                <label for="specificWorkArea">Specific Work Area</label>
-                <input type="checkbox" id="specificWorkArea" name="area">
-                <br>
-                    {{#if specificDate}}
-                        <form class="choseDate">
-                            <div>
-                                <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                <input type="date" name="specificDate" id="specificDate">
-                                <button class="btn btn-default btn-success" type="submit">Submit</button>
+
+       <!--           Pickers Result                                -->
+
+        <div class="pickers-head">
+           <h3>Chosen Picker: {{chosenPicker}}</h3>
+        </div>
+        <div class="pickers-overview">
+    <h4>Pickers Result</h4>
+            <table class="table table-striped table-bordered">
+                <tbody>
+                {{#each pickers}}
+                <tr class="pickersName {{selected}}">
+                    <td class="pickers-width">{{_id}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="pickers-result">
+            {{pickersResult}}
+        </div>
+        <!--                     Annual Result Graph                  -->
+        <div class="running-result">
+            {{pickersAnnualResult}}
+            <div class="diagram-3">
+                <div  id="chart_3">{{pickersAnnualChartResult}}</div>
+            </div>
+        </div>
+        <!--   -->
+        {{#if pickerChosen}}
+            <div class="analysis-selection">
+                    <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
+                    <input type="checkbox" id="specificDate" name="date">
+                    <br>
+                    <label for="specificMonth">Specific Month</label>
+                    <input type="checkbox" id="specificMonth" name="month">
+                    <br>
+                    <label for="range">Range from to</label>
+                    <input type="checkbox" id="range" name="range">
+                    <br>
+                    <label for="specificWorkArea">Specific Work Area</label>
+                    <input type="checkbox" id="specificWorkArea" name="area">
+                    <br>
+                        {{#if specificDate}}
+                            <form class="choseDate">
+                                <div>
+                                    <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input type="date" name="specificDate" id="specificDate">
+                                    <button class="btn btn-default btn-success" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        {{else if specificMonth}}
+                            <form class="choseMonth">
+                                <div>
+                                    <label for="specificMonth">Specific Month&nbsp;</label>
+                                    <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
+                                    <button class="btn btn-default btn-success" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        {{else if range}}
+                            <form class="range">
+                                <div class="range-1">
+                                    <label for="range1">From</label>
+                                    <input type="date" name="range1" min="2019-10" value="2019-10" id="range1">
+                                </div>
+                                <div class="range-2">
+                                    <label for="range2">to</label>
+                                    <input class="range-input-2" type="date" name="range2" min="2019-10" value="2019-10" id="range2">
+                                    <button class="btn btn-default btn-success btn-range-2" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        {{else if specificArea}}
+                            <div class="specific-supply">
+                                <h4><strong>Active Supply</strong></h4>
+                                <table class="table fixed-header">
+                                    <thead>
+                                    <tr>
+                                        <th class="">Supply Area </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each supplyArea}}
+                                            <tr class="table-size area {{selectedArea}}">
+                                                <th class="table-height">{{_id}}</th>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
-                    {{else if specificMonth}}
-                        <form class="choseMonth">
-                            <div>
-                                <label for="specificMonth">Specific Month&nbsp;</label>
-                                <input type="month" name="specificMonth" min="2019-10" value="2019-10" id="specificMonth">
-                                <button class="btn btn-default btn-success" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    {{else if range}}
-                        <form class="range">
-                            <div class="range-1">
-                                <label for="range1">From</label>
-                                <input type="date" name="range1" min="2019-10" value="2019-10" id="range1">
-                            </div>
-                            <div class="range-2">
-                                <label for="range2">to</label>
-                                <input class="range-input-2" type="date" name="range2" min="2019-10" value="2019-10" id="range2">
-                                <button class="btn btn-default btn-success btn-range-2" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    {{else if specificArea}}
-                        <div class="specific-supply">
-                            <h4><strong>Active Supply</strong></h4>
-                            <table class="table fixed-header">
-                                <thead>
-                                <tr>
-                                    <th class="">Supply Area </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each supplyArea}}
-                                        <tr class="table-size area {{selectedArea}}">
-                                            <th class="table-height">{{_id}}</th>
+                            <div class="single-supply">
+                                <h3>Supply Area :  {{singleSupplyHead}}</h3>
+                                <table class="table fixed-header ">
+                                    <thead>
+                                    <tr>
+                                        <th class="">Machine</th>
+                                        <th class="">Duration</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each singleSupply}}
+                                        <tr class="table-size supplyMachine {{selectedTime}}">
+                                            <td class="table-height">{{machine}}</td>
+                                            <td class="table-height" style="width: 65px; vertical-align: center">{{duration}}</td>
                                         </tr>
                                     {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="single-supply">
-                            <h3>Supply Area :  {{singleSupplyHead}}</h3>
-                            <table class="table fixed-header ">
-                                <thead>
-                                <tr>
-                                    <th class="">Machine</th>
-                                    <th class="">Duration</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{#each singleSupply}}
-                                    <tr class="table-size supplyMachine {{selectedTime}}">
-                                        <td class="table-height">{{machine}}</td>
-                                        <td class="table-height" style="width: 65px; vertical-align: center">{{duration}}</td>
-                                    </tr>
-                                {{/each}}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="edit-time">
-                            <form class="editTime">
-                                <label for="editTime">Edit Time</label>
-                                <input type="number" name="editTime" id="editTime" placeholder="New time in min" required>
-                                <button type="submit" class="btn btn-default btn-danger edit-time-button">Submit</button>
-                            </form>
-                        </div>
-                    {{/if}}
-        </div>
-     {{/if}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="edit-time">
+                                <form class="editTime">
+                                    <label for="editTime">Edit Time</label>
+                                    <input type="number" name="editTime" id="editTime" placeholder="New time in min" required>
+                                    <button type="submit" class="btn btn-default btn-danger edit-time-button">Submit</button>
+                                </form>
+                            </div>
+                        {{/if}}
+            </div>
+         {{/if}}
 
-    {{#if diagramDate}}
-            <div class="">
-                <div class="diagram-4">
-                    <div  id="chart_5">{{pickersDayChartResult}}</div>
+        {{#if diagramDate}}
+                <div class="">
+                    <div class="diagram-4">
+                        <div  id="chart_5">{{pickersDayChartResult}}</div>
+                    </div>
                 </div>
-            </div>
-    {{/if}}
+        {{/if}}
 
-    {{#if diagramMonth}}
-        <div class="area-result">
-            <div class="diagram-4">
-                <div  id="chart_5">{{pickersMonthChartResult}}</div>
-            </div>
-        </div>
-    {{/if}}
-
-    {{#if diagramRange}}
-        <div class="area-result">
-            <div class="diagram-4">
-                <div  id="chart_5">{{pickersRangeChartResult}}</div>
-            </div>
-        </div>
-    {{/if}}
-
-    {{#if diagramArea}}
+        {{#if diagramMonth}}
             <div class="area-result">
                 <div class="diagram-4">
-                    <div  id="chart_4">{{areaResult}}</div>
+                    <div  id="chart_5">{{pickersMonthChartResult}}</div>
                 </div>
             </div>
-    {{/if}}
+        {{/if}}
 
-    {{#if diagramError}}
-        <div class="area-result">
-            <div class="diagram-4">
-                <div ><h1>Nothing picked at this Date</h1></div>
+        {{#if diagramRange}}
+            <div class="area-result">
+                <div class="diagram-4">
+                    <div  id="chart_5">{{pickersRangeChartResult}}</div>
+                </div>
             </div>
-        </div>
-    {{/if}}
+        {{/if}}
+
+        {{#if diagramArea}}
+                <div class="area-result">
+                    <div class="diagram-4">
+                        <div  id="chart_4">{{areaResult}}</div>
+                    </div>
+                </div>
+        {{/if}}
+
+        {{#if diagramError}}
+            <div class="area-result">
+                <div class="diagram-4">
+                    <div ><h1>Nothing picked at this Date</h1></div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
 </template>
 

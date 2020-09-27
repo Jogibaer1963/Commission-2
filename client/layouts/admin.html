@@ -1,5 +1,5 @@
 <template name="admin">
-{{#if currentUser}}-->
+{{#if currentUser}}
      {{#if isInRole 'admin'}}
            {{> adminView}}
              {{/if}}
@@ -23,54 +23,136 @@
             <a class="btn btn-default btn-danger shippingApp" href="http://10.40.1.47:3000/" >Switch to Shipping App</a>
         </nav>
     </div>
-    <div class="deactivate-button">
-         <button type="button" class="btn btn-danger btn-default setInactive">Set Area inactive</button>
+
+    <div class="add-fiscal-year">
+        <div class="fiscal-year-button">
+                <form class="addingFiscalYear">
+                    <label for="addNewYear">Year</label>
+                    <input type="number"
+                           id="addNewYear"
+                           name="addNewYear"
+                           placeholder="YYYY"
+                           min="2020"
+                           max="2100"
+                           maxlength="4"
+                           size=4
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           required
+                    >
+
+                    <label for="addNewMonth">Month</label>
+                    <input type="number"
+                           id="addNewMonth"
+                           name="addNewMonth"
+                           placeholder="MM"
+                           min="1"
+                           max="12"
+                           maxlength="2"
+                           size="2"
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           required
+                    >
+
+                    <label for="addNewDay">Day</label>
+                    <input type="number"
+                           id="addNewDay"
+                           name="addNewDay"
+                           placeholder="DD"
+                           min="1"
+                           max="31"
+                           maxlength="2"
+                           size="2"
+                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           required
+                    >
+                    <button type="submit" class="btn btn-success btn-default">Submit new Fiscal Year</button>
+                </form>
+        </div>
     </div>
-    <div class="active-supply">
-        <h4><strong>Active Supply</strong></h4>
-        <table class="table fixed-header">
+    <div class="fiscal-year-admin">
+        <h3>Fiscal Years</h3>
+        {{#each availableFiscalYearAdmin}}
+            <tr class="fiscal-year {{selected}}">
+                <td class="pickers-width font-style">{{year}}</td>
+            </tr>
+        {{/each}}
+    </div>
+
+    <div class="active-inactive-pickers">
+        <h3>Set Pickers In-active or Active</h3>
+        <table class="">
             <thead>
             <tr>
-                <th class="">Supply Area</th>
+                <th class="pickers-id"><strong>Picker</strong></th>
             </tr>
             </thead>
             <tbody>
-            {{#each supplyArea}}
-            <tr class="table-size area {{selectedArea}}">
-                <th>{{_id}}</th>
+        {{#each activePickers}}
+            <tr class="fiscal-year {{selected}}">
+                <td class="pickers-width font-style">{{_id}}</td>
+                <td>
+                    <button type="button" value="{{_id}}" class="btn btn-success picker-active">Active</button>
+                </td>
+                <td>
+                    <button type="button" value="{{_id}}"  class="btn btn-danger picker-in-active">In-Active</button>
+                </td>
             </tr>
-            {{/each}}
+        {{/each}}
             </tbody>
         </table>
     </div>
-    <div class="reactivate-button">
-        <form class="reactivate">
-            <button class="btn btn-success btn-default reActivate">Set Area Active</button>
-        </form>
-    </div>
-    <div class="inactive-supply">
-        <h4><strong>Inactive Supply</strong></h4>
-        <table class="table fixed-header">
-            <thead>
-            <tr>
-                <th class="">Supply Area</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each inActive}}
-                <tr class="table-size inactiveArea {{selectedInactiveArea}}">
+
+
+    <div class="supply-frame">
+        <div class="deactivate-button">
+             <button type="button" class="btn btn-danger btn-default setInactive">Set Area inactive</button>
+        </div>
+        <div class="active-supply">
+            <h4><strong>Active Supply</strong></h4>
+            <table class="table fixed-header">
+                <thead>
+                <tr>
+                    <th class="">Supply Area</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each supplyArea}}
+                <tr class="table-size area {{selectedArea}}">
                     <th>{{_id}}</th>
                 </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <div class="add-area">
-        <form class="addingArea">
-            <label for="addNewArea"></label>
-            <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area">
-            <button type="submit" class="btn btn-success btn-default">Submit new Area</button>
-        </form>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="reactivate-button">
+            <form class="reactivate">
+                <button class="btn btn-success btn-default reActivate">Set Area Active</button>
+            </form>
+        </div>
+        <div class="inactive-supply">
+            <h4><strong>Inactive Supply</strong></h4>
+            <table class="table fixed-header">
+                <thead>
+                <tr>
+                    <th class="">Supply Area</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each inActive}}
+                    <tr class="table-size inactiveArea {{selectedInactiveArea}}">
+                        <th>{{_id}}</th>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="add-area">
+            <form class="addingArea">
+                <label for="addNewArea"></label>
+                <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area">
+                <button type="submit" class="btn btn-success btn-default">Submit new Area</button>
+            </form>
+        </div>
     </div>
 </template>
 

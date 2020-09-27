@@ -44,6 +44,16 @@ $table-head: #1cbdee;
   top: 88em;
 }
 
+.analytics {
+  left: 10em;
+  position: relative;
+}
+
+.fiscal-year {
+  position: relative;
+  top: 11.7em;
+  left: -7em;
+}
 
 .start-analyze {
   left: 20em;
@@ -140,7 +150,7 @@ $table-head: #1cbdee;
 .analysis-selection {
   left: 6em;
   position: absolute;
-  top: 40em;
+  top: 44em;
 }
 
 .analysis-selection-single {
@@ -166,7 +176,7 @@ $table-head: #1cbdee;
 .edit-time {
   left: 30em;
   position: absolute;
-  top: 8em;
+  top: 7em;
 }
 
 .edit-time-button {

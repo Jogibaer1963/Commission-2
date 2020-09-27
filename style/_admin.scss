@@ -18,32 +18,64 @@
   top: 120px;
 }
 
-.deactivate-button {
+.add-fiscal-year {
+  left: 70em;
+  position: absolute;
+  top: 19em;
+}
+
+.fiscal-year-admin {
+  position: relative;
+  top: 20em;
+  left: 70em;
+}
+
+.font-style {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.active-inactive-pickers {
+  left: 70em;
+  position: relative;
+  top: 30em;
+}
+
+.pickers-id {
+  min-width: 120px;
+  text-align: center;
+}
+
+.supply-frame {
   left: 20em;
+  position: absolute;
+  top: 10em;
+}
+
+.deactivate-button {
   position: absolute;
   top: 10em;
 }
 
 .reactivate-button {
-  left: 35em;
+  left: 15em;
   position: absolute;
   top: 10em;
 }
 
 .add-area {
-  left: 50em;
+  left: 30em;
   position: absolute;
-  top: 10em;
+  top: 8em;
 }
 
 .active-supply {
-  left: 20em;
   position: absolute;
   top: 15em;
 }
 
 .inactive-supply {
-  left: 35em;
+  left: 15em;
   position: absolute;
   top: 15em;
 }

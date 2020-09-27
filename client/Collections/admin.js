@@ -1,4 +1,5 @@
 Meteor.subscribe("usersProfile");
+Meteor.subscribe('fiscalYear');
 
 
 
@@ -117,11 +118,39 @@ Template.adminView.helpers({
         if (areaId === deactivate) {
             return 'selectedArea';
         }
+    },
+
+    availableFiscalYearAdmin: () => {
+        return fiscalYear.find();
+    },
+
+    activePickers: () => {
+        return pickers.find({}, {fields: {_id: 1}}).fetch();
     }
+
 
 });
 
 Template.adminView.events({
+
+    'submit .addingFiscalYear': (e) => {
+      e.preventDefault();
+      let newFiscalYear = e.target.addNewYear.value;
+      let addNewMonth = e.target.addNewMonth.value;
+        if (addNewMonth.length === 1) {
+            addNewMonth = '0' + addNewMonth;
+        }
+      let addNewDay = e.target.addNewDay.value;
+      if (addNewDay.length === 1) {
+          addNewDay = '0' + addNewDay;
+      }
+        if (newFiscalYear === "" || addNewMonth === "" || addNewDay === "") {
+
+        } else {
+            Meteor.call('fiscalYear', newFiscalYear, addNewMonth, addNewDay);
+        }
+
+    },
 
    'click .area': function (e) {
        e.preventDefault();
@@ -154,6 +183,18 @@ Template.adminView.events({
        let newArea = e.target.addNewArea.value;
        Meteor.call('addSupplyArea', newArea);
        target.addNewArea.value = '';
+    },
+
+    'click .picker-active': (e) => {
+       e.preventDefault();
+        let pickersId = e.target.value;
+        Meteor.call('pickerActive', pickersId, 1)
+    },
+
+    'click .picker-in-active': (e) => {
+        e.preventDefault();
+        let pickersId = e.target.value;
+        Meteor.call('pickerActive', pickersId, 0)
     }
 
 

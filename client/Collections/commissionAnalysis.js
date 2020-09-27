@@ -1,4 +1,5 @@
 Meteor.subscribe('pickers');
+Meteor.subscribe('fiscalYear')
 const Highcharts = require('highcharts');
 
 Session.set('errorPickingDate', false);
@@ -7,7 +8,7 @@ Session.set('01-supplyMachine', false);
 Template.analysisOverView.helpers({
 
     pickers: () => {
-        return pickers.find({}, {fields: {_id: 1}}).fetch();
+        return pickers.find({active: 1}, {fields: {_id: 1}}).fetch();
     },
 
     chosenPicker: () => {
@@ -25,6 +26,10 @@ Template.analysisOverView.helpers({
               let result = pickers.find({_id: chosenPicker}).fetch();
                 Session.set('pickersAnnualResult', result);
             }
+    },
+
+    availableFiscalYear: () => {
+        return fiscalYear.find();
     },
 
     'selectedArea': function () {

@@ -33,7 +33,8 @@ Template.machine_picking_list.helpers({
     },
 
     inactiveMachineList: () => {
-        return machineCommTable.find({active: false},
+        // toDo make inLineDate as Variable
+        return machineCommTable.find({active: false, inLineDate: {$gt: "2020-09-01"}},
             {sort: {inLineDate: -1}}).fetch();
     },
 

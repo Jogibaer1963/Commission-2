@@ -32,10 +32,19 @@ if(Meteor.isServer){
             return pickers.find();
         });
 
+        Meteor.publish("fiscalYear", function () {
+            return fiscalYear.find();
+        });
+
     });
 
 
     Meteor.methods({
+ //---------------------------------------------- New Fiscal Year added -----------------------------
+
+        'fiscalYear': (newYear, newMonth, newDay) => {
+            fiscalYear.insert({year: newYear, month: newMonth, day: newDay});
+        },
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
         'addSupplyArea': (area) => {
@@ -726,6 +735,13 @@ if(Meteor.isServer){
            return 'updated successfully'
         },
 //------------------------------------------------------ Admin section --------------------------------------------------------------------
+       'pickerActive': (pickerId, status) => {
+           pickers.update({_id: pickerId}, {$set: {active: status}});
+       },
+
+
+
+
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
             const toDoStatus = 0;
             const clearDate = 0;
