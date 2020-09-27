@@ -628,8 +628,6 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             })
-
-            // console.log(transferResult);
             return [machine, supplyArea, pickingTime, duration, date, counter, uniqueSupply, durationGraph];
         },
 
@@ -706,7 +704,6 @@ if(Meteor.isServer){
             let objectResult = {};
             objResult.forEach((element) => {
                 result[0][element].forEach((element2) => {
-                  //  console.log('element2: ', element2);
                    if (area === element2.supplyArea) {
                        let duration = (element2.duration / 60000).toFixed(0);
                        objectResult = {duration: duration,
@@ -720,7 +717,6 @@ if(Meteor.isServer){
                });
             });
             oneArray.sort((a,b) => a.pickingTime - b.pickingTime);
-           // console.log(oneArray);
             return oneArray;
         },
 
@@ -738,9 +734,6 @@ if(Meteor.isServer){
        'pickerActive': (pickerId, status) => {
            pickers.update({_id: pickerId}, {$set: {active: status}});
        },
-
-
-
 
         'submitToDo': function(toDoText, dateNow, needDate, toDoUser) {
             const toDoStatus = 0;
