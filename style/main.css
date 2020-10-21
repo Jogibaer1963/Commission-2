@@ -518,7 +518,7 @@ table.supply-table {
   transform: rotate(-90deg);
   position: absolute;
   top: 35em;
-  left: 18em;
+  left: 20em;
   display: flex; }
 
 .arrowSide_2 {
@@ -718,14 +718,14 @@ table.commOverView {
   top: 20em; }
 
 .diagram-2 {
-  left: 10em;
+  left: 2em;
   position: absolute;
   top: 5em; }
 
 .diagram-3 {
-  left: 20em;
+  left: 1em;
   position: absolute;
-  top: -30em; }
+  top: 5em; }
 
 .diagram-4 {
   left: 35em;
@@ -801,6 +801,11 @@ table.commOverView {
 
 .running-result {
   left: 10em;
+  position: absolute;
+  top: 40em; }
+
+.running-result-last-year {
+  left: 70em;
   position: absolute;
   top: 40em; }
 

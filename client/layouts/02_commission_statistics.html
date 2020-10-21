@@ -11,7 +11,7 @@
                     <div class="commission-admin">
                       <a class="btn btn-danger"  href="commissionAnalysis.html">Commissions Analysis</a>
                       <a>|</a>
-                      <a class="btn btn-danger" href="admin.html">Admin</a>
+                      <a class="btn btn-danger" href="/admin">Admin</a>
                     </div>
                 {{/if}}
     {{else}}
@@ -30,15 +30,30 @@
     <div class="diagram-1">
         <div  id="chart_1">{{dayChart}}</div>
     </div>
+    <br><br><br>
 
-    <!-- Last 5 Days overview, including todays result -->
+    <!-- overview of fiscal Year -->
 
-    <div class="running-result">
-        <h3>Annual Overview Fiscal Year 2020 {{runningResult}}</h3>
+    <div class="running-result" {{personalYearResult}}>
+        <div>
+             <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overview Fiscal Year 2021</h3>
+        </div>
         <div class="diagram-2">
-            <div  id="chart_2">{{runningAnnualResult}}</div>
+            <div  id="chart_2">{{personalYearResultGraph}}</div>
         </div>
     </div>
+
+    <!--  overview same day range last fiscal year -->
+
+    <div class="running-result-last-year" {{personalLastYearResult}}>
+        <div>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fiscal Year 2020  </h3>
+        </div>
+        <div class="diagram-3">
+            <div  id="chart_3">{{personalYearResultHistory}}</div>
+        </div>
+    </div>
+
 </template>
 
 

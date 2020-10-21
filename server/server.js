@@ -40,6 +40,65 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
+
+        'failureCorrection': () => {
+          let objectCount = [];
+          let revisedDate = [];
+          let day = 0;
+          let weekDay = 0;
+          let month = 0;
+          let year = 0;
+          let newDate = [];
+          let result = pickers.findOne({_id: "Justin N"});
+          // console.log(result);
+          let resultObj = Object.keys(result);
+          let filteredArray = resultObj.filter((value, index, arr) => {
+              return value !== '_id' && value !== 'active'
+          });
+          filteredArray.forEach((element) => {
+            let elementLength = element.length;
+            if (elementLength === 9) {
+                /* YYYYMMDDWW Jahr = 4 stellig, Monat 2 stellig, Tag = 2 stellig, Wochentag = 2 stellig  */
+                day = element.slice(0, 2);
+                weekDay = element.slice(2,4);
+                month = element.slice(4,5);
+                year = element.slice(5, 9)
+                newDate = year + 0 + month + day + weekDay;
+                revisedDate.push(newDate);
+            } else if (elementLength === 10) {
+                day = element.slice(0, 2);
+                weekDay = element.slice(2,4);
+                month = element.slice(4,6);
+                year = element.slice(6, 10)
+                newDate = year + month + day + weekDay;
+                revisedDate.push(newDate);
+            }
+          })
+
+            /* altes datum in filteredArray, neues Datum in revisedDate.
+         *  Das ausgelesene Document wird mit neuen Datum überschrieben
+         *  und zurück gespeochert */
+
+           let newKey = '';
+          let oldKey = '';
+           let i = 0;
+           delete result._id;
+           delete result.active;
+           Object.keys(result).forEach(key => {
+                   if (key === filteredArray[i]) {
+                       oldKey = filteredArray[i]
+                       newKey = revisedDate[i];
+                       pickers.update({_id: 'juergen'}, {$unset: {[oldKey] : 1}});
+                       pickers.update({_id: 'juergen'}, {$set: { [newKey] : result[key]}});
+                   }
+               i++
+           })
+        },
+
+
+
+
+
  //---------------------------------------------- New Fiscal Year added -----------------------------
 
         'fiscalYear': (newYear, newMonth, newDay) => {
@@ -693,16 +752,21 @@ if(Meteor.isServer){
         'selectedAreaAnalysis': function (area, picker) {
             let result = pickers.find({_id: picker}).fetch();
             let objResult = Object.keys(result[0]);
+            // console.log('server', area, picker, objResult);
             // eliminate _id from Array (should go in a function)
             for (let i = 0; i < objResult.length; i++) {
                 if (objResult[i] === "_id") {
                     objResult.splice(i, 1);
                     i--;
                 }
+                if (objResult[i] === "active") {
+                    objResult.splice(i, 1)
+                }
             }
             let oneArray = [];
             let objectResult = {};
             objResult.forEach((element) => {
+               // console.log('Element ', element);
                 result[0][element].forEach((element2) => {
                    if (area === element2.supplyArea) {
                        let duration = (element2.duration / 60000).toFixed(0);
@@ -814,14 +878,18 @@ if(Meteor.isServer){
             if (pickingMonth === 0) {
                 pickingMonth = '00';
             }
+            if (pickingMonth < 10 ) {
+                pickingMonth = "0" + timeResult.getMonth();
+            }
         let pickingDate = timeResult.getDate();
         if (pickingDate < 10) {
             pickingDate = "0" + timeResult.getDate()
         }
         let pickingDay = "0" + timeResult.getDay() ;
         let pickingYear = timeResult.getFullYear();
-        return (pickingDate + pickingDay + pickingMonth + pickingYear);
-        // Format 01-31, 0-6, 0-11, YYYY
+      //  return (pickingYear+ pickingMonth + pickingDate + pickingDay);
+        // Format YYYY, 00 - 11, 01-31, 00-06,
+        return (pickingYear + pickingMonth + pickingDate + pickingDay)
     }
 
     function getDaysInMonth(month, year) {

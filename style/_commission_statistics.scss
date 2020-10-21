@@ -21,15 +21,15 @@ $table-head: #1cbdee;
 }
 
 .diagram-2 {
-  left: 10em;
+  left: 2em;
   position: absolute;
   top: 5em;
 }
 
 .diagram-3 {
-  left: 20em;
+  left: 1em;
   position: absolute;
-  top: -30em;
+  top: 5em;
 }
 
 .diagram-4 {
@@ -120,6 +120,12 @@ $table-head: #1cbdee;
 
 .running-result {
   left: 10em;
+  position: absolute;
+  top: 40em;
+}
+
+.running-result-last-year {
+  left: 70em;
   position: absolute;
   top: 40em;
 }

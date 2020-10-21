@@ -67,6 +67,7 @@ Template.analysisOverView.helpers({
         try {
             let result = sessionResult[0];
             let resultObj = Object.keys(result);
+            // eliminate _id & active from String
             for (let i = 0; i < resultObj.length; i++) {
                 if (resultObj[i] === "_id") {
                     resultObj.splice(i, 1);
