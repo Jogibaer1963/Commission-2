@@ -799,10 +799,15 @@ table.commOverView {
   position: absolute;
   top: 14em; }
 
-.running-result {
+.personal-running-result {
   left: 10em;
   position: absolute;
   top: 40em; }
+
+.running-result {
+  left: 20em;
+  position: absolute;
+  top: 10em; }
 
 .running-result-last-year {
   left: 70em;
