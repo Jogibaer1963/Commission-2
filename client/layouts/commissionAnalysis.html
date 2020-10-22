@@ -23,20 +23,24 @@
 </template>
 
 <template name="analysisOverView">
+    <div class="analysis-head-year-chosen">
+        <h4>Results of Fiscal Year {{fiscalYearShown}} is shown</h4>
+    </div>
     <div class="analytics">
 
         <!--                   Choose Year                            -->
         <div class="fiscal-year">
             <h4>Chose Fiscal Year</h4>
             <h4> being displayed</h4>
-            <br>
-            {{#each availableFiscalYear}}
-                <tr class="fiscal-year {{selected}}">
-                    <td class="pickers-width font-style">{{year}}</td>
-                </tr>
-            {{/each}}
-
-
+            <table class="table table-striped fiscal-year-table">
+                <tbody>
+                    {{#each availableFiscalYear}}
+                        <tr class="fiscal-year-chosen {{selected}}">
+                            <td class="fiscalYear font-style">{{year}}</td>
+                        </tr>
+                    {{/each}}
+               </tbody>
+            </table>
         </div>
 
        <!--           Pickers Result                                -->

@@ -741,11 +741,6 @@ table.commOverView {
   left: 10em;
   position: relative; }
 
-.fiscal-year {
-  position: relative;
-  top: 11.7em;
-  left: -7em; }
-
 .start-analyze {
   left: 20em;
   position: absolute;
@@ -817,6 +812,20 @@ table.commOverView {
 .admins-bar {
   left: 30em;
   position: absolute;
+  top: 2em; }
+
+.analysis-head-year-chosen {
+  position: absolute;
+  top: 12em;
+  left: 50em; }
+
+.fiscal-year {
+  position: absolute;
+  top: 11em;
+  left: -7em; }
+
+.fiscal-year-table {
+  position: relative;
   top: 2em; }
 
 .pickers-head {

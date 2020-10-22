@@ -88,8 +88,8 @@ if(Meteor.isServer){
                    if (key === filteredArray[i]) {
                        oldKey = filteredArray[i]
                        newKey = revisedDate[i];
-                       pickers.update({_id: 'juergen'}, {$unset: {[oldKey] : 1}});
-                       pickers.update({_id: 'juergen'}, {$set: { [newKey] : result[key]}});
+                       pickers.update({_id: "Justin N"}, {$unset: {[oldKey] : 1}});
+                       pickers.update({_id: "Justin N"}, {$set: { [newKey] : result[key]}});
                    }
                i++
            })

@@ -4,6 +4,7 @@ const Highcharts = require('highcharts');
 
 Session.set('errorPickingDate', false);
 Session.set('01-supplyMachine', false);
+Session.set('newFiscalYear', "2021")
 
 Template.analysisOverView.helpers({
 
@@ -23,9 +24,19 @@ Template.analysisOverView.helpers({
     pickersResult: () => {
         let chosenPicker = Session.get('chosenPicker');
             if (chosenPicker) {
-              let result = pickers.find({_id: chosenPicker}).fetch();
-                Session.set('pickersAnnualResult', result);
+              let result = pickers.findOne({_id: chosenPicker});
+              try {
+                  delete result._id;
+                  delete result.active;
+                  Session.set('pickersAnnualResult', result);
+              }
+               catch (e) {
+              }
             }
+    },
+
+    fiscalYearShown: () => {
+      return Session.get('newFiscalYear')
     },
 
     availableFiscalYear: () => {
@@ -59,24 +70,31 @@ Template.analysisOverView.helpers({
     range: () => {
         return Session.get('range')
     },
-
+/*  -----------------------------   Annual Result  -----------------------------------  */
     pickersAnnualResult: () => {
         let arraySummery = [];
         let newArray = [];
-        let sessionResult = Session.get('pickersAnnualResult');
+        let result = Session.get('pickersAnnualResult');
+        let newFiscalYear = Session.get('newFiscalYear');
         try {
-            let result = sessionResult[0];
             let resultObj = Object.keys(result);
-            // eliminate _id & active from String
-            for (let i = 0; i < resultObj.length; i++) {
-                if (resultObj[i] === "_id") {
-                    resultObj.splice(i, 1);
-                    i--;
-                }
+            if (newFiscalYear === "2020") {
+                newFiscalYear = "2020090401"
+                let  oldFiscalYear = "2019090401"
+                resultObj.forEach((element) => {
+                    if (element >= oldFiscalYear && element <= newFiscalYear) {
+                        arraySummery.push(result[element]);
+                    }
+                });
+
+            } else if (newFiscalYear === "2021") {
+                newFiscalYear = "2020090401"
+                resultObj.forEach((element) => {
+                    if (element >= newFiscalYear) {
+                        arraySummery.push(result[element]);
+                    }
+                });
             }
-            resultObj.forEach((element) => {
-                arraySummery.push(result[element]);
-            });
         } catch {}
         let annualSummary = arraySummery.flat(1);
         annualSummary.forEach((element) => {
@@ -84,10 +102,22 @@ Template.analysisOverView.helpers({
                 newArray.push(element.supplyArea);
             } catch {}
         });
+      //  console.log(newArray)
         let totalDuration = [];
         let durationGraph = [];
         let counter = [];
         let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
+        for (let i = 0; i < uniqueSupplyAreas.length; i++) {
+            if (uniqueSupplyAreas[i] === 'L4ELV10' ||
+                uniqueSupplyAreas[i] === 'L4PCOL05' ||
+                uniqueSupplyAreas[i] === 'L4PRTR20' ||
+                uniqueSupplyAreas[i] === 'L4PCLN20' ||
+                uniqueSupplyAreas[i] === 'L4CLN20'
+            ) {
+                uniqueSupplyAreas.splice(i, 1); i--;
+            }
+        }
+       // console.log(uniqueSupplyAreas)
         uniqueSupplyAreas.forEach((element) => {
             let i = 0;
             annualSummary.forEach((element2) => {
@@ -104,12 +134,11 @@ Template.analysisOverView.helpers({
             totalDuration = [];
             i = 0;
         });
+
         Session.set('pickersAnnualCart', counter);
         Session.set('pickersAnnualSupplyAreas', uniqueSupplyAreas);
         Session.set('pickersAnnualDuration', durationGraph);
     },
-
-
 
     pickersAnnualChartResult: function () {
         // Gather data:
@@ -174,6 +203,8 @@ Template.analysisOverView.helpers({
             });
         });
     },
+
+    /* -----------------------------------  Analysis by date  ------------------------------- */
 
     //  Day Chart
 
@@ -243,6 +274,8 @@ Template.analysisOverView.helpers({
             });
         });
     },
+
+    /* ------------------------------------------  Analysis by Month  ------------------ */
 
     // Month Chart
 
@@ -319,6 +352,8 @@ Template.analysisOverView.helpers({
         });
     },
 
+    /*  -----------------------------------  Analysis by Date Range  ------------------------ */
+
     pickersRangeChartResult: function () {
         // Use Meteor.defer() to create chart after DOM is ready:
         // Gather data:
@@ -383,7 +418,7 @@ Template.analysisOverView.helpers({
     },
 
 
-
+/*  --------------------------  Result by Area  ------------------------------- */
 
     areaResult: function () {
         // Gather data:
@@ -542,6 +577,14 @@ Template.analysisOverView.events({
         Session.set('01-supplyMachine', '');
         console.log(Session.get('response'));
 
+    },
+
+
+    'click .fiscal-year-chosen': function(e) {
+        e.preventDefault();
+        let fiscalYear = this.year;
+        console.log(fiscalYear)
+        Session.set('newFiscalYear', fiscalYear);
     },
 
     'click .pickersName': function(e) {

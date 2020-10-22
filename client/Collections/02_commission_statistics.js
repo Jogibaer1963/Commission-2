@@ -316,12 +316,13 @@ Template.dailyResult.helpers({
         let durationGraph = [];
         let counter = [];
         let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
-        console.log(uniqueSupplyAreas);
         for (let i = 0; i < uniqueSupplyAreas.length; i++) {
             if (uniqueSupplyAreas[i] === 'L4ELV10' ||
                 uniqueSupplyAreas[i] === 'L4PCOL05' ||
                 uniqueSupplyAreas[i] === 'L4PRTR20' ||
-                uniqueSupplyAreas[i] === 'L4PCLN20') {
+                uniqueSupplyAreas[i] === 'L4PCLN20' ||
+                uniqueSupplyAreas[i] === 'L4CLN20'
+            ) {
                 uniqueSupplyAreas.splice(i, 1); i--;
             }
         }
