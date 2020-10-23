@@ -569,8 +569,9 @@ if(Meteor.isServer){
             return returnArray;
         },
 
+        /* ---- all carts from 1 specific day  ---- */
+
         'chosenDate': (dateString, picker) => {
-         //   console.log(dateString, picker);
             let result = pickers.find({_id: picker}).fetch();
             let daySupply = [];
             let dayDuration = [];
@@ -612,13 +613,10 @@ if(Meteor.isServer){
 
         },
 
-
-
         'chosenMonth': (month, picker) => {
            let compactData = [];
            let pickingResult = [];
            let transferResult = [];
-
            // Array's for return result
            let pickingTime = [];
            let date = [];
@@ -628,28 +626,27 @@ if(Meteor.isServer){
            let counter = [];
            let totalDuration = [];
            let durationGraph = [];
-
            // building the month string and get days per month
            let chosenYear = month.slice(0, 4);
            let chosenMonth = month.slice(5, 7);
            let dayMax = getDaysInMonth(chosenMonth, chosenYear);
-
            // order is YYYY-MM-DD
            let minDate = (chosenYear + '-' + chosenMonth + '-' + '01').toString();
            let maxDate =  (chosenYear + '-' + chosenMonth + '-' + dayMax).toString();
-           let unixMinDate = new Date(minDate).getTime();
-           let unixMaxDate = new Date(maxDate).getTime() + 86400000;
-          // console.log('Min date ', minDate, unixMinDate);
-           let result = pickers.find({_id: picker}).fetch();
-           let objResult = Object.keys(result[0]);
-           for (let i = 0; i < objResult.length; i++) {
-               if (objResult[i] === "_id") {
-                   objResult.splice(i, 1);
-                   i--;
-               }
-           }
+           /* ToDo why the Unix Correction  */
+           let unixMinDate = new Date(minDate).getTime() + 20000000;
+           let unixMaxDate = new Date(maxDate).getTime() + 104300000;
+
+           let result = pickers.findOne({_id: picker});
+            try {
+                delete result._id;
+                delete result.active;
+            }
+            catch (e) {
+            }
+           let objResult = Object.keys(result);
             objResult.forEach((element) => {
-                compactData = result[0][element];
+                compactData = result[element];
                 compactData.forEach((element2) => {
                     if (element2.pickingTime >= unixMinDate && element2.pickingTime <= unixMaxDate) {
                         pickingResult = {
@@ -688,52 +685,52 @@ if(Meteor.isServer){
                 i = 0;
             })
             return [machine, supplyArea, pickingTime, duration, date, counter, uniqueSupply, durationGraph];
+
         },
 
+        /* ----------- select a date range to see the picker results --------------- */
+
         'chosenRange': function(dateX, dateY, picker) {
-            let compactData = [];
-            let transferResult = [];
+            /*  ToDo why do i need a correction to unix time dateX and dateY  */
+         dateX = dateX + 20000000;
+        //    let dateD = moment(dateX).format('DD-MM-YYYY HH:mm');
+         let dateA = parseUnixToDate(dateX);
+         dateX = dateY + 17990000;
+          //  let dateC = moment(dateY).format('DD-MM-YYYY HH:mm');
+         let dateB = parseUnixToDate(dateX);
+         let transferResult = [];
             // Arrays for result send to client
             let supplyArea = [];
             let totalDuration = [];
             let counter = [];
             let durationGraph = [];
-            let pickingResult = {};
             // load complete list for specific picker
-            let result = pickers.find({_id: picker}).fetch();
-            // find keys (containing the wanted data's) for each single picking day and put them into an Array
-            let objResult = Object.keys(result[0]);
-            for (let i = 0; i < objResult.length; i++) {
-                if (objResult[i] === "_id") {
-                    objResult.splice(i, 1);
-                    i--;
-                }
+            let result = pickers.findOne({_id: picker});
+            try {
+                delete result._id;
+                delete result.active;
             }
+            catch (e) {
+            }
+            // find keys (containing the wanted data's) for each single picking day and put them into an Array
+          //  let mergedArray = [].concat.apply([], arraySummary);
+            let objResult = Object.keys(result);
             objResult.forEach((element) => {
-                compactData = result[0][element];
-                compactData.forEach((element2) => {
-                    if (element2.pickingTime >= dateX && element2.pickingTime <= dateY) {
-                        pickingResult = {
-                            pickingTime : element2.pickingTime,
-                            duration : element2.duration,
-                            machine : element2.machine,
-                            supplyArea : element2.supplyArea,
-                            date : element2.date
-                        }
-                        transferResult.push(pickingResult);
-                    }
-                });
-            })
-            transferResult.sort((a,b) => (a.pickingTime > b.pickingTime) ? 1 :
+                if (element >= dateA && element <= dateB) {
+                    transferResult.push(result[element])
+                }
+                    });
+            let mergedArray = [].concat.apply([], transferResult);
+            mergedArray.sort((a,b) => (a.pickingTime > b.pickingTime) ? 1 :
                 (b.pickingTime > a.pickingTime) ? -1 : 0);
-            transferResult.forEach((element) => {
+            mergedArray.forEach((element) => {
                 supplyArea.push(element.supplyArea);
             })
             // extract unique supply Areas served during dateX & dateY
             let uniqueSupply = supplyArea.filter((x, i, a) => a.indexOf(x) === i);
             uniqueSupply.forEach((element) => {
                 let i = 0;
-                transferResult.forEach((element2) => {
+                mergedArray.forEach((element2) => {
                         if (element === element2.supplyArea) {
                             totalDuration.push(element2.duration);
                             i++;
@@ -745,46 +742,77 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             })
-
+          //  console.log(counter, uniqueSupply, durationGraph)
             return [counter, uniqueSupply, durationGraph];
         },
 
-        'selectedAreaAnalysis': function (area, picker) {
-            let result = pickers.find({_id: picker}).fetch();
-            let objResult = Object.keys(result[0]);
-            // console.log('server', area, picker, objResult);
-            // eliminate _id from Array (should go in a function)
-            for (let i = 0; i < objResult.length; i++) {
-                if (objResult[i] === "_id") {
-                    objResult.splice(i, 1);
-                    i--;
-                }
-                if (objResult[i] === "active") {
-                    objResult.splice(i, 1)
-                }
+        /* -----------------------------   fisacl year result  --------------------- */
+
+        'selectedAreaAnalysis': function (area, picker, newFiscalYear) {
+            let arraySummary = [];
+            let result = pickers.findOne({_id: picker});
+            try {
+                delete result._id;
+                delete result.active;
             }
+            catch (e) {
+            }
+            try {
+                let resultObj = Object.keys(result);
+                if (newFiscalYear === "2020") {
+                    newFiscalYear = "2020090401"
+                    let  oldFiscalYear = "2019090401"
+                    resultObj.forEach((element) => {
+                        if (element >= oldFiscalYear && element <= newFiscalYear) {
+                            arraySummary.push(result[element]);
+                        }
+                    });
+                } else if (newFiscalYear === "2021") {
+                    newFiscalYear = "2020090401"
+                    resultObj.forEach((element) => {
+                        if (element >= newFiscalYear) {
+                            arraySummary.push(result[element]);
+                        }
+                    });
+                }
+            } catch (e) {
+            }
+           // console.log(arraySummary);
+            let mergedArray = [].concat.apply([], arraySummary);
             let oneArray = [];
             let objectResult = {};
-            objResult.forEach((element) => {
-               // console.log('Element ', element);
-                result[0][element].forEach((element2) => {
-                   if (area === element2.supplyArea) {
-                       let duration = (element2.duration / 60000).toFixed(0);
+            mergedArray.forEach((element) => {
+                   if (area === element.supplyArea) {
+                       let duration = (element.duration / 60000).toFixed(0);
                        objectResult = {duration: duration,
-                                       machine: element2.machine,
-                                       pickingTime: element2.pickingTime,
-                                        supply: element2.supplyArea,
-                                        objectKey: element
+                                       machine: element.machine,
+                                       pickingTime: element.pickingTime,
+                                        supply: element.supplyArea,
                                        };
                        oneArray.push(objectResult);
                    }
-               });
             });
             oneArray.sort((a,b) => a.pickingTime - b.pickingTime);
+
             return oneArray;
         },
 
+        /* -------  change the Time in a specific Supply area to a specific Machine  --------- */
+
         'changeTime': (picker, machine, area, inputResult, objectKey) => {
+            let date = new Date(objectKey);
+            let year = (date.getFullYear()).toString();
+            let month = (date.getMonth()).toString();
+            let day = (date.getDate()).toString();
+            let weekDay = (date.getDay()).toString();
+            if (month.length === 1) {
+                month = '0' + month;
+            }
+            if (day.length === 1) {
+                day = '0' + day;
+            }
+                weekDay = '0' + weekDay;
+            objectKey = year + month + day + weekDay;
             let result = pickers.findOne({_id: picker})[objectKey];
             result.forEach((element) => {
                 if (element.supplyArea === area && element.machine === machine) {
@@ -894,6 +922,22 @@ if(Meteor.isServer){
 
     function getDaysInMonth(month, year) {
         return new Date (year, month, 0).getDate()
+    }
+
+    function parseUnixToDate(dateX) {
+        let date = new Date(dateX);
+        let year = (date.getFullYear()).toString();
+        let month = (date.getMonth()).toString();
+        let day = (date.getDate()).toString();
+        let weekDay = (date.getDay()).toString();
+        if (month.length === 1) {
+            month = '0' + month;
+        }
+        if (day.length === 1) {
+            day = '0' + day;
+        }
+        weekDay = '0' + weekDay;
+        return (year + month + day + weekDay);
     }
 
 }

@@ -86,7 +86,6 @@ Template.analysisOverView.helpers({
                         arraySummery.push(result[element]);
                     }
                 });
-
             } else if (newFiscalYear === "2021") {
                 newFiscalYear = "2020090401"
                 resultObj.forEach((element) => {
@@ -423,6 +422,7 @@ Template.analysisOverView.helpers({
     areaResult: function () {
         // Gather data:
         let areaResult = Session.get('response');
+        console.log(areaResult)
         // machines & minutes
         let machines = [];
         let minutes = [];
@@ -545,20 +545,22 @@ Template.analysisOverView.events({
     'click .area': function (e) {
         e.preventDefault();
         let area = this._id;
+        let newFiscalYear = Session.get('newFiscalYear')
         Session.set('chosenArea', area);
         let picker = Session.get('chosenPicker');
-        getArea(area, picker);
+        getArea(area, picker, newFiscalYear);
     },
 
     'click .supplyMachine': function (e) {
         e.preventDefault();
-        Session.set('keyObject',this.objectKey);
+        Session.set('keyObject',this.pickingTime);
         Session.set('01-supplyMachine', this.machine);
     },
 
     'submit .editTime': function(e) {
         e.preventDefault();
         let inputResult = e.target.editTime.value;
+        let newFiscalYear = Session.get('newFiscalYear')
         let machine = Session.get('01-supplyMachine');
         let area = Session.get('chosenArea');
         let objectKey = Session.get('keyObject');
@@ -570,13 +572,12 @@ Template.analysisOverView.events({
                     console.log(err);
                 } else {
                     console.log('success', response);
-                getArea(area, picker)
+                    getArea(area, picker, newFiscalYear)
                 }
         });
         e.target.editTime.value = '';
         Session.set('01-supplyMachine', '');
         console.log(Session.get('response'));
-
     },
 
 
@@ -679,15 +680,21 @@ Template.analysisOverView.events({
     'submit .choseDate': (e) => {
         e.preventDefault();
         let picker = Session.get('chosenPicker');
-        let day = e.target.specificDate.value;
-        let dayMonth = day.slice(8, 10);
-        let month = day.slice(5, 7) - 1;
-        let year = day.slice(0, 4);
-        let dayOfWeek = new Date(day).getDay() + 1;
-        if(dayOfWeek === 7) {
-            dayOfWeek = 0;
+        let target = e.target.specificDate.value;  // format yy-mm-dd
+        let day = target.slice(8, 10);
+        let month = (target.slice(5, 7) - 1).toString();
+        let year = target.slice(0, 4);
+        let weekDay = new Date(target).getDay() + 1;
+        if (month.length === 1) {
+            month = '0' + month;
         }
-        let dateString = dayMonth + "0" + dayOfWeek + month + year;
+        if (day.length === 1) {
+            day = '0' + day;
+        }
+        weekDay = '0' + weekDay;
+       // console.log(year + month + day + weekDay, month.length, day.length, target);
+
+        let dateString = year + month + day + weekDay;
         Session.set('pickingDay', day);
         Meteor.call('chosenDate', dateString, picker, function(err, response) {
            if (response) {
@@ -708,6 +715,8 @@ Template.analysisOverView.events({
 
            }
         })
+
+
     },
 
     'submit .choseMonth': function (e) {
@@ -766,8 +775,8 @@ Template.analysisOverView.events({
     }
 });
 
-function getArea (area, picker) {
-    Meteor.call('selectedAreaAnalysis', area, picker, function (err, response) {
+function getArea (area, picker, newFiscalYear) {
+    Meteor.call('selectedAreaAnalysis', area, picker, newFiscalYear, function (err, response) {
         if (err) {
             console.log(err);
         } else {
