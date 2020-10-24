@@ -284,20 +284,14 @@ Template.analysisOverView.helpers({
         let counter = Session.get('monthCounter');
         let categories = Session.get('monthUniqueSupply');
         let monthDurationGraph = Session.get('monthDurationGraph');
-       // let monthMachine = Session.get('monthMachine');
         let monthSupplyArea = Session.get('monthSupplyArea');
         let monthDuration = Session.get('monthDuration');
-      //  let monthDate = Session.get('monthDate');
-
-        let months_arr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        let monthPickingTime = Session.get('monthPickingTime');
-        let monthDisplay = months_arr[(new Date(monthPickingTime[0])).getMonth()];
-
-        let monthSupplyTotal = monthSupplyArea.length;
+        let monthString = Session.get('monthString')
         let monthDurationAverage = (monthDuration.reduce((a,b) => a + b, 0) / monthDuration.length).toFixed(0);
 
-        let titleText = 'At ' + monthDisplay + ' were ' + monthSupplyTotal + ' Carts picked for ' +
+        let titleText = 'At ' + monthString + ' were ' + monthSupplyArea + ' Carts picked for ' +
             ' with an average of ' + (monthDurationAverage/60000).toFixed(0) + ' min';
+
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_5', {
@@ -422,7 +416,6 @@ Template.analysisOverView.helpers({
     areaResult: function () {
         // Gather data:
         let areaResult = Session.get('response');
-        console.log(areaResult)
         // machines & minutes
         let machines = [];
         let minutes = [];
@@ -723,16 +716,20 @@ Template.analysisOverView.events({
         e.preventDefault();
         let picker = Session.get('chosenPicker');
         let month = e.target.specificMonth.value;
+        let monthChosen = parseInt(month.slice(5)) - 1;
+        let months_arr = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        let monthString = months_arr[monthChosen];
+        Session.set('monthString', monthString)
         Meteor.call('chosenMonth',month, picker, function(err, response) {
             if (response) {
-                Session.set('monthMachine', response[0]);
-                Session.set('monthSupplyArea', response[1]);
-                Session.set('monthPickingTime', response[2]);
-                Session.set('monthDuration', response[3]);
-                Session.set('monthDate', response[4]);
-                Session.set('monthCounter', response[5]);
-                Session.set('monthUniqueSupply', response[6]);
-                Session.set('monthDurationGraph', response[7]);
+
+                Session.set('monthSupplyArea', response[0]);
+                Session.set('monthDuration', response[1]);
+
+                Session.set('monthCounter', response[2]);
+                Session.set('monthUniqueSupply', response[3]);
+                Session.set('monthDurationGraph', response[4]);
+
                 Session.set('diagramDate', false);
                 Session.set('diagramMonth', true);
                 Session.set('diagramRange', false);
@@ -761,6 +758,7 @@ Template.analysisOverView.events({
                     Session.set('rangeCounter', response[0]);
                     Session.set('rangeUniqueSupply', response[1]);
                     Session.set('rangeDurationGraph', response[2]);
+
                     Session.set('fromDate', date1);
                     Session.set('toDate', date2);
                     Session.set('diagramDate', false);

@@ -614,14 +614,10 @@ if(Meteor.isServer){
         },
 
         'chosenMonth': (month, picker) => {
-           let compactData = [];
-           let pickingResult = [];
            let transferResult = [];
            // Array's for return result
            let pickingTime = [];
-           let date = [];
            let supplyArea = [];
-           let machine = [];
            let duration = [];
            let counter = [];
            let totalDuration = [];
@@ -636,7 +632,10 @@ if(Meteor.isServer){
            /* ToDo why the Unix Correction  */
            let unixMinDate = new Date(minDate).getTime() + 20000000;
            let unixMaxDate = new Date(maxDate).getTime() + 104300000;
-
+        //   console.log(moment(unixMinDate).format('DD-MM-YYYY HH:mm'));
+         //  console.log(moment(unixMaxDate).format('DD-MM-YYYY HH:mm'));
+            let dateMin = parseUnixToDate(unixMinDate);
+            let dateMax = parseUnixToDate(unixMaxDate);
            let result = pickers.findOne({_id: picker});
             try {
                 delete result._id;
@@ -645,34 +644,23 @@ if(Meteor.isServer){
             catch (e) {
             }
            let objResult = Object.keys(result);
+
             objResult.forEach((element) => {
-                compactData = result[element];
-                compactData.forEach((element2) => {
-                    if (element2.pickingTime >= unixMinDate && element2.pickingTime <= unixMaxDate) {
-                        pickingResult = {
-                            pickingTime : element2.pickingTime,
-                            duration : element2.duration,
-                            machine : element2.machine,
-                            supplyArea : element2.supplyArea,
-                            date : element2.date
-                        }
-                        transferResult.push(pickingResult);
-                    }
-                })
-            })
-            transferResult.sort((a,b) => (a.pickingTime > b.pickingTime) ? 1 :
+                if (element >= dateMin && element <= dateMax) {
+                    transferResult.push(result[element])
+                }
+            });
+            let mergedArray = [].concat.apply([], transferResult);
+            mergedArray.sort((a,b) => (a.pickingTime > b.pickingTime) ? 1 :
                                                     (b.pickingTime > a.pickingTime) ? -1 : 0);
-            transferResult.forEach((element) => {
-                machine.push(element.machine);
+            mergedArray.forEach((element) => {
                 supplyArea.push(element.supplyArea);
-                pickingTime.push(element.pickingTime);
                 duration.push(element.duration);
-                date.push(element.date);
             })
             let uniqueSupply = supplyArea.filter((x, i, a) => a.indexOf(x) === i);
             uniqueSupply.forEach((element) => {
                 let i = 0;
-                transferResult.forEach((element2) => {
+                mergedArray.forEach((element2) => {
                     if (element === element2.supplyArea) {
                         totalDuration.push(element2.duration);
                         i++;
@@ -684,7 +672,9 @@ if(Meteor.isServer){
                 totalDuration = [];
                 i = 0;
             })
-            return [machine, supplyArea, pickingTime, duration, date, counter, uniqueSupply, durationGraph];
+            let monthSupply = supplyArea.length;
+          //  console.log(monthSupply, duration, counter, uniqueSupply, durationGraph)
+            return [monthSupply, duration, counter, uniqueSupply, durationGraph];
 
         },
 
@@ -693,10 +683,10 @@ if(Meteor.isServer){
         'chosenRange': function(dateX, dateY, picker) {
             /*  ToDo why do i need a correction to unix time dateX and dateY  */
          dateX = dateX + 20000000;
-        //    let dateD = moment(dateX).format('DD-MM-YYYY HH:mm');
+         //   console.log(moment(dateX).format('DD-MM-YYYY HH:mm'));
          let dateA = parseUnixToDate(dateX);
          dateX = dateY + 17990000;
-          //  let dateC = moment(dateY).format('DD-MM-YYYY HH:mm');
+         //   console.log(moment(dateX).format('DD-MM-YYYY HH:mm'));
          let dateB = parseUnixToDate(dateX);
          let transferResult = [];
             // Arrays for result send to client
