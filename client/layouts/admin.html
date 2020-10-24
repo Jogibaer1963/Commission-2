@@ -24,10 +24,6 @@
         </nav>
     </div>
 
-    <div>
-        <input type="button" class="btn btn-danger failureCorrection">
-    </div>
-
     <div class="add-fiscal-year">
         <div class="fiscal-year-button">
                 <form class="addingFiscalYear">
@@ -69,14 +65,14 @@
                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                            required
                     >
-                    <button type="submit" class="btn btn-success btn-default">Submit new Fiscal Year</button>
+                    <button type="submit" class="btn btn-success btn-default" disabled>Submit new Fiscal Year</button>
                 </form>
         </div>
     </div>
     <div class="fiscal-year-admin">
         <h3>Fiscal Years</h3>
         {{#each availableFiscalYearAdmin}}
-            <tr class="fiscal-year {{selected}}">
+            <tr class=" {{selected}}">
                 <td class="pickers-width font-style">{{year}}</td>
             </tr>
         {{/each}}
@@ -92,13 +88,13 @@
             </thead>
             <tbody>
         {{#each activePickers}}
-            <tr class="fiscal-year {{selected}}">
+            <tr class="{{selected}}">
                 <td class="pickers-width font-style">{{_id}}</td>
                 <td>
-                    <button type="button" value="{{_id}}" class="btn btn-success picker-active">Active</button>
+                    <button type="button" value="{{_id}}" class="btn btn-success picker-active" disabled>Active</button>
                 </td>
                 <td>
-                    <button type="button" value="{{_id}}"  class="btn btn-danger picker-in-active">In-Active</button>
+                    <button type="button" value="{{_id}}"  class="btn btn-danger picker-in-active" disabled>In-Active</button>
                 </td>
             </tr>
         {{/each}}
@@ -109,7 +105,7 @@
 
     <div class="supply-frame">
         <div class="deactivate-button">
-             <button type="button" class="btn btn-danger btn-default setInactive">Set Area inactive</button>
+             <button type="button" class="btn btn-danger btn-default setInactive" disabled>Set Area inactive</button>
         </div>
         <div class="active-supply">
             <h4><strong>Active Supply</strong></h4>
@@ -130,7 +126,7 @@
         </div>
         <div class="reactivate-button">
             <form class="reactivate">
-                <button class="btn btn-success btn-default reActivate">Set Area Active</button>
+                <button class="btn btn-success btn-default reActivate" disabled>Set Area Active</button>
             </form>
         </div>
         <div class="inactive-supply">
@@ -153,8 +149,8 @@
         <div class="add-area">
             <form class="addingArea">
                 <label for="addNewArea"></label>
-                <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area">
-                <button type="submit" class="btn btn-success btn-default">Submit new Area</button>
+                <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area" disabled>
+                <button type="submit" class="btn btn-success btn-default" disabled>Submit new Area</button>
             </form>
         </div>
     </div>

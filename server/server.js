@@ -40,7 +40,7 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
-
+/*
         'failureCorrection': () => {
           let objectCount = [];
           let revisedDate = [];
@@ -49,7 +49,7 @@ if(Meteor.isServer){
           let month = 0;
           let year = 0;
           let newDate = [];
-          let result = pickers.findOne({_id: "Justin N"});
+          let result = pickers.findOne({_id: "CJ"});
           // console.log(result);
           let resultObj = Object.keys(result);
           let filteredArray = resultObj.filter((value, index, arr) => {
@@ -59,6 +59,7 @@ if(Meteor.isServer){
             let elementLength = element.length;
             if (elementLength === 9) {
                 /* YYYYMMDDWW Jahr = 4 stellig, Monat 2 stellig, Tag = 2 stellig, Wochentag = 2 stellig  */
+        /*
                 day = element.slice(0, 2);
                 weekDay = element.slice(2,4);
                 month = element.slice(4,5);
@@ -74,11 +75,12 @@ if(Meteor.isServer){
                 revisedDate.push(newDate);
             }
           })
+*/
 
             /* altes datum in filteredArray, neues Datum in revisedDate.
          *  Das ausgelesene Document wird mit neuen Datum überschrieben
          *  und zurück gespeochert */
-
+/*
            let newKey = '';
           let oldKey = '';
            let i = 0;
@@ -88,13 +90,16 @@ if(Meteor.isServer){
                    if (key === filteredArray[i]) {
                        oldKey = filteredArray[i]
                        newKey = revisedDate[i];
-                       pickers.update({_id: "Justin N"}, {$unset: {[oldKey] : 1}});
-                       pickers.update({_id: "Justin N"}, {$set: { [newKey] : result[key]}});
+                       pickers.update({_id: "CJ"}, {$unset: {[oldKey] : 1}});
+                       pickers.update({_id: "CJ"}, {$set: { [newKey] : result[key]}});
                    }
                i++
            })
+            console.log('should be completed')
         },
 
+
+ */
 
 
 

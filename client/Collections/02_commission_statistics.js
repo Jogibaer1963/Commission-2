@@ -1,5 +1,4 @@
 import { Template } from 'meteor/templating';
-import {duration} from "moment";
 const Highcharts = require('highcharts');
 Meteor.subscribe('pickers');
 
