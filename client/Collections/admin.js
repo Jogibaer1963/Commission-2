@@ -151,12 +151,14 @@ Template.adminView.events({
         }
 
     },
-/*
+
     'click .failureCorrection': () => {
-        Meteor.call('failureCorrection');
+        console.log('yes')
+       // Meteor.call('failureCorrection');
+        Meteor.call('machineTableUpdate')
     },
 
- */
+
 
    'click .area': function (e) {
        e.preventDefault();

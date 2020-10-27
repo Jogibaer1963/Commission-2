@@ -40,6 +40,49 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
+
+        /*  ----------------------   update new Supply Position to all Machines ------------------  */
+
+
+        'machineTableUpdate' : ()  => {
+            let updateSupply = {};
+            let i = 0;
+            let newSupplyAreas = supplyAreas.find().fetch();
+            let result = machineCommTable.find({}).fetch();
+            console.log( result.length)
+            let machineId = [];
+            for ( i = 0; i <= result.length - 1; i++ ) {
+                machineId.push(result[i].machineId)
+
+            }
+            console.log(machineId, i);
+
+
+            machineId.forEach((element) => {
+                updateSupply =  machineCommTable.findOne({machineId : element});
+            //    console.log(updateSupply)
+                let updateSupplyAreas = updateSupply.supplyAreas;
+           //     console.log(updateSupplyAreas);
+                updateSupplyAreas.forEach((motherElement) => {
+                  //  console.log(motherElement._id)
+                    newSupplyAreas.forEach((elementSupply) => {
+                       // console.log(motherElement._id, elementSupply._id)
+                        if (motherElement._id === elementSupply._id) {
+                          //  console.log(motherElement._id, elementSupply._id)
+                             motherElement.supplyPosition = elementSupply.supplyPosition;
+
+                        }
+                    })
+                })
+                let returnResult = updateSupplyAreas.sort((a, b) => {
+                    return a.supplyPosition - b.supplyPosition
+                })
+                machineCommTable.update({"machineId" : element}, {$unset: {"supplyAreas": 1}});
+                machineCommTable.update({"machineId" : element}, {$set: { "supplyAreas" : returnResult}});
+            })
+            console.log('finnish')
+    },
+
 /*
         'failureCorrection': () => {
           let objectCount = [];

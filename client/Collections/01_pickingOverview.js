@@ -23,10 +23,10 @@ Template.machine_picking_list.helpers({
                    element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
                    i-- ;
                    } catch {
-
                    }
                }
            }
+
            machineResult.push(element);
          });
         return machineResult;
