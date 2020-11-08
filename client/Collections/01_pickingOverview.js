@@ -15,6 +15,7 @@ Template.machine_picking_list.helpers({
 
     machineList: () => {
         let machineResult = [];
+        let pickingTime = "";
         let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
@@ -24,6 +25,17 @@ Template.machine_picking_list.helpers({
                    i-- ;
                    } catch {
                    }
+               } else {
+                       let pullDate = element.supplyAreas;
+                       pullDate.forEach((element2) => {
+                           try {
+                               let date = new Date(element2.pickerEnd);
+                               let month = date.getMonth();
+                               let day = date.getDay();
+                               pickingTime = month + "-" + day;
+                           } catch (e) {
+                           }
+                       })
                }
            }
 

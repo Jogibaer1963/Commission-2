@@ -43,7 +43,7 @@ if(Meteor.isServer){
 
         /*  ----------------------   update new Supply Position to all Machines ------------------  */
 
-
+/*
         'machineTableUpdate' : ()  => {
             let updateSupply = {};
             let i = 0;
@@ -82,6 +82,8 @@ if(Meteor.isServer){
             })
             console.log('finnish')
     },
+
+ */
 
 /*
         'failureCorrection': () => {
@@ -262,7 +264,7 @@ if(Meteor.isServer){
             /*
             let checkDoubleEntry = pickers.find({_id: user});
             */
-
+            console.log(pickingString);
             let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a');
             let pickingEndTime = Date.now();
             pickersAtWork.remove({_id: user});
@@ -944,16 +946,18 @@ if(Meteor.isServer){
             if (pickingMonth === 0) {
                 pickingMonth = '00';
             }
-            if (pickingMonth < 10 ) {
-                pickingMonth = "0" + timeResult.getMonth();
-            }
-        let pickingDate = timeResult.getDate();
-        if (pickingDate < 10) {
-            pickingDate = "0" + timeResult.getDate()
+        if (pickingMonth < 10 ) {
+            pickingMonth = ("0" + timeResult.getMonth()).toString();
         }
-        let pickingDay = "0" + timeResult.getDay() ;
-        let pickingYear = timeResult.getFullYear();
-      //  return (pickingYear+ pickingMonth + pickingDate + pickingDay);
+        if (pickingMonth >= 10) {
+            pickingMonth = (timeResult.getMonth()).toString();
+        }
+        let pickingDate = (timeResult.getDate()).toString();
+        if (pickingDate < 10) {
+            pickingDate = ("0" + timeResult.getDate()).toString()
+        }
+        let pickingDay = ("0" + timeResult.getDay()).toString() ;
+        let pickingYear = (timeResult.getFullYear()).toString();
         // Format YYYY, 00 - 11, 01-31, 00-06,
         return (pickingYear + pickingMonth + pickingDate + pickingDay)
     }

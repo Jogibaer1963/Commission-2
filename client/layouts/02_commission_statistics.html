@@ -24,7 +24,7 @@
         <h3 style="font-weight: bolder">User: {{loggedInUser.username}}</h3>
     </div>
     <div class="daily-picks">
-        <h3>From {{resultToday.uniqueAreas}} Supply Area were {{resultToday.dayCount}} carts picked with an overall average of {{resultToday.averageDuration}} min</h3>
+        <h4>From {{resultToday.uniqueAreas}} Supply Area were {{resultToday.dayCount}} carts picked with an overall average of {{resultToday.averageDuration}} min</h4>
     </div>
 
     <div class="diagram-1">
@@ -38,7 +38,7 @@
         <div>
              <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overview Fiscal Year 2021</h3>
         </div>
-        <div class="diagram-2">
+        <div class="diagram-2-to-4">
             <div  id="chart_2">{{personalYearResultGraph}}</div>
         </div>
     </div>
@@ -49,8 +49,19 @@
         <div>
             <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fiscal Year 2020  </h3>
         </div>
-        <div class="diagram-3">
+        <div class="diagram-2-to-4">
             <div  id="chart_3">{{personalYearResultHistory}}</div>
+        </div>
+    </div>
+
+    <!--  overview daylie team result -->
+
+    <div class="today-team-result" {{teamToday}}>
+        <div>
+            <h3>Daylie Team result  </h3>
+        </div>
+        <div class="diagram-2-to-4">
+            <div  id="chart_4">{{daylieTeamResult}}</div>
         </div>
     </div>
 

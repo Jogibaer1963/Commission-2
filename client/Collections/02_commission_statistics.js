@@ -18,6 +18,7 @@ Template.dailyResult.helpers({
     resultToday: () => {
         let loggedUser = Session.get('loggedUser');
         let pickingString = pickingToDay();
+        // console.log(pickingString)
         let supplyResult = []
         let durationResult = [];
         let resultOfTheDay = [];
@@ -27,9 +28,8 @@ Template.dailyResult.helpers({
         let averagePerSupply = [];
         try {
             let result = pickers.findOne({_id: loggedUser}); /* Find user */
-            Session.set('personalResult', result);
+          // Session.set('personalResult', result);
             let pickingResult = Object.entries(result);
-
             /* Selecting TODAY from all saved picking events */
             pickingResult.forEach((element) => {
                 if (element[0] === pickingString) {
@@ -100,8 +100,8 @@ Template.dailyResult.helpers({
                         fontFamily: '\'Unica One\', sans-serif'
                     },
                     plotBorderColor: '#606063',
-                    height: 300,
-                    width: 900,
+                    height: 400,
+                    width: 700,
                     zoomType: 'xy'
                 },
                 yAxis: {
@@ -421,6 +421,144 @@ Template.dailyResult.helpers({
         });
     },
 
+/* Daylie Team Result (Chart 4)  */
+
+    teamToday: () => {
+        let pickingString = pickingToDay();
+      // console.log(pickingString)
+        let teamToday = [];
+        let supplyResult = []
+        let durationResult = [];
+        let resultOfTheDay = [];
+        let durationAverage = 0;
+        let loopArray = [];
+        let dayResult = [];
+        let averagePerSupply = [];
+        try {
+            let result = pickers.find().fetch();
+            result.forEach((element) => {
+                if (element[pickingString] !== undefined) {
+                    element[pickingString].forEach((element2) => {
+                        teamToday.push(element2)
+                    })
+                }
+            })
+            /* Selecting TODAY from all saved picking events */
+            /* Counting and building average from todays picking event */
+            teamToday.forEach((element) => {
+                supplyResult.push(element.supplyArea);
+                let duration = (element.duration / 60000).toFixed(0);
+                durationResult.push(parseInt(duration));
+            })
+            /* Counting all supply Areas and build an array with each unique supply Area */
+            let uniqueAreas = supplyResult.filter((x, i, a) => a.indexOf(x) === i);
+            for (let k = 0; k <= uniqueAreas.length - 1; k++) {
+                let counter = 0;
+                teamToday.forEach((element) => {
+                    if (uniqueAreas[k] === element.supplyArea) {
+                        loopArray.push(element.duration);
+                        counter++;
+                    } else {
+                        //   console.log('else');
+                    }
+                });
+                let summary =  (((loopArray.reduce((a,b) => a + b, 0)) / loopArray.length) / 60000).toFixed(0);
+                averagePerSupply.push(parseInt(summary));
+                loopArray = [];
+                dayResult.push(counter);
+            }
+            let dayCount = dayResult.reduce((a,b) => a + b, 0);
+            durationAverage = (durationResult.reduce((a,b) => a + b, 0) / durationResult.length).toFixed(0);
+            Session.set('teamDayResult', dayResult);
+            Session.set('teamUniqueAreas', uniqueAreas);
+            Session.set('teamAveragePerSupply', averagePerSupply)
+            return {
+                dayCount: dayCount,
+                averageDuration: durationAverage,
+                uniqueAreas: uniqueAreas.length
+            }
+
+        } catch {
+        }
+    },
+
+    /*  Chart 4 */
+
+
+    daylieTeamResult: function () {
+        // Gather data:
+        let cartsCounter = Session.get('teamDayResult');
+        let categories = Session.get('teamUniqueAreas');
+        let averagePerSupply = Session.get('teamAveragePerSupply');
+    //    console.log(averagePerSupply, cartsCounter, categories);
+        let average = (averagePerSupply.reduce((a,b) => a + b , 0) / averagePerSupply.length).toFixed(0);
+        let annualCarts = cartsCounter.reduce((a,b) => a + b, 0);
+        let annualCategories = categories.length;
+        let titleText = annualCarts + ' ' + 'Carts picked for ' + annualCategories +
+            ' Cost centers with an average of ' + average + ' min';
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_4', {
+
+                title: {
+                    text: titleText
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Average Picking Time in min',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Average picking time in min',
+                        type: 'column',
+                        data: averagePerSupply
+                    },
+                    {
+                        name: 'Carts picked',
+                        type: 'spline',
+                        data: cartsCounter
+                    }
+                ]
+            });
+        });
+    },
+
 });
 
 
@@ -432,15 +570,19 @@ function pickingToDay () {
         pickingMonth = '00';
     }
     if (pickingMonth < 10 ) {
-        pickingMonth = "0" + timeResult.getMonth();
+        pickingMonth = ("0" + timeResult.getMonth()).toString();
     }
-    let pickingDate = timeResult.getDate();
+    if (pickingMonth >= 10) {
+        pickingMonth = (timeResult.getMonth()).toString();
+    }
+    let pickingDate = (timeResult.getDate()).toString();
     if (pickingDate < 10) {
-        pickingDate = "0" + timeResult.getDate()
+        pickingDate = ("0" + timeResult.getDate()).toString()
     }
-    let pickingDay = "0" + timeResult.getDay() ;
-    let pickingYear = timeResult.getFullYear();
-   // return (pickingYear+ pickingMonth + pickingDate + pickingDay);
+    let pickingDay = ("0" + timeResult.getDay()).toString() ;
+    let pickingYear = (timeResult.getFullYear()).toString();
+
+   // return (pickingYear + pickingMonth + pickingDate + pickingDay);
     return (pickingYear + pickingMonth + pickingDate + pickingDay)
 }
 

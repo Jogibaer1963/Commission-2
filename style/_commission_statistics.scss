@@ -15,27 +15,15 @@ $table-head: #1cbdee;
 }
 
 .diagram-1 {
-  left: 20em;
+  left: 14em;
   position: absolute;
-  top: 20em;
+  top: 19em;
 }
 
-.diagram-2 {
-  left: 2em;
-  position: absolute;
-  top: 5em;
-}
-
-.diagram-3 {
+.diagram-2-to-4 {
   left: 1em;
   position: absolute;
   top: 5em;
-}
-
-.diagram-4 {
-  left: 35em;
-  position: absolute;
-  top: 58em;
 }
 
 .diagram-9 {
@@ -108,15 +96,15 @@ $table-head: #1cbdee;
 }
 
 .daily-picks {
-  left: 25em;
+  left: 17em;
   position: absolute;
   top: 14em;
 }
 
 .personal-running-result {
-  left: 10em;
+  left: 70em;
   position: absolute;
-  top: 40em;
+  top: 17em;
 }
 
 .running-result {
@@ -128,7 +116,13 @@ $table-head: #1cbdee;
 .running-result-last-year {
   left: 70em;
   position: absolute;
-  top: 40em;
+  top: 49em;
+}
+
+.today-team-result {
+  left: 12em;
+  position: absolute;
+  top: 49em;
 }
 
 .admins-bar {
