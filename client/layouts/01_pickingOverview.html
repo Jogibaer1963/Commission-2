@@ -68,7 +68,7 @@
                     {{#each supplyList}}
                         <th class="rotate-45"><div><span>{{_id}}</span></div></th>
                     {{/each}}
-                    <th class=""><strong>Machine Id</strong></th>
+                    <th class=""></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,7 +78,11 @@
                         <td class="pdiShipDate">{{inLineDate}}</td>
                         {{#each supplyAreas}}
                             <td class="{{getStatusColor supplyStatus}}"
-                                style="background-color:{{getStatusColor supplyStatus}};">{{pickingTime}}</td>
+                                style="background-color:{{getStatusColor supplyStatus}};
+                                        font-size: 14px;
+                                        font-weight: bolder;
+                                        text-align: left;
+                                        white-space: nowrap">{{pickingTime}}</td>
                         {{/each}}
                         <td class="commMachineField">{{machineId}}</td>
                     </tr>

@@ -264,8 +264,9 @@ if(Meteor.isServer){
             /*
             let checkDoubleEntry = pickers.find({_id: user});
             */
-            console.log(pickingString);
+           // console.log(pickingString);
             let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a');
+            let pickingTime = moment().format('M D')
             let pickingEndTime = Date.now();
             pickersAtWork.remove({_id: user});
             machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
@@ -274,7 +275,8 @@ if(Meteor.isServer){
                         "supplyAreas.$.supplyStatus": status,
                         "supplyAreas.$.pickerFinished": user,
                         "supplyAreas.$.pickerEnd": pickingEndTime,
-                        "supplyAreas.$.pickingEndDateAndTime": dateEndNow
+                        "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
+                        "supplyAreas.$.pickingTime": pickingTime
                     }
                 },
             );

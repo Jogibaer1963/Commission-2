@@ -26,21 +26,11 @@ Template.machine_picking_list.helpers({
                    } catch {
                    }
                } else {
-                       let pullDate = element.supplyAreas;
-                       pullDate.forEach((element2) => {
-                           try {
-                               let date = new Date(element2.pickerEnd);
-                               let month = date.getMonth();
-                               let day = date.getDay();
-                               pickingTime = month + "-" + day;
-                           } catch (e) {
-                           }
-                       })
                }
            }
-
            machineResult.push(element);
          });
+
         return machineResult;
     },
 
