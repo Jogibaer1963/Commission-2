@@ -464,7 +464,7 @@ if(Meteor.isServer){
 
             let machineNumbers = pickedMachines.length;
             let pickersResult = pickersAtWork.findOne({_id: user});
-
+            let pickingTime = moment().format('M D');
 
             pickersResult.machines.forEach((element) => {
 
@@ -472,7 +472,9 @@ if(Meteor.isServer){
                     {$set: {"supplyAreas.$.supplyStatus": status,
                             "supplyAreas.$.pickerFinished": user,
                             "supplyAreas.$.pickingEnd": pickingEnd,
-                            "supplyAreas.$.pickingEndDateAndTime": dateEndNow}});
+                            "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
+                            "supplyAreas.$.pickingTime": pickingTime
+                        }});
 
                 machineCommTable.update({machineId: element}, {$inc: {commissionStatus: 1}});
 
@@ -504,6 +506,7 @@ if(Meteor.isServer){
                         pickingTime: timeNow,
                         duration: duration,
                         date: pickingDateAndTime,
+
                         multi: true};
                      pickers.update({_id: user}, {$addToSet: {[pickingString]: resultObj}});
                 });
