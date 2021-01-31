@@ -890,7 +890,7 @@ if(Meteor.isServer){
                 CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: 1, clearDate: 're-opened'}});
             }
         },
-
+/*
         'unsuccessLogin': function (userVar, passwordVar, dateLogin) {
            let clientIp = this.connection.clientAddress;
             unsuccessLogin.insert({userId: userVar, password: passwordVar, dateLogin: dateLogin, clientIp: clientIp});
@@ -906,6 +906,8 @@ if(Meteor.isServer){
             successfullLogout.insert({logoutId: logoutId, dateLogout: logoutDate});
             usersProfile.update({username: logoutId}, {$set: {loginStatus: 0}});
         },
+
+ */
 
         'userManualLogout': function (logOutUser) {
             for ( let i = 0; i < logOutUser.length; i++) {

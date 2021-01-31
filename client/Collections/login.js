@@ -11,11 +11,9 @@
                 Session.set('selectedMachine', '');
               Meteor.loginWithPassword(userVar, passwordVar, function(){
                if(Meteor.userId()){
-                   Meteor.call('successfullLogin', userVar, dateLogin);
                    FlowRouter.go('/');
                } else {
                   Bert.alert('User or Password wrong', 'danger', 'growl-top-left');
-                  Meteor.call('unsuccessLogin', userVar, passwordVar, dateLogin);
                    }
             });
         }

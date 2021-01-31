@@ -1,9 +1,37 @@
 import { Template } from 'meteor/templating';
 const Highcharts = require('highcharts');
 Meteor.subscribe('pickers');
+Meteor.subscribe('usersProfile');
 
+Session.set('chosenPicker', '');
 Session.set('errorPickingDate', false);
 Session.set('01-supplyMachine', false);
+
+Template.commissionStatistics.helpers({
+
+    pickers: () => {
+        return pickers.find({active: 1}, {fields: {_id: 1}}).fetch();
+    },
+
+    chosenPicker: () => {
+        return Session.get('chosenPicker');
+    },
+
+});
+
+Template.commissionStatistics.events({
+
+    'click .pickersName': function(e) {
+        e.preventDefault();
+        let pickersName = this._id;
+        Session.set('chosenPicker', pickersName);
+        console.log(pickersName);
+    },
+
+
+});
+
+
 
 Template.dailyResult.helpers({
 
@@ -17,65 +45,16 @@ Template.dailyResult.helpers({
 
     resultToday: () => {
         let loggedUser = Session.get('loggedUser');
-        let pickingString = pickingToDay();
-        // console.log(pickingString)
-        let supplyResult = []
-        let durationResult = [];
-        let resultOfTheDay = [];
-        let durationAverage = 0;
-        let loopArray = [];
-        let dayResult = [];
-        let averagePerSupply = [];
+        let chosenPicker = '';
+        let userRole = usersProfile.find({'username': loggedUser}, {fields: {role: 1}}).fetch();
         try {
-            let result = pickers.findOne({_id: loggedUser}); /* Find user */
-          // Session.set('personalResult', result);
-            let pickingResult = Object.entries(result);
-            /* Selecting TODAY from all saved picking events */
-            pickingResult.forEach((element) => {
-                if (element[0] === pickingString) {
-                    resultOfTheDay = element[1]
-                }
-            })
-
-            /* Counting and building average from todays picking event */
-            resultOfTheDay.forEach((element) => {
-                supplyResult.push(element.supplyArea);
-                let duration = (element.duration / 60000).toFixed(0);
-                durationResult.push(parseInt(duration));
-            })
-            durationResult.forEach((element) => {
-                durationAverage = durationAverage + element;
-            })
-
-            /* Counting all supply Areas and build an array with each unique supply Area */
-            let uniqueAreas = supplyResult.filter((x, i, a) => a.indexOf(x) === i);
-            for (let k = 0; k <= uniqueAreas.length - 1; k++) {
-                let counter = 0;
-                resultOfTheDay.forEach((element) => {
-                    if (uniqueAreas[k] === element.supplyArea) {
-                        loopArray.push(element.duration);
-                        counter++;
-                    } else {
-                        //   console.log('else');
-                    }
-                });
-                let summary =  (((loopArray.reduce((a,b) => a + b, 0)) / loopArray.length) / 60000).toFixed(0);
-                averagePerSupply.push(parseInt(summary));
-                loopArray = [];
-                dayResult.push(counter);
+            if (userRole[0].role === 'admin') {
+                chosenPicker = Session.get('chosenPicker')
+            } else {
+                chosenPicker = Session.get('loggedUser')
             }
-            let dayCount = dayResult.reduce((a,b) => a + b, 0);
-            durationAverage = (durationResult.reduce((a,b) => a + b, 0) / durationResult.length).toFixed(0);
-            Session.set('dayResult', dayResult);
-            Session.set('uniqueAreas', uniqueAreas);
-            Session.set('averagePerSupply', averagePerSupply)
-            return {
-                dayCount: dayCount,
-                averageDuration: durationAverage,
-                uniqueAreas: uniqueAreas.length
-            }
-        } catch {
-        }
+        } catch {}
+       daylieResult(chosenPicker)
     },
 
     /* ----------------------------------  Chart for result per Day ------------------------------- */
@@ -279,73 +258,16 @@ Template.dailyResult.helpers({
 
     personalLastYearResult: () => {
         let loggedUser = Session.get('loggedUser');
-        let newFiscalYear = '2020090401' //ToDo : newFiscalYear from table
-        let lastFiscalYear = '2019090401' //ToDo : lastFiscalYear from table
-        let arraySummary = [];
-        let newArray = [];
+        let chosenPicker = '';
+        let userRole = usersProfile.find({'username': loggedUser}, {fields: {role: 1}}).fetch();
         try {
-            let result = pickers.findOne({_id: loggedUser});
-            delete result._id;
-            delete result.active;
-            let resultObj = Object.entries(result);
-            /* find dates after fiscal year change */
-            if (resultObj.length > 1) {
-                for (let k = 0; k <= resultObj.length - 1; k++) {
-                    if (resultObj[k] >= lastFiscalYear && resultObj[k] <= newFiscalYear) {
-                        resultObj[k].shift();
-                        let cleanArray = resultObj[k];
-                        cleanArray.forEach((element2) => {
-                            for (let j = 0; j <= element2.length - 1; j++)
-                                arraySummary.push(element2[j])
-                        })
-                    }
-                }
+            if (userRole[0].role === 'admin') {
+                chosenPicker = Session.get('chosenPicker')
             } else {
-                //console.log('else')
+                chosenPicker = Session.get('loggedUser')
             }
-            arraySummary.forEach((element) => {
-                newArray.push(element.supplyArea)
-            })
-        } catch (e) {
-            // console.log(e)
-        }
-
-        /* zusammenfassen der supply areas mit carts zählung und gesamtzeit */
-
-        let durationGraph = [];
-        let counter = [];
-        let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
-        for (let i = 0; i < uniqueSupplyAreas.length; i++) {
-            if (uniqueSupplyAreas[i] === 'L4ELV10' ||
-                uniqueSupplyAreas[i] === 'L4PCOL05' ||
-                uniqueSupplyAreas[i] === 'L4PRTR20' ||
-                uniqueSupplyAreas[i] === 'L4PCLN20' ||
-                uniqueSupplyAreas[i] === 'L4CLN20'
-            ) {
-                uniqueSupplyAreas.splice(i, 1); i--;
-            }
-        }
-        try {
-            uniqueSupplyAreas.forEach((element) => {
-                let i = 1;
-                let duration = 0;
-                    arraySummary.forEach((element2) => {
-                        if (element === element2.supplyArea) {
-                            let minutes = parseInt(((element2.duration) / 60000).toFixed(0));
-                            duration = duration + minutes;
-                            i++
-                        }
-                    });
-                counter.push(i);
-                durationGraph.push(parseInt((duration / i).toFixed()));
-            });
-        } catch (e) {
-            // console.log(e)
-        }
-      //  console.log(counter, uniqueSupplyAreas)
-        Session.set('historyCarts', counter);
-        Session.set('historyTotalResultSupply', uniqueSupplyAreas);
-        Session.set('historyTotalResultDuration', durationGraph);
+        } catch {}
+        lastYearResult(chosenPicker)
     },
 
     personalYearResultHistory: function () {
@@ -586,6 +508,138 @@ function pickingToDay () {
     return (pickingYear + pickingMonth + pickingDate + pickingDay)
 }
 
+function daylieResult(loggedUser) {
+    let pickingString = pickingToDay();
+    // console.log(pickingString)
+    let supplyResult = []
+    let durationResult = [];
+    let resultOfTheDay = [];
+    let durationAverage = 0;
+    let loopArray = [];
+    let dayResult = [];
+    let averagePerSupply = [];
+    try {
+        let result = pickers.findOne({_id: loggedUser}); /* Find user */
+        // Session.set('personalResult', result);
+        let pickingResult = Object.entries(result);
+        /* Selecting TODAY from all saved picking events */
+        pickingResult.forEach((element) => {
+            if (element[0] === pickingString) {
+                resultOfTheDay = element[1]
+            }
+        })
+
+        /* Counting and building average from todays picking event */
+        resultOfTheDay.forEach((element) => {
+            supplyResult.push(element.supplyArea);
+            let duration = (element.duration / 60000).toFixed(0);
+            durationResult.push(parseInt(duration));
+        })
+        durationResult.forEach((element) => {
+            durationAverage = durationAverage + element;
+        })
+
+        /* Counting all supply Areas and build an array with each unique supply Area */
+        let uniqueAreas = supplyResult.filter((x, i, a) => a.indexOf(x) === i);
+        for (let k = 0; k <= uniqueAreas.length - 1; k++) {
+            let counter = 0;
+            resultOfTheDay.forEach((element) => {
+                if (uniqueAreas[k] === element.supplyArea) {
+                    loopArray.push(element.duration);
+                    counter++;
+                } else {
+                    //   console.log('else');
+                }
+            });
+            let summary =  (((loopArray.reduce((a,b) => a + b, 0)) / loopArray.length) / 60000).toFixed(0);
+            averagePerSupply.push(parseInt(summary));
+            loopArray = [];
+            dayResult.push(counter);
+        }
+        let dayCount = dayResult.reduce((a,b) => a + b, 0);
+        durationAverage = (durationResult.reduce((a,b) => a + b, 0) / durationResult.length).toFixed(0);
+        Session.set('dayResult', dayResult);
+        Session.set('uniqueAreas', uniqueAreas);
+        Session.set('averagePerSupply', averagePerSupply)
+        return {
+            dayCount: dayCount,
+            averageDuration: durationAverage,
+            uniqueAreas: uniqueAreas.length
+        }
+    } catch {
+    }
+}
+
+
+function lastYearResult(loggedUser) {
+    let newFiscalYear = '2020090401' //ToDo : newFiscalYear from table
+    let lastFiscalYear = '2019090401' //ToDo : lastFiscalYear from table
+    let arraySummary = [];
+    let newArray = [];
+    try {
+        let result = pickers.findOne({_id: loggedUser});
+        delete result._id;
+        delete result.active;
+        let resultObj = Object.entries(result);
+        /* find dates after fiscal year change */
+        if (resultObj.length > 1) {
+            for (let k = 0; k <= resultObj.length - 1; k++) {
+                if (resultObj[k] >= lastFiscalYear && resultObj[k] <= newFiscalYear) {
+                    resultObj[k].shift();
+                    let cleanArray = resultObj[k];
+                    cleanArray.forEach((element2) => {
+                        for (let j = 0; j <= element2.length - 1; j++)
+                            arraySummary.push(element2[j])
+                    })
+                }
+            }
+        } else {
+            //console.log('else')
+        }
+        arraySummary.forEach((element) => {
+            newArray.push(element.supplyArea)
+        })
+    } catch (e) {
+        // console.log(e)
+    }
+
+    /* zusammenfassen der supply areas mit carts zählung und gesamtzeit */
+
+    let durationGraph = [];
+    let counter = [];
+    let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
+    for (let i = 0; i < uniqueSupplyAreas.length; i++) {
+        if (uniqueSupplyAreas[i] === 'L4ELV10' ||
+            uniqueSupplyAreas[i] === 'L4PCOL05' ||
+            uniqueSupplyAreas[i] === 'L4PRTR20' ||
+            uniqueSupplyAreas[i] === 'L4PCLN20' ||
+            uniqueSupplyAreas[i] === 'L4CLN20'
+        ) {
+            uniqueSupplyAreas.splice(i, 1); i--;
+        }
+    }
+    try {
+        uniqueSupplyAreas.forEach((element) => {
+            let i = 1;
+            let duration = 0;
+            arraySummary.forEach((element2) => {
+                if (element === element2.supplyArea) {
+                    let minutes = parseInt(((element2.duration) / 60000).toFixed(0));
+                    duration = duration + minutes;
+                    i++
+                }
+            });
+            counter.push(i);
+            durationGraph.push(parseInt((duration / i).toFixed()));
+        });
+    } catch (e) {
+        // console.log(e)
+    }
+    //  console.log(counter, uniqueSupplyAreas)
+    Session.set('historyCarts', counter);
+    Session.set('historyTotalResultSupply', uniqueSupplyAreas);
+    Session.set('historyTotalResultDuration', durationGraph);
+}
 
 
 

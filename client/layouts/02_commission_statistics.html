@@ -13,6 +13,25 @@
                       <a>|</a>
                       <a class="btn btn-danger" href="/admin">Admin</a>
                     </div>
+                <br><br>
+                <div class="pickers-head">
+                    <h3>Picker: {{chosenPicker}}</h3>
+                </div>
+                <div class="pickers-overview">
+                    <h4>Pickers Result</h4>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                        {{#each pickers}}
+                            <tr class="pickersName {{selected}}">
+                                <td class="pickers-width">{{_id}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pickers-result">
+                    {{pickersResult}}
+                </div>
                 {{/if}}
     {{else}}
         {{> login}}
