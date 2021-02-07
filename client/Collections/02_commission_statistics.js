@@ -54,7 +54,7 @@ Template.dailyResult.helpers({
                 chosenPicker = Session.get('loggedUser')
             }
         } catch {}
-       daylieResult(chosenPicker)
+        return daylieResult(chosenPicker)
     },
 
     /* ----------------------------------  Chart for result per Day ------------------------------- */
@@ -123,11 +123,20 @@ Template.dailyResult.helpers({
 
     personalYearResult: () => {
         let loggedUser = Session.get('loggedUser');
+        let chosenPicker = '';
+        let userRole = usersProfile.find({'username': loggedUser}, {fields: {role: 1}}).fetch();
+        try {
+            if (userRole[0].role === 'admin') {
+                chosenPicker = Session.get('chosenPicker')
+            } else {
+                chosenPicker = Session.get('loggedUser')
+            }
+        } catch {}
         let fiscalYear = '2020090401' //ToDo : fiscalYear als Variable
         let arraySummery = [];
         let newArray = [];
         try {
-            let result = pickers.findOne({_id: loggedUser});
+            let result = pickers.findOne({_id: chosenPicker});
             delete result._id;
             delete result.active;
             let resultObj = Object.entries(result);
@@ -173,7 +182,7 @@ Template.dailyResult.helpers({
                 durationGraph.push(parseInt((duration / i).toFixed()));
             });
         } catch (e) {
-            // console.log(e)
+            console.log(e)
         }
         Session.set('carts', counter);
         Session.set('totalResultSupply', uniqueSupplyAreas);

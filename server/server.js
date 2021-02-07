@@ -41,113 +41,91 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
-        /*  ----------------------   update new Supply Position to all Machines ------------------  */
-
-/*
-        'machineTableUpdate' : ()  => {
-            let updateSupply = {};
+        //--------------  Update Machine List with in Line and off Line Date  --------------
+        /*  ** Deactivated for now **
+        'updateMachineInLine': (contents) => {
+            let arr = contents.split(/[\n\r]/g);
             let i = 0;
-            let newSupplyAreas = supplyAreas.find().fetch();
-            let result = machineCommTable.find({}).fetch();
-            console.log( result.length)
-            let machineId = [];
-            for ( i = 0; i <= result.length - 1; i++ ) {
-                machineId.push(result[i].machineId)
-
-            }
-            console.log(machineId, i);
-
-
-            machineId.forEach((element) => {
-                updateSupply =  machineCommTable.findOne({machineId : element});
-            //    console.log(updateSupply)
-                let updateSupplyAreas = updateSupply.supplyAreas;
-           //     console.log(updateSupplyAreas);
-                updateSupplyAreas.forEach((motherElement) => {
-                  //  console.log(motherElement._id)
-                    newSupplyAreas.forEach((elementSupply) => {
-                       // console.log(motherElement._id, elementSupply._id)
-                        if (motherElement._id === elementSupply._id) {
-                          //  console.log(motherElement._id, elementSupply._id)
-                             motherElement.supplyPosition = elementSupply.supplyPosition;
-
-                        }
-                    })
-                })
-                let returnResult = updateSupplyAreas.sort((a, b) => {
-                    return a.supplyPosition - b.supplyPosition
-                })
-                machineCommTable.update({"machineId" : element}, {$unset: {"supplyAreas": 1}});
-                machineCommTable.update({"machineId" : element}, {$set: { "supplyAreas" : returnResult}});
+            arr.forEach((element) => {
+                if (element === '') {
+                    arr.splice(i, 1);
+                }
+                i++
             })
-            console.log('finnish')
-    },
+            let newElement = [];
+            arr.forEach((element) => {
 
- */
+                // *********************  important Step  *********************************
+                // Regex search for Machine number pattern like C89000425
+                // add String into a new Array
+                let validStringTest = element.search(/^(C8[7-9][0-9]{5})/g);
+                // *********************  important step end ********************************
 
-/*
-        'failureCorrection': () => {
-          let objectCount = [];
-          let revisedDate = [];
-          let day = 0;
-          let weekDay = 0;
-          let month = 0;
-          let year = 0;
-          let newDate = [];
-          let result = pickers.findOne({_id: "CJ"});
-          // console.log(result);
-          let resultObj = Object.keys(result);
-          let filteredArray = resultObj.filter((value, index, arr) => {
-              return value !== '_id' && value !== 'active'
-          });
-          filteredArray.forEach((element) => {
-            let elementLength = element.length;
-            if (elementLength === 9) {
-                /* YYYYMMDDWW Jahr = 4 stellig, Monat 2 stellig, Tag = 2 stellig, Wochentag = 2 stellig  */
-        /*
-                day = element.slice(0, 2);
-                weekDay = element.slice(2,4);
-                month = element.slice(4,5);
-                year = element.slice(5, 9)
-                newDate = year + 0 + month + day + weekDay;
-                revisedDate.push(newDate);
-            } else if (elementLength === 10) {
-                day = element.slice(0, 2);
-                weekDay = element.slice(2,4);
-                month = element.slice(4,6);
-                year = element.slice(6, 10)
-                newDate = year + month + day + weekDay;
-                revisedDate.push(newDate);
-            }
-          })
-*/
+                if (validStringTest === 0) {
+                    newElement.push(element)
+                }
+            })
+            let timeLine = {};
+            newElement.forEach((element) => {
+                let result = element.split(',').map(e => e.split(','));
+                // eliminate white spaces
+                result.splice(25, 4);
+                result.splice(28, 10);
+                let newMachine = result[0][0];
+                let inLineDate = moment(new Date(result[1][0])).format('YYYY-MM-DD');
+                let dateOfCreation = Date.now();
 
-            /* altes datum in filteredArray, neues Datum in revisedDate.
-         *  Das ausgelesene Document wird mit neuen Datum überschrieben
-         *  und zurück gespeochert */
-/*
-           let newKey = '';
-          let oldKey = '';
-           let i = 0;
-           delete result._id;
-           delete result.active;
-           Object.keys(result).forEach(key => {
-                   if (key === filteredArray[i]) {
-                       oldKey = filteredArray[i]
-                       newKey = revisedDate[i];
-                       pickers.update({_id: "CJ"}, {$unset: {[oldKey] : 1}});
-                       pickers.update({_id: "CJ"}, {$set: { [newKey] : result[key]}});
-                   }
-               i++
-           })
-            console.log('should be completed')
+                    timeLine = {
+                        'machineId': result[0][0],
+                        'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
+                        'station2':  moment(new Date(result[2][0])).format('YYYY-MM-DD'),
+                        'station3':  moment(new Date(result[3][0])).format('YYYY-MM-DD'),
+                        'station4':  moment(new Date(result[4][0])).format('YYYY-MM-DD'),
+                        'mergeEngine':  moment(new Date(result[5][0])).format('YYYY-MM-DD'),
+                        'inLine':  moment(new Date(result[6][0])).format('YYYY-MM-DD'),
+                        'bay3':  moment(new Date(result[7][0])).format('YYYY-MM-DD'),
+                        'bay4': moment(new Date(result[8][0])).format('YYYY-MM-DD'),
+                        'bay5':  moment(new Date(result[9][0])).format('YYYY-MM-DD'),
+                        'bay6':  moment(new Date(result[10][0])).format('YYYY-MM-DD'),
+                        'bay7':  moment(new Date(result[11][0])).format('YYYY-MM-DD'),
+                        'bay8':  moment(new Date(result[12][0])).format('YYYY-MM-DD'),
+                        'bay9':  moment(new Date(result[13][0])).format('YYYY-MM-DD'),
+                        'bay10':  moment(new Date(result[14][0])).format('YYYY-MM-DD'),
+                        'testBay1': moment(new Date(result[15][0])).format('YYYY-MM-DD'),
+                        'testBay2':  moment(new Date(result[16][0])).format('YYYY-MM-DD'),
+                        'bay14':  moment(new Date(result[17][0])).format('YYYY-MM-DD'),
+                        'bay15':  moment(new Date(result[18][0])).format('YYYY-MM-DD'),
+                        'bay16':  moment(new Date(result[19][0])).format('YYYY-MM-DD'),
+                        'bay17':  moment(new Date(result[20][0])).format('YYYY-MM-DD'),
+                        'bay18':  moment(new Date(result[21][0])).format('YYYY-MM-DD'),
+                        'bay19Planned':  moment(new Date(result[22][0])).format('YYYY-MM-DD'),
+                        'bay19SAP':  moment(new Date(result[23][0])).format('YYYY-MM-DD'),
+                        'bay19Actual':  moment(new Date(result[24][0])).format('YYYY-MM-DD'),
+                        'salesOrder': result[25][0],
+                        'productionOrder': result[26][0],
+                        'sequence': result[27][0]
+                    }
+             //   console.log(timeLine)
+
+               // if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
+                    //   console.log("inside", newMachine, dateOfCreation, inLineDate);
+                    machineCommTable.update({machineId: newMachine},
+                                            {$set: { timeLine}
+                    });
+                    /*
+                    supplyAreas.find({active: true},
+                        {sort: {supplyPosition: 1}}).
+                    forEach(function(copy) {
+                        machineCommTable.update({machineId: newMachine},
+                            {$addToSet: {supplyAreas: (copy)}})
+                    });
+                } else {
+                    return newMachine;
+                }
+            });
         },
 
-
- */
-
-
-
+         */
 
  //---------------------------------------------- New Fiscal Year added -----------------------------
 
@@ -185,20 +163,13 @@ if(Meteor.isServer){
             } catch (e) {
                 console.log(e)
             }
-
-/*
-            let action = 'added supply area ' + area;
-           // userUpdate(loggedUser, action);
-
- */
-
         },
 
         // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
 
 
 // Adding and removing Machine, filling the database machineCommTable with pre sets
-
+/*   ** Adding Machines deactivated for now **
         'doubleMachine': (newMachine, inLineDate, dateOfCreation) => {
 
             if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
@@ -208,16 +179,19 @@ if(Meteor.isServer){
                     dateOfCreation: dateOfCreation,
                     commissionStatus: 0,
                     active: true});
-            //    console.log(newMachine);
 
-                supplyAreas.find({active: true}, {sort: {supplyPosition: 1}}).forEach(function(copy) {
-                    machineCommTable.update({machineId: newMachine}, {$addToSet: {supplyAreas: (copy)}})
+                supplyAreas.find({active: true},
+                                   {sort: {supplyPosition: 1}}).
+                                forEach(function(copy) {
+                                        machineCommTable.update({machineId: newMachine},
+                                                                {$addToSet: {supplyAreas: (copy)}})
                 });
-
             } else {
                 return newMachine;
             }
         },
+
+ */
 
         'deactivateMachine': (machineCompleted) => {
             machineCommTable.update({machineId: machineCompleted}, {$set: {active: false}});

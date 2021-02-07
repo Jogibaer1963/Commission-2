@@ -90,6 +90,7 @@ Template.addMachine.helpers ({
         return Session.get('alarm');
     },
 
+
 });
 
 Template.addMachine.events ({
@@ -122,6 +123,23 @@ Template.addMachine.events ({
     'click .comm-statistics': (e) => {
         e.preventDefault();
         FlowRouter.go('commissionStatistics');
-    }
+    },
+
+    'change .loadProductionSchedule': (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            const contents = e.target.result;
+            Meteor.call('updateMachineInLine', contents);
+        };
+        reader.readAsText(file);
+    },
+
+
+
 });
 
