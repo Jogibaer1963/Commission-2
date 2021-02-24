@@ -647,8 +647,7 @@ table.commOverView {
 .load-production-schedule {
   position: absolute;
   top: 11em;
-  left: 70em;
-  pointer-events: none; }
+  left: 70em; }
 
 .tableSizeDate {
   width: 8em; }

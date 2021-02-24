@@ -42,8 +42,9 @@ if(Meteor.isServer){
     Meteor.methods({
 
         //--------------  Update Machine List with in Line and off Line Date  --------------
-        /*  ** Deactivated for now **
+       //  ** Deactivated for now **
         'updateMachineInLine': (contents) => {
+            console.log('working');
             let arr = contents.split(/[\n\r]/g);
             let i = 0;
             arr.forEach((element) => {
@@ -56,7 +57,7 @@ if(Meteor.isServer){
             arr.forEach((element) => {
 
                 // *********************  important Step  *********************************
-                // Regex search for Machine number pattern like C89000425
+                // Regex search for Machine number pattern like C8900425
                 // add String into a new Array
                 let validStringTest = element.search(/^(C8[7-9][0-9]{5})/g);
                 // *********************  important step end ********************************
@@ -74,7 +75,6 @@ if(Meteor.isServer){
                 let newMachine = result[0][0];
                 let inLineDate = moment(new Date(result[1][0])).format('YYYY-MM-DD');
                 let dateOfCreation = Date.now();
-
                     timeLine = {
                         'machineId': result[0][0],
                         'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
@@ -105,27 +105,26 @@ if(Meteor.isServer){
                         'productionOrder': result[26][0],
                         'sequence': result[27][0]
                     }
-             //   console.log(timeLine)
-
-               // if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
-                    //   console.log("inside", newMachine, dateOfCreation, inLineDate);
+            try {
+               if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
                     machineCommTable.update({machineId: newMachine},
-                                            {$set: { timeLine}
-                    });
-                    /*
-                    supplyAreas.find({active: true},
-                        {sort: {supplyPosition: 1}}).
-                    forEach(function(copy) {
-                        machineCommTable.update({machineId: newMachine},
-                            {$addToSet: {supplyAreas: (copy)}})
-                    });
+                                            {$set: {inlineDate: inLineDate, timeLine}});
+                   supplyAreas.find({active: true},
+                             {sort: {supplyPosition: 1}}).
+                                                          forEach(function(copy) {
+                                                          machineCommTable.update({machineId: newMachine},
+                                                         {$addToSet: {supplyAreas: (copy)}})
+                                                                 });
                 } else {
-                    return newMachine;
+                   machineCommTable.update({machineId: newMachine},
+                       {$set: {inLineDate: inLineDate, timeLine}});
+                }
+            } catch(e) {
                 }
             });
         },
 
-         */
+
 
  //---------------------------------------------- New Fiscal Year added -----------------------------
 
