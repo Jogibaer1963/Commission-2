@@ -16,7 +16,6 @@ Template.machine_picking_list.helpers({
     machineList: () => {
         let machineResult = [];
         let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
-        console.log(result.inlineDate)
         result.sort((a, b) => a.inLineDate.localeCompare(b.inLineDate));
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {

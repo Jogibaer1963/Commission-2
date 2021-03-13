@@ -1,11 +1,6 @@
 Meteor.subscribe("pickersAtWork");
 
-
-
-
-
 Template.commTablet.helpers ({
-
 
     machineCommList: () => {
         const picker = Meteor.user().username;
@@ -110,7 +105,7 @@ Template.commTablet.events ({
                         if (err) {
                             console.log(err)
                         } else {
-                            console.log('save finished', response)
+                           // console.log('save finished', response)
                         }
             });
     },

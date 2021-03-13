@@ -69,8 +69,7 @@
                     <tr class="supplyAreas {{selectedArea}}">
                         <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
                             style="background-color: {{getCommStatus supplyStatus}}">{{_id}}</td>
-                        <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
-                            style="background-color: {{getCommStatus supplyStatus}} ">{{pickerStart}}</td>
+                        <td class="supplyAreaField machineTablet" style="pointer-events: none">{{pickerStart}}</td>
                     </tr>
                        {{/each}}
                 {{/with}}

@@ -25,7 +25,6 @@ Template.commissionStatistics.events({
         e.preventDefault();
         let pickersName = this._id;
         Session.set('chosenPicker', pickersName);
-        console.log(pickersName);
     },
 
 
@@ -64,7 +63,6 @@ Template.dailyResult.helpers({
         let averagePerSupply = Session.get('averagePerSupply');
         let  tasksData = Session.get('dayResult');
         let categories = Session.get('uniqueAreas');
-        console.log(tasksData, categories)
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -361,7 +359,6 @@ Template.dailyResult.helpers({
         let teamToday = [];
         let supplyResult = []
         let durationResult = [];
-        let resultOfTheDay = [];
         let durationAverage = 0;
         let loopArray = [];
         let dayResult = [];
@@ -369,7 +366,6 @@ Template.dailyResult.helpers({
         try {
             let result = pickers.find({}, {fields: {[pickingString]: 1}}).fetch();
             result.forEach((element) => {
-                console.log(element)
                 if (element[pickingString] !== undefined) {
                    // console.log(element[pickingString]);
                     element[pickingString].forEach((element2) => {
