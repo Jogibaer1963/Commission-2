@@ -47,7 +47,7 @@ Template.machine_picking_list.helpers({
             Session.set('commMachine', selectedMachine);
             return "selectedMachine";
         }
-    },
+    }
 
 });
 
@@ -57,6 +57,12 @@ Template.machine_picking_list.events({
             e.preventDefault();
             let selectedMachine = this.machineId;
             Session.set('selectedMachine', selectedMachine);
+    },
+
+    'click .inactiveMachine': function (e) {
+            e.preventDefault();
+            let selectedMachine = this.machineId;
+            Session.set('finishedMachine', selectedMachine);
     },
 
     'click .buttonComplete': (e) => {
@@ -140,7 +146,31 @@ Template.addMachine.events ({
         document.getElementById('files').value = [];
     },
 
+});
+
+Template.reviewMachine.helpers({
+
+    supplyList: () => {
+      return Session.get('returnResult');
+    },
+
+    machineReview: () => {
+            let review = Session.get('finishedMachine')
+            let machineResult = [];
+            let result = machineCommTable.findOne({machineId: review});
+            machineResult.push(result)
+            return machineResult;
+    },
+
+    'machineToReview': () => {
+       let machine = this.machineId;
+        console.log(machine)
+    },
 
 
 });
+
+
+
+
 

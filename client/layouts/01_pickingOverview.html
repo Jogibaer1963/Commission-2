@@ -6,6 +6,7 @@
                 {{> addMachine}}
                 {{> tabletEntry}}
                 {{> machine_picking_list}}
+                {{> reviewMachine}}
             </div>
         {{/if}}
         {{#if isInRole  'Picker'}}
@@ -108,7 +109,7 @@
                 </thead>
                 <tbody>
                 {{#each inactiveMachineList}}
-                    <tr class="commissionMachine {{selectedMachine}}">
+                    <tr class="inactiveMachine {{selectedFinishedMachine}}">
                         <td class="pdiMachineField">{{machineId}}</td>
                         <td class="pdiShipDate">{{inLineDate}}</td>
                     </tr>
@@ -116,6 +117,43 @@
                 </tbody>
             </table>
         </div>
+</template>
+
+<template name="reviewMachine">
+    <div class="review-machine">
+        <h4>Review Machine</h4>
+        <div class="">
+            <table class="table table-header-rotated fixed-header">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    {{#each supplyList}}
+                        <th class="rotate-45"><div><span>{{_id}}</span></div></th>
+                    {{/each}}
+                    <th class=""></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each machineReview}}
+                    <tr class="">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        {{#each supplyAreas}}
+                            <td class="{{getStatusColor supplyStatus}}"
+                                style="background-color:{{getStatusColor supplyStatus}};
+                                        font-size: 14px;
+                                        font-weight: bolder;
+                                        text-align: left;
+                                        white-space: nowrap">{{pickingTime}}</td>
+                        {{/each}}
+                        <td class="commMachineField">{{machineId}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 <template name="teamLead">
