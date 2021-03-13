@@ -64,6 +64,7 @@ Template.dailyResult.helpers({
         let averagePerSupply = Session.get('averagePerSupply');
         let  tasksData = Session.get('dayResult');
         let categories = Session.get('uniqueAreas');
+        console.log(tasksData, categories)
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
@@ -356,7 +357,7 @@ Template.dailyResult.helpers({
 
     teamToday: () => {
         let pickingString = pickingToDay();
-      // console.log(pickingString)
+        //console.log(pickingString)
         let teamToday = [];
         let supplyResult = []
         let durationResult = [];
@@ -366,14 +367,17 @@ Template.dailyResult.helpers({
         let dayResult = [];
         let averagePerSupply = [];
         try {
-            let result = pickers.find().fetch();
+            let result = pickers.find({}, {fields: {[pickingString]: 1}}).fetch();
             result.forEach((element) => {
+                console.log(element)
                 if (element[pickingString] !== undefined) {
+                   // console.log(element[pickingString]);
                     element[pickingString].forEach((element2) => {
                         teamToday.push(element2)
                     })
                 }
             })
+            //console.log(teamToday);
             /* Selecting TODAY from all saved picking events */
             /* Counting and building average from todays picking event */
             teamToday.forEach((element) => {
@@ -398,11 +402,13 @@ Template.dailyResult.helpers({
                 loopArray = [];
                 dayResult.push(counter);
             }
+           // console.log(dayResult)
             let dayCount = dayResult.reduce((a,b) => a + b, 0);
             durationAverage = (durationResult.reduce((a,b) => a + b, 0) / durationResult.length).toFixed(0);
             Session.set('teamDayResult', dayResult);
             Session.set('teamUniqueAreas', uniqueAreas);
             Session.set('teamAveragePerSupply', averagePerSupply)
+         //   console.log(dayCount, uniqueAreas)
             return {
                 dayCount: dayCount,
                 averageDuration: durationAverage,

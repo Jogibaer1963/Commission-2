@@ -165,7 +165,7 @@ $comm-black: #000;
 @keyframes glowing {
   0% { background-color: #AA3939; box-shadow: 0 0 3px  #AA5939; }
   50% { background-color: #FFB232; box-shadow: 0 0 10px #FFB232; }
-  100% { background-color: #FFE800; box-shadow: 0 0 3px #FFE800; }
+  100% { background-color: #ffe800; box-shadow: 0 0 3px #FFE800; }
 }
 
 
@@ -174,9 +174,9 @@ $comm-black: #000;
 $base: 0.6rem;
 
 .arrowDown {
-  position: absolute;
   display: flex;
   left: 4em;
+  position: absolute;
 }
 
 .arrowSide {

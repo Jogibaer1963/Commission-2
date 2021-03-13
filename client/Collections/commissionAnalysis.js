@@ -144,7 +144,7 @@ Template.analysisOverView.helpers({
         let supplyArea = Session.get('pickersAnnualSupplyAreas');
         let timePerCart = Session.get('pickersAnnualDuration');
         let cartsTotal = Session.get('pickersAnnualCart');
-        //   console.log(averagePerSupply, cartsCounter, categories);
+        console.log(timePerCart, cartsTotal, categories);
         let annualSupply = supplyArea.length;
         let annualAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
         let annualCarts = cartsTotal.reduce((a,b) => a + b, 0);
@@ -214,7 +214,7 @@ Template.analysisOverView.helpers({
         let timePerCart = Session.get('Duration');
         let cartsCounter = Session.get('Cart');
         let categories = Session.get('Supply');
-        //   console.log(averagePerSupply, cartsCounter, categories);
+        //  console.log(cartsCounter, categories);
         // Use Meteor.defer() to create chart after DOM is ready:
         let daylieAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
         let daylieCarts = cartsCounter.reduce((a,b) => a + b, 0);

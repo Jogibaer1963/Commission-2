@@ -507,12 +507,12 @@ table.supply-table {
     background-color: #FFB232;
     box-shadow: 0 0 10px #FFB232; }
   100% {
-    background-color: #FFE800;
+    background-color: #ffe800;
     box-shadow: 0 0 3px #FFE800; } }
 .arrowDown {
-  position: absolute;
   display: flex;
-  left: 4em; }
+  left: 4em;
+  position: absolute; }
 
 .arrowSide {
   transform: rotate(-90deg);
