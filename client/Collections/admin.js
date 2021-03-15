@@ -203,7 +203,19 @@ Template.adminView.events({
         e.preventDefault();
         let pickersId = e.target.value;
         Meteor.call('pickerActive', pickersId, 0)
-    }
+    },
+
+    // **********************   Add new Bay  **************************
+
+    'submit .addingBay': (e) => {
+        e.preventDefault();
+        let newBay = e.target.addNewBay.value;
+        Meteor.call('addBay', newBay)
+        e.target.addNewBay.value = '';
+    },
+
+
+
 
 
 

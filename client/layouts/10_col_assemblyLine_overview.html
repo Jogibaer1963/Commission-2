@@ -1,0 +1,34 @@
+<template name="assemblyLineOverView">
+    <div class="">
+        <table class="table table-header-rotated fixed-header">
+            <thead>
+            <tr>
+                <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                {{#each bayList}}
+                    <th class="rotate-45"><div><span>{{bay}}</span></div></th>
+                {{/each}}
+                <th class=""></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each machineList}}
+                <tr class="">
+                    <td class="pdiMachineField">{{machineId}}</td>
+                    <td class="pdiShipDate">{{inLineDate}}</td>
+                    {{#each supplyAreas}}
+                        <td class="{{getStatusColor supplyStatus}}"
+                            style="background-color:{{getStatusColor supplyStatus}};
+                                    font-size: 14px;
+                                    font-weight: bolder;
+                                    text-align: left;
+                                    white-space: nowrap">{{pickingTime}}</td>
+                    {{/each}}
+                    <td class="commMachineField">{{machineId}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</template>

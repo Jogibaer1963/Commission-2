@@ -36,6 +36,10 @@ if(Meteor.isServer){
             return fiscalYear.find();
         });
 
+        Meteor.publish("assemblyLineBay", function () {
+            return assemblyLineBay.find();
+        });
+
     });
 
 
@@ -906,6 +910,14 @@ if(Meteor.isServer){
             usersProfile.insert({username: userConst, role: role, createdAt: createdAt,
                 createdBy: loggedUser, loginStatus: 0});
         },
+
+ //-----------------------------------------------------  Assembly Line ---------------------------------------------------------
+
+        'addBay' : function (newBay) {
+              assemblyLineBay.insert( {bay: newBay})
+        },
+
+
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
     });
