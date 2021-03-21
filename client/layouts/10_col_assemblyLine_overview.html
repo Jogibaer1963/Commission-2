@@ -1,5 +1,23 @@
 <template name="assemblyLineOverView">
-    <div class="">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+    <div class="button-box">
+        <label for="button_1"></label>
+        <button type="button" class="btn btn-default btn-info" id="button_1">Button 1</button>
+        <label for="button_2"></label>
+        <button type="button" class="btn btn-default btn-info" id="button_2">Button 2</button>
+        <label for="button_3"></label>
+        <button type="button" class="btn btn-default btn-info" id="button_3">Button 3</button>
+        <label for="button_4"></label>
+        <button type="button" class="btn btn-default btn-info" id="button_4">Button 4</button>
+        <label for="button_5"></label>
+        <button type="button" class="btn btn-default btn-info" id="button_5">Button 5</button>
+    </div>
+    <div class="assembly-line-head-liner">
+        <h3>Overview Assembly Line</h3>
+    </div>
+    <div class="over-view-table-assembly-line">
         <table class="table table-header-rotated fixed-header">
             <thead>
             <tr>
@@ -16,6 +34,7 @@
                 <tr class="">
                     <td class="pdiMachineField">{{machineId}}</td>
                     <td class="pdiShipDate">{{inLineDate}}</td>
+                    <!--
                     {{#each supplyAreas}}
                         <td class="{{getStatusColor supplyStatus}}"
                             style="background-color:{{getStatusColor supplyStatus}};
@@ -24,7 +43,9 @@
                                     text-align: left;
                                     white-space: nowrap">{{pickingTime}}</td>
                     {{/each}}
+
                     <td class="commMachineField">{{machineId}}</td>
+                    -->
                 </tr>
             {{/each}}
             </tbody>

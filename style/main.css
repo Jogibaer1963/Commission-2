@@ -1068,6 +1068,21 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: 39em; }
 
+.button-box {
+  left: 30em;
+  position: absolute;
+  top: 7em; }
+
+.assembly-line-head-liner {
+  left: 30em;
+  position: absolute;
+  top: 10em; }
+
+.over-view-table-assembly-line {
+  left: 5em;
+  position: absolute;
+  top: 20em; }
+
 .insideNavBar {
   margin-top: 25px; }
 

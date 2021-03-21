@@ -8,11 +8,9 @@ Template.assemblyLineOverView.helpers({
     },
 
     machineList: () => {
-        let toDay = moment().format('YYYY-MM-DD');
-        let result = machineCommTable.find({'timeLine.$.bay19Planned': toDay}, {}).fetch();
-         console.log(result)
-
-       // return machineResult;
+        let toDay = moment().subtract(14, 'd').format('YYYY-MM-DD')
+        let result = machineCommTable.find({inLineDate: {$gt: toDay}}).fetch();
+        return result;
     },
 
 })
