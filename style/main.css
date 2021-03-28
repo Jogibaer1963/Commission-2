@@ -658,54 +658,45 @@ table.commOverView {
   width: 8em; }
 
 .table-header-rotated th.row-header {
-  width: auto; }
+  width: 53px; }
 
 .table-header-rotated td {
-  width: 53px;
-  border-top: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+  text-align: center;
   vertical-align: middle;
-  text-align: center; }
+  width: 53px; }
 
 .table-header-rotated th.rotate-45 {
+  font-size: 12px;
   height: 80px;
-  width: 53px;
-  min-width: 53px;
+  line-height: .8;
   max-width: 53px;
+  min-width: 53px;
+  padding: 0;
   position: relative;
   vertical-align: bottom;
-  padding: 0;
-  font-size: 12px;
-  line-height: 0.8; }
+  width: 53px; }
 
 .table-header-rotated th.rotate-45 > div {
-  position: relative;
-  top: 0px;
-  left: 40px;
-  height: 100%;
-  -ms-transform: skew(-45deg, 0deg);
-  -moz-transform: skew(-45deg, 0deg);
-  -webkit-transform: skew(-45deg, 0deg);
-  -o-transform: skew(-45deg, 0deg);
-  transform: skew(-45deg, 0deg);
-  overflow: hidden;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
   border-right: 1px solid #dddddd;
-  border-top: 1px solid #dddddd; }
+  border-top: 1px solid #dddddd;
+  height: 100%;
+  left: 40px;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  transform: skew(-45deg, 0deg); }
 
 .table-header-rotated th.rotate-45 span {
-  -ms-transform: skew(45deg, 0deg) rotate(315deg);
-  -moz-transform: skew(45deg, 0deg) rotate(315deg);
-  -webkit-transform: skew(45deg, 0deg) rotate(315deg);
-  -o-transform: skew(45deg, 0deg) rotate(315deg);
-  transform: skew(45deg, 0deg) rotate(315deg);
-  position: absolute;
   bottom: 30px;
-  left: -25px;
   display: inline-block;
-  width: 85px;
-  text-align: left; }
+  left: -25px;
+  position: absolute;
+  transform: skew(45deg, 0deg) rotate(315deg);
+  width: 85px; }
 
 .averageSupply {
   position: absolute;
@@ -1082,6 +1073,9 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 5em;
   position: absolute;
   top: 20em; }
+
+.in-line-field {
+  width: 40px; }
 
 .insideNavBar {
   margin-top: 25px; }

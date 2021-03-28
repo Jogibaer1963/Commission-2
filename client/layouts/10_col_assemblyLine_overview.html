@@ -34,18 +34,14 @@
                 <tr class="">
                     <td class="pdiMachineField">{{machineId}}</td>
                     <td class="pdiShipDate">{{inLineDate}}</td>
-                    <!--
-                    {{#each supplyAreas}}
-                        <td class="{{getStatusColor supplyStatus}}"
-                            style="background-color:{{getStatusColor supplyStatus}};
-                                    font-size: 14px;
-                                    font-weight: bolder;
-                                    text-align: left;
-                                    white-space: nowrap">{{pickingTime}}</td>
+                    {{#each bayReady}}
+                        <td class="{{getStatusColor bayStatus}}"
+                            style="background-color:{{getStatusColor bayStatus}};
+                                    color:{{getStatusColor bayStatus}}">
+                            {{bayStatus}}
+                        </td>
                     {{/each}}
-
-                    <td class="commMachineField">{{machineId}}</td>
-                    -->
+            <!--        <td class="commMachineField">{{machineId}}</td>  -->
                 </tr>
             {{/each}}
             </tbody>

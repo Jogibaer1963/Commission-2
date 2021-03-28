@@ -46,7 +46,7 @@ if(Meteor.isServer){
     Meteor.methods({
 
         //--------------  Update Machine List with in Line and off Line Date  --------------
-       //  ** Deactivated for now **
+
         'updateMachineInLine': (contents) => {
             console.log('working');
             let arr = contents.split(/[\n\r]/g);
@@ -71,6 +71,7 @@ if(Meteor.isServer){
                 }
             })
             let timeLine = {};
+            let bayReady = [];
             newElement.forEach((element) => {
                 let result = element.split(',').map(e => e.split(','));
                 // eliminate white spaces
@@ -109,10 +110,228 @@ if(Meteor.isServer){
                         'productionOrder': result[26][0],
                         'sequence': result[27][0]
                     }
+                    bayReady = [
+                        {
+                         "_id" : "station1",
+                         "bayStatus" : 0,
+                         "bay1DatePlanned" : moment(new Date(result[1][0])).format('YYYY-MM-DD'),
+                         "bay1DateLanding" : "",
+                         "bay1DateLeaving" : "",
+                         "completeBy" : "",
+                         "completedAt" : ""
+                        },
+                        {
+                            "_id" : "station2",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[2][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "station3",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[3][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "station4",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[4][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "mergeEngine",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[5][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "inLine",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[6][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay3",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[7][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay4",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[8][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay5",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[9][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay6",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[10][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay7",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[11][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay8",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[12][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay9",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[13][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay10",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[14][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "testBay1",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[15][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "testBay2",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[16][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "testBay3",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : "",
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "testBay4",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : "",
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay14",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[17][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay15",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[18][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay16",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[19][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay17",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[20][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay18",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[21][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                        {
+                            "_id" : "bay19",
+                            "bayStatus" : 0,
+                            "bay1DatePlanned" : moment(new Date(result[22][0])).format('YYYY-MM-DD'),
+                            "bay1DateLanding" : "",
+                            "bay1DateLeaving" : "",
+                            "completeBy" : "",
+                            "completedAt" : ""
+                        },
+                     ]
             try {
                if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
                     machineCommTable.update({machineId: newMachine},
-                                            {$set: {inlineDate: inLineDate, timeLine}});
+                                            {$set: {inlineDate: inLineDate, timeLine, bayReady}});
                    supplyAreas.find({active: true},
                              {sort: {supplyPosition: 1}}).
                                                           forEach(function(copy) {
@@ -121,11 +340,12 @@ if(Meteor.isServer){
                                                                  });
                 } else {
                    machineCommTable.update({machineId: newMachine},
-                       {$set: {inLineDate: inLineDate, timeLine}});
+                       {$set: {inLineDate: inLineDate, timeLine, bayReady}});
                 }
             } catch(e) {
                 }
             });
+            console.log('done')
         },
 
 
