@@ -4,9 +4,7 @@ Meteor.subscribe('assemblyLineBay');
 Template.assemblyLineOverView.helpers({
 
     bayList: () => {
-        let result = assemblyLineBay.find().fetch();
-        console.log(result);
-        return result
+       return assemblyLineBay.find().fetch();
     },
 
     machineList: () => {
@@ -14,8 +12,16 @@ Template.assemblyLineOverView.helpers({
         let result = machineCommTable.find({inLineDate: {$gt: toDay}}).fetch();
         result.sort(function(a, b) {
             return a.inLineDate.localeCompare(b.inLineDate) })
-        console.log(result);
         return result;
     },
+
+})
+
+Template.assemblyLineOverView.events({
+
+    'click .assemblyLine': (e) => {
+        e.preventDefault();
+        FlowRouter.go('/assemblyLine')
+    }
 
 })

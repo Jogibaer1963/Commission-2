@@ -80,6 +80,7 @@ if(Meteor.isServer){
                 let newMachine = result[0][0];
                 let inLineDate = moment(new Date(result[1][0])).format('YYYY-MM-DD');
                 let dateOfCreation = Date.now();
+                console.log(result[0][0])
                     timeLine = {
                         'machineId': result[0][0],
                         'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
@@ -330,8 +331,15 @@ if(Meteor.isServer){
                      ]
             try {
                if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
-                    machineCommTable.update({machineId: newMachine},
-                                            {$set: {inlineDate: inLineDate, timeLine, bayReady}});
+                   let today = Date.now();
+                    machineCommTable.upsert({machineId: newMachine},
+                                            {$set: {
+                                                    inLineDate: inLineDate,
+                                                    commissionStatus : 0,
+                                                    dateOfCreation : today,
+                                                    active : true,
+                                                    timeLine,
+                                                    bayReady}});
                    supplyAreas.find({active: true},
                              {sort: {supplyPosition: 1}}).
                                                           forEach(function(copy) {

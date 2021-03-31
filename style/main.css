@@ -1077,6 +1077,29 @@ table.supply-multi-table td, table.supply-multi-table th {
 .in-line-field {
   width: 40px; }
 
+.nav-bar {
+  left: 20em;
+  position: absolute;
+  top: 5em; }
+
+.machine-reservoir {
+  color: #71f323;
+  left: 5em;
+  position: absolute;
+  top: 9em;
+  width: 300px; }
+
+.in-line-date {
+  max-width: 100px;
+  min-width: 100px; }
+
+.assembly-line-arrow-1 {
+  display: flex;
+  left: 24.3em;
+  position: absolute;
+  top: 22.2em;
+  transform: rotate(-90deg); }
+
 .insideNavBar {
   margin-top: 25px; }
 

@@ -1,0 +1,29 @@
+$color-machine-reservoir: #71f323;
+
+
+.nav-bar {
+  left: 20em;
+  position: absolute;
+  top: 5em;
+}
+
+.machine-reservoir {
+  color: $color-machine-reservoir;
+  left: 5em;
+  position: absolute;
+  top: 9em;
+  width: 300px;
+}
+
+.in-line-date {
+  max-width: 100px;
+  min-width: 100px;
+}
+
+.assembly-line-arrow-1 {
+  display: flex;
+  left: 24.3em;
+  position: absolute;
+  top: 22.2em;
+  transform: rotate(-90deg);
+}
