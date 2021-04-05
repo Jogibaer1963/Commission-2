@@ -78,9 +78,8 @@ if(Meteor.isServer){
                 result.splice(25, 4);
                 result.splice(28, 10);
                 let newMachine = result[0][0];
-                let inLineDate = moment(new Date(result[1][0])).format('YYYY-MM-DD');
-                let dateOfCreation = Date.now();
-                console.log(result[0][0])
+                let inLineDate = moment(new Date(result[6][0])).format('YYYY-MM-DD');
+              //  console.log(result[0][0])
                     timeLine = {
                         'machineId': result[0][0],
                         'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
@@ -126,12 +125,12 @@ if(Meteor.isServer){
                             "bayStatus" : 0,
                             "bay1DatePlanned" : moment(new Date(result[2][0])).format('YYYY-MM-DD'),
                             "bay1DateLanding" : "",
-                            "bay1DateLeaving" : "",
+                            "ba1DateLeaving" : "",
                             "completeBy" : "",
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "station3",
+                            "_id" : "station3",  // cooling box entry
                             "bayStatus" : 0,
                             "bay1DatePlanned" : moment(new Date(result[3][0])).format('YYYY-MM-DD'),
                             "bay1DateLanding" : "",
@@ -149,7 +148,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "mergeEngine",
+                            "_id" : "mergeEngine",   // merge cooling box and Engine
                             "bayStatus" : 0,
                             "bay1DatePlanned" : moment(new Date(result[5][0])).format('YYYY-MM-DD'),
                             "bay1DateLanding" : "",
@@ -158,7 +157,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "inLine",
+                            "_id" : "inLine",  // merge FCB with Threshing Unit
                             "bayStatus" : 0,
                             "bay1DatePlanned" : moment(new Date(result[6][0])).format('YYYY-MM-DD'),
                             "bay1DateLanding" : "",
@@ -176,7 +175,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay4",
+                            "_id" : "bay4",   // merge Engine with Chassis
                             "bayStatus" : 0,
                             "bay1DatePlanned" : moment(new Date(result[8][0])).format('YYYY-MM-DD'),
                             "bay1DateLanding" : "",

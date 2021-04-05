@@ -1093,12 +1093,146 @@ table.supply-multi-table td, table.supply-multi-table th {
   max-width: 100px;
   min-width: 100px; }
 
+.machine-entry {
+  left: 25em;
+  position: absolute;
+  top: 22.5em; }
+
+.machine-field {
+  background: #dd7e1f; }
+
 .assembly-line-arrow-1 {
   display: flex;
-  left: 24.3em;
-  position: absolute;
-  top: 22.2em;
   transform: rotate(-90deg); }
+
+.bay-arrows {
+  left: 9em;
+  position: absolute;
+  top: 2.5em; }
+
+.engine-lift-up {
+  display: flex;
+  left: -18.5em;
+  position: relative;
+  top: .5em;
+  transform: rotate(180deg); }
+
+.bay-2-merge {
+  left: 9em;
+  position: absolute;
+  top: 2.5em; }
+
+.engine-line-arrow-2 {
+  display: flex;
+  left: -3em;
+  position: relative;
+  top: 1em;
+  transform: rotate(180deg); }
+
+.engine-line-arrow-3 {
+  display: flex;
+  left: -3em;
+  position: relative;
+  top: -2.7em;
+  transform: rotate(-135deg); }
+
+.engine-station {
+  left: 50em;
+  position: absolute; }
+
+.engine-station-1 {
+  top: 90em; }
+
+.engine-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 10em;
+  position: relative;
+  top: -4em; }
+
+.cooling-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: -12em;
+  position: relative;
+  top: -4em; }
+
+.engine-station-2 {
+  top: 83em; }
+
+.engine-station-3 {
+  top: 76em; }
+
+.engine-station-3-text {
+  top: -18em; }
+
+.engine-station-4 {
+  top: 69em; }
+
+.engine-cooling-merge {
+  left: 46em;
+  top: 62em; }
+
+.engine-cooling-1 {
+  left: 40em;
+  position: absolute;
+  top: 76em; }
+
+.engine-cooling-2 {
+  left: 40em;
+  position: absolute;
+  top: 69em; }
+
+.assembly-line-fields {
+  height: 20em;
+  position: absolute;
+  top: 20em;
+  width: 20em; }
+
+.bay2-fcb-merge-threshing {
+  left: 30em; }
+
+.bay-2-merge-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: -2em;
+  position: relative;
+  width: 150px; }
+
+.bay-2-move-button {
+  left: .5em;
+  position: absolute;
+  top: -2em; }
+
+.team1-bay3 {
+  left: 44em; }
+
+.bay-3-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 2em;
+  position: relative; }
+
+.team1-bay4 {
+  left: 58em; }
+
+.team2-bay5 {
+  left: 72em; }
+
+.team2-bay6 {
+  left: 86em; }
+
+.team2-bay7 {
+  left: 100em; }
+
+.team3-bay8 {
+  left: 114em; }
+
+.team3-bay9 {
+  left: 128em; }
+
+.team3-bay10 {
+  left: 142em; }
 
 .insideNavBar {
   margin-top: 25px; }

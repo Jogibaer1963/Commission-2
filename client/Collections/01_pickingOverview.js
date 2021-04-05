@@ -22,8 +22,6 @@ Template.machine_picking_list.helpers({
                                                                             supplyAreas: 1,
                                                                             commissionStatus: 1
                                                                             }}).fetch();
-        console.log(result)
-
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
                if (element.supplyAreas[i].active === false) {
