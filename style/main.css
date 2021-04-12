@@ -1086,7 +1086,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #71f323;
   left: 5em;
   position: absolute;
-  top: 9em;
+  top: 11em;
   width: 300px; }
 
 .in-line-date {
@@ -1098,17 +1098,33 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: 22.5em; }
 
+.invisible-box {
+  height: 20em;
+  left: 5em;
+  opacity: .1;
+  position: absolute;
+  top: 24em;
+  width: 18em; }
+
 .machine-field {
   background: #dd7e1f; }
 
+.canvas-class {
+  height: 150px;
+  left: -5px;
+  position: relative;
+  top: -40px;
+  width: 280px; }
+
 .assembly-line-arrow-1 {
   display: flex;
+  top: 24.5em;
   transform: rotate(-90deg); }
 
 .bay-arrows {
   left: 9em;
   position: absolute;
-  top: 2.5em; }
+  top: 4em; }
 
 .engine-lift-up {
   display: flex;
@@ -1184,10 +1200,10 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: 69em; }
 
 .assembly-line-fields {
-  height: 20em;
+  height: 10em;
   position: absolute;
   top: 20em;
-  width: 20em; }
+  width: 9em; }
 
 .bay2-fcb-merge-threshing {
   left: 30em; }
@@ -1197,6 +1213,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   font-weight: bolder;
   left: -2em;
   position: relative;
+  top: -10em;
   width: 150px; }
 
 .bay-2-move-button {
@@ -1211,7 +1228,8 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #71f323;
   font-weight: bolder;
   left: 2em;
-  position: relative; }
+  position: relative;
+  top: -9em; }
 
 .team1-bay4 {
   left: 58em; }
