@@ -150,7 +150,7 @@
                 <div class="chevron"></div>
                 <div class="chevron"></div>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
@@ -165,7 +165,8 @@
                 <h4>Merge FCB with Threshing Unit</h4>
             </div>
             <div>
-                <canvas {{draw_fcb_threshing}} id="machine-field-fcb-threshing" class="canvas-class"></canvas>
+                <canvas {{draw_fcb_threshing}} id="machine-field-fcb-threshing"
+                                               class="canvas-class canvas-correction"></canvas>
             </div>
         </div>
 
@@ -178,13 +179,13 @@
             <div class="bay-3-text">
                 <h4>Bay 3</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-3-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay3}}>Move</button>
@@ -203,15 +204,15 @@
             <div class="bay-3-text">
                 <h4>Bay 4</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
+                               bay-4-move-button"
+                        id="bay3_button"
+                        name="bay3_button"
                         value={{draw_bay4}}>Move</button>
             </div>
             <div>
@@ -228,13 +229,13 @@
             <div class="bay-3-text">
                 <h4>Bay 5</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-5-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay5}}>Move</button>
@@ -253,13 +254,13 @@
             <div class="bay-3-text">
                 <h4>Bay 6</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-6-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay6}}>Move</button>
@@ -278,13 +279,13 @@
             <div class="bay-3-text">
                 <h4>Bay 7</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-7-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay7}}>Move</button>
@@ -304,13 +305,13 @@
             <div class="bay-3-text">
                 <h4>Bay 8</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-8-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay8}}>Move</button>
@@ -329,13 +330,13 @@
             <div class="bay-3-text">
                 <h4>Bay 9</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-9-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay9}}>Move</button>
@@ -355,13 +356,13 @@
             <div class="bay-3-text">
                 <h4>Bay 10</h4>
             </div>
-            <div class="bay-2-move-button">
+            <div class="bay-move-button">
                 <label for="bay2-button"></label>
                 <button type="button"
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
+                               bay-10-move-button"
                         id="bay2_button"
                         name="bay2_button"
                         value={{draw_bay10}}>Move</button>
@@ -369,7 +370,248 @@
             <div>
                 <canvas {{draw_bay10}} id="machine-field-bay10" class="canvas-class"></canvas>
             </div>
+        </div>
 
+        <div class="assembly-line-fields team-test-bay-1">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Test Bay 1</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-1-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_test_bay_1}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay10}} id="machine-field-test-bay-1" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-2">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Test Bay 2</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-2-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_2}} id="machine-field-test-bay-2" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-3">
+
+            <div class="bay-3-text">
+                <h4>Test Bay 3</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-3-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}} disabled="disabled">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_3}} id="machine-field-test-bay-3" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-4">
+
+            <div class="bay-3-text">
+                <h4>Test Bay 4</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-4-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}} disabled="disabled">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_4}} id="machine-field-test-bay-4" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-14">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Bay 14</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-14-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_14}} id="machine-field-bay-14" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-15">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Bay 15</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-15-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_15}} id="machine-field-bay-15" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-16">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Bay 16</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-16-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_16}} id="machine-field-bay-16" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-17">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4> Bay 17</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-17-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_17}} id="machine-field-bay-17" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-18">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Bay 18</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-18-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_18}} id="machine-field-bay-18" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team5-bay-19">
+            <div class="bay-arrows assembly-line-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="bay-3-text">
+                <h4>Bay 19</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-19-move-button"
+                        id="bay2_button"
+                        name="bay2_button"
+                        value={{draw_bay10}}>Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay_19}} id="machine-field-bay-19" class="canvas-class"></canvas>
+            </div>
         </div>
 
     </html>

@@ -40,25 +40,120 @@ if(Meteor.isServer){
             return assemblyLineBay.find();
         });
 
+        Meteor.publish("activeAssembly", function () {
+            return activeAssembly.find();
+        });
+
     });
 
 
     Meteor.methods({
 
+        'leaveLine': (machineId, canvasId, user) => {
+            let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            let todayUnix = (Date.now()).toFixed(0);
+            machineCommTable.update({_id: machineId, 'bayReady._id': canvasId},
+                {$set: {
+                        'bayReady.$.bayDateLeavingUnix': todayUnix,
+                        'bayReady.$.bayDateLeaving': movingTime,
+                        'bayReady.$.completeBy': user,
+                        'bayReady.$.bayStatus' : 1,
+                        'activeInBay' : false
+                    }
+                });
+            activeAssembly.update({_id : canvasId},
+                {$pull: {bayArray: {machineId: machineId}}})
+        },
+
+        'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
+            let clearBay = [];
+            let bayArray = [];
+            let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            let todayUnix = (Date.now()).toFixed(0);
+
+            machineCommTable.update({_id: machineId, 'bayReady._id': thisBay},
+                {$set: {
+                        'bayReady.$.bayDateLeavingUnix': todayUnix,
+                        'bayReady.$.bayDateLeaving': movingTime,
+                        'bayReady.$.completeBy': user,
+                        'bayReady.$.bayStatus' : 1
+                    }
+                });
+
+            machineCommTable.update({_id: machineId, 'bayReady._id': nextBayId},
+               {$set: {
+                       'bayReady.$.bayStatus' : 2,
+                       'bayReady.$.bayDateLanding': movingTime,
+                       'bayReady.$.bayDateLandingUnix': todayUnix,
+                   }
+               });
+            // ****** check if Bay contains 2 Machines
+            if (boolean === true) {
+         //       console.log(boolean)
+                // 2 Machines in Bay, move first machine
+                let result = activeAssembly.findOne({_id: thisBay});
+                let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
+          //      console.log('Pulled Machine ', pullMachineId)
+
+                activeAssembly.update({_id : thisBay},
+                    {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
+
+                // write machine info into next bay
+          //      console.log('neu in next bay ', machineNr)
+                let  machineInfo = {
+                    machineId : machineId,
+                    machineNr : machineNr,
+                    bayDateLanding : movingTime,
+                    bayDateLandingUnix : todayUnix,
+                }
+                bayArray.push(machineInfo)
+                activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
+
+            } else if (boolean === false) {
+              //  console.log(boolean)
+                let  machineInfo = {
+                    machineId : machineId,
+                    machineNr : machineNr,
+                    bayDateLanding : movingTime,
+                    bayDateLandingUnix : todayUnix,
+                }
+                bayArray.push(machineInfo)
+                let result = activeAssembly.findOne({_id: thisBay});
+                let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
+             //   console.log('Pulled Machine ', pullMachineId)
+
+                activeAssembly.update({_id : thisBay},
+                    {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
+                activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
+            }
+        },
+
+
         // ****************** move from list to FCB Bay ********************
 
-        'moveFromListToFCB_Bay': (selectedMachine) => {
-            let today = moment().format('YYYY-MM-DD HH-MM');
+        'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
+            let bayArray = [];
+            let today = moment().format('YYYY-MM-DD HH:mm:ss ');
             let todayUnix = (Date.now()).toFixed(0); // milliseconds
-            machineCommTable.update({_id: selectedMachine, 'bayReady._id': 'inLine'},
+            machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                                     {$set: {
+                                        'activeAssemblyLineList' : false,
+                                        'activeInBay' : true,
                                         'bayReady.$.bayDateLanding': today,
                                         'bayReady.$.bayDateLandingUnix': todayUnix,
-                                        'bayReady.$.bayActive' : true,
-                                        activeAssemblyLineList : false,
-                                        activeInBay : true
+                                        'bayReady.$.bayStatus' : 2
                                         }});
-
+          let  machineInfo = {
+                machineId : selectedMachine,
+                machineNr : machineNr,
+                bayDateLanding : today,
+                bayDateLandingUnix : todayUnix,
+            }
+            bayArray.push(machineInfo)
+            // **************   add machine to active assembly Line  ****************
+            activeAssembly.upsert({_id : canvasId}, {$set: {
+                          bayArray
+                }})
         },
 
         //--------------  Update Machine List with in Line and off Line Date  --------------
@@ -173,7 +268,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "inLine",  // merge FCB with Threshing Unit
+                            "_id" : "machine-field-fcb-threshing",  // merge FCB with Threshing Unit
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[6][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -182,7 +277,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay3",
+                            "_id" : "machine-field-bay3",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[7][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -191,7 +286,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay4",   // merge Engine with Chassis
+                            "_id" : "machine-field-bay4",   // merge Engine with Chassis
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[8][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -200,7 +295,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay5",
+                            "_id" : "machine-field-bay5",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[9][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -209,7 +304,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay6",
+                            "_id" : "machine-field-bay6",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[10][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -218,7 +313,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay7",
+                            "_id" : "machine-field-bay7",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[11][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -227,7 +322,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay8",
+                            "_id" : "machine-field-bay8",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[12][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -236,7 +331,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay9",
+                            "_id" : "machine-field-bay9",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[13][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -245,7 +340,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay10",
+                            "_id" : "machine-field-bay10",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[14][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -254,7 +349,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "testBay1",
+                            "_id" : "machine-field-test-bay-1",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[15][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -263,7 +358,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "testBay2",
+                            "_id" : "machine-field-test-bay-2",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[16][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -272,7 +367,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "testBay3",
+                            "_id" : "machine-field-test-bay-3",
                             "bayStatus" : 0,
                             "bayDatePlanned" : "",
                             "bayDateLanding" : "",
@@ -281,7 +376,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "testBay4",
+                            "_id" : "machine-field-test-bay-4",
                             "bayStatus" : 0,
                             "bayDatePlanned" : "",
                             "bayDateLanding" : "",
@@ -290,7 +385,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay14",
+                            "_id" : "machine-field-bay-14",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[17][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -299,7 +394,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay15",
+                            "_id" : "machine-field-bay-15",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[18][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -308,7 +403,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay16",
+                            "_id" : "machine-field-bay-16",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[19][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -317,7 +412,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay17",
+                            "_id" : "machine-field-bay-17",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[20][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -326,7 +421,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay18",
+                            "_id" : "machine-field-bay-18",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[21][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -335,7 +430,7 @@ if(Meteor.isServer){
                             "completedAt" : ""
                         },
                         {
-                            "_id" : "bay19",
+                            "_id" : "machine-field-bay-19",
                             "bayStatus" : 0,
                             "bayDatePlanned" : moment(new Date(result[22][0])).format('YYYY-MM-DD'),
                             "bayDateLanding" : "",
@@ -345,7 +440,7 @@ if(Meteor.isServer){
                         },
                      ]
             try {
-                        // *****************  new machine  *******************************
+      // ****************************************  new machine  *******************************
                if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
                    let today = Date.now();
                     machineCommTable.upsert({machineId: newMachine},
@@ -359,21 +454,36 @@ if(Meteor.isServer){
                                                     bayReady}});
                    supplyAreas.find({active: true},
                              {sort: {supplyPosition: 1}}).
-                                                          forEach(function(copy) {
-                                                          machineCommTable.update({machineId: newMachine},
-                                                         {$addToSet: {supplyAreas: (copy)}})
-                                                                 });
+                                          forEach(function(copy) {
+                                          machineCommTable.update({machineId: newMachine},
+                                         {$addToSet: {supplyAreas: (copy)}})
+                                                 });
                 } else {
        // *************** machine already exists and just  update timeline and in line dates  *********************
                    machineCommTable.update({machineId: newMachine},
                        {$set: {inLineDate: inLineDate,
-                                       activeAssemblyLineList : true,
-                                       timeLine}});
+                                                    timeLine,
+                                                    bayReady
+                                        }});
                 }
+        // ***********************************************************************************************
             } catch(e) {
                 }
             });
+
+
+            let result = machineCommTable.find({inLineDate: {$gt : "2021-04-01"}}).fetch();
+
+            result.forEach((element) => {
+                machineCommTable.update({machineId: element.machineId},
+                                                    {$set: {activeAssemblyLineList: true}})
+
+            })
+
+
+
             console.log('done')
+
         },
 
 

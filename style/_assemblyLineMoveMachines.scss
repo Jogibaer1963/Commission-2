@@ -48,6 +48,10 @@ $text-color-engine-stations: #71f323;
   width: 280px;
 }
 
+.canvas-correction {
+  top: -5.7em;
+}
+
 // **************************** arrows Assembly Line ****************************
 
 .assembly-line-arrow-1 {
@@ -57,7 +61,7 @@ $text-color-engine-stations: #71f323;
 }
 
 .bay-arrows {
-  left: 9em;
+  left: 8em;
   position: absolute;
   top: 4em;
 }
@@ -171,10 +175,10 @@ $text-color-engine-stations: #71f323;
 }
 
 
-.bay-2-move-button {
+.bay-move-button {
   left: .5em;
   position: absolute;
-  top: -2em;
+  top: -4em;
 }
 
 // -----------------------------    Bay 3  ------------------------------------
@@ -217,3 +221,53 @@ $text-color-engine-stations: #71f323;
 .team3-bay10 {
   left: 142em;
 }
+
+.team-test-bay-1 {
+  left: 156em;
+}
+
+.team-test-bay-2 {
+  left: 170em;
+}
+
+.team-test-bay-3 {
+  left: 156em;
+  top: 35em;
+}
+
+.team-test-bay-4 {
+  left: 170em;
+  top: 35em;
+}
+
+.team5-bay-14 {
+  left: 86em;
+  top: 50em;
+}
+
+.team5-bay-15 {
+  left: 100em;
+  top: 50em;
+}
+
+.team5-bay-16 {
+  left: 114em;
+  top: 50em;
+}
+
+.team5-bay-17 {
+  left: 128em;
+  top: 50em;
+}
+
+.team5-bay-18 {
+  left: 142em;
+  top: 50em;
+}
+
+.team5-bay-19 {
+  left: 156em;
+  top: 50em;
+}
+
+
