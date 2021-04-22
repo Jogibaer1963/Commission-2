@@ -3,19 +3,29 @@ Meteor.subscribe('activeAssembly')
 
 Session.set('twoMachines', false)
 
+Template.sunTimer.helpers({
+
+
+
+
+});
+
+
 Template.moveMachines.helpers({
 
     machineReservoir: () => {
         let today = moment().add( -16, 'days').format('YYYY-MM-DD')
         let result = machineCommTable.find({inLineDate : {$gt: today}, activeAssemblyLineList : true},
-                                                       {fields: {machineId: 1,
+                                                       {fields: {
+                                                                         counter: 1,
+                                                                         machineId: 1,
                                                                          timeLine: 1,
                                                                          inLineDate: 1,
                                                                          bayReady: 1
                                                                          }}).fetch();
 
-        result.sort((a, b) => (a.inLineDate > b.inLineDate) ? 1 :
-            ((b.inLineDate > a.inLineDate) ? -1 : 0));
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
        // console.log(result)
         return result;
     },
@@ -506,9 +516,20 @@ function invokeMoveFromLastBay(canvasId) {
     Meteor.call('leaveLine', machineId, canvasId, user);
     // draw empty canvas in Bay 19
     // invokeEmptyBay(canvasId)
-
-
 }
+
+Template.tactTime.events({
+
+    'submit .tact-time':function (e) {
+        e.preventDefault(e);
+        let tactTime = e.target.inputTactTime.value;
+        let workingHourFrom = e.target.workingHourFrom.value;
+        let workingHourTo = e.target.workingHourTo.value;
+        console.log(tactTime, workingHourFrom, workingHourTo)
+
+    }
+
+})
 
 
 

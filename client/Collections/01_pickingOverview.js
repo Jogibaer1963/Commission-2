@@ -17,6 +17,7 @@ Template.machine_picking_list.helpers({
         let machineResult = [];
         let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
                                                         {fields: {
+                                                                            counter: 1,
                                                                             machineId: 1,
                                                                             inLineDate: 1,
                                                                             supplyAreas: 1,
@@ -35,8 +36,8 @@ Template.machine_picking_list.helpers({
            }
            machineResult.push(element);
         });
-        machineResult.sort((a, b) => (a.inLineDate > b.inLineDate) ? 1 :
-                                                              ((b.inLineDate > a.inLineDate) ? -1 : 0))
+        machineResult.sort((a, b) => (a.counter > b.counter) ? 1 :
+                                                              ((b.counter > a.counter) ? -1 : 0))
         return machineResult;
     },
 

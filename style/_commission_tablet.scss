@@ -163,7 +163,7 @@ $comm-black: #000;
 }
 
 @keyframes glowing {
-  0% { background-color: #AA3939; box-shadow: 0 0 3px  #AA5939; }
+  0% { background-color: #AA3939; box-shadow: 0 0 3px  #aa5939; }
   50% { background-color: #FFB232; box-shadow: 0 0 10px #FFB232; }
   100% { background-color: #ffe800; box-shadow: 0 0 3px #FFE800; }
 }
@@ -171,7 +171,7 @@ $comm-black: #000;
 
 //---------------------------  Arrow Down ----------------------*/
 
-$base: 0.6rem;
+$base: .6rem;
 
 .arrowDown {
   display: flex;
@@ -180,28 +180,28 @@ $base: 0.6rem;
 }
 
 .arrowSide {
-  transform: rotate(-90deg);
+  display: flex;
+  left: 20em;
   position: absolute;
   top: 35em;
-  left: 20em;
-  display: flex;
+  transform: rotate(-90deg);
 }
 
 .arrowSide_2 {
-  transform: rotate(-90deg);
+  display: flex;
+  left: 15em;
   position: absolute;
   top: 35em;
-  left: 15em;
-  display: flex;
+  transform: rotate(-90deg);
 }
 
 .chevron {
-  position: absolute;
-  width: $base * 3.5;
-  height: $base * 0.8;
-  opacity: 0;
-  transform: scale(0.5);
   animation: move-chevron 3s ease-out infinite;
+  height: $base * .8;
+  opacity: 0;
+  position: absolute;
+  transform: scale(.5);
+  width: $base * 3.5;
 }
 
 .chevron:first-child {
@@ -214,12 +214,12 @@ $base: 0.6rem;
 
 .chevron:before,
 .chevron:after {
+  background: #dd7e1f;
   content: '';
+  height: 100%;
   position: absolute;
   top: 0;
-  height: 100%;
   width: 50%;
-  background: #dd7e1f;
 }
 
 .chevron:before {
@@ -229,8 +229,8 @@ $base: 0.6rem;
 
 .chevron:after {
   right: 0;
-  width: 50%;
   transform: skewY(-30deg);
+  width: 50%;
 }
 
 @keyframes move-chevron {
@@ -247,6 +247,6 @@ $base: 0.6rem;
   }
   100% {
     opacity: 0;
-    transform: translateY($base * 8) scale(0.5);
+    transform: translateY($base * 8) scale(.5);
   }
 }

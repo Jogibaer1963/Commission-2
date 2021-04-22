@@ -1,6 +1,8 @@
 $color-machine-reservoir: #71f323;
 $background-color-machine-field: #dd7e1f;
 $text-color-engine-stations: #71f323;
+$text-color-tact-time: #bc171b;
+$background-admin-field: rgba(17, 9, 117, 0.46);
 
 .nav-bar {
   left: 20em;
@@ -270,4 +272,29 @@ $text-color-engine-stations: #71f323;
   top: 50em;
 }
 
+// **************** template tactTime *****************
+
+.input-field {
+  background-color: $background-admin-field;
+  height: 250px;
+  left: 70em;
+  padding: 20px;
+  position: absolute;
+  top: 50em;
+  width: 450px;
+}
+
+.tact-time {
+
+  color: $text-color-tact-time;
+  font-family: Cambria, serif;
+  font-size: large;
+}
+
+.submit-tact-time {
+  left: 5em;
+  position: relative;
+}
+
+// ****************  Sun Timer  ********************************************
 

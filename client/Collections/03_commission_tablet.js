@@ -15,8 +15,14 @@ Template.commTablet.helpers ({
                 FlowRouter.go('/multiMachines');
             }
         }
-        return machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
-                                        {sort: {inLineDate: 1}});
+        let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
+
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
+
+        return result;
+
+
     },
 
     supplyAreaShow: () => {
