@@ -1,6 +1,23 @@
 Meteor.subscribe('supplyAreas');
 Meteor.subscribe('machineCommTable');
+Meteor.subscribe('userActions');
 
+
+Template.addMachine.helpers ({
+
+    alarmMachine: () => {
+        return Session.get('alarm');
+    },
+
+    updatedMachines: () => {
+        try {
+        return userActions.findOne({_id: 'serverHelper'}).machineCount;
+        } catch (e) {
+          }
+    }
+
+
+});
 
 Template.machine_picking_list.helpers({
 
@@ -97,14 +114,7 @@ Template.tabletEntry.events({
 
 });
 
-Template.addMachine.helpers ({
 
-    alarmMachine: () => {
-        return Session.get('alarm');
-    },
-
-
-});
 
 Template.addMachine.events ({
 

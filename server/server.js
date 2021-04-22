@@ -44,6 +44,10 @@ if(Meteor.isServer){
             return activeAssembly.find();
         });
 
+        Meteor.publish("userActions", function () {
+            return userActions.find();
+        });
+
     });
 
 
@@ -476,7 +480,8 @@ if(Meteor.isServer){
                                 });
                         }
                         counter ++;
-
+                        let id = 'serverHelper';
+                        userActions.upsert({_id: id}, {machineCount: counter})
                         // ***********************************************************************************************
                     } catch (e) {
                         console.log(e)

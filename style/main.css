@@ -572,6 +572,11 @@ table.supply-table {
   100% {
     opacity: 0;
     transform: translateY(4.8rem) scale(0.5); } }
+.machine-counter {
+  left: 90em;
+  position: absolute;
+  top: 13em; }
+
 .commNav {
   left: 40em;
   position: relative;
