@@ -16,13 +16,7 @@ Template.commTablet.helpers ({
             }
         }
         let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
-
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
-
-        return result;
-
-
+         return _.sortBy(result, 'counter');
     },
 
     supplyAreaShow: () => {

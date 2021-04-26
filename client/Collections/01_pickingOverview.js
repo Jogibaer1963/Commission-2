@@ -53,10 +53,7 @@ Template.machine_picking_list.helpers({
            }
            machineResult.push(element);
         });
-        machineResult.sort((a, b) => (a.counter > b.counter) ? 1 :
-                                                              ((b.counter > a.counter) ? -1 : 0))
-        console.log(machineResult)
-        return machineResult;
+        return _.sortBy(machineResult, 'counter');
     },
 
     inactiveMachineList: () => {
