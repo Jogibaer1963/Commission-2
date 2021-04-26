@@ -53,6 +53,10 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+        'tactTime': () => {
+
+        },
+
         'leaveLine': (machineId, canvasId, user) => {
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
@@ -70,7 +74,7 @@ if(Meteor.isServer){
         },
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
-            let clearBay = [];
+           // let clearBay = [];
             let bayArray = [];
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
@@ -111,7 +115,8 @@ if(Meteor.isServer){
                     bayDateLandingUnix : todayUnix,
                 }
                 bayArray.push(machineInfo)
-                activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
+                activeAssembly.update({_id : nextBayId},
+                                      {$push: {bayArray: machineInfo}})
 
             } else if (boolean === false) {
               //  console.log(boolean)
@@ -130,6 +135,10 @@ if(Meteor.isServer){
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
                 activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
             }
+
+            // **********  count time in Bay spent ****************
+
+
         },
 
 

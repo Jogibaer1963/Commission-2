@@ -1274,6 +1274,16 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 170em;
   top: 35em; }
 
+.test-bay-container {
+  left: -112em;
+  position: absolute;
+  top: 20em; }
+
+.final-assembly-container {
+  left: -14em;
+  position: absolute;
+  top: -10em; }
+
 .team5-bay-14 {
   left: 86em;
   top: 50em; }
@@ -1301,10 +1311,10 @@ table.supply-multi-table td, table.supply-multi-table th {
 .input-field {
   background-color: rgba(17, 9, 117, 0.46);
   height: 250px;
-  left: 70em;
+  left: 5em;
   padding: 20px;
   position: absolute;
-  top: 50em;
+  top: 55em;
   width: 450px; }
 
 .tact-time {
@@ -1312,9 +1322,55 @@ table.supply-multi-table td, table.supply-multi-table th {
   font-family: Cambria, serif;
   font-size: large; }
 
-.submit-tact-time {
+.body-timer-block {
   left: 5em;
-  position: relative; }
+  position: absolute;
+  top: 20em; }
+
+.clock-container {
+  left: -30em;
+  position: relative;
+  top: 40em; }
+  .clock-container .clock {
+    position: relative;
+    top: -16em; }
+    .clock-container .clock .title {
+      display: none; }
+    .clock-container .clock .time {
+      color: #00f;
+      position: relative;
+      text-align: center;
+      text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
+      transition: all 1.5s; }
+      .clock-container .clock .time span {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: xxx-large; }
+
+.sunset-container {
+  bottom: auto;
+  left: 25em;
+  position: relative;
+  top: 25em;
+  width: 1100px; }
+  .sunset-container .horizon {
+    background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
+    box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
+    height: 2px;
+    position: relative;
+    top: -1px; }
+  .sunset-container .sun {
+    height: 50px;
+    left: -100px;
+    position: absolute;
+    top: -25px;
+    width: 200px; }
+    .sunset-container .sun .sun-spot {
+      animation: pulse 4s linear infinite;
+      border-radius: 100px;
+      position: absolute;
+      transform: scale(1, 0.5); }
+      .sunset-container .sun .sun-spot.pulse {
+        animation: white-pulse 4s linear infinite; }
 
 .insideNavBar {
   margin-top: 25px; }

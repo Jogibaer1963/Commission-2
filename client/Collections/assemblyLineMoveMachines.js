@@ -3,12 +3,147 @@ Meteor.subscribe('activeAssembly')
 
 Session.set('twoMachines', false)
 
-Template.sunTimer.helpers({
+Template.burstSunTimer.onRendered(function() {
+    let   current_theme = 0;
 
+    set_theme(current_theme);
 
+    update_clock();
 
+    setInterval(function () {
+        return update_clock();
+        }, 200);
+
+    build_sun_spots(10);
+
+    set_sun_size();
 
 });
+
+// Sun Timer functions
+
+function set_theme(current_theme) {
+   let  themes = ['sunset'];
+   this.$('.body').removeClass(themes[current_theme]);
+   return $('.body').addClass(themes[current_theme]);
+}
+
+
+
+function  update_clock() {
+    let time_output = this.$('.clock .time span');
+    let pTime, percent;
+    percent = percent_time(2);
+    pTime = percent + "%";
+
+    if (pTime !== time_output.text()) {
+        time_output.text(pTime);
+        return update_sun_color_and_position(percent);
+    }
+}
+
+function percent_time(fixed) {
+   let h, m, s, seconds, time;
+    time = new Date();
+  //  h = time.getHours();
+  //  m = time.getMinutes();
+    s = time.getSeconds();
+
+    seconds = s //+ (m * 60) // + (h * 3600);
+   // console.log(((seconds / 60) * 100).toFixed(fixed))
+    return ((seconds / 60) * 100).toFixed(fixed);
+}
+
+function update_sun_color_and_position(percent) {
+    let blue, clockTop, decimalPercent, hColor, red,
+        reverseDecimalPercent, shadowColor, spotColor, tColor,
+        timeDecimalPercent, timeLeftOffset;
+
+    decimalPercent = percent * 0.01;
+    reverseDecimalPercent = 1 - decimalPercent;
+    red = Math.round(255 * decimalPercent);
+    blue = Math.round(255 * reverseDecimalPercent);
+    timeDecimalPercent = decimalPercent + (0.13 * (1300 / 1500)); // 1500 was window width
+    if (timeDecimalPercent > 1) {
+        timeDecimalPercent = 1;
+        }
+    timeLeftOffset = (1500 - 140) * timeDecimalPercent;  // 1500 was window width
+    hColor = `rgba(${red} ,0 ,${blue}, 0.7)`;
+    tColor = `rgba(${red}, 0, ${blue}, 1)`;
+    /*
+    if (decimalPercent > 0.6) {
+        clockTop = -70 * decimalPercent;
+        $('.clock').css({
+            top: clockTop
+        });
+    }
+     */
+    $('.time').css({
+        color: tColor,
+        left: (timeLeftOffset + 50)
+    });
+
+    $('.sun-container').css({
+        left: (timeLeftOffset - 300)
+    });
+
+    spotColor = `rgba(${red},0,${blue}, 0.3)`;
+    shadowColor = `rgba(${red},0,${blue}, 0.3) 0 0 27px 18px`;
+    return $('.sun-spot').css({
+            backgroundColor: spotColor,
+            boxShadow: shadowColor
+        });
+}
+
+function build_sun_spots (count) {
+   let accounted, i, j, ref, results, sun;
+    sun = $('.sun');
+    accounted = 0;
+    results = [];
+    for (i = j = 1, ref = count; (1 <= ref ? j <= ref : j >= ref); i = 1 <= ref ? ++j : --j) {
+        results.push(setTimeout(function () {
+            let div_class, left_offset, relative_size, size;
+            accounted++;
+            if (accounted === count) {
+                div_class = "sun-spot last";
+            } else {
+                div_class = "sun-spot number" + accounted;
+            }
+            relative_size = Math.floor(Math.random() * 51);
+            relative_size = relative_size - Math.floor(Math.random() * relative_size);
+            left_offset = Math.floor(Math.random() * 30);
+            size = relative_size + '%';
+            sun.append(`<div class=\"${div_class}\" 
+                                               style=\"width:${relative_size + 30}%; 
+                                               height:${size}; 
+                                               top:${(100 - relative_size) / 2}%;
+                                               left:${((100 - relative_size) / 2) + (10 - left_offset)}%;
+                                                \"></div>`);
+            if (accounted === count) {
+               this.$('.sun-spot.last').hide();
+                    $('.sun-spot.last').fadeIn(2000, function () {
+                    return $('.sun-spot.last').addClass('pulse');
+                });
+            }
+            return update_sun_color_and_position(percent_time(2));
+        }, i * (4000 / count)));
+    }
+    return results;
+}
+
+function set_sun_size () {
+    let sunHeight, sunWidth, wH, wW;
+   // wH = $(window).height();
+   // wW = $(window).width();
+    sunWidth =  150;                  //wW / 6;
+    sunHeight = sunWidth / 3;
+    return $('.sun').css({
+        top: -1 * (sunHeight / 2),
+        left: -1 * (sunWidth / 2),
+        width: sunWidth,
+        height: sunHeight
+    });
+}
 
 
 Template.moveMachines.helpers({
@@ -353,7 +488,7 @@ Template.moveMachines.events({
 
 // ***************   check status of the field if empty or engaged   **********************
 function invokeMachineTest(canvasId) {
-    let result = activeAssembly.findOne({_id: canvasId})   // looking up in bay if and how many machines
+    let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
     if (result.bayArray.length === 0) {
         // found empty bay
   //      console.log('function bay status 0', canvasId, result)
@@ -403,6 +538,8 @@ function  invokeDrawMachineInBay(canvasId) {
 }
 
 function invokeMoveMachine(oldCanvasId, newCanvasId) {
+    let spaceResult = activeAssembly.findOne({_id: newCanvasId}, {fields: {baySpace: 1}});
+    let space_in_Bay = spaceResult.baySpace;
     let user = Meteor.user().username;
     let machineToMove = invokeMachineTest(oldCanvasId) // checking which machine is in Bay now
     let result = invokeMachineTest(newCanvasId);  // checking if a machine is in front
@@ -426,20 +563,25 @@ function invokeMoveMachine(oldCanvasId, newCanvasId) {
             Meteor.call('moveMachineToNextBay', machineId, machineNr, user, oldCanvasId, newCanvasId, true)
         }
 
-    } else if (result[0] === 1) {  // already 1 machine in Bay newCanvasId
-   //     console.log('found 1 Machine in Bay', result[1][0])
+    } else if (result[0] === 1 && space_in_Bay === 2) {  // already 1 machine in front and Space for 2
+                                                         //     console.log('found 1 Machine in Bay', result[1][0])
         // find Machine Number already in Bay
         let presentMachineNr = result[1][0].machineNr;
         let jsonObject = machineToMove[1][0];
         let machineId = jsonObject.machineId;
         let machineNr = jsonObject.machineNr;
         Meteor.call('moveMachineToNextBay', machineId, machineNr, user, oldCanvasId, newCanvasId, false)
-        invokeDrawTwoMachines(presentMachineNr,machineNr, newCanvasId)
-    } else if (result[0] === 2) {
-  //      console.log('found 2 Machine in Bay in front', result)
-        // dont move machine, send alert
-        window.alert('3 Machines in one Bay are not possible')
-    }
+        invokeDrawTwoMachines(presentMachineNr, machineNr, newCanvasId)
+        } else if (result[0] === 1 && space_in_Bay === 1) {
+            // found 1 Machine up front but only space for 1 dont move, send alert
+            window.alert('Only 1 Machine in Bay up front allowed')
+        } else if (result[0] === 2) {
+            // console.log('found 2 Machine in Bay in front', result)
+            // dont move machine, send alert
+            window.alert('3 Machines in one Bay are not possible')
+        }
+
+
 }
 
 function invokeDrawOneMachine(machineNr, canvasId, locator) {
@@ -515,19 +657,38 @@ function invokeMoveFromLastBay(canvasId) {
     let machineId = result[1][0].machineId;
     Meteor.call('leaveLine', machineId, canvasId, user);
     // draw empty canvas in Bay 19
-    // invokeEmptyBay(canvasId)
+    invokeEmptyBay(canvasId)
 }
+
+Template.tactTime.helpers({
+
+    tactTime: () => {
+
+    }
+
+})
+
+
 
 Template.tactTime.events({
 
     'submit .tact-time':function (e) {
         e.preventDefault(e);
         let tactTime = e.target.inputTactTime.value;
-        let workingHourFrom = e.target.workingHourFrom.value;
-        let workingHourTo = e.target.workingHourTo.value;
-        console.log(tactTime, workingHourFrom, workingHourTo)
+        Meteor.call('tactTime', tactTime)
+    },
 
-    }
+    'submit .submit-working-start':function (e) {
+        e.preventDefault(e);
+        let workingHourFrom = e.target.workingHourFrom.value;
+        Meteor.call('tactTime', workingHourFrom)
+    },
+
+    'submit .submit-working-duration':function (e) {
+        e.preventDefault(e);
+        let workingHour = e.target.workingHourTo.value;
+        Meteor.call('tactTime', workingHour)
+    },
 
 })
 

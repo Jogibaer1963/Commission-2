@@ -3,15 +3,31 @@
         <div class="tabletCommissioning">
             {{> moveMachines}}
             {{> tactTime}}
-            {{> sunTimer}}
+            {{> burstSunTimer}}
         </div>
     {{else}}
         {{> login}}
     {{/if}}
 </template>
 
-<template name="sunTimer">
-
+<template name="burstSunTimer">
+    <div class="body body-timer-block">
+        <div class="clock-sunset-container">
+            <div class="clock-container">
+                <div class="clock">
+                    <div class="time">
+                        <span>loading</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sunset-container">
+            <div class="horizon"></div>
+            <div class="">
+                <div class="sun sun-container"></div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="tactTime">
@@ -20,16 +36,21 @@
             <label for="inputTactTime">Tact Time in Min Ind Time (100)</label>
             <br>
             <input type="number" id="inputTactTime" name="inputTactTime" class="tact-time">
+            <button type="submit" class="btn btn-default btn-success submit-tact-time">Submit</button>
             <br>
             <label for="workingHour">Working Start</label>
             <br>
             <input type="number" id="workingHour" name="workingHourFrom">
+            <button type="submit" class="btn btn-default btn-success submit-working-start">Submit</button>
             <br>
-            <label for="workingHour">Working Hours</label>
+            <label for="working-duration">Working Hours</label>
             <br>
-            <input type="number" id="workingHour" name="workingHourTo">
-            <button type="submit" class="btn btn-default btn-success submit-tact-time">Submit</button>
+            <input type="number" id="working-duration" name="workingHourTo">
+            <button type="submit" class="btn btn-default btn-success submit-working-duration">Submit</button>
         </form>
+    </div>
+    <div class="tact-time-overview">
+        <h4>Tact Time : {{tactTime}} </h4>
     </div>
 </template>
 
@@ -66,15 +87,15 @@
                     </table>
             </div>
             <div class="invisible-box">
-
             </div>
         </div>
+
         <div class="machine-entry assembly-line-arrow-1">
             <div class="chevron"></div>
             <div class="chevron"></div>
             <div class="chevron"></div>
         </div>
-
+<!--
         <div class="engine-station engine-station-1">
             <div class="engine-line-arrow-2">
                 <div class="chevron"></div>
@@ -167,6 +188,7 @@
                 <h4>Cooling Box 2</h4>
             </div>
         </div>
+        -->
   <!-- Assembly Line starts here  -->
 
         <div class="assembly-line-fields bay2-fcb-merge-threshing">
@@ -181,10 +203,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-2-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_fcb_threshing}}>Move</button>
+                               bay-2-move-button">Move</button>
             </div>
             <div class="bay-2-merge-text">
                 <h4>Merge FCB with Threshing Unit</h4>
@@ -210,10 +229,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-3-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay3}}>Move</button>
+                               bay-3-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay3}} id="machine-field-bay3" class="canvas-class"></canvas>
@@ -235,10 +251,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-4-move-button"
-                        id="bay3_button"
-                        name="bay3_button"
-                        value={{draw_bay4}}>Move</button>
+                               bay-4-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay4}} id="machine-field-bay4" class="canvas-class"></canvas>
@@ -260,10 +273,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-5-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay5}}>Move</button>
+                               bay-5-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay5}} id="machine-field-bay5" class="canvas-class"></canvas>
@@ -285,10 +295,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-6-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay6}}>Move</button>
+                               bay-6-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay6}} id="machine-field-bay6" class="canvas-class"></canvas>
@@ -310,15 +317,11 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-7-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay7}}>Move</button>
+                               bay-7-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay7}} id="machine-field-bay7" class="canvas-class"></canvas>
             </div>
-
         </div>
 
         <div class="assembly-line-fields team3-bay8">
@@ -336,10 +339,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-8-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay8}}>Move</button>
+                               bay-8-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay8}} id="machine-field-bay8" class="canvas-class"></canvas>
@@ -361,10 +361,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-9-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay9}}>Move</button>
+                               bay-9-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay9}} id="machine-field-bay9" class="canvas-class"></canvas>
@@ -387,16 +384,14 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-10-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-10-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay10}} id="machine-field-bay10" class="canvas-class"></canvas>
             </div>
         </div>
 
+    <div class="test-bay-container">
         <div class="assembly-line-fields team-test-bay-1">
             <div class="bay-arrows assembly-line-arrow-1">
                 <div class="chevron"></div>
@@ -412,13 +407,10 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-test-bay-1-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_test_bay_1}}>Move</button>
+                               bay-test-bay-1-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay10}} id="machine-field-test-bay-1" class="canvas-class"></canvas>
+                <canvas {{draw_test_bay_1}} id="machine-field-test-bay-1" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -437,10 +429,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-test-bay-2-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-test-bay-2-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_test_bay_2}} id="machine-field-test-bay-2" class="canvas-class"></canvas>
@@ -458,10 +447,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-test-bay-3-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}} disabled="disabled">Move</button>
+                               bay-test-bay-3-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_test_bay_3}} id="machine-field-test-bay-3" class="canvas-class"></canvas>
@@ -479,16 +465,14 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-test-bay-4-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}} disabled="disabled">Move</button>
+                               bay-test-bay-4-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_test_bay_4}} id="machine-field-test-bay-4" class="canvas-class"></canvas>
             </div>
         </div>
-
+    </div>
+     <div class="final-assembly-container">
         <div class="assembly-line-fields team5-bay-14">
             <div class="bay-arrows assembly-line-arrow-1">
                 <div class="chevron"></div>
@@ -504,10 +488,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-14-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-14-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_14}} id="machine-field-bay-14" class="canvas-class"></canvas>
@@ -529,10 +510,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-15-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-15-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_15}} id="machine-field-bay-15" class="canvas-class"></canvas>
@@ -554,10 +532,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-16-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-16-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_16}} id="machine-field-bay-16" class="canvas-class"></canvas>
@@ -579,10 +554,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-17-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-17-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_17}} id="machine-field-bay-17" class="canvas-class"></canvas>
@@ -604,10 +576,7 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-18-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-18-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_18}} id="machine-field-bay-18" class="canvas-class"></canvas>
@@ -629,16 +598,13 @@
                         class="btn
                                btn-default
                                btn-success
-                               bay-19-move-button"
-                        id="bay2_button"
-                        name="bay2_button"
-                        value={{draw_bay10}}>Move</button>
+                               bay-19-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay_19}} id="machine-field-bay-19" class="canvas-class"></canvas>
             </div>
         </div>
-
+     </div>
     </html>
 </template>
 
