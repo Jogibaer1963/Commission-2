@@ -9,7 +9,7 @@
     "bcrypt": "^1.0.3",
     "buffer": "^5.4.3",
     "eslint": "^4.19.1",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "highcharts": "^5.0.15",
     "install": "^0.11.2",
     "less": "^2.7.3",
