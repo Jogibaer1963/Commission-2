@@ -70,7 +70,6 @@ Template.machine_picking_list.helpers({
             return "selectedMachine";
         }
     }
-
 });
 
 Template.machine_picking_list.events({
@@ -174,13 +173,9 @@ Template.reviewMachine.helpers({
             let machineResult = [];
             let result = machineCommTable.findOne({machineId: review});
             machineResult.push(result)
+        console.log(machineResult)
             return machineResult;
-    },
-
-    'machineToReview': () => {
-       let machine = this.machineId;
-        console.log(machine)
-    },
+    }
 
 
 });

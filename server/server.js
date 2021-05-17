@@ -172,6 +172,7 @@ if(Meteor.isServer){
         //--------------  Update Machine List with in Line and off Line Date  --------------
 
         'updateMachineInLine': (contents) => {
+            let startMachine = machineCommTable.findOne({}, )
             let today = moment().add( -16, 'days').format('YYYY-MM-DD');
             console.log('working');
             let arr = contents.split(/[\n\r]/g);
