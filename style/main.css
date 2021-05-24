@@ -1274,15 +1274,19 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 170em;
   top: 35em; }
 
-.test-bay-container {
-  left: -112em;
+.engine-assembly-container {
+  left: 10em;
   position: absolute;
   top: 20em; }
 
-.final-assembly-container {
-  left: -14em;
+.test-bay-container {
   position: absolute;
-  top: -10em; }
+  top: -.5px; }
+
+.final-assembly-container {
+  left: 100em;
+  position: absolute;
+  top: -30em; }
 
 .team5-bay-14 {
   left: 86em;
@@ -1308,24 +1312,75 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 156em;
   top: 50em; }
 
-.input-field {
+.input-field-team-1 {
   background-color: rgba(17, 9, 117, 0.46);
   height: 250px;
-  left: 5em;
-  padding: 20px;
+  left: 21em;
   position: absolute;
-  top: 55em;
-  width: 450px; }
+  top: 30em; }
+
+.input-field-team-2 {
+  background-color: rgba(17, 9, 117, 0.46);
+  height: 250px;
+  left: 51em;
+  position: absolute;
+  top: 30em; }
+
+.input-field-team-3 {
+  background-color: rgba(17, 9, 117, 0.46);
+  height: 250px;
+  left: 81em;
+  position: absolute;
+  top: 30em; }
+
+.input-field-team-4 {
+  background-color: rgba(17, 9, 117, 0.46);
+  height: 250px;
+  left: 60em;
+  position: absolute;
+  top: 60em; }
+
+.input-field-team-5 {
+  background-color: rgba(17, 9, 117, 0.46);
+  height: 250px;
+  left: 141em;
+  position: absolute;
+  top: 30em; }
 
 .tact-time {
   color: #bc171b;
   font-family: Cambria, serif;
   font-size: large; }
 
-.body-timer-block {
-  left: 5em;
+.work-hours {
+  color: #bc171b;
+  font-family: Cambria, serif;
+  font-size: large; }
+
+.work-start {
+  color: #bc171b;
+  font-family: Cambria, serif;
+  font-size: large; }
+
+.team-container-2 {
+  left: 30em;
   position: absolute;
-  top: 20em; }
+  top: .2em; }
+
+.team-container-3 {
+  left: 60em;
+  position: absolute;
+  top: .2em; }
+
+.team-container-5 {
+  left: 120em;
+  position: absolute;
+  top: .2em; }
+
+.body-timer-block {
+  left: -5em;
+  position: absolute;
+  top: -5em; }
 
 .clock-container {
   left: -30em;
@@ -1351,7 +1406,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 25em;
   position: relative;
   top: 25em;
-  width: 1100px; }
+  width: 350px; }
   .sunset-container .horizon {
     background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
     box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;

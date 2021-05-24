@@ -173,12 +173,14 @@ Template.reviewMachine.helpers({
             let machineResult = [];
             let result = machineCommTable.findOne({machineId: review});
             machineResult.push(result)
-        console.log(machineResult)
             return machineResult;
     }
 
 
 });
+
+
+
 
 
 

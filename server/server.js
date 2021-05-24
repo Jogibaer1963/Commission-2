@@ -53,8 +53,8 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
-        'tactTime': () => {
-
+        'tactTime': (tact_time) => {
+            console.log(tact_time)
         },
 
         'leaveLine': (machineId, canvasId, user) => {

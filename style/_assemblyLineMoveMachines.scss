@@ -67,7 +67,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   position: absolute;
   top: 4em;
 }
+
 //  **********************************************************
+
 .engine-lift-up {
   display: flex;
   left: -18.5em;
@@ -242,16 +244,21 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 35em;
 }
 
-.test-bay-container {
-  left: -112em;
+.engine-assembly-container {
+  left: 10em;
   position: absolute;
   top: 20em;
 }
 
-.final-assembly-container {
-  left: -14em;
+.test-bay-container {
   position: absolute;
-  top: -10em;
+  top: -.5px;
+}
+
+.final-assembly-container {
+  left: 100em;
+  position: absolute;
+  top: -30em;
 }
 
 .team5-bay-14 {
@@ -286,22 +293,67 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 // **************** template tactTime *****************
 
-.input-field {
-  background-color: $background-admin-field;
+$input-field-height: 30em;
+$rgba-colors: rgba(17, 9, 117, .46);
+
+.input-field-team-1 {
+  background-color: $rgba-colors;
   height: 250px;
-  left: 5em;
-  padding: 20px;
+  left: 21em;
   position: absolute;
-  top: 55em;
-  width: 450px;
+  top: $input-field-height;
+}
+
+.input-field-team-2 {
+  background-color: $rgba-colors;
+  height: 250px;
+  left: 51em;
+  position: absolute;
+  top: $input-field-height;
+}
+
+.input-field-team-3 {
+  background-color: $rgba-colors;
+  height: 250px;
+  left: 81em;
+  position: absolute;
+  top: $input-field-height;
+}
+
+.input-field-team-4 {
+  background-color: $rgba-colors;
+  height: 250px;
+  left: 60em;
+  position: absolute;
+  top: 60em;
+}
+
+.input-field-team-5 {
+  background-color: $rgba-colors;
+  height: 250px;
+  left: 141em;
+  position: absolute;
+  top: $input-field-height;
 }
 
 .tact-time {
-
   color: $text-color-tact-time;
   font-family: Cambria, serif;
   font-size: large;
 }
+
+.work-hours {
+  color: $text-color-tact-time;
+  font-family: Cambria, serif;
+  font-size: large;
+}
+
+.work-start {
+  color: $text-color-tact-time;
+  font-family: Cambria, serif;
+  font-size: large;
+}
+
 
 // ****************  Sun Timer  ********************************************
 $begin-horizon: #00f;
@@ -311,10 +363,28 @@ $animation-color: rgba(255, 255, 255, .25);
 $text-ilumination: rgba(0, 0, 0, .6) 0 0 3px;
 $transition: all 1.5s;
 
-.body-timer-block {
-  left: 5em;
+.team-container-2 {
+  left: 30em;
   position: absolute;
-  top: 20em;
+  top: .2em;
+}
+
+.team-container-3 {
+  left: 60em;
+  position: absolute;
+  top: .2em;
+}
+
+.team-container-5 {
+  left: 120em;
+  position: absolute;
+  top: .2em;
+}
+
+.body-timer-block {
+  left: -5em;
+  position: absolute;
+  top: -5em;
 }
 
 
@@ -323,27 +393,27 @@ $transition: all 1.5s;
   position: relative;
   top: 40em;
 
-  .clock {
-    position: relative;
-    top: -16em;
+.clock {
+  position: relative;
+  top: -16em;
 
-    .title {
-      display: none;
-    }
+.title {
+  display: none;
+}
 
-    .time {
-      color: $begin-horizon;
-      position: relative;
-      text-align: center;
-      text-shadow: $text-ilumination;
-      transition: $transition;
+.time {
+  color: $begin-horizon;
+  position: relative;
+  text-align: center;
+  text-shadow: $text-ilumination;
+  transition: $transition;
 
-      span {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: xxx-large;
-      }
-    }
+  span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: xxx-large;
   }
+}
+}
 }
 
 
@@ -354,34 +424,34 @@ $transition: all 1.5s;
   left: 25em;
   position: relative;
   top: 25em;
-  width: 1100px;
+  width: 350px;
 
 
-  .horizon {
-    background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
-    box-shadow: $box-shadow 0 0 5px;
-    height: 2px;
-    position: relative;
-    top: -1px;
-  }
+.horizon {
+  background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
+  box-shadow: $box-shadow 0 0 5px;
+  height: 2px;
+  position: relative;
+  top: -1px;
+}
 
-  .sun {
-    height: 50px;
-    left: -100px;
-    position: absolute;
-    top: -25px;
-    width: 200px;
+.sun {
+  height: 50px;
+  left: -100px;
+  position: absolute;
+  top: -25px;
+  width: 200px;
 
-    .sun-spot {
-      animation: pulse 4s linear infinite;
-      border-radius: 100px;
-      position: absolute;
-      transform: scale(1, .5);
+.sun-spot {
+  animation: pulse 4s linear infinite;
+  border-radius: 100px;
+  position: absolute;
+  transform: scale(1, .5);
 
-      &.pulse {
-        animation: white-pulse 4s linear infinite;
-       }
-     }
+  &.pulse {
+    animation: white-pulse 4s linear infinite;
    }
  }
+}
+}
 

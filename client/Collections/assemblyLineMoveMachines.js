@@ -3,16 +3,32 @@ Meteor.subscribe('activeAssembly')
 
 Session.set('twoMachines', false)
 
+Template.burstSunTimerTeam_1.onRendered(function() {
+    let current_theme = 0;
+    let counter = 0;
+    Session.set('percent', 0)
+    set_theme(current_theme);
+    update_clock(counter);
+    setInterval(function () {
+        return update_clock();
+    }, 1000);
+    build_sun_spots(10);
+    set_sun_size();
+});
+
+
 Template.burstSunTimer.onRendered(function() {
     let   current_theme = 0;
+    let counter = 0;
+    Session.set('percent', 0)
 
     set_theme(current_theme);
 
-    update_clock();
+    update_clock(counter);
 
     setInterval(function () {
         return update_clock();
-        }, 200);
+        }, 1000);
 
     build_sun_spots(10);
 
@@ -33,9 +49,8 @@ function set_theme(current_theme) {
 function  update_clock() {
     let time_output = this.$('.clock .time span');
     let pTime, percent;
-    percent = percent_time(2);
+    percent =  percent_time(2);
     pTime = percent + "%";
-
     if (pTime !== time_output.text()) {
         time_output.text(pTime);
         return update_sun_color_and_position(percent);
@@ -43,22 +58,29 @@ function  update_clock() {
 }
 
 function percent_time(fixed) {
+    /*
    let h, m, s, seconds, time;
     time = new Date();
   //  h = time.getHours();
-  //  m = time.getMinutes();
+   // m = time.getMinutes();
     s = time.getSeconds();
-
-    seconds = s //+ (m * 60) // + (h * 3600);
-   // console.log(((seconds / 60) * 100).toFixed(fixed))
-    return ((seconds / 60) * 100).toFixed(fixed);
+    seconds = s  * 60 // + (h * 3600);
+    console.log(((seconds / 60) * 100).toFixed(fixed))
+     */
+    let percent = Session.get('percent')
+    if (percent === 100) {
+        Session.set('percent', 0)
+    } else {
+        percent ++;
+        Session.set('percent', percent);
+    }
+    return percent;
 }
 
 function update_sun_color_and_position(percent) {
     let blue, clockTop, decimalPercent, hColor, red,
         reverseDecimalPercent, shadowColor, spotColor, tColor,
         timeDecimalPercent, timeLeftOffset;
-
     decimalPercent = percent * 0.01;
     reverseDecimalPercent = 1 - decimalPercent;
     red = Math.round(255 * decimalPercent);
@@ -67,7 +89,7 @@ function update_sun_color_and_position(percent) {
     if (timeDecimalPercent > 1) {
         timeDecimalPercent = 1;
         }
-    timeLeftOffset = (1500 - 140) * timeDecimalPercent;  // 1500 was window width
+    timeLeftOffset = (300) * timeDecimalPercent;  // 1500 was window width
     hColor = `rgba(${red} ,0 ,${blue}, 0.7)`;
     tColor = `rgba(${red}, 0, ${blue}, 1)`;
     /*
@@ -80,11 +102,11 @@ function update_sun_color_and_position(percent) {
      */
     $('.time').css({
         color: tColor,
-        left: (timeLeftOffset + 50)
+        left: (timeLeftOffset + 580)
     });
 
     $('.sun-container').css({
-        left: (timeLeftOffset - 300)
+        left: (timeLeftOffset - 100)
     });
 
     spotColor = `rgba(${red},0,${blue}, 0.3)`;
@@ -660,37 +682,31 @@ function invokeMoveFromLastBay(canvasId) {
     invokeEmptyBay(canvasId)
 }
 
-Template.tactTime.helpers({
-
-    tactTime: () => {
-
-    }
-
-})
 
 
 
-Template.tactTime.events({
 
-    'submit .tact-time':function (e) {
-        e.preventDefault(e);
+Template.tact_time_team.events({
+
+    'submit .tact-time': function(e) {
+        e.preventDefault();
         let tactTime = e.target.inputTactTime.value;
-        Meteor.call('tactTime', tactTime)
+        console.log(tactTime)
     },
 
-    'submit .submit-working-start':function (e) {
-        e.preventDefault(e);
-        let workingHourFrom = e.target.workingHourFrom.value;
-        Meteor.call('tactTime', workingHourFrom)
+    'submit .work-start': function(e) {
+        e.preventDefault();
+        let workStart = e.target.workingHourFrom.value;
+        console.log(workStart)
     },
 
-    'submit .submit-working-duration':function (e) {
-        e.preventDefault(e);
-        let workingHour = e.target.workingHourTo.value;
-        Meteor.call('tactTime', workingHour)
+    'submit .work-hours': function(e) {
+        e.preventDefault();
+        let workHours = e.target.workingHourTotal.value;
+        console.log(workHours)
     },
 
-})
+});
 
 
 
