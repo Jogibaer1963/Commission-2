@@ -1382,49 +1382,94 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: -5em; }
 
-.clock-container {
+.clock-container-team-1 {
   left: -30em;
   position: relative;
   top: 40em; }
-  .clock-container .clock {
+  .clock-container-team-1 .clock-team-1 {
     position: relative;
     top: -16em; }
-    .clock-container .clock .title {
+    .clock-container-team-1 .clock-team-1 .title {
       display: none; }
-    .clock-container .clock .time {
+    .clock-container-team-1 .clock-team-1 .time-team-1 {
       color: #00f;
       position: relative;
       text-align: center;
       text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
       transition: all 1.5s; }
-      .clock-container .clock .time span {
+      .clock-container-team-1 .clock-team-1 .time-team-1 span {
         font-family: 'Josefin Sans', sans-serif;
         font-size: xxx-large; }
 
-.sunset-container {
+.sunset-container-team-1 {
   bottom: auto;
   left: 25em;
   position: relative;
   top: 25em;
   width: 350px; }
-  .sunset-container .horizon {
+  .sunset-container-team-1 .horizon-team-1 {
     background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
     box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
     height: 2px;
     position: relative;
     top: -1px; }
-  .sunset-container .sun {
+  .sunset-container-team-1 .sun-team-1 {
     height: 50px;
     left: -100px;
     position: absolute;
     top: -25px;
     width: 200px; }
-    .sunset-container .sun .sun-spot {
+    .sunset-container-team-1 .sun-team-1 .sun-spot-team-1 {
       animation: pulse 4s linear infinite;
       border-radius: 100px;
       position: absolute;
       transform: scale(1, 0.5); }
-      .sunset-container .sun .sun-spot.pulse {
+      .sunset-container-team-1 .sun-team-1 .sun-spot-team-1.pulse {
+        animation: white-pulse 4s linear infinite; }
+
+.clock-container-team-2 {
+  left: -30em;
+  position: relative;
+  top: 40em; }
+  .clock-container-team-2 .clock-team-2 {
+    position: relative;
+    top: -16em; }
+    .clock-container-team-2 .clock-team-2 .title {
+      display: none; }
+    .clock-container-team-2 .clock-team-2 .time-team-2 {
+      color: #00f;
+      position: relative;
+      text-align: center;
+      text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
+      transition: all 1.5s; }
+      .clock-container-team-2 .clock-team-2 .time-team-2 span {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: xxx-large; }
+
+.sunset-container-team-2 {
+  bottom: auto;
+  left: 25em;
+  position: relative;
+  top: 25em;
+  width: 350px; }
+  .sunset-container-team-2 .horizon-team-2 {
+    background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
+    box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
+    height: 2px;
+    position: relative;
+    top: -1px; }
+  .sunset-container-team-2 .sun-team-2 {
+    height: 50px;
+    left: -100px;
+    position: absolute;
+    top: -25px;
+    width: 200px; }
+    .sunset-container-team-2 .sun-team-2 .sun-spot-team-2 {
+      animation: pulse 4s linear infinite;
+      border-radius: 100px;
+      position: absolute;
+      transform: scale(1, 0.5); }
+      .sunset-container-team-2 .sun-team-2 .sun-spot-team-2.pulse {
         animation: white-pulse 4s linear infinite; }
 
 .insideNavBar {

@@ -355,7 +355,10 @@ $rgba-colors: rgba(17, 9, 117, .46);
 }
 
 
+
+
 // ****************  Sun Timer  ********************************************
+
 $begin-horizon: #00f;
 $end-horizon: #f00;
 $box-shadow: rgba(255, 255, 255, .4);
@@ -386,72 +389,134 @@ $transition: all 1.5s;
   position: absolute;
   top: -5em;
 }
-
-
-.clock-container {
+//---------------------  Team 1 -----------------------------------
+.clock-container-team-1 {
   left: -30em;
   position: relative;
   top: 40em;
 
-.clock {
-  position: relative;
-  top: -16em;
+  .clock-team-1 {
+    position: relative;
+    top: -16em;
 
-.title {
-  display: none;
-}
+    .title {
+      display: none;
+      }
 
-.time {
-  color: $begin-horizon;
-  position: relative;
-  text-align: center;
-  text-shadow: $text-ilumination;
-  transition: $transition;
+    .time-team-1 {
+      color: $begin-horizon;
+      position: relative;
+      text-align: center;
+      text-shadow: $text-ilumination;
+      transition: $transition;
 
-  span {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: xxx-large;
+       span {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: xxx-large;
+        }
+    }
   }
 }
-}
-}
 
 
-
-
-.sunset-container {
+.sunset-container-team-1 {
   bottom: auto;
   left: 25em;
   position: relative;
   top: 25em;
   width: 350px;
 
+  .horizon-team-1 {
+    background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
+    box-shadow: $box-shadow 0 0 5px;
+    height: 2px;
+    position: relative;
+    top: -1px;
+    }
 
-.horizon {
-  background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
-  box-shadow: $box-shadow 0 0 5px;
-  height: 2px;
+  .sun-team-1 {
+    height: 50px;
+    left: -100px;
+    position: absolute;
+    top: -25px;
+    width: 200px;
+
+    .sun-spot-team-1 {
+      animation: pulse 4s linear infinite;
+      border-radius: 100px;
+      position: absolute;
+      transform: scale(1, .5);
+
+      &.pulse {
+        animation: white-pulse 4s linear infinite;
+        }
+      }
+  }
+}
+
+//----------------------------- Team 2 -------------------------------
+
+.clock-container-team-2 {
+  left: -30em;
   position: relative;
-  top: -1px;
+  top: 40em;
+
+  .clock-team-2 {
+    position: relative;
+    top: -16em;
+
+    .title {
+      display: none;
+    }
+
+    .time-team-2 {
+      color: $begin-horizon;
+      position: relative;
+      text-align: center;
+      text-shadow: $text-ilumination;
+      transition: $transition;
+
+      span {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: xxx-large;
+      }
+    }
+  }
 }
 
-.sun {
-  height: 50px;
-  left: -100px;
-  position: absolute;
-  top: -25px;
-  width: 200px;
+.sunset-container-team-2 {
+  bottom: auto;
+  left: 25em;
+  position: relative;
+  top: 25em;
+  width: 350px;
 
-.sun-spot {
-  animation: pulse 4s linear infinite;
-  border-radius: 100px;
-  position: absolute;
-  transform: scale(1, .5);
+  .horizon-team-2 {
+    background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
+    box-shadow: $box-shadow 0 0 5px;
+    height: 2px;
+    position: relative;
+    top: -1px;
+  }
 
-  &.pulse {
-    animation: white-pulse 4s linear infinite;
-   }
- }
+  .sun-team-2 {
+    height: 50px;
+    left: -100px;
+    position: absolute;
+    top: -25px;
+    width: 200px;
+
+    .sun-spot-team-2 {
+      animation: pulse 4s linear infinite;
+      border-radius: 100px;
+      position: absolute;
+      transform: scale(1, .5);
+
+      &.pulse {
+        animation: white-pulse 4s linear infinite;
+      }
+    }
+  }
 }
-}
 
+//----------------------------------------------------------------

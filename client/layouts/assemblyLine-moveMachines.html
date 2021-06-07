@@ -1,17 +1,12 @@
 <template name="assemblyLine">
     {{#if currentUser}}
         <div class="tabletCommissioning">
-
             {{> moveMachines}}
-
             {{> tact_time_team}}
-
             {{> burstSunTimerTeam_1}}
             {{> burstSunTimerTeam_2}}
             {{> burstSunTimerTeam_3}}
             {{> burstSunTimerTeam_5}}
-
-          <!--  {{> burstSunTimer}}  -->
         </div>
     {{else}}
         {{> login}}
@@ -19,20 +14,23 @@
 </template>
 
 <template name="burstSunTimerTeam_1">
-    <div class="body body-timer-block">
-        <div class="clock-sunset-container">
-            <div class="clock-container">
-                <div class="clock">
-                    <div class="time">
-                        <span>loading</span>
+    {{tactTimeLeft}}
+    <div class="team-container-1">
+        <div class="body body-timer-block">
+            <div class="clock-sunset-container">//
+                <div class="clock-container-team-1">
+                    <div class="clock-team-1">
+                        <div class="time-team-1">
+                            <span>loading</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="sunset-container">
-            <div class="horizon"></div>
-            <div class="">
-                <div class="sun sun-container"></div>
+            <div class="sunset-container-team-1">
+                <div class="horizon-team-1"></div>
+                <div class="">
+                    <div class="sun-team-1 sun-container-team-1"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,23 +40,24 @@
     <div class="team-container-2">
         <div class="body body-timer-block">
             <div class="clock-sunset-container">
-                <div class="clock-container">
-                    <div class="clock">
-                        <div class="time">
+                <div class="clock-container-team-2">
+                    <div class="clock-team-2">
+                        <div class="time-team-2">
                             <span>loading</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="sunset-container">
-                <div class="horizon"></div>
+            <div class="sunset-container-team-2">
+                <div class="horizon-team-2"></div>
                 <div class="">
-                    <div class="sun sun-container"></div>
+                    <div class="sun-team-2 sun-container-team-2"></div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 
 <template name="burstSunTimerTeam_3">
     <div class="team-container-3">
@@ -75,7 +74,7 @@
             <div class="sunset-container">
                 <div class="horizon"></div>
                 <div class="">
-                    <div class="sun sun-container"></div>
+                    <div class="sun-team-3 sun-container"></div>
                 </div>
             </div>
         </div>
@@ -104,25 +103,7 @@
     </div>
 </template>
 
-<template name="burstSunTimer">
-    <div class="body body-timer-block">
-        <div class="clock-sunset-container">
-            <div class="clock-container">
-                <div class="clock">
-                    <div class="time">
-                        <span>loading</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="sunset-container">
-            <div class="horizon"></div>
-            <div class="">
-                <div class="sun sun-container"></div>
-            </div>
-        </div>
-    </div>
-</template>
+
 
 <template name="tact_time_team">
     <div class="input-field-team-1">
