@@ -160,6 +160,21 @@ Template.addMachine.events ({
         document.getElementById('files').value = [];
     },
 
+    'change .loadNewFiscalYear': (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            const contents = e.target.result;
+            Meteor.call('updateNewFiscalYear', contents);
+        };
+        reader.readAsText(file);
+        document.getElementById('fiscal22').value = [];
+    },
+
 });
 
 Template.reviewMachine.helpers({

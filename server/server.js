@@ -177,9 +177,10 @@ if(Meteor.isServer){
         //--------------  Update Machine List with in Line and off Line Date  --------------
 
         'updateMachineInLine': (contents) => {
+            let supplyResult = supplyAreas.find({active: true},
+                {sort: {supplyPosition: 1}}).fetch();
             let timeLine = {};
             let countFind = [];
-            let bayReady = [];
             let today, countMax, firstMachine, machineStartUpdate, arr, i, newElement, sliceIndex,
                  counter, indexCounter, slicedElement, result, inLineDate,newMachine;
             today = moment().format('YYYY-MM-DD');
@@ -205,10 +206,7 @@ if(Meteor.isServer){
                     machineStartUpdate = element.machineId
                 }
             })
-            console.log('working ', countMax, ' ', machineStartUpdate);
-
             // processing CSV File starts here.
-
             arr = contents.split(/[\n\r]/g);
             i = 0;
             arr.forEach((element) => {
@@ -219,13 +217,11 @@ if(Meteor.isServer){
                 })
            newElement = [];
            arr.forEach((element) => {
-
                    // *********************  important Step  *********************************
                    // Regex search for Machine number pattern like C8900425
                    // add String into a new Array
                    let validStringTest = element.search(/^(C8[7-9][0-9]{5})/g);
                    // *********************  important step end ********************************
-
                    if (validStringTest === 0) {
                        newElement.push(element)
                    }
@@ -511,7 +507,6 @@ if(Meteor.isServer){
 
                           if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
                               let today = Date.now();
-                              console.log('undefined Machine ', newMachine)
                               machineCommTable.upsert({machineId: newMachine},
                                   {
                                       $set: {
@@ -522,15 +517,9 @@ if(Meteor.isServer){
                                           active: true,
                                           activeAssemblyLineList: true,
                                           timeLine,
-                                          bayReady
+                                          supplyAreas : supplyResult
                                       }
                                   });
-                              supplyAreas.find({active: true},
-                                  {sort: {supplyPosition: 1}}).forEach(function (copy) {
-                                  machineCommTable.update({machineId: newMachine},
-                                      {$addToSet: {supplyAreas: (copy)}})
-                              });
-                              console.log('newMachine ', newMachine, 'Counter ', counter)
                               counter ++;
                           } else {
 
@@ -542,106 +531,415 @@ if(Meteor.isServer){
                                           counter : counter,
                                           inLineDate: inLineDate,
                                           timeLine,
-                                          bayReady
                                       }
                                   });
                           }
-                          console.log('newMachine ', newMachine, 'Counter ', counter)
                           counter ++;
-
                           let id = 'serverHelper';
                           userActions.upsert({_id: id}, {machineCount: counter})
                           // ***********************************************************************************************
                       } catch (e) {
                           console.log(e)
                       }
-
-
           });
-
-           /*
-      let tableResult = machineCommTable.find({inLineDate: {$gt : today}}).fetch();
-      tableResult.forEach((element) => {
-          machineCommTable.update({machineId: element.machineId},
-                                              {$set: {activeAssemblyLineList: true}})
-          })
-
-            */
-
-
-      console.log('done')
-
-
-
-
         },
 
+        'updateNewFiscalYear': (content) => {
+            let supplyResult = supplyAreas.find({active: true},
+                {sort: {supplyPosition: 1}}).fetch();
+            let timeLine = {};
+            let arr, i, newElement, counter, result, inLineDate,newMachine;
+            arr = content.split(/[\n\r]/g);
+            i = 0;
+            arr.forEach((element) => {
+                if (element === '') {
+                    arr.splice(i, 1);
+                }
+                i++
+            })
+            newElement = [];
+            arr.forEach((element) => {
+                // *********************  important Step  *********************************
+                // Regex search for Machine number pattern like C8900425
+                // add String into a new Array
+                let validStringTest = element.search(/^(C8[7-9][0-9]{5})/g);
+                // *********************  important step end ********************************
+                if (validStringTest === 0) {
+                    newElement.push(element)
+                }
+            })
+            // *************** Find last Machine from present year for counting  **************************
+            counter = 1000;  // new Fiscal Year start with 1000
+            // generate machine list
+            newElement.forEach((element) => {
+                result = element.split(',').map(e => e.split(','));
+                // eliminate white spaces behind last column in csv file
+                result.splice(32, 8);
+                inLineDate = moment(new Date(result[6][0])).format('YYYY-MM-DD');
+                newMachine = result[0][0];
+                timeLine = {
+                    'machineId': result[0][0],
+                    'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
+                    'station2': moment(new Date(result[2][0])).format('YYYY-MM-DD'),
+                    'station3': moment(new Date(result[3][0])).format('YYYY-MM-DD'),
+                    'station4': moment(new Date(result[4][0])).format('YYYY-MM-DD'),
+                    'mergeEngine': moment(new Date(result[5][0])).format('YYYY-MM-DD'),
+                    'inLine': moment(new Date(result[6][0])).format('YYYY-MM-DD'),
+                    'bay3': moment(new Date(result[7][0])).format('YYYY-MM-DD'),
+                    'bay4': moment(new Date(result[8][0])).format('YYYY-MM-DD'),
+                    'bay5': moment(new Date(result[9][0])).format('YYYY-MM-DD'),
+                    'bay6': moment(new Date(result[10][0])).format('YYYY-MM-DD'),
+                    'bay7': moment(new Date(result[11][0])).format('YYYY-MM-DD'),
+                    'bay8': moment(new Date(result[12][0])).format('YYYY-MM-DD'),
+                    'bay9': moment(new Date(result[13][0])).format('YYYY-MM-DD'),
+                    'bay10': moment(new Date(result[14][0])).format('YYYY-MM-DD'),
+                    'testBay1': moment(new Date(result[15][0])).format('YYYY-MM-DD'),
+                    'testBay2': moment(new Date(result[16][0])).format('YYYY-MM-DD'),
+                    'bay14': moment(new Date(result[17][0])).format('YYYY-MM-DD'),
+                    'bay15': moment(new Date(result[18][0])).format('YYYY-MM-DD'),
+                    'bay16': moment(new Date(result[19][0])).format('YYYY-MM-DD'),
+                    'bay17': moment(new Date(result[20][0])).format('YYYY-MM-DD'),
+                    'bay18': moment(new Date(result[21][0])).format('YYYY-MM-DD'),
+                    'bay19Planned': moment(new Date(result[22][0])).format('YYYY-MM-DD'),
+                    'bay19SAP': moment(new Date(result[23][0])).format('YYYY-MM-DD'),
+                    'bay19Actual': moment(new Date(result[24][0])).format('YYYY-MM-DD'),
+                    'terraTRack' : result[25][0],
+                    'fourWheel': result[26][0],
+                    'EngineMTU': result[27][0],
+                    'bekaMax': result[28][0],
+                    'salesOrder': result[29][0],
+                    'productionOrder': result[30][0],
+                    'sequence': result[31][0]
+                };
 
- //---------------------------------------------- New Fiscal Year added -----------------------------
+                /*
 
-        'fiscalYear': (newYear, newMonth, newDay) => {
-            fiscalYear.insert({year: newYear, month: newMonth, day: newDay});
-        },
+              bayReady = [
+                    {
+                        "_id": "station1",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[1][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "station2",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[2][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "station3",  // cooling box entry
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[3][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "station4",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[4][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "mergeEngine",   // merge cooling box and Engine
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[5][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-fcb-threshing",  // merge FCB with Threshing Unit
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[6][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay3",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[7][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay4",   // merge Engine with Chassis
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[8][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay5",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[9][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay6",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[10][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay7",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[11][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay8",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[12][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay9",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[13][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay10",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[14][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-test-bay-1",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[15][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-test-bay-2",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[16][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-test-bay-3",
+                        "bayStatus": 0,
+                        "bayDatePlanned": "",
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-test-bay-4",
+                        "bayStatus": 0,
+                        "bayDatePlanned": "",
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-14",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[17][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-15",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[18][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-16",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[19][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-17",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[20][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-18",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[21][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                    {
+                        "_id": "machine-field-bay-19",
+                        "bayStatus": 0,
+                        "bayDatePlanned": moment(new Date(result[22][0])).format('YYYY-MM-DD'),
+                        "bayDateLanding": "",
+                        "bayDateLeaving": "",
+                        "completeBy": "",
+                        "completedAt": ""
+                    },
+                ]
+
+                 */
+
+                  try {
+                      // ****************************************  new machine  *******************************
+                      if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
+                          let today = Date.now();
+                          machineCommTable.upsert({machineId: newMachine},
+                              {
+                                  $set: {
+                                      counter : counter,
+                                      inLineDate: inLineDate,
+                                      commissionStatus: 0,
+                                      dateOfCreation: today,
+                                      active: true,
+                                      activeAssemblyLineList: true,
+                                      timeLine,
+                                      supplyAreas : supplyResult
+                                  }
+                              });
+                          counter ++;
+                      } else {
+                          // *************** machine already exists and just  update timeline and in line dates  *********************
+                          console.log('Machine ', newMachine, 'counter ', counter)
+                          machineCommTable.update({machineId: newMachine},
+                              {
+                                  $set: {
+                                      counter : counter,
+                                      inLineDate: inLineDate,
+                                      timeLine
+                                  }
+                              });
+                      }
+                      counter ++;
+                      let id = 'serverHelper';
+                      userActions.upsert({_id: id}, {machineCount: counter})
+                      // ***********************************************************************************************
+                  } catch (e) {
+                      console.log(e)
+                  }
+      });
+    },
+
+//---------------------------------------------- New Fiscal Year added -----------------------------
+
+    'fiscalYear': (newYear, newMonth, newDay) => {
+        fiscalYear.insert({year: newYear, month: newMonth, day: newDay});
+    },
 
 //----------------------------------------------- New and updating Supply Area -----------------------------------------------------------------------
-        'addSupplyArea': (area) => {
-            let supplyCount = (supplyAreas.find().fetch()).length;
-            const supplyStatus = 0;
-     //     check if supply Area already exists, if so send error back to client
-            if (area) {
-                let supplyArea = supplyAreas.findOne({_id: area});
-                if (supplyArea) {
-                    if (supplyArea._id === area) {
-                        return supplyArea;
-                    }
+    'addSupplyArea': (area) => {
+        let supplyCount = (supplyAreas.find().fetch()).length;
+        const supplyStatus = 0;
+ //     check if supply Area already exists, if so send error back to client
+        if (area) {
+            let supplyArea = supplyAreas.findOne({_id: area});
+            if (supplyArea) {
+                if (supplyArea._id === area) {
+                    return supplyArea;
                 }
             }
-     //     insert new unique supply Area with position number
+        }
+ //     insert new unique supply Area with position number
 
-            supplyAreas.insert({_id: area,
-                                    supplyPosition: supplyCount + 1,
-                                    active: true,
-                                    supplyStatus: supplyStatus
-            });
-            let object = {_id: area,
-                          supplyPosition: parseInt(supplyCount + 1),
-                          active: true,
-                          supplyStatus: 0
-                                };
-            try {
-                machineCommTable.upsert({}, {$push: {'supplyAreas': object}}, {multi: true});
-            } catch (e) {
-                console.log(e)
-            }
-        },
+        supplyAreas.insert({_id: area,
+                                supplyPosition: supplyCount + 1,
+                                active: true,
+                                supplyStatus: supplyStatus
+        });
+        let object = {_id: area,
+                      supplyPosition: parseInt(supplyCount + 1),
+                      active: true,
+                      supplyStatus: 0
+                            };
+        try {
+            machineCommTable.upsert({}, {$push: {'supplyAreas': object}}, {multi: true});
+        } catch (e) {
+            console.log(e)
+        }
+    },
 
-        // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
+    // ****     physical database for supplyAreaArray is 01_supplyAreaArray     ****
 
 
 // Adding and removing Machine, filling the database machineCommTable with pre sets
 /*   ** Adding Machines deactivated for now **
-        'doubleMachine': (newMachine, inLineDate, dateOfCreation) => {
+    'doubleMachine': (newMachine, inLineDate, dateOfCreation) => {
 
-            if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
-             //   console.log("inside", newMachine, dateOfCreation, inLineDate);
-                machineCommTable.insert({machineId: newMachine,
-                    inLineDate: inLineDate,
-                    dateOfCreation: dateOfCreation,
-                    commissionStatus: 0,
-                    active: true});
+        if(typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
+         //   console.log("inside", newMachine, dateOfCreation, inLineDate);
+            machineCommTable.insert({machineId: newMachine,
+                inLineDate: inLineDate,
+                dateOfCreation: dateOfCreation,
+                commissionStatus: 0,
+                active: true});
 
-                supplyAreas.find({active: true},
-                                   {sort: {supplyPosition: 1}}).
-                                forEach(function(copy) {
-                                        machineCommTable.update({machineId: newMachine},
-                                                                {$addToSet: {supplyAreas: (copy)}})
-                });
-            } else {
-                return newMachine;
-            }
-        },
+            supplyAreas.find({active: true},
+                               {sort: {supplyPosition: 1}}).
+                            forEach(function(copy) {
+                                    machineCommTable.update({machineId: newMachine},
+                                                            {$addToSet: {supplyAreas: (copy)}})
+            });
+        } else {
+            return newMachine;
+        }
+    },
 
- */
+*/
 
         'deactivateMachine': (machineCompleted) => {
             machineCommTable.update({machineId: machineCompleted}, {$set: {active: false}});
