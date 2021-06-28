@@ -461,13 +461,10 @@ table.supply-table {
   position: absolute;
   top: 5em; }
 
-.cancelRequest {
-  width: 240px;
-  margin-bottom: 10px; }
-
-.cancellationRequest {
+.commission-cancel {
+  left: 25em;
   position: relative;
-  top: 15em; }
+  top: 50em; }
 
 .tabletHeader {
   left: -7em;

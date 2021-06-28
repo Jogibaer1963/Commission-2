@@ -1034,6 +1034,25 @@ if(Meteor.isServer){
             return 'success';
         },
 
+        'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
+            pickersAtWork.remove({_id: user});
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                {$set: {"supplyAreas.$.supplyStatus": status,
+                        "supplyAreas.$.pickerCanceled": user,
+                        "supplyAreas.$.pickingStart": '',
+                        "supplyAreas.$.pickerStart": '',
+                        "supplyAreas.$.pickerFinished": '',
+                        "supplyAreas.$.pickingDateAndTime": '',
+                        "supplyAreas.$.pickingEnd": '',
+                        "supplyAreas.$.pickingTime": '',
+                        "supplyAreas.$.pickingEndDateAndTime": '',
+                        "supplyAreas.$.pickingPauseStart": '',
+                        "supplyAreas.$.pickingPauseEnd": ''}} )
+
+        },
+
+        //**************************   Multi Machines  ******************************
+
         'canceledMultiPicking': function (userCanceled, pickedMachineId, pickedSupplyAreaId) {
             let status = 0;
             pickedMachineId.forEach((element) => {
@@ -1259,25 +1278,6 @@ if(Meteor.isServer){
             });
         },
 
-        'multi-cancel': () => {
-
-            /*
-             'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user,cancellationReason) {
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreas.$.supplyStatus": status,
-                                            "supplyAreas.$.pickerCanceled": user,
-                                            "supplyAreas.$.pickerCanceledReason": cancellationReason,
-                                            "supplyAreas.$.pickingStart": '',
-                                            "supplyAreas.$.pickerStart": '',
-                                            "supplyAreas.$.pickerFinished": '',
-                                            "supplyAreas.$.pickingDateAndTime": '',
-                                            "supplyAreas.$.pickingEnd": '',
-                                            "supplyAreas.$.pickingTime": '',
-                                            "supplyAreas.$.pickingEndDateAndTime": '',
-                                            "supplyAreas.$.pickingPauseStart": '',
-                                            "supplyAreas.$.pickingPauseEnd": ''}} )
-             */
-        },
 
 //------------------------------------------------  Data Analyzing ----------------------------------------------------------------------
 

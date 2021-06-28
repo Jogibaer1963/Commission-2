@@ -110,16 +110,18 @@ Template.commTablet.events ({
             });
     },
 
-    'submit .cancelForm': function(e) {
+    'click .cancelForm': function(e) {
         e.preventDefault();
+        console.log(Session.get('inActiveState'))
         const userCanceled = Meteor.user().username;
-        const cancellationReason = e.target.cancelRequest.value;
         let status = 0;
         let pickedMachineId = Session.get('selectedMachine');
         let pickedSupplyAreaId = Session.get('selectedArea');
+        Session.set('inActiveState', 4);
+        Session.set('selectedArea', '');
+        Session.set('supplyChosen', 0);
         Meteor.call('canceledPicking', pickedMachineId, pickedSupplyAreaId,
-                     status, userCanceled, cancellationReason);
-
+                     status, userCanceled);
     },
 
     'click .commPause': function(e) {
@@ -210,7 +212,7 @@ Handlebars.registerHelper('inActive_4', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
- //   console.log('inActive 4 ', inActiveState);
+     console.log('inActive 4 ', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
