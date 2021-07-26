@@ -1,0 +1,18 @@
+<template name="timeUpdater">
+    {{#if currentUser}}
+        {{serverTimeActivator}}
+        {{#if isInRole 'admin'}}
+            {{> assemblyTimer}}
+        {{/if}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="assemblyTimer">
+    <div class="time-updater-head-liner">
+        <h4>Time Updater</h4>
+        <h3>Server Time : {{printServerTime.serverTime}}</h3>
+    </div>
+
+</template>

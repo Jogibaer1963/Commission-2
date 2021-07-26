@@ -4,6 +4,7 @@ const Highcharts = require('highcharts');
 
 Session.set('errorPickingDate', false);
 Session.set('01-supplyMachine', false);
+// Start with Fiscal Year 2021, later user can choose which Fiscal Year
 Session.set('newFiscalYear', "2021")
 
 Template.analysisOverView.helpers({
@@ -93,6 +94,14 @@ Template.analysisOverView.helpers({
                         arraySummery.push(result[element]);
                     }
                 });
+            } else if (newFiscalYear === "2022") {
+                newFiscalYear = "2021090401"
+                resultObj.forEach((element) => {
+                    if (element >= newFiscalYear) {
+                        arraySummery.push(result[element]);
+                        console.log(arraySummery)
+                    }
+                });
             }
         } catch {}
         let annualSummary = arraySummery.flat(1);
@@ -144,7 +153,7 @@ Template.analysisOverView.helpers({
         let supplyArea = Session.get('pickersAnnualSupplyAreas');
         let timePerCart = Session.get('pickersAnnualDuration');
         let cartsTotal = Session.get('pickersAnnualCart');
-        console.log(timePerCart, cartsTotal, categories);
+      //  console.log(timePerCart, cartsTotal);
         let annualSupply = supplyArea.length;
         let annualAverage = (timePerCart.reduce((a,b) => a + b, 0) / timePerCart.length).toFixed(0);
         let annualCarts = cartsTotal.reduce((a,b) => a + b, 0);
@@ -562,22 +571,22 @@ Template.analysisOverView.events({
                        inputResult, objectKey, function (err, response) {
                 if (err)
                 {
-                    console.log(err);
+               //     console.log(err);
                 } else {
-                    console.log('success', response);
+                //    console.log('success', response);
                     getArea(area, picker, newFiscalYear)
                 }
         });
         e.target.editTime.value = '';
         Session.set('01-supplyMachine', '');
-        console.log(Session.get('response'));
+        // console.log(Session.get('response'));
     },
 
 
     'click .fiscal-year-chosen': function(e) {
         e.preventDefault();
         let fiscalYear = this.year;
-        console.log(fiscalYear)
+        // console.log(fiscalYear)
         Session.set('newFiscalYear', fiscalYear);
     },
 
@@ -753,7 +762,7 @@ Template.analysisOverView.events({
         } else {
             Meteor.call('chosenRange', dateX, dateY, picker, function (err, response) {
                 if (err) {
-                    console.log(err)
+                 //   console.log(err)
                 } else {
                     Session.set('rangeCounter', response[0]);
                     Session.set('rangeUniqueSupply', response[1]);
@@ -776,7 +785,7 @@ Template.analysisOverView.events({
 function getArea (area, picker, newFiscalYear) {
     Meteor.call('selectedAreaAnalysis', area, picker, newFiscalYear, function (err, response) {
         if (err) {
-            console.log(err);
+         //   console.log(err);
         } else {
             Session.set('response', response);
             Session.set('diagramDate', false);

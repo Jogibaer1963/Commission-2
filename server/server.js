@@ -36,10 +36,6 @@ if(Meteor.isServer){
             return fiscalYear.find();
         });
 
-        Meteor.publish("assemblyLineBay", function () {
-            return assemblyLineBay.find();
-        });
-
         Meteor.publish("activeAssembly", function () {
             return activeAssembly.find();
         });
@@ -52,6 +48,24 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
+
+        'serverTime': () => {
+            // Month starts at 0 and ends at 11 (January = 0, December = 11)
+            // Day starts at 0 and ends at 6 (Sunday = 0, Saturday = 6)
+            // unixTime in milliseconds stored as a string
+            let  serverDateTime, serverMin, serverTime, unixServerTime, serverMonth, serverDate, serverHours;
+            serverDateTime = new Date();
+            unixServerTime = Date.now().toString();
+            serverHours = serverTimer(serverDateTime.getHours())
+            serverMin = serverTimer(serverDateTime.getMinutes())
+            serverMonth = serverTimer(serverDateTime.getMonth())
+            serverDate = serverTimer(serverDateTime.getDate())
+            serverTime = serverDateTime.getFullYear() + '-' + serverMonth + '-' + serverDate + ' ' + serverHours + ':' +  serverMin + ' ' + serverDateTime.getDay();
+
+            activeAssembly.update({"_id" : "timeStamp"}, {$set: {"serverTime" : serverTime, unixTime: unixServerTime}})
+
+            return serverTime;
+    },
 
         'updateTactTime': (percent) => {
           //  let timeLeft =
@@ -279,228 +293,6 @@ if(Meteor.isServer){
                           'productionOrder': result[30][0],
                           'sequence': result[31][0]
                       }
-                      /*
-                      bayReady = [
-                          {
-                              "_id": "station1",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[1][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "station2",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[2][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "station3",  // cooling box entry
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[3][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "station4",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[4][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "mergeEngine",   // merge cooling box and Engine
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[5][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-fcb-threshing",  // merge FCB with Threshing Unit
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[6][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay3",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[7][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay4",   // merge Engine with Chassis
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[8][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay5",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[9][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay6",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[10][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay7",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[11][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay8",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[12][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay9",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[13][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay10",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[14][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-test-bay-1",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[15][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-test-bay-2",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[16][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-test-bay-3",
-                              "bayStatus": 0,
-                              "bayDatePlanned": "",
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-test-bay-4",
-                              "bayStatus": 0,
-                              "bayDatePlanned": "",
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-14",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[17][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-15",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[18][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-16",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[19][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-17",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[20][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-18",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[21][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                          {
-                              "_id": "machine-field-bay-19",
-                              "bayStatus": 0,
-                              "bayDatePlanned": moment(new Date(result[22][0])).format('YYYY-MM-DD'),
-                              "bayDateLanding": "",
-                              "bayDateLeaving": "",
-                              "completeBy": "",
-                              "completedAt": ""
-                          },
-                      ]
-
-                       */
-
                       try {
 
                           // ****************************************  new machine  *******************************
@@ -1638,13 +1430,6 @@ if(Meteor.isServer){
                 createdBy: loggedUser, loginStatus: 0});
         },
 
- //-----------------------------------------------------  Assembly Line ---------------------------------------------------------
-
-        'addBay' : function (newBay) {
-              assemblyLineBay.insert( {bay: newBay})
-        },
-
-
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
     });
@@ -1657,6 +1442,9 @@ if(Meteor.isServer){
       }
 
      */
+
+
+
 
     function pickingToDay () {
         let today = Date.now();
@@ -1699,6 +1487,15 @@ if(Meteor.isServer){
         }
         weekDay = '0' + weekDay;
         return (year + month + day + weekDay);
+    }
+
+    function serverTimer(time) {
+        if (time < '10') {
+            time = '0' + time;
+        } else {
+           return time;
+        }
+        return time
     }
 
 }

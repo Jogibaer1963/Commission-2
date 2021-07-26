@@ -10,13 +10,22 @@ function set_theme(current_theme) {
     return $('.body').addClass(themes[current_theme]);
 }
 
+Template.assemblyLine.helpers({
+
+
+
+})
+
+
+
 //-------------------------------------------------------------------------------------
 Template.burstSunTimerTeam_1.helpers({
+
+
 
     tactTimeLeft: () => {
       let init2 = activeAssembly.findOne({_id: 'team-1'}, {fields: {tactTimeLeft: 1}});
       console.log('init 2: ', init2)
-
     },
 
 
@@ -29,7 +38,7 @@ Template.burstSunTimerTeam_1.onRendered(function() {
     set_theme(current_theme);
     update_clock_team_1();
     setInterval(function () {
-        init = activeAssembly.findOne({_id: 'team-1'});
+        init = activeAssembly.findOne({_id: 'machine-field-bay3'});
         console.log(init)
         return  update_clock_team_1();
     }, 30000);  // 10 sec = 10000 ms
