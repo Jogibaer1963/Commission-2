@@ -44,10 +44,27 @@ if(Meteor.isServer){
             return userActions.find();
         });
 
+        Meteor.publish('assemblySchedule', function() {
+            return assemblySchedule.find();
+        })
+
+        Meteor.publish('scheduleConfig', function() {
+            return scheduleConfig.find();
+        })
+
     });
 
 
     Meteor.methods({
+
+        'desiredMachinesList': (dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate,  machines) => {
+            console.log(dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate, machines)
+            var currentDate = new Date();
+            var firstday = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay())).toUTCString();
+            var lastday = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay() + 7)).toUTCString();
+            console.log(firstday, lastday, otherStartDate)
+           // console.log(new Date(unixStartDate).getDate())
+        },
 
         'serverTime': () => {
             // Month starts at 0 and ends at 11 (January = 0, December = 11)
@@ -62,7 +79,7 @@ if(Meteor.isServer){
             serverDate = serverTimer(serverDateTime.getDate())
             serverTime = serverDateTime.getFullYear() + '-' + serverMonth + '-' + serverDate + ' ' + serverHours + ':' +  serverMin + ' ' + serverDateTime.getDay();
 
-            activeAssembly.update({"_id" : "timeStamp"}, {$set: {"serverTime" : serverTime, unixTime: unixServerTime}})
+            activeAssembly.update({"_id" : "assemblyLineTimeStamp"}, {$set: {"serverTime" : serverTime, unixTime: unixServerTime}})
 
             return serverTime;
     },

@@ -1,0 +1,13 @@
+
+$opacity-1: 10;
+$opa-value: .55;
+$gradient-1: 3;
+
+.transparent-box {
+  background: linear-gradient(90deg, rgba($opacity-1, 10, 10, $opa-value), rgb($gradient-1, 0, 0));
+  height: 2150px;
+  left: 70em;
+  position: absolute;
+  width: 400px;
+  z-index: 1;
+}

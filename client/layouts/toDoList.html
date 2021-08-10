@@ -35,10 +35,10 @@
             <thead >
             <tr>
                 <th class="pdiComments"><strong>To Do</strong></th>
-                <th class="pdiShipDate"><strong>Created at</strong></th>
+                <th class="pdiShipField"><strong>Created at</strong></th>
                 <th class="adminUser"><strong>Created by</strong></th>
-                <th class="pdiShipDate"><strong>Needed by</strong></th>
-                <th class="pdiShipDate"><strong>Cleared at</strong></th>
+                <th class="pdiShipField"><strong>Needed by</strong></th>
+                <th class="pdiShipField"><strong>Cleared at</strong></th>
                 <th class="pdiShipField"><strong>Status</strong></th>
             </tr>
             </thead>
@@ -46,10 +46,10 @@
             {{#each toDoMessage}}
                 <tr class="textMessage {{selectedMessage}}">
                     <td class="pdiComments">{{toDoText}}</td>
-                    <td class="pdiShipDate"><strong>{{dateNow}}</strong></td>
+                    <td class="pdiShipField"><strong>{{dateNow}}</strong></td>
                     <td class="adminUser"><strong>{{toDoUser}}</strong></td>
-                    <td class="pdiShipDate"><strong>{{needDate}}</strong></td>
-                    <td class="pdiShipDate"><strong>{{clearDate}}</strong></td>
+                    <td class="pdiShipField"><strong>{{needDate}}</strong></td>
+                    <td class="pdiShipField"><strong>{{clearDate}}</strong></td>
                     <td class="pdiShipField {{getToDoStatus toDoStatus}}" style="background-color:{{getToDoStatus toDoStatus}}; color:{{getToDoStatus toDoStatus}}">{{toDoStatus}}</td>
                 </tr>
             {{/each}}

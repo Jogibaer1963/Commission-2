@@ -29,6 +29,8 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 22.5em;
 }
 
+//box is covering Table except 1st line.
+
 .invisible-box {
   height: 20em;
   left: 5em;
@@ -50,9 +52,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   width: 280px;
 }
 
+
 .canvas-correction {
-  top: -5.7em;
+  position: absolute;
+  top: 60px;
 }
+
+
 
 // **************************** arrows Assembly Line ****************************
 
@@ -166,7 +172,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay2-fcb-merge-threshing {
-  left: 30em;
+  left: 30.5em;
 }
 
 .bay-2-merge-text {

@@ -74,7 +74,7 @@
                 <thead>
                 <tr>
                     <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    <th class="pdiShipField"><strong>Date In Line</strong></th>
                     {{#each supplyList}}
                         <th class="rotate-45"><div><span>{{_id}}</span></div></th>
                     {{/each}}
@@ -85,7 +85,7 @@
                 {{#each machineList}}
                     <tr class="commissionMachine {{selectedMachine}}">
                         <td class="pdiMachineField">{{machineId}}</td>
-                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        <td class="pdiShipField">{{inLineDate}}</td>
                         {{#each supplyAreas}}
                             <td class="{{getStatusColor supplyStatus}}"
                                 style="background-color:{{getStatusColor supplyStatus}};
@@ -109,14 +109,14 @@
                 <thead>
                 <tr>
                     <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    <th class="pdiShipField"><strong>Date In Line</strong></th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each inactiveMachineList}}
                     <tr class="inactiveMachine">
                         <td class="pdiMachineField">{{machineId}}</td>
-                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        <td class="pdiShipField">{{inLineDate}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -132,7 +132,7 @@
                 <thead>
                 <tr>
                     <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                    <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                    <th class="pdiShipField"><strong>Date In Line</strong></th>
                     {{#each supplyList}}
                         <th class="rotate-45"><div><span>{{_id}}</span></div></th>
                     {{/each}}
@@ -143,7 +143,7 @@
                 {{#each machineReview}}
                     <tr class="{{machineToReview}}">
                         <td class="pdiMachineField">{{machineId}}</td>
-                        <td class="pdiShipDate">{{inLineDate}}</td>
+                        <td class="pdiShipField">{{inLineDate}}</td>
                         {{#each supplyAreas}}
                             <td class="{{getStatusColor supplyStatus}}"
                                 style="background-color:{{getStatusColor supplyStatus}};

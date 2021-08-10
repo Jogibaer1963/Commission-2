@@ -20,7 +20,7 @@ Template.timeUpdater.helpers({
 Template.assemblyTimer.helpers({
 
     printServerTime: () => {
-        let serverTime = activeAssembly.findOne({_id: "timeStamp"});
+        let serverTime = activeAssembly.findOne({_id: "assemblyLineTimeStamp"});
         console.log('Server Time ', serverTime)
         return serverTime
     }

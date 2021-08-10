@@ -36,14 +36,14 @@
                   <thead>
                     <tr>
                       <th class="pdiMachineField "><strong>Machines</strong></th>
-                        <th class="pdiShipDate "><strong>Date in Line</strong></th>
+                        <th class="pdiShipField "><strong>Date in Line</strong></th>
                     </tr>
                   </thead>
                   <tbody class="bodyHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}" >
                      {{#each machineCommList}}
                         <tr class="pickedMachine {{selectedMachine}}">
                           <td class="pdiMachineField machineTablet" >{{machineId}}</td>
-                            <td class="pdiShipDate machineTablet" >{{inLineDate}}</td>
+                            <td class="pdiShipField machineTablet" >{{inLineDate}}</td>
                         </tr>
                      {{/each}}
                   </tbody>

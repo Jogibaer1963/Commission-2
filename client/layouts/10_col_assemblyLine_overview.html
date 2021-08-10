@@ -22,7 +22,7 @@
             <thead>
             <tr>
                 <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                <th class="pdiShipDate"><strong>Date In Line</strong></th>
+                <th class="pdiShipField"><strong>Date In Line</strong></th>
                 {{#each bayList}}
                     <th class="rotate-45"><div><span>{{bay}}</span></div></th>
                 {{/each}}
@@ -33,7 +33,7 @@
             {{#each machineList}}
                 <tr class="">
                     <td class="pdiMachineField">{{machineId}}</td>
-                    <td class="pdiShipDate">{{inLineDate}}</td>
+                    <td class="pdiShipField">{{inLineDate}}</td>
                     {{#each bayReady}}
                         <td class="{{getStatusColor bayStatus}}"
                             style="background-color:{{getStatusColor bayStatus}};

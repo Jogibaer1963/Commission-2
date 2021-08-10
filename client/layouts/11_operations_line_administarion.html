@@ -1,0 +1,173 @@
+<template name="lineAdministration">
+    {{#if currentUser}}
+        {{#if isInRole 'admin'}}
+            {{> navBar}}
+            {{> lineBasicCondition}}
+            {{> shiftConfig}}
+            {{> monthlyView}}
+            {{> desiredMachines}}
+            {{/if}}
+        {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="navBar">
+
+</template>
+
+<template name="lineBasicCondition">
+        <div class="header">Basic Conditions</div>
+        <div class="define-work-days">
+            <h3>Define Work Days and Month</h3>
+            <form class="defineWorkDays">
+                <label for="monday">Mo</label>
+                <input type="checkbox" id="monday" name="weekDay" value="0">
+                <label for="tuesday">Tu</label>
+                <input type="checkbox" id="tuesday" name="weekDay" value="1">
+                <label for="wednesday">We</label>
+                <input type="checkbox" id="wednesday" name="weekDay" value="2">
+                <label for="thursday">Th</label>
+                <input type="checkbox" id="thursday" name="weekDay" value="3">
+                <label for="friday">Fr</label>
+                <input type="checkbox" id="friday" name="weekDay" value="4">
+                <label for="saturday">Sa</label>
+                <input type="checkbox" id="saturday" name="weekDay" value="5">
+                <label for="sunday">Su</label>
+                <input type="checkbox" id="sunday" name="weekDay" value="6">
+                <br><br>
+                <label for="beginWorkDays">From</label>
+                <br>
+                <input type="month" id="beginWorkDays" name="beginWorkMonth">
+                <label for="endWorkDays"></label>
+                <input type="month" id="endWorkDays" name="endWorkMonth">
+                <div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+</template>
+
+<template name="shiftConfig">
+    <div class="schedule-config-header">
+        <h3>Schedule Config Table</h3>
+    </div>
+    <div class="shift-config-table">
+        <table class="table blueTable shift-config">
+            <thead>
+            <tr>
+                <th class="pdiShipField shift-config">Shift</th>
+                <th class="pdiShipField shift-config">Shift starts</th>
+                <th class="pdiShipField shift-config">Shift Ends</th>
+                <th class="pdiShipField shift-config">Team Meeting</th>
+                <th class="shift-config" >DU</th>
+                <th class="pdiShipField shift-config">1st  Break</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">Lunch Break</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">2nd Break</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">3rd Break</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">Clean Up Start</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">Plant Meeting Clean Up</th>
+                <th class="shift-config">DU</th>
+                <th class="pdiShipField shift-config">Plant Meeting</th>
+                <th class="shift-config">DU</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each shiftConfig}}
+                <tr>
+                    <td class="pdiShipField shift-config">{{_id}}</td>
+                    <td  class="pdiShipField shift-config">{{shiftStart}}</td>
+                    <td class="pdiShipField shift-config" >{{shiftEnd}}</td>
+                    <td  class="pdiShipField shift-config">{{teamMeeting}}</td>
+                    <td style="width: 40px" class="shift-config">{{teamMeetingDuration}}</td>
+                    <td class="pdiShipField shift-config">{{firstBreak}}</td>
+                    <td style="width: 39px" class="shift-config" >{{firstBreakDuration}}</td>
+                    <td  class="pdiShipField shift-config">{{lunchBreak}}</td>
+                    <td style="width: 40px" class="shift-config" >{{lunchBreakDuration}}</td>
+                    <td  class="pdiShipField shift-config">{{secondBreak}}</td>
+                    <td style="width: 40px" class="shift-config" >{{secondBreakDuration}}</td>
+                    <td  class="pdiShipField shift-config">{{thirdBreak}}</td>
+                    <td style="width: 40px" class="shift-config">{{thirdBreakDuration}}</td>
+                    <td class="pdiShipField shift-config">{{cleanUp}}</td>
+                    <td style="width: 39px" class="shift-config" >{{cleanUpDuration}}</td>
+                    <td  class="pdiShipField shift-config">{{plantMeetingCleanUpStart}}</td>
+                    <td style="width: 40px" class="shift-config" >{{plantMeetingCleanUpDuration}}</td>
+                    <td  class="pdiShipField shift-config">{{plantMeetingStart}}</td>
+                    <td style="width: 40px" class="shift-config" >{{plantMeetingDuration}}</td>
+                </tr>
+            {{/ each}}
+            </tbody>
+        </table>
+    </div>
+
+</template>
+
+<template name="monthlyView">
+    <div class="monthly-table-view">
+        <table class="table blueTable ">
+            <thead>
+            <tr>
+                <th class="week-date shift-config">Date</th>
+                <th class="pdiShipField shift-config">Index Time</th>
+                <th class="pdiShipField shift-config">Schedule</th>
+                <th class="pdiShipField shift-config">Carry Over</th>
+                <th class="pdiShipField shift-config">Minutes per Build</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each assemblyScheduleTable}}
+                <tr>
+                    <td class="week-date shift-config">{{date}}</td>
+                    <td class="pdiShipField shift-config">{{indexTime}}</td>
+                    <td class="pdiShipField shift-config">{{schedule}}</td>
+                    <td class="pdiShipField shift-config">{{carryOverNextDay}}</td>
+                    <td class="pdiShipField shift-config">{{minutesPerBuild}}</td>
+                </tr>
+            {{/ each}}
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<template name="desiredMachines">
+    <div class="weekly-desired-machines">
+        <table class="table blueTable ">
+            <thead>
+            <tr>
+                <th class="pdiShipField shift-config">Week</th>
+                <th class="pdiShipField shift-config">Machines per week</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each weeklyMachinesTable}}
+                <tr>
+                    <td class="pdiShipField shift-config">{{week}}</td>
+                    <td class="pdiShipField shift-config">{{machines}}</td>
+                </tr>
+            {{/ each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="generate-list">
+        <form class="desired-machines">
+            <label for="generate-button">Start Date</label>
+            <br>
+            <input type="date" data-date-format="DD MMMM YYYY" id="generate-button" name="startDate">
+            <br><br>
+            <label for="generate-button">End Date</label>
+            <br>
+            <input type="date" id="generate-button" name="endDate">
+            <br><br>
+            <label for="desiredMachines">Machines planned</label>
+            <br>
+            <input type="number" id="desiredMachines" name="desiredMachines">
+            <br><br>
+            <button type="submit" class="btn btn-success ">Submit</button>
+        </form>
+    </div>
+</template>

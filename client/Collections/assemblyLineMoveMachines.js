@@ -11,7 +11,9 @@ function set_theme(current_theme) {
 }
 
 Template.assemblyLine.helpers({
-
+  test: () => {
+      con
+  }
 
 
 })
@@ -566,7 +568,7 @@ Template.moveMachines.events({
 
 });
 
-
+/*
 // ***************   check status of the field if empty or engaged   **********************
 function invokeMachineTest(canvasId) {
     let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
@@ -743,7 +745,9 @@ function invokeMoveFromLastBay(canvasId) {
 
 
 
+ */
 
+/*
 
 Template.tact_time_team.events({
 
@@ -766,6 +770,8 @@ Template.tact_time_team.events({
     },
 
 });
+
+ */
 
 
 

@@ -1,0 +1,81 @@
+
+.define-work-days {
+  left: 5em;
+  position: absolute;
+  top: 5em;
+}
+
+.schedule-config-header {
+  font-weight: bolder;
+  left: 30em;
+  position: absolute;
+  top: 21em;
+
+}
+
+.shift-config-table {
+  left: 5em;
+  position: absolute;
+  top: 25em;
+}
+
+.pdiShipField {
+  max-width: 90px;
+  min-width: 90px;
+}
+
+.monthly-table-view {
+  left: 5em;
+  position: absolute;
+  top: 45em;
+}
+
+.weekly-desired-machines {
+  left: 40em;
+  position: absolute;
+  top: 45em;
+}
+
+.week-date {
+  max-width: 95px;
+  min-width: 95px;
+}
+
+th,
+td .shift-config {
+  font-family: Bahnschrift, Arial, Helvetica, Arial, sans-serif;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+tbody tr:nth-child(odd) .shift-config {
+  background-color: #9fcdd2;
+}
+
+tbody tr:nth-child(even) .shift-config {
+  background-color: #e5a0bb;
+}
+
+.generate-list {
+  left: 55em;
+  position: absolute;
+  top: 45em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

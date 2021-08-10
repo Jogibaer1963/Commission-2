@@ -1,7 +1,6 @@
 
-
 thead {
-    background-color: lightgrey;
+  background-color: lightgrey;
 }
 
 table tbody, table thead {
@@ -43,7 +42,7 @@ table.blueTable thead th {
 }
 
 table.blueTable thead th:first-child {
-    border-left: none;
+  border-left: none;
 }
 
 table.blueTable tfoot {
@@ -55,7 +54,7 @@ table.blueTable tfoot {
 }
 
 table.blueTable tfoot td {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 table.blueTable tfoot .links {
@@ -89,7 +88,7 @@ $headerKit: 320px;
 $pdiPDIField: 50px;
 $pdiRepField: 50px;
 $pdiWashField: 50px;
-$pdiShipField: 60px;
+$pdiShipField: 90px;
 $pdiLocation: 70px;
 $pdiVariantsDescription: 250px;
 $config: 60px;
@@ -158,9 +157,9 @@ $eraseUser: 50px;
 }
 
 .userStatus {
-   max-width: $loggedIn;
-   min-width: $loggedIn;
- }
+  max-width: $loggedIn;
+  min-width: $loggedIn;
+}
 
 .partsOnOrder {
   max-width: $partsOnOrder;
@@ -196,7 +195,7 @@ $eraseUser: 50px;
   min-width: $pdiOverviewMachine;
 }
 
-.pdiShipDate {
+.pdiShipField {
   max-width: $shipDate;
   min-width: $shipDate;
 }
