@@ -57,7 +57,8 @@ Template.adminNewUser.events({
         }   else if (role === 'Team Lead') {
             roleConst = 'teamLead'
         }else if (role === 'Picker') {
-            roleConst = 'Picker'
+            roleConst = 'Picker';
+
         }
 
         event.target.registerUser.value = '';

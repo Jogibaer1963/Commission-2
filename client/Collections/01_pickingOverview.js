@@ -123,7 +123,7 @@ Template.addMachine.events ({
         let dateOfCreation = Date.now();
         // console.log(newMachine, dateOfCreation);
         if(newMachine) {
-            Meteor.call('doubleMachine', newMachine,  inLineDate, dateOfCreation, function (err, response) {
+        Meteor.call('doubleMachine', newMachine,  inLineDate, dateOfCreation, function (err, response) {
                 if (response) {
                     Session.set('alarm', 'Attention, Machine ' + newMachine + ' already exists');
                 } else {
@@ -158,21 +158,6 @@ Template.addMachine.events ({
         };
         reader.readAsText(file);
         document.getElementById('files').value = [];
-    },
-
-    'change .loadNewFiscalYear': (e) => {
-        e.preventDefault();
-        const file = e.target.files[0];
-        if (!file) {
-            return;
-        }
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            const contents = e.target.result;
-            Meteor.call('updateNewFiscalYear', contents);
-        };
-        reader.readAsText(file);
-        document.getElementById('fiscal22').value = [];
     },
 
 });
