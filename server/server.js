@@ -110,6 +110,7 @@ if(Meteor.isServer){
         },
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
+            console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
            // let clearBay = [];
             let bayArray = [];
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -174,16 +175,25 @@ if(Meteor.isServer){
 
             // **********  count time in Bay spent ****************
 
-
         },
-
 
         // ****************** move from list to FCB Bay ********************
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
+            // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
+          let listObjects = [];
+            let result = assemblyLineBay.find({}).fetch();
+           result.forEach((element) => {
+               listObjects.push(element)
+           })
+            machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
+
+            // *********  End preparing   ****************************************************************************
+
             let bayArray = [];
             let today = moment().format('YYYY-MM-DD HH:mm:ss ');
             let todayUnix = (Date.now()).toFixed(0); // milliseconds
+
             machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                                     {$set: {
                                         'activeAssemblyLineList' : false,
@@ -396,6 +406,8 @@ if(Meteor.isServer){
                           console.log(e)
                       }
           });
+
+
         },
 
 //---------------------------------------------- New Fiscal Year added -----------------------------

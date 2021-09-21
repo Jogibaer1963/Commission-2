@@ -1,22 +1,18 @@
 <template name="assemblyLine">
     {{#if currentUser}}
         <div class="tabletCommissioning">
-            {{> team1OverView}}
             {{> moveMachines}}
             {{> burstSunTimerTeam_1}}
-                <!--
             {{> burstSunTimerTeam_2}}
             {{> burstSunTimerTeam_3}}
             {{> burstSunTimerTeam_5}}
-            -->
         </div>
     {{else}}
         {{> login}}
     {{/if}}
 </template>
-
+    <!--  **********************************  Sun Burst Team 1 to Team 4  **************************** --->
 <template name="burstSunTimerTeam_1">
-
     {{tactTimeLeft}}
     <div class="team-container-1">
         <div class="body body-timer-block">
@@ -61,7 +57,6 @@
     </div>
 </template>
 
-
 <template name="burstSunTimerTeam_3">
     <div class="team-container-3">
         <div class="body body-timer-block">
@@ -105,11 +100,8 @@
         </div>
     </div>
 </template>
-
+   <!--    **************************************** Sun Burst Ends here  **************************** -->
 <template name="moveMachines">
-
-    <!--
-
     <html lang="">
         <style>
             body{
@@ -151,8 +143,8 @@
             <div class="chevron"></div>
         </div>
 -->
-  <!-- Engine Container starts here -->
-<!--
+  <!-- ****************************** Engine Container starts here ********************    -->
+
         <div class="engine-assembly-container">
             <div class="engine-station engine-station-1">
                 <div class="engine-line-arrow-2">
@@ -247,9 +239,9 @@
                 </div>
             </div>
         </div>
--->
-  <!-- Assembly Line starts here  -->
-<!--
+   <!--  **************************************  Engine ends here  ***********************************  -->
+  <!-- ****************************** Assembly Line starts here ''''''''''''''''''''''''''''''''''''' -->
+
         <div class="assembly-line-fields bay2-fcb-merge-threshing">
             <div class="bay-arrows assembly-line-arrow-1">
                 <div class="chevron"></div>

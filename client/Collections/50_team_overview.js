@@ -9,7 +9,7 @@ import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 
 Session.set('twoMachines', false)
 
-Template.team1OverView.helpers({
+Template.team_1_OverView.helpers({
 
     machineReservoir: () => {
         let today = moment().add( -16, 'days').format('YYYY-MM-DD')
@@ -71,7 +71,7 @@ Template.team1OverView.helpers({
 
 })
 
-Template.team1OverView.events({
+Template.team_1_OverView.events({
 
 
     'click .selectedAssemblyMachine': async function(e) {

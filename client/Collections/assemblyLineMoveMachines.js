@@ -12,7 +12,7 @@ function set_theme(current_theme) {
 
 Template.assemblyLine.helpers({
   test: () => {
-      con
+
   }
 
 
@@ -23,14 +23,10 @@ Template.assemblyLine.helpers({
 //-------------------------------------------------------------------------------------
 Template.burstSunTimerTeam_1.helpers({
 
-
-
     tactTimeLeft: () => {
       let init2 = activeAssembly.findOne({_id: 'team-1'}, {fields: {tactTimeLeft: 1}});
       console.log('init 2: ', init2)
     },
-
-
 })
 
 Template.burstSunTimerTeam_1.onRendered(function() {
@@ -276,7 +272,7 @@ Template.moveMachines.helpers({
 
     machineReservoir: () => {
         let today = moment().add( -16, 'days').format('YYYY-MM-DD')
-        let result = machineCommTable.find({inLineDate : {$gt: today}, activeAssemblyLineList : true},
+        let result = machineCommTable.find({activeAssemblyLineList : true},
                                                        {fields: {
                                                                          counter: 1,
                                                                          machineId: 1,
@@ -311,6 +307,59 @@ Template.moveMachines.helpers({
         } catch(e) {
 
         }
+    },
+
+    draw_merge_Engine: () => {
+        let canvasId = "engine_merge";
+       // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_cooling_box_1: () => {
+        let canvasId = "engine_cooling_box_1";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_cooling_box_2: () => {
+        let canvasId = "engine_cooling_box_2";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_station_1: () => {
+        let canvasId = "engine_station_1";
+        // invokeDrawMachineInBay(canvasId)
+    },
+    draw_engine_station_2: () => {
+        let canvasId = "engine_station_2";
+        // invokeDrawMachineInBay(canvasId)
+    },
+    draw_engine_station_3: () => {
+        let canvasId = "engine_station_3";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_station_4: () => {
+        let canvasId = "engine_station_4";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_storage_1: () => {
+        let canvasId = "engine_storage_1";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_storage_2: () => {
+        let canvasId = "engine_storage_2";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_storage_3: () => {
+        let canvasId = "engine_storage_3";
+        // invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_engine_storage_4: () => {
+        let canvasId = "engine_storage_4";
+        // invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay3: () => {
@@ -568,7 +617,7 @@ Template.moveMachines.events({
 
 });
 
-/*
+
 // ***************   check status of the field if empty or engaged   **********************
 function invokeMachineTest(canvasId) {
     let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
@@ -745,10 +794,10 @@ function invokeMoveFromLastBay(canvasId) {
 
 
 
- */
+
+
 
 /*
-
 Template.tact_time_team.events({
 
     'submit .tact-time': function(e) {
@@ -772,6 +821,8 @@ Template.tact_time_team.events({
 });
 
  */
+
+
 
 
 
