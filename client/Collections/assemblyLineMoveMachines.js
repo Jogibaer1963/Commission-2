@@ -1,5 +1,12 @@
 Meteor.subscribe('activeAssembly')
 
+import { invokeMachineTest } from '../../lib/99_functionCollector.js';
+import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
+import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
+import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
+import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
+import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
+import { invokeMoveFromLastBay } from  '../../lib/99_functionCollector.js'
 
 Session.set('twoMachines', false)
 //-----------------  Global Sun set theme function -----------------------------------
@@ -15,17 +22,14 @@ Template.assemblyLine.helpers({
 
   }
 
-
 })
-
-
 
 //-------------------------------------------------------------------------------------
 Template.burstSunTimerTeam_1.helpers({
 
     tactTimeLeft: () => {
       let init2 = activeAssembly.findOne({_id: 'team-1'}, {fields: {tactTimeLeft: 1}});
-      console.log('init 2: ', init2)
+      //console.log('init 2: ', init2)
     },
 })
 
@@ -37,7 +41,7 @@ Template.burstSunTimerTeam_1.onRendered(function() {
     update_clock_team_1();
     setInterval(function () {
         init = activeAssembly.findOne({_id: 'machine-field-bay3'});
-        console.log(init)
+       // console.log(init)
         return  update_clock_team_1();
     }, 30000);  // 10 sec = 10000 ms
     build_sun_spots_team_1(10);
@@ -292,11 +296,12 @@ Template.moveMachines.helpers({
         //  ***************    Move Machine from List to the FCB merging Station  *************
 
     draw_fcb_threshing: () => {
-        let canvasId = "machine-field-fcb-threshing";
+        let canvasId = "machine_field_fcb_threshing";
         let result = activeAssembly.findOne({_id : canvasId},{});
         try {
             if (result.bayArray.length === 0) {
                 // draw empty field in Bay
+                console.log('empty')
                 invokeEmptyBay(canvasId)
             } else if (result.bayArray.length === 1) {
                 let locator = 'helper draw_fcb...'
@@ -361,96 +366,103 @@ Template.moveMachines.helpers({
         let canvasId = "engine_storage_4";
         // invokeDrawMachineInBay(canvasId)
     },
+/*
+    draw_fcb_threshing: () => {
+        let canvasId = "machine_field_fcb_threshing";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+ */
 
     draw_bay3: () => {
-        let canvasId = "machine-field-bay3";
+        let canvasId = "machine_field_bay_3";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay4: () => {
-        let canvasId = "machine-field-bay4";
+        let canvasId = "machine_field_bay_4";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay5: () => {
-        let canvasId = "machine-field-bay5";
+        let canvasId = "machine_field_bay_5";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay6: () => {
-        let canvasId = "machine-field-bay6";
+        let canvasId = "machine_field_bay_6";
         invokeDrawMachineInBay(canvasId)
 
     },
 
     draw_bay7: () => {
-        let canvasId = "machine-field-bay7";
+        let canvasId = "machine_field_bay_7";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay8: () => {
-        let canvasId = "machine-field-bay8";
+        let canvasId = "machine_field_bay_8";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay9: () => {
-        let canvasId = "machine-field-bay9";
+        let canvasId = "machine_field_bay_9";
         invokeDrawMachineInBay(canvasId)
 
     },
 
     draw_bay10: () => {
-        let canvasId = "machine-field-bay10";
+        let canvasId = "machine_field_bay_10";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_test_bay_1: () => {
-        let canvasId = "machine-field-test-bay-1";
+        let canvasId = "machine_field_test_bay_1";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_test_bay_2: () => {
-        let canvasId = "machine-field-test-bay-2";
+        let canvasId = "machine_field_test_bay_2";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_test_bay_3: () => {
-        let canvasId = "machine-field-test-bay-3";
+        let canvasId = "machine_field_test_bay_3";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_test_bay_4: () => {
-        let canvasId = "machine-field-test-bay-4";
+        let canvasId = "machine_field_test_bay_4";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_14: () => {
-        let canvasId = "machine-field-bay-14";
+        let canvasId = "machine_field_bay_14";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_15: () => {
-        let canvasId = "machine-field-bay-15";
+        let canvasId = "machine_field_bay_15";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_16: () => {
-        let canvasId = "machine-field-bay-16";
+        let canvasId = "machine_field_bay_16";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_17: () => {
-        let canvasId = "machine-field-bay-17";
+        let canvasId = "machine_field_bay_17";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_18: () => {
-        let canvasId = "machine-field-bay-18";
+        let canvasId = "machine_field_bay_18";
         invokeDrawMachineInBay(canvasId)
     },
 
     draw_bay_19: () => {
-        let canvasId = "machine-field-bay-19";
+        let canvasId = "machine_field_bay_19";
         invokeDrawMachineInBay(canvasId)
     },
 
@@ -460,16 +472,11 @@ Template.moveMachines.helpers({
 
 Template.moveMachines.events({
 
-    'click .btn-back': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/assemblyLineOverView')
-    },
-
     'click .selectedAssemblyMachine': async function(e) {
         e.preventDefault();
         let selectedAssemblyMachine = this._id;
         let machineNr = this.machineId;
-        let canvasId = "machine-field-fcb-threshing"
+        let canvasId = "machine_field_fcb_threshing"
         let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
       //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
@@ -482,78 +489,78 @@ Template.moveMachines.events({
 
     'click .bay-2-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-fcb-threshing'
-        let newCanvasId = "machine-field-bay3";
+        let oldCanvasId = 'machine_field_fcb_threshing'
+        let newCanvasId = "machine_field_bay_3";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-3-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay3'
-        let newCanvasId = "machine-field-bay4";
+        let oldCanvasId = 'machine_field_bay_3'
+        let newCanvasId = "machine_field_bay_4";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-4-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay4'
-        let newCanvasId = "machine-field-bay5";
+        let oldCanvasId = 'machine_field_bay_4'
+        let newCanvasId = "machine_field_bay_5";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-5-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay5'
-        let newCanvasId = "machine-field-bay6";
+        let oldCanvasId = 'machine_field_bay_5'
+        let newCanvasId = "machine_field_bay_6";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-6-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay6'
-        let newCanvasId = "machine-field-bay7";
+        let oldCanvasId = 'machine_field_bay_6'
+        let newCanvasId = "machine_field_bay_7";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-7-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay7'
-        let newCanvasId = "machine-field-bay8";
+        let oldCanvasId = 'machine_field_bay_7'
+        let newCanvasId = "machine_field_bay_8";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-8-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay8'
-        let newCanvasId = "machine-field-bay9";
+        let oldCanvasId = 'machine_field_bay_8'
+        let newCanvasId = "machine_field_bay_9";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-9-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay9'
-        let newCanvasId = "machine-field-bay10";
+        let oldCanvasId = 'machine_field_bay_9'
+        let newCanvasId = "machine_field_bay_10";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-10-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay10'
-        let newCanvasId = "machine-field-test-bay-1";
+        let oldCanvasId = 'machine_field_bay_10'
+        let newCanvasId = "machine_field_test_bay_1";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-test-bay-1-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-test-bay-1'
-        let newCanvasId = "machine-field-test-bay-2";
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_2";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-test-bay-2-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-test-bay-2'
-        let newCanvasId = "machine-field-bay-14";
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_bay_14";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 /*
@@ -575,252 +582,48 @@ Template.moveMachines.events({
 
     'click .bay-14-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-14'
-        let newCanvasId = "machine-field-bay-15";
+        let oldCanvasId = 'machine_field_bay_14'
+        let newCanvasId = "machine_field_bay_15";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-15-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-15'
-        let newCanvasId = "machine-field-bay-16";
+        let oldCanvasId = 'machine_field_bay_15'
+        let newCanvasId = "machine_field_bay_16";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-16-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-16'
-        let newCanvasId = "machine-field-bay-17";
+        let oldCanvasId = 'machine_field_bay_16'
+        let newCanvasId = "machine_field_bay_17";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-17-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-17'
-        let newCanvasId = "machine-field-bay-18";
+        let oldCanvasId = 'machine_field_bay_17'
+        let newCanvasId = "machine_field_bay_18";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-18-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-18'
-        let newCanvasId = "machine-field-bay-19";
+        let oldCanvasId = 'machine_field_bay_18'
+        let newCanvasId = "machine_field_bay_19";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .bay-19-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine-field-bay-19' // Last Bay
+        let oldCanvasId = 'machine_field_bay_19' // Last Bay
         invokeMoveFromLastBay(oldCanvasId)
     }
 
 
 });
 
-
-// ***************   check status of the field if empty or engaged   **********************
-function invokeMachineTest(canvasId) {
-    let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
-    if (result.bayArray.length === 0) {
-        // found empty bay
-  //      console.log('function bay status 0', canvasId, result)
-        return [0];
-        } else if (result.bayArray.length === 1) {
-        // found 1  Machines in Bay
-     //   console.log('function bay status 1', canvasId, result)
-            return [1, result.bayArray]
-        } else if (result.bayArray.length === 2) {
-    //    console.log('function bay status 2', canvasId, result)
-            return [2, result.bayArray];
-        }
-}
-
-function invokeEmptyBay(canvasId) {
-    Meteor.defer(function() {
-        //  console.log('inside first function', machineNr, id)
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height) // clear any canvas in Bay
-
-        ctx.strokeStyle = "#ee0e0e";
-        ctx.lineWidth = "2"
-        ctx.strokeRect(0, 15, 90, 30)
-    })
-}
-
-function  invokeDrawMachineInBay(canvasId) {
-    let result = activeAssembly.findOne({_id : canvasId},{});
-    try {
-        if (result.bayArray.length === 0) {
-            // draw empty field in Bay
-            invokeEmptyBay(canvasId)
-        } else if (result.bayArray.length === 1) {
-            // draw 1 machine in Bay
-            let machineNrInBay = result.bayArray[0].machineNr;
-            invokeDrawOneMachine(machineNrInBay, canvasId);
-        } else if (result.bayArray.length === 2) {
-            // draw 2 Machines in Bay
-            let machineOne = result.bayArray[0].machineNr;
-            let machineTwo =  result.bayArray[1].machineNr;
-            // console.log(machineOne, machineTwo)
-            invokeDrawTwoMachines(machineOne, machineTwo, canvasId)
-        }
-    } catch(e) {
-    }
-}
-
-function invokeMoveMachine(oldCanvasId, newCanvasId) {
-    let spaceResult = activeAssembly.findOne({_id: newCanvasId}, {fields: {baySpace: 1}});
-    let space_in_Bay = spaceResult.baySpace;
-    let user = Meteor.user().username;
-    let machineToMove = invokeMachineTest(oldCanvasId) // checking which machine is in Bay now
-    let result = invokeMachineTest(newCanvasId);  // checking if a machine is in front
-  //  console.log(machineToMove, result)
-    if (result[0] === 0) {  // no machine in front
-        let machineCount = machineToMove[0];
-    //      console.log('machineToMove ', oldCanvasId, machineCount, newCanvasId, machineToMove)
-        if (machineCount === 1) {
-            // move 1 Machine
-            let jsonObject = machineToMove[1][0];
-            let machineId = jsonObject.machineId;
-            let machineNr = jsonObject.machineNr;
-     //       console.log('Object ',machineId, machineNr, user, oldCanvasId, newCanvasId)
-            Meteor.call('moveMachineToNextBay', machineId, machineNr, user, oldCanvasId, newCanvasId, false)
-        } else if (machineCount === 2) {
-    //        console.log('2 Machines')
-            // 2 Machines in present Bay, but nothing in front, Move first machine
-            let machineId = machineToMove[1][0].machineId;
-            let machineNr = machineToMove[1][0].machineNr;
-     //       console.log(machineToMove[1][0].machineNr)
-            Meteor.call('moveMachineToNextBay', machineId, machineNr, user, oldCanvasId, newCanvasId, true)
-        }
-
-    } else if (result[0] === 1 && space_in_Bay === 2) {  // already 1 machine in front and Space for 2
-                                                         //     console.log('found 1 Machine in Bay', result[1][0])
-        // find Machine Number already in Bay
-        let presentMachineNr = result[1][0].machineNr;
-        let jsonObject = machineToMove[1][0];
-        let machineId = jsonObject.machineId;
-        let machineNr = jsonObject.machineNr;
-        Meteor.call('moveMachineToNextBay', machineId, machineNr, user, oldCanvasId, newCanvasId, false)
-        invokeDrawTwoMachines(presentMachineNr, machineNr, newCanvasId)
-        } else if (result[0] === 1 && space_in_Bay === 1) {
-            // found 1 Machine up front but only space for 1 dont move, send alert
-            window.alert('Only 1 Machine in Bay up front allowed')
-        } else if (result[0] === 2) {
-            // console.log('found 2 Machine in Bay in front', result)
-            // dont move machine, send alert
-            window.alert('3 Machines in one Bay are not possible')
-        }
-
-
-}
-
-function invokeDrawOneMachine(machineNr, canvasId, locator) {
-    Meteor.defer(function() {
-      //  console.log('Draw Machine in Bay', machineNr, canvasId, locator)
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
-
-            ctx.fillStyle = '#37db1a'
-            ctx.strokeStyle = "#3ee021";
-            ctx.lineWidth = "2"
-            ctx.strokeRect(0, 15, 90, 30)
-            ctx.font = "bold 15px Arial"
-            ctx.fillText(machineNr, 7, 35)
-    })
-}
-
-// ****  draw 1 machine  **********************
-function invokeDrawNewMachine(machineNr, canvasId) {
-    Meteor.defer(function() {
-     //   console.log('Draw Machine in next Bay', machineNr, canvasId)
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-        if (machineNr && canvasId) {
-            ctx.fillStyle = '#37db1a'
-            ctx.strokeStyle = "#3ee021";
-            ctx.lineWidth = "2"
-            ctx.strokeRect(0, 0, 90, 30)
-            ctx.font = "bold 15px Arial"
-            ctx.fillText(machineNr, 7, 20)
-        } else {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-    })
-}
-
-function invokeDrawTwoMachines(presentMachine, newMachine, newCanvasId) {
-    Meteor.defer(function() {
-        // ******************   Delete previous drawn Canvas  ***************
-        let canVas = document.getElementById(newCanvasId);
-        let context = canVas.getContext("2d");
-        context.clearRect(0, 0, canVas.width, canVas.height);
-
-        // ****************  Draw new Canvas  *********************************
-
-        let canvas = document.getElementById(newCanvasId);
-        if (canvas.getContext) {
-            let ctx = canvas.getContext("2d");
-
-            ctx.fillStyle = '#37db1a'
-            ctx.strokeStyle = "#ee0e0e";
-
-            ctx.lineWidth = "2"
-            ctx.strokeRect(0, 15, 90, 30);
-            ctx.font = "bold 15px Arial";
-            ctx.fillText(presentMachine, 10, 35);
-
-            ctx.lineWidth = "2"
-            ctx.strokeRect(0, 55, 90, 30);
-            ctx.font = "bold 15px Arial"
-            ctx.fillText(newMachine, 10, 75)
-        }
-    })
-}
-
-function invokeMoveFromLastBay(canvasId) {
-    // call server active Assembly set time date machine is leaving
-    let user = Meteor.user().username;
-    let result = invokeMachineTest(canvasId)
-    let machineId = result[1][0].machineId;
-    Meteor.call('leaveLine', machineId, canvasId, user);
-    // draw empty canvas in Bay 19
-    invokeEmptyBay(canvasId)
-}
-
-
-
-
-
-
-/*
-Template.tact_time_team.events({
-
-    'submit .tact-time': function(e) {
-        e.preventDefault();
-        let tactTime = e.target.inputTactTime.value;
-        console.log(tactTime)
-    },
-
-    'submit .work-start': function(e) {
-        e.preventDefault();
-        let workStart = e.target.workingHourFrom.value;
-        console.log(workStart)
-    },
-
-    'submit .work-hours': function(e) {
-        e.preventDefault();
-        let workHours = e.target.workingHourTotal.value;
-        console.log(workHours)
-    },
-
-});
-
- */
 
 
 

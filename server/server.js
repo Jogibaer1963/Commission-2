@@ -57,12 +57,13 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+
         'desiredMachinesList': (dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate,  machines) => {
             console.log(dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate, machines)
-            var currentDate = new Date();
-            var firstday = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay())).toUTCString();
-            var lastday = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay() + 7)).toUTCString();
-            console.log(firstday, lastday, otherStartDate)
+            let currentDate = new Date();
+            let firstDay = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay())).toUTCString();
+            let lastDay = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay() + 7)).toUTCString();
+            console.log(firstDay, lastDay, otherStartDate)
            // console.log(new Date(unixStartDate).getDate())
         },
 
@@ -79,8 +80,8 @@ if(Meteor.isServer){
             serverDate = serverTimer(serverDateTime.getDate())
             serverTime = serverDateTime.getFullYear() + '-' + serverMonth + '-' + serverDate + ' ' + serverHours + ':' +  serverMin + ' ' + serverDateTime.getDay();
 
-            activeAssembly.update({"_id" : "assemblyLineTimeStamp"}, {$set: {"serverTime" : serverTime, unixTime: unixServerTime}})
-
+            activeAssembly.update({"_id" : "assemblyLineTimeStamp"},
+                {$set: {"serverTime" : serverTime, unixTime: unixServerTime}})
             return serverTime;
     },
 
@@ -110,12 +111,30 @@ if(Meteor.isServer){
         },
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
-            console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
-           // let clearBay = [];
+           // console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
+
             let bayArray = [];
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
 
+         //  ************  start empty Bay Counter ***************************************************
+         //  following Machine need to know the _id to stop the empty-bay-counter
+            // here starts the leaving-bay process, saving time when leaving in "12_activeAssembly"
+            // store the time as it is also the _id for the leaving data field in next machines data block
+            // as emptyBay
+            let leavingBay = {
+                "bay_left" : movingTime,
+                "bay_left_unix" : todayUnix,
+            }
+            activeAssembly.update({_id: "empty_bay_timer"},
+                             {$push: {[thisBay] : leavingBay}})
+
+
+
+
+
+
+           // ******************  move machine to next Bay ************************************************************
             machineCommTable.update({_id: machineId, 'bayReady._id': thisBay},
                 {$set: {
                         'bayReady.$.bayDateLeavingUnix': todayUnix,
@@ -175,12 +194,18 @@ if(Meteor.isServer){
 
             // **********  count time in Bay spent ****************
 
+
+
+
+
+
         },
 
         // ****************** move from list to FCB Bay ********************
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
+
           let listObjects = [];
             let result = assemblyLineBay.find({}).fetch();
            result.forEach((element) => {
@@ -369,6 +394,7 @@ if(Meteor.isServer){
                                           dateOfCreation: today,
                                           active: true,
                                           activeAssemblyLineList: true,
+                                          activeEngineList: true,
                                           timeLine,
                                           supplyAreas : supplyResult
                                       }
@@ -605,16 +631,20 @@ if(Meteor.isServer){
         // ----------------------------------  Multi machines one supply Area
 
         'multipleMachines': (machineIds, loggedUser) => {
+
             let supplyArray0 = [];
-            let supplyArray1 = [];
-            let supplyArray2 = [];
-            let supplyArray3 = [];
-            let supplyArray4 = [];
-            let supplyArray5 = [];
-            let supplyArray6 = [];
-            let supplyArray7 = [];
-            let supplyArray8 = [];
-            let supplyArray9 = [];
+            /*
+           let supplyArray1 = [];
+           let supplyArray2 = [];
+           let supplyArray3 = [];
+           let supplyArray4 = [];
+           let supplyArray5 = [];
+           let supplyArray6 = [];
+           let supplyArray7 = [];
+           let supplyArray8 = [];
+           let supplyArray9 = [];
+            */
+            let supplyArray = [];
             let newSet = [];
             let newObjectSet = [];
             // building arrays of available supply areas for max 6 machines.
@@ -657,7 +687,7 @@ if(Meteor.isServer){
             }, {});
 
             let arr1 = Object.values(countedNames);
-         //   console.log('Array 1 ', arr1);
+            console.log('Array 1 ', arr1);
             let key = Object.keys(countedNames);
             let max = Math.max(...arr1);
             let i = 0;

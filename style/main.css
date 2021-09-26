@@ -1,312 +1,384 @@
 .submit-admin {
   left: 65em;
-  position: absolute; }
+  position: absolute;
+}
 
 .total-users {
   margin-left: 25px;
   position: absolute;
-  top: 35em; }
+  top: 35em;
+}
 
 .new-user {
   margin-left: 4em;
   position: absolute;
-  top: 120px; }
+  top: 120px;
+}
 
 .add-fiscal-year {
   left: 70em;
   position: absolute;
-  top: 19em; }
+  top: 19em;
+}
 
 .fiscal-year-admin {
   position: relative;
   top: 20em;
-  left: 70em; }
+  left: 70em;
+}
 
 .font-style {
   font-weight: bold;
-  font-size: 22px; }
+  font-size: 22px;
+}
 
 .active-inactive-pickers {
   left: 70em;
   position: relative;
-  top: 30em; }
+  top: 30em;
+}
 
 .pickers-id {
   min-width: 120px;
-  text-align: center; }
+  text-align: center;
+}
 
 .supply-frame {
   left: 20em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .deactivate-button {
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .reactivate-button {
   left: 15em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .add-area {
   left: 30em;
   position: absolute;
-  top: 8em; }
+  top: 8em;
+}
 
 .active-supply {
   position: absolute;
-  top: 15em; }
+  top: 15em;
+}
 
 .inactive-supply {
   left: 15em;
   position: absolute;
-  top: 15em; }
+  top: 15em;
+}
 
 .table-size table {
-  height: 50px; }
+  height: 50px;
+}
 
 .commission-admin {
   left: 70em;
   position: absolute;
-  top: 2em; }
+  top: 2em;
+}
 
 #logo {
   position: absolute;
   top: 4em;
-  left: 2em; }
+  left: 2em;
+}
 
 .loginImage {
-  margin-top: 100px; }
+  margin-top: 100px;
+}
 
 .userName {
   position: absolute;
   top: 150px;
-  left: 25px; }
+  left: 25px;
+}
 
 .loginPasswd {
   position: absolute;
   top: 220px;
-  left: 25px; }
+  left: 25px;
+}
 
 .loginButton {
   position: absolute;
   top: 290px;
-  left: 25px; }
+  left: 25px;
+}
 
 .inProcess {
   animation: glowing 1500ms infinite;
-  color: transparent; }
+  color: transparent;
+}
 
 @keyframes glowing {
   0% {
     background-color: #AA3939;
-    box-shadow: 0 0 3px  #AA5939; }
+    box-shadow: 0 0 3px #AA5939;
+  }
   50% {
     background-color: #FFB232;
-    box-shadow: 0 0 10px #FFB232; }
+    box-shadow: 0 0 10px #FFB232;
+  }
   100% {
     background-color: #FFE800;
-    box-shadow: 0 0 3px #FFE800; } }
+    box-shadow: 0 0 3px #FFE800;
+  }
+}
 @keyframes Siglowing {
   0% {
     background-color: #481317;
-    box-shadow: 0 0 3px  #AA5939; }
+    box-shadow: 0 0 3px #AA5939;
+  }
   50% {
     background-color: #cb2aff;
-    box-shadow: 0 0 10px #ffd855; }
+    box-shadow: 0 0 10px #ffd855;
+  }
   100% {
     background-color: #1cbdee;
-    box-shadow: 0 0 3px #ec67ff; } }
+    box-shadow: 0 0 3px #ec67ff;
+  }
+}
 .not-active {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
-  color: black; }
+  color: black;
+}
 
 .repairNavButton {
   position: relative;
-  left: 40em; }
+  left: 40em;
+}
 
 .commissionHeadNav {
   position: absolute;
   top: 2em;
-  left: 35em; }
+  left: 35em;
+}
 
 .templateNav {
   left: 40em;
   position: absolute;
-  top: 2em; }
+  top: 2em;
+}
 
 .buttonNotWorking {
-  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px); }
+  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px);
+}
 
 table.toDoListTable {
   margin-left: 2.5em;
   position: relative;
   top: 14em;
-  width: 60.5em; }
+  width: 60.5em;
+}
 
 .to-do-message {
   left: 2.2em;
   position: relative;
-  top: 13em; }
+  top: 13em;
+}
 
 .adminLopMessage {
   left: 70em;
   position: absolute;
-  top: 16em; }
+  top: 16em;
+}
 
 .text-box {
-  width: 480px; }
+  width: 480px;
+}
 
 .commissionTablet {
   position: absolute;
   top: 5.5em;
-  left: 2em; }
+  left: 2em;
+}
 
 .chooseMachineTable {
   left: 1em;
   position: absolute;
-  top: 18em; }
+  top: 18em;
+}
 
 .commissionHeadTab {
   left: 3em;
   position: absolute;
-  top: 1em; }
+  top: 1em;
+}
 
 .marginLeft {
-  margin-left: 1em; }
+  margin-left: 1em;
+}
 
 .machineTablet {
   color: #71f323;
   white-space: nowrap;
-  width: 9em; }
+  width: 9em;
+}
 
 .tabletUser {
   color: #D0E4F5;
-  margin-left: 1em; }
+  margin-left: 1em;
+}
 
 .pickedMachineField {
-  width: 2em; }
+  width: 2em;
+}
 
 .pickedMachine {
-  z-index: 3; }
+  z-index: 3;
+}
 
 .bodyHeight {
-  height: 250px; }
+  height: 250px;
+}
 
 .supplyAreaTable {
   left: 23em;
   position: absolute;
-  top: -2em; }
+  top: -2em;
+}
 
 table.supply-table {
   height: 50em;
   position: absolute;
   top: 20em;
-  width: 22em; }
+  width: 22em;
+}
 
 .supplyTableHeight {
-  height: 45em; }
+  height: 45em;
+}
 
 .commissionInitials {
   position: relative;
   left: 1.5em;
-  width: 5em; }
+  width: 5em;
+}
 
 .supplyExecuteField {
   color: #D0E4F5;
   left: 35em;
   position: absolute;
-  top: -1em; }
+  top: -1em;
+}
 
 .supplyButtonField {
   left: 25em;
   position: absolute;
-  top: 30em; }
+  top: 30em;
+}
 
 .commStart {
-  float: left; }
+  float: left;
+}
 
 .commPause {
   left: 10em;
-  position: absolute; }
+  position: absolute;
+}
 
 .commResume {
   float: left;
   left: 10em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .commFinished {
-  left: -.2em;
+  left: -0.2em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .commission-cancel {
   left: 25em;
   position: relative;
-  top: 50em; }
+  top: 50em;
+}
 
 .tabletHeader {
   left: -7em;
   position: absolute;
-  width: 21em; }
+  width: 21em;
+}
 
 .machine-id-header {
   font-size: 50px;
   left: 4em;
   position: absolute;
-  top: -.1em; }
+  top: -0.1em;
+}
 
 .supplyIdHeader {
   font-size: 50px;
   position: absolute;
-  top: 2em; }
+  top: 2em;
+}
 
 .text-supply {
-  width: 50em; }
+  width: 50em;
+}
 
 .toggle-supply {
   left: 43em;
   position: absolute;
-  top: 13em; }
+  top: 13em;
+}
 
 .comm-in-process {
   animation: glowing 1500ms infinite;
   color: #000;
-  opacity: .4;
-  pointer-events: none; }
+  opacity: 0.4;
+  pointer-events: none;
+}
 
 @keyframes glowing {
   0% {
     background-color: #AA3939;
-    box-shadow: 0 0 3px  #aa5939; }
+    box-shadow: 0 0 3px #aa5939;
+  }
   50% {
     background-color: #FFB232;
-    box-shadow: 0 0 10px #FFB232; }
+    box-shadow: 0 0 10px #FFB232;
+  }
   100% {
     background-color: #ffe800;
-    box-shadow: 0 0 3px #FFE800; } }
+    box-shadow: 0 0 3px #FFE800;
+  }
+}
 .arrowDown {
   display: flex;
   left: 4em;
-  position: absolute; }
+  position: absolute;
+}
 
 .arrowSide {
   display: flex;
   left: 20em;
   position: absolute;
   top: 35em;
-  transform: rotate(-90deg); }
+  transform: rotate(-90deg);
+}
 
 .arrowSide_2 {
   display: flex;
   left: 15em;
   position: absolute;
   top: 35em;
-  transform: rotate(-90deg); }
+  transform: rotate(-90deg);
+}
 
 .chevron {
   animation: move-chevron 3s ease-out infinite;
@@ -314,140 +386,172 @@ table.supply-table {
   opacity: 0;
   position: absolute;
   transform: scale(0.5);
-  width: 2.1rem; }
+  width: 2.1rem;
+}
 
 .chevron:first-child {
-  animation: move-chevron 3s ease-out 1s infinite; }
+  animation: move-chevron 3s ease-out 1s infinite;
+}
 
 .chevron:nth-child(2) {
-  animation: move-chevron 3s ease-out 2s infinite; }
+  animation: move-chevron 3s ease-out 2s infinite;
+}
 
 .chevron:before,
 .chevron:after {
   background: #dd7e1f;
-  content: '';
+  content: "";
   height: 100%;
   position: absolute;
   top: 0;
-  width: 50%; }
+  width: 50%;
+}
 
 .chevron:before {
   left: 0;
-  transform: skewY(30deg); }
+  transform: skewY(30deg);
+}
 
 .chevron:after {
   right: 0;
   transform: skewY(-30deg);
-  width: 50%; }
+  width: 50%;
+}
 
 @keyframes move-chevron {
   25% {
-    opacity: 1; }
+    opacity: 1;
+  }
   33.3% {
     opacity: 1;
-    transform: translateY(2.28rem); }
+    transform: translateY(2.28rem);
+  }
   66.6% {
     opacity: 1;
-    transform: translateY(3.12rem); }
+    transform: translateY(3.12rem);
+  }
   100% {
     opacity: 0;
-    transform: translateY(4.8rem) scale(0.5); } }
+    transform: translateY(4.8rem) scale(0.5);
+  }
+}
 .machine-counter {
   left: 90em;
   position: absolute;
-  top: 13em; }
+  top: 13em;
+}
 
 .commNav {
   left: 40em;
   position: relative;
-  top: 2em; }
+  top: 2em;
+}
 
 .comm-tablet {
   left: 30em;
   position: absolute;
-  top: 11.5em; }
+  top: 11.5em;
+}
 
 .comm-tablet-machine-list {
   left: 10em;
   position: absolute;
-  top: 20em; }
+  top: 20em;
+}
 
 .pdiShipField {
   max-width: 92px;
-  min-width: 92px; }
+  min-width: 92px;
+}
 
 .fixed-header tbody {
   display: block;
   height: 50em;
   overflow: auto;
-  width: 100%; }
+  width: 100%;
+}
 
 .fixed-header thead tr {
-  display: block; }
+  display: block;
+}
 
 .header-completed {
   left: 110em;
   position: absolute;
-  top: 21em; }
+  top: 21em;
+}
 
 .inactive-machine-table {
   left: 120em;
   position: absolute;
-  top: 26em; }
+  top: 26em;
+}
 
 .commHead {
   position: relative;
   left: 20em;
   font-weight: bolder;
   font-size: x-large;
-  margin-bottom: 5em; }
+  margin-bottom: 5em;
+}
 
 .machineCommissionTable {
   left: 10em;
   position: absolute;
-  top: 26em; }
+  top: 26em;
+}
 
 .commMachineField {
-  width: 5em; }
+  width: 5em;
+}
 
 .toggleButton {
   position: absolute;
   top: 22em;
-  left: 80em; }
+  left: 80em;
+}
 
 .removeMachine {
   position: relative;
   left: 50em;
-  top: 7.5em; }
+  top: 7.5em;
+}
 
 .inLineDate {
   position: absolute;
-  top: -.1em; }
+  top: -0.1em;
+}
 
 table.commOverView {
   left: 2em;
   position: absolute;
-  top: 20em; }
+  top: 20em;
+}
 
 .alarmHead {
   position: absolute;
-  top: -4em; }
+  top: -4em;
+}
 
 .load-production-schedule {
   position: absolute;
   top: 11em;
-  left: 70em; }
+  left: 70em;
+}
 
 .review-machine {
   left: 10em;
   position: absolute;
-  top: 85em; }
+  top: 85em;
+}
 
 .tableSizeDate {
-  width: 8em; }
+  width: 8em;
+}
 
 .table-header-rotated th.row-header {
-  width: 53px; }
+  width: 53px;
+}
 
 .table-header-rotated td {
   border-left: 1px solid #dddddd;
@@ -455,18 +559,20 @@ table.commOverView {
   border-top: 1px solid #dddddd;
   text-align: center;
   vertical-align: middle;
-  width: 53px; }
+  width: 53px;
+}
 
 .table-header-rotated th.rotate-45 {
   font-size: 12px;
   height: 80px;
-  line-height: .8;
+  line-height: 0.8;
   max-width: 53px;
   min-width: 53px;
   padding: 0;
   position: relative;
   vertical-align: bottom;
-  width: 53px; }
+  width: 53px;
+}
 
 .table-header-rotated th.rotate-45 > div {
   border-left: 1px solid #ddd;
@@ -477,7 +583,8 @@ table.commOverView {
   overflow: hidden;
   position: relative;
   top: 0;
-  transform: skew(-45deg, 0deg); }
+  transform: skew(-45deg, 0deg);
+}
 
 .table-header-rotated th.rotate-45 span {
   bottom: 30px;
@@ -485,68 +592,82 @@ table.commOverView {
   left: -25px;
   position: absolute;
   transform: skew(45deg, 0deg) rotate(315deg);
-  width: 85px; }
+  width: 85px;
+}
 
 .averageSupply {
   position: absolute;
   top: 10em;
-  left: 2em; }
+  left: 2em;
+}
 
 .admins-button {
   left: 30em;
   position: absolute;
-  top: 2em; }
+  top: 2em;
+}
 
 .pickers-table {
   left: 3em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .diagram-1 {
   left: 14em;
   position: absolute;
-  top: 19em; }
+  top: 19em;
+}
 
 .diagram-2-to-4 {
   left: 1em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .diagram-9 {
   left: 35em;
   position: absolute;
-  top: 88em; }
+  top: 88em;
+}
 
 .diagram-3 {
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .analytics {
   left: 10em;
-  position: relative; }
+  position: relative;
+}
 
 .start-analyze {
   left: 20em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .chosen-picker {
   left: 10em;
   position: absolute;
-  top: 8em; }
+  top: 8em;
+}
 
 .areas-total {
   left: 10em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .button-list {
   left: 10em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .analyze-table {
-  border: 1px solid #000; }
+  border: 1px solid #000;
+}
 
 .analyze-table-head {
   background-color: #1cbdee;
@@ -557,227 +678,274 @@ table.commOverView {
   padding-left: 4px;
   padding-top: 4px;
   text-align: center;
-  width: 65px; }
+  width: 65px;
+}
 
 .analyze-table-body {
   border: 1px solid #000;
   font-size: 16px;
   font-weight: bold;
-  text-align: center; }
+  text-align: center;
+}
 
 .supplied-area-table {
   left: 10em;
   position: absolute;
-  top: 14em; }
+  top: 14em;
+}
 
 .spacing {
-  padding: 8px; }
+  padding: 8px;
+}
 
 .daily-picks {
   left: 17em;
   position: absolute;
-  top: 14em; }
+  top: 14em;
+}
 
 .personal-running-result {
   left: 70em;
   position: absolute;
-  top: 17em; }
+  top: 17em;
+}
 
 .running-result {
   left: 20em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .running-result-last-year {
   left: 70em;
   position: absolute;
-  top: 49em; }
+  top: 49em;
+}
 
 .today-team-result {
   left: 12em;
   position: absolute;
-  top: 49em; }
+  top: 49em;
+}
 
 .admins-bar {
   left: 30em;
   position: absolute;
-  top: 2em; }
+  top: 2em;
+}
 
 .analysis-head-year-chosen {
   position: absolute;
   top: 12em;
-  left: 50em; }
+  left: 50em;
+}
 
 .fiscal-year {
   position: absolute;
   top: 11em;
-  left: -7em; }
+  left: -7em;
+}
 
 .fiscal-year-table {
   position: relative;
-  top: 2em; }
+  top: 2em;
+}
 
 .pickers-head {
   left: 5em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .pickers-overview {
   left: 5em;
   position: absolute;
-  top: 15em; }
+  top: 15em;
+}
 
 .pickers-width {
   text-align: center;
-  width: 120px; }
+  width: 120px;
+}
 
 .analysis-selection {
   left: 6em;
   position: absolute;
-  top: 44em; }
+  top: 44em;
+}
 
 .analysis-selection-single {
   left: 6em;
   position: absolute;
-  top: 80em; }
+  top: 80em;
+}
 
 .table-height {
-  height: 30px; }
+  height: 30px;
+}
 
 .single-supply {
   left: 15em;
   position: absolute;
-  top: 2.8em; }
+  top: 2.8em;
+}
 
 .selected-time {
-  background-color: #ff470f; }
+  background-color: #ff470f;
+}
 
 .edit-time {
   left: 30em;
   position: absolute;
-  top: 7em; }
+  top: 7em;
+}
 
 .edit-time-button {
-  margin-top: 15px; }
+  margin-top: 15px;
+}
 
 .logged-user {
   left: 8em;
   position: absolute;
-  top: 8em; }
+  top: 8em;
+}
 
 .details-button {
   left: 20em;
   position: absolute;
-  top: 1em; }
+  top: 1em;
+}
 
 .range-2 {
   position: absolute;
   top: 7.7em;
-  left: 15em; }
+  left: 15em;
+}
 
 .range-input-2 {
   position: absolute;
-  left: 2em; }
+  left: 2em;
+}
 
 .btn-range-2 {
   position: absolute;
   top: -0.25em;
-  left: 15em; }
+  left: 15em;
+}
 
 .area-result {
   position: absolute;
   top: 60em;
-  left: 20em; }
+  left: 20em;
+}
 
 .diagram-4 {
   position: absolute;
   top: 60em;
-  left: 35em; }
+  left: 35em;
+}
 
 .new-supply-area {
   left: 3em;
   position: absolute;
-  top: 15em; }
+  top: 15em;
+}
 
 .supply-table {
   left: 3em;
   position: absolute;
-  top: 23em; }
+  top: 23em;
+}
 
 .deactivated-supply-table {
   left: 50em;
   position: absolute;
-  top: 23em; }
+  top: 23em;
+}
 
 .supply-inactive {
   left: 12em;
   position: absolute;
-  top: 20em; }
+  top: 20em;
+}
 
 .update-button {
   left: 30em;
   position: absolute;
-  top: 23em; }
+  top: 23em;
+}
 
 .activate-button {
   left: 37em;
   position: absolute;
-  top: 27em; }
+  top: 27em;
+}
 
 .table-pos {
   text-align: center;
-  width: 5em; }
+  width: 5em;
+}
 
 .table-name {
   text-align: center;
-  width: 6em; }
+  width: 6em;
+}
 
 .double-entry {
   color: #fd034a;
   left: 10em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .inactive-areas {
-  background-color: #fd034a; }
+  background-color: #fd034a;
+}
 
 .active-areas {
-  background-color: #03ff84; }
+  background-color: #03ff84;
+}
 
 .multi-button {
   left: 20em;
   position: absolute;
-  top: .1em; }
+  top: 0.1em;
+}
 
 .choose-machine-table {
   float: left;
   left: 2em;
   position: relative;
-  top: 8em; }
+  top: 8em;
+}
 
 .head-liner {
   left: -2em;
   position: absolute;
   top: -6em;
-  width: 20em; }
+  width: 20em;
+}
 
 .multi-id-header {
   font-size: 30px;
   left: 6em;
   position: absolute;
-  top: -.1em; }
+  top: -0.1em;
+}
 
 .arrow-side-multi {
   display: flex;
   left: 25em;
   position: absolute;
   top: 25em;
-  transform: rotate(-90deg); }
+  transform: rotate(-90deg);
+}
 
 .supply-multi-machines {
   left: 38em;
   position: absolute;
-  top: -5em; }
+  top: -5em;
+}
 
 table.supply-multi-table {
   border: 1px solid #a49892;
@@ -786,7 +954,8 @@ table.supply-multi-table {
   position: absolute;
   text-align: left;
   top: 20em;
-  width: 5em; }
+  width: 5em;
+}
 
 table.supply-multi-table thead {
   background: #1C6EA4;
@@ -794,212 +963,404 @@ table.supply-multi-table thead {
   border-left: 2px solid #d0e4f5;
   color: #FFF;
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 table.supply-multi-table tbody td {
   font-size: 13px;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+}
 
 table.supply-multi-table td, table.supply-multi-table th {
   border: 1px solid #aaa;
-  padding: 3px 5px; }
+  padding: 3px 5px;
+}
 
 .supply-button-field {
   left: 20em;
   position: absolute;
   text-align: left;
-  top: 20em; }
+  top: 20em;
+}
 
 .arrow-side-2 {
   display: flex;
   left: 13em;
   position: absolute;
   top: 25em;
-  transform: rotate(-90deg); }
+  transform: rotate(-90deg);
+}
 
 .multi-start {
-  float: left; }
+  float: left;
+}
 
 .multi-pause {
   left: 10em;
-  position: absolute; }
+  position: absolute;
+}
 
 .multi-resume {
   float: left;
   left: 10em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .multi-finished {
-  left: -.2em;
+  left: -0.2em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .cancel-request {
   margin-bottom: 10px;
-  width: 240px; }
+  width: 240px;
+}
 
 .cancellation-request {
   position: relative;
-  top: 15em; }
+  top: 15em;
+}
 
 .cancel-multi {
   left: 24em;
   position: absolute;
-  top: 39em; }
+  top: 39em;
+}
 
 .button-box {
   left: 30em;
   position: absolute;
-  top: 7em; }
+  top: 7em;
+}
 
 .assembly-line-head-liner {
   left: 30em;
   position: absolute;
-  top: 10em; }
+  top: 10em;
+}
 
 .over-view-table-assembly-line {
   left: 5em;
   position: absolute;
-  top: 20em; }
+  top: 20em;
+}
 
 .in-line-field {
-  width: 40px; }
+  width: 40px;
+}
 
 .nav-bar {
   left: 20em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .machine-reservoir {
   color: #71f323;
   left: 5em;
   position: absolute;
   top: 11em;
-  width: 300px; }
+}
 
 .in-line-date {
   max-width: 100px;
-  min-width: 100px; }
+  min-width: 100px;
+}
 
 .machine-entry {
   left: 25em;
   position: absolute;
-  top: 22.5em; }
+  top: 22.5em;
+}
 
-.invisible-box {
+.rectangle {
+  background: #0000FFFF;
+  height: 22em;
+  left: 5em;
+  opacity: 0.1;
+  position: relative;
+  top: 21em;
+  width: 200px;
+  z-index: 1;
+}
+
+.cover-box {
   height: 20em;
   left: 5em;
-  opacity: .1;
-  position: absolute;
-  top: 24em;
-  width: 18em; }
+  position: relative;
+  width: 20em;
+}
 
 .machine-field {
-  background: #dd7e1f; }
+  background: #dd7e1f;
+}
 
 .canvas-class {
   height: 150px;
   left: -5px;
   position: relative;
   top: -40px;
-  width: 280px; }
+  width: 280px;
+}
 
 .canvas-correction {
   position: absolute;
-  top: 60px; }
+  top: 1px;
+}
 
 .assembly-line-arrow-1 {
   display: flex;
   top: 24.5em;
-  transform: rotate(-90deg); }
+  transform: rotate(-90deg);
+}
 
 .bay-arrows {
   left: 8em;
   position: absolute;
-  top: 4em; }
+  top: 4em;
+}
 
-.engine-lift-up {
-  display: flex;
-  left: -18.5em;
-  position: relative;
-  top: .5em;
-  transform: rotate(180deg); }
-
-.bay-2-merge {
-  left: 9em;
+.team-1-arrows {
+  left: 38.1em;
   position: absolute;
-  top: 2.5em; }
+  top: 24em;
+}
 
-.engine-line-arrow-2 {
-  display: flex;
-  left: -3em;
-  position: relative;
+.team-2-position {
+  left: -39em;
+  position: absolute;
   top: 1em;
-  transform: rotate(180deg); }
+}
 
-.engine-line-arrow-3 {
-  display: flex;
-  left: -3em;
-  position: relative;
-  top: -2.7em;
-  transform: rotate(-135deg); }
+.station-1-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 13em;
+}
 
-.engine-station {
-  left: 50em;
-  position: absolute; }
+.station-2-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 27em;
+}
 
-.engine-station-1 {
-  top: 90em; }
+.station-3-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 41em;
+}
+
+.station-4-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 55em;
+}
+
+.station-5-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 69em;
+}
+
+.station-6-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 83em;
+}
+
+.station-7-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 97em;
+}
+
+.station-8-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 111em;
+}
+
+.engine-reservoir {
+  color: #71f323;
+  left: 6em;
+  position: absolute;
+  top: 42em;
+}
+
+.engine-assembly-container {
+  left: 35em;
+  position: absolute;
+  top: 12em;
+}
 
 .engine-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: 10em;
-  position: relative;
-  top: -4em; }
+  color: #03ff84;
+}
 
-.cooling-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: -12em;
-  position: relative;
-  top: -4em; }
-
-.engine-station-2 {
-  top: 83em; }
-
-.engine-station-3 {
-  top: 76em; }
-
-.engine-station-3-text {
-  top: -18em; }
-
-.engine-station-4 {
-  top: 69em; }
-
-.engine-cooling-merge {
-  left: 46em;
-  top: 62em; }
-
-.engine-cooling-1 {
-  left: 40em;
+.station-1 {
+  left: 0;
   position: absolute;
-  top: 76em; }
+  top: 30em;
+}
 
-.engine-cooling-2 {
-  left: 40em;
+.engine-canvas-correction {
+  left: -12px;
+  position: relative;
+  top: 14px;
+}
+
+.station-2 {
+  left: 13em;
   position: absolute;
-  top: 69em; }
+  top: 30em;
+}
+
+.station-3 {
+  left: 26em;
+  position: absolute;
+  top: 30em;
+}
+
+.station-4 {
+  left: 39em;
+  position: absolute;
+  top: 30em;
+}
+
+.chevron-engine-bays {
+  left: 25.2em;
+  position: absolute;
+  top: 40em;
+}
+
+.engine-arrow-1 {
+  position: relative;
+  top: 15em;
+  transform: rotate(-90deg);
+  left: 1em;
+}
+
+.engine-arrow-2 {
+  position: relative;
+  top: 15em;
+  transform: rotate(-90deg);
+  left: 17em;
+}
+
+.engine-arrow-3 {
+  position: relative;
+  top: 15em;
+  transform: rotate(-90deg);
+  left: 30em;
+}
+
+.engine-arrow-4 {
+  position: relative;
+  top: 15em;
+  transform: rotate(-90deg);
+  left: 43em;
+}
+
+.cooling-arrow-1 {
+  position: absolute;
+  top: 1px;
+  transform: rotate(-90deg);
+  left: 1em;
+}
+
+.cooling-arrow-2 {
+  position: absolute;
+  top: 1px;
+  transform: rotate(-90deg);
+  left: 17em;
+}
+
+.merging-arrow-1 {
+  position: absolute;
+  top: 1px;
+  transform: rotate(-90deg);
+  left: 30em;
+}
+
+.merging-arrow-2 {
+  position: absolute;
+  top: 1px;
+  transform: rotate(-90deg);
+  left: 49em;
+}
+
+.cooling-canvas-correction {
+  left: -20px;
+  position: relative;
+}
+
+.cooling-station-1 {
+  left: -5px;
+  position: absolute;
+  top: 10em;
+}
+
+.my-canvas {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.my-canvas-2 {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.cooling-station-2 {
+  left: 13em;
+  position: absolute;
+  top: 10em;
+}
+
+.merge-1-move-button {
+  left: -30px;
+}
+
+.engine-merge-station-1 {
+  position: absolute;
+  top: 7em;
+  left: 24.8em;
+}
+
+.engine-merge-station-2 {
+  position: absolute;
+  top: 7em;
+  left: 40em;
+}
+
+.team-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 35em;
+  position: absolute;
+}
 
 .assembly-line-fields {
   height: 10em;
   position: absolute;
   top: 20em;
-  width: 9em; }
+  width: 9em;
+}
 
 .bay2-fcb-merge-threshing {
-  left: 30.5em; }
+  left: 30.5em;
+}
 
 .bay-2-merge-text {
   color: #71f323;
@@ -1007,580 +1368,701 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: -2em;
   position: relative;
   top: -10em;
-  width: 150px; }
+  width: 150px;
+}
 
 .bay-move-button {
-  left: .5em;
+  left: 0.5em;
   position: absolute;
-  top: -4em; }
+  top: -4em;
+}
 
 .team1-bay3 {
-  left: 44em; }
+  left: 44em;
+}
 
 .bay-3-text {
   color: #71f323;
   font-weight: bolder;
   left: 2em;
   position: relative;
-  top: -9em; }
+  top: -9em;
+}
 
 .team1-bay4 {
-  left: 58em; }
+  left: 58em;
+}
 
 .team2-bay5 {
-  left: 72em; }
+  left: 72em;
+}
 
 .team2-bay6 {
-  left: 86em; }
+  left: 86em;
+}
 
 .team2-bay7 {
-  left: 100em; }
+  left: 100em;
+}
 
 .team3-bay8 {
-  left: 114em; }
+  left: 114em;
+}
 
 .team3-bay9 {
-  left: 128em; }
+  left: 128em;
+}
 
 .team3-bay10 {
-  left: 142em; }
+  left: 142em;
+}
 
 .team-test-bay-1 {
-  left: 156em; }
+  left: 156em;
+}
 
 .team-test-bay-2 {
-  left: 170em; }
+  left: 170em;
+}
 
 .team-test-bay-3 {
   left: 156em;
-  top: 35em; }
+  top: 35em;
+}
 
 .team-test-bay-4 {
   left: 170em;
-  top: 35em; }
-
-.engine-assembly-container {
-  left: 10em;
-  position: absolute;
-  top: 20em; }
+  top: 35em;
+}
 
 .test-bay-container {
   position: absolute;
-  top: -.5px; }
+  top: -0.5px;
+}
 
 .final-assembly-container {
   left: 100em;
   position: absolute;
-  top: -30em; }
+  top: -30em;
+}
 
 .team5-bay-14 {
   left: 86em;
-  top: 50em; }
+  top: 50em;
+}
 
 .team5-bay-15 {
   left: 100em;
-  top: 50em; }
+  top: 50em;
+}
 
 .team5-bay-16 {
   left: 114em;
-  top: 50em; }
+  top: 50em;
+}
 
 .team5-bay-17 {
   left: 128em;
-  top: 50em; }
+  top: 50em;
+}
 
 .team5-bay-18 {
   left: 142em;
-  top: 50em; }
+  top: 50em;
+}
 
 .team5-bay-19 {
   left: 156em;
-  top: 50em; }
-
-.input-field-team-1 {
-  background-color: rgba(17, 9, 117, 0.46);
-  height: 250px;
-  left: 21em;
-  position: absolute;
-  top: 30em; }
-
-.input-field-team-2 {
-  background-color: rgba(17, 9, 117, 0.46);
-  height: 250px;
-  left: 51em;
-  position: absolute;
-  top: 30em; }
-
-.input-field-team-3 {
-  background-color: rgba(17, 9, 117, 0.46);
-  height: 250px;
-  left: 81em;
-  position: absolute;
-  top: 30em; }
-
-.input-field-team-4 {
-  background-color: rgba(17, 9, 117, 0.46);
-  height: 250px;
-  left: 60em;
-  position: absolute;
-  top: 60em; }
-
-.input-field-team-5 {
-  background-color: rgba(17, 9, 117, 0.46);
-  height: 250px;
-  left: 141em;
-  position: absolute;
-  top: 30em; }
-
-.tact-time {
-  color: #bc171b;
-  font-family: Cambria, serif;
-  font-size: large; }
-
-.work-hours {
-  color: #bc171b;
-  font-family: Cambria, serif;
-  font-size: large; }
-
-.work-start {
-  color: #bc171b;
-  font-family: Cambria, serif;
-  font-size: large; }
+  top: 50em;
+}
 
 .team-container-2 {
-  left: 30em;
+  left: 12em;
   position: absolute;
-  top: .2em; }
+  top: 0.2em;
+  z-index: -1;
+}
 
 .team-container-3 {
-  left: 60em;
+  left: -81em;
   position: absolute;
-  top: .2em; }
+  top: 1em;
+}
+
+.team-container-4 {
+  left: -153em;
+  position: absolute;
+  top: 1em;
+}
+
+.team-container-test-bay {
+  left: -125em;
+  position: absolute;
+  top: 1em;
+}
+
+.chevron-test-bay {
+  left: -1.3em;
+  position: absolute;
+  top: -0.2em;
+}
 
 .team-container-5 {
-  left: 120em;
+  left: -153em;
   position: absolute;
-  top: .2em; }
+  top: 1em;
+}
 
 .body-timer-block {
   left: -5em;
   position: absolute;
-  top: -5em; }
+  top: -5em;
+}
+
+.team-1-sun-burst-container {
+  left: -4em;
+  position: relative;
+  top: 6em;
+}
 
 .clock-container-team-1 {
-  left: -30em;
+  left: -43em;
+  position: fixed;
+  top: 20em;
+}
+.clock-container-team-1 .clock-team-1 {
+  left: 20em;
   position: relative;
-  top: 40em; }
-  .clock-container-team-1 .clock-team-1 {
-    position: relative;
-    top: -16em; }
-    .clock-container-team-1 .clock-team-1 .title {
-      display: none; }
-    .clock-container-team-1 .clock-team-1 .time-team-1 {
-      color: #00f;
-      position: relative;
-      text-align: center;
-      text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
-      transition: all 1.5s; }
-      .clock-container-team-1 .clock-team-1 .time-team-1 span {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: xxx-large; }
+  top: 1em;
+}
+.clock-container-team-1 .clock-team-1 .title {
+  display: none;
+}
+.clock-container-team-1 .clock-team-1 .time-team-1 {
+  color: #00f;
+  position: relative;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
+  transition: all 1.5s;
+}
+.clock-container-team-1 .clock-team-1 .time-team-1 span {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: xxx-large;
+}
 
 .sunset-container-team-1 {
   bottom: auto;
   left: 25em;
   position: relative;
-  top: 25em;
-  width: 350px; }
-  .sunset-container-team-1 .horizon-team-1 {
-    background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
-    box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
-    height: 2px;
-    position: relative;
-    top: -1px; }
-  .sunset-container-team-1 .sun-team-1 {
-    height: 50px;
-    left: -100px;
-    position: absolute;
-    top: -25px;
-    width: 200px; }
-    .sunset-container-team-1 .sun-team-1 .sun-spot-team-1 {
-      animation: pulse 4s linear infinite;
-      border-radius: 100px;
-      position: absolute;
-      transform: scale(1, 0.5); }
-      .sunset-container-team-1 .sun-team-1 .sun-spot-team-1.pulse {
-        animation: white-pulse 4s linear infinite; }
+  top: 2em;
+  width: 350px;
+}
+.sunset-container-team-1 .horizon-team-1 {
+  background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
+  box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
+  height: 2px;
+  position: relative;
+  top: -1px;
+}
+.sunset-container-team-1 .sun-team-1 {
+  position: absolute;
+}
+.sunset-container-team-1 .sun-team-1 .sun-spot-team-1 {
+  animation: pulse 4s linear infinite;
+  border-radius: 100px;
+  position: absolute;
+  transform: scale(1, 0.5);
+}
+.sunset-container-team-1 .sun-team-1 .sun-spot-team-1.pulse {
+  animation: white-pulse 4s linear infinite;
+}
+
+.team-2-sun-burst-container {
+  left: -4em;
+  position: relative;
+  top: 6em;
+}
 
 .clock-container-team-2 {
-  left: -30em;
+  left: -50em;
   position: relative;
-  top: 40em; }
-  .clock-container-team-2 .clock-team-2 {
-    position: relative;
-    top: -16em; }
-    .clock-container-team-2 .clock-team-2 .title {
-      display: none; }
-    .clock-container-team-2 .clock-team-2 .time-team-2 {
-      color: #00f;
-      position: relative;
-      text-align: center;
-      text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
-      transition: all 1.5s; }
-      .clock-container-team-2 .clock-team-2 .time-team-2 span {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: xxx-large; }
+  top: 40em;
+}
+.clock-container-team-2 .clock-team-2 {
+  position: relative;
+  top: -16em;
+}
+.clock-container-team-2 .clock-team-2 .title {
+  display: none;
+}
+.clock-container-team-2 .clock-team-2 .time-team-2 {
+  color: #00f;
+  position: relative;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 0 3px;
+  transition: all 1.5s;
+}
+.clock-container-team-2 .clock-team-2 .time-team-2 span {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: xxx-large;
+}
 
 .sunset-container-team-2 {
   bottom: auto;
   left: 25em;
   position: relative;
   top: 25em;
-  width: 350px; }
-  .sunset-container-team-2 .horizon-team-2 {
-    background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
-    box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
-    height: 2px;
-    position: relative;
-    top: -1px; }
-  .sunset-container-team-2 .sun-team-2 {
-    height: 50px;
-    left: -100px;
-    position: absolute;
-    top: -25px;
-    width: 200px; }
-    .sunset-container-team-2 .sun-team-2 .sun-spot-team-2 {
-      animation: pulse 4s linear infinite;
-      border-radius: 100px;
-      position: absolute;
-      transform: scale(1, 0.5); }
-      .sunset-container-team-2 .sun-team-2 .sun-spot-team-2.pulse {
-        animation: white-pulse 4s linear infinite; }
+  width: 350px;
+}
+.sunset-container-team-2 .horizon-team-2 {
+  background: -webkit-linear-gradient(left, #00f 0%, #f00 100%);
+  box-shadow: rgba(255, 255, 255, 0.4) 0 0 5px;
+  height: 2px;
+  position: relative;
+  top: -1px;
+}
+.sunset-container-team-2 .sun-team-2 {
+  height: 50px;
+  left: -100px;
+  position: absolute;
+  top: -25px;
+  width: 200px;
+}
+.sunset-container-team-2 .sun-team-2 .sun-spot-team-2 {
+  animation: pulse 4s linear infinite;
+  border-radius: 100px;
+  position: absolute;
+  transform: scale(1, 0.5);
+}
+.sunset-container-team-2 .sun-team-2 .sun-spot-team-2.pulse {
+  animation: white-pulse 4s linear infinite;
+}
 
 .define-work-days {
   left: 5em;
   position: absolute;
-  top: 5em; }
+  top: 5em;
+}
 
 .schedule-config-header {
   font-weight: bolder;
   left: 30em;
   position: absolute;
-  top: 21em; }
+  top: 21em;
+}
 
 .shift-config-table {
   left: 5em;
   position: absolute;
-  top: 25em; }
+  top: 25em;
+}
 
 .pdiShipField {
   max-width: 90px;
-  min-width: 90px; }
+  min-width: 90px;
+}
 
 .monthly-table-view {
   left: 5em;
   position: absolute;
-  top: 45em; }
+  top: 45em;
+}
 
 .weekly-desired-machines {
   left: 40em;
   position: absolute;
-  top: 45em; }
+  top: 45em;
+}
 
 .week-date {
   max-width: 95px;
-  min-width: 95px; }
+  min-width: 95px;
+}
 
 th,
 td .shift-config {
   font-family: Bahnschrift, Arial, Helvetica, Arial, sans-serif;
   font-weight: bolder;
   letter-spacing: 1px;
-  text-align: center; }
+  text-align: center;
+}
 
 tbody tr:nth-child(odd) .shift-config {
-  background-color: #9fcdd2; }
+  background-color: #9fcdd2;
+}
 
 tbody tr:nth-child(even) .shift-config {
-  background-color: #e5a0bb; }
+  background-color: #e5a0bb;
+}
 
 .generate-list {
   left: 55em;
   position: absolute;
-  top: 45em; }
+  top: 45em;
+}
 
 thead {
-  background-color: lightgrey; }
+  background-color: lightgrey;
+}
 
 table tbody, table thead {
-  display: block; }
+  display: block;
+}
 
 table tbody {
-  overflow: auto; }
+  overflow: auto;
+}
 
 table.blueTable {
   border: 1px solid #a49892;
   border-collapse: collapse;
-  text-align: left; }
+  text-align: left;
+}
 
 table.blueTable td, table.blueTable th {
   border: 1px solid #AAAAAA;
-  padding: 3px 5px; }
+  padding: 3px 5px;
+}
 
 table.blueTable tbody td {
   font-size: 13px;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+}
 
 table.blueTable thead {
   background: #1C6EA4;
-  border-bottom: 2px solid #444444; }
+  border-bottom: 2px solid #444444;
+}
 
 table.blueTable thead th {
   border-left: 2px solid #d0e4f5;
   color: #FFF;
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 table.blueTable thead th:first-child {
-  border-left: none; }
+  border-left: none;
+}
 
 table.blueTable tfoot {
   font-size: 14px;
   font-weight: bold;
   color: #FFFFFF;
   background: #d6e0f5;
-  border-top: 2px solid #444444; }
+  border-top: 2px solid #444444;
+}
 
 table.blueTable tfoot td {
-  font-size: 14px; }
+  font-size: 14px;
+}
 
 table.blueTable tfoot .links {
-  text-align: right; }
+  text-align: right;
+}
 
 table.blueTable tfoot .links a {
   display: inline-block;
   background: #8f8e8c;
   color: #FFFFFF;
   padding: 2px 8px;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
 th {
-  height: 50px; }
+  height: 50px;
+}
 
 table.tableAdminPos {
-  width: 853px; }
+  width: 853px;
+}
 
 .adminUserId {
   max-width: 170px;
-  min-width: 170px; }
+  min-width: 170px;
+}
 
 .adminUser {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .userRole {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .userCreated {
   max-width: 120px;
-  min-width: 120px; }
+  min-width: 120px;
+}
 
 .userCreatedBy {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .userLastLogin {
   max-width: 110px;
-  min-width: 110px; }
+  min-width: 110px;
+}
 
 .userIP {
   max-width: 100px;
-  min-width: 100px; }
+  min-width: 100px;
+}
 
 .userStatus {
   max-width: 60px;
-  min-width: 60px; }
+  min-width: 60px;
+}
 
 .partsOnOrder {
   max-width: 50px;
-  min-width: 50px; }
+  min-width: 50px;
+}
 
 .userLogOut {
   max-width: 50px;
   min-width: 50px;
-  text-align: center; }
+  text-align: center;
+}
 
 .userErase {
   max-width: 50px;
   min-width: 50px;
-  text-align: center; }
+  text-align: center;
+}
 
 .shippingMachines {
-  height: 100px; }
+  height: 100px;
+}
 
 .tablePdiOverview {
   position: absolute;
-  top: 300px; }
+  top: 300px;
+}
 
 .pdiMachineField {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .pdiShipField {
   max-width: 90px;
-  min-width: 90px; }
+  min-width: 90px;
+}
 
 .pdiDestination {
   max-width: 100px;
-  min-width: 100px; }
+  min-width: 100px;
+}
 
 .pdiTransporter {
   max-width: 100px;
-  min-width: 100px; }
+  min-width: 100px;
+}
 
 .pdiTruckOnOrder {
   max-width: 70px;
-  min-width: 70px; }
+  min-width: 70px;
+}
 
 .pdiTruckDate {
   min-width: 6em;
-  max-width: 6em; }
+  max-width: 6em;
+}
 
 .truckDateCorrection {
-  min-width: 6.8em; }
+  min-width: 6.8em;
+}
 
 .pdiKitList {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .pdiComments {
   max-width: 450px;
-  min-width: 450px; }
+  min-width: 450px;
+}
 
 .pdiKitField {
   max-width: 145px;
-  min-width: 145px; }
+  min-width: 145px;
+}
 
 .pdiTireField {
   max-width: 145px;
-  min-width: 145px; }
+  min-width: 145px;
+}
 
 .pdiPDIField {
   max-width: 50px;
-  min-width: 50px; }
+  min-width: 50px;
+}
 
 .pdiRepField {
   max-width: 50px;
-  min-width: 50px; }
+  min-width: 50px;
+}
 
 .pdiVariantDescription {
   max-width: 250px;
-  min-width: 250px; }
+  min-width: 250px;
+}
 
 .pdiWashField {
   max-width: 50px;
-  min-width: 50px; }
+  min-width: 50px;
+}
 
 .pdiShipField {
   max-width: 90px;
-  min-width: 90px; }
+  min-width: 90px;
+}
 
 .pdiLocation {
   max-width: 70px;
-  min-width: 70px; }
+  min-width: 70px;
+}
 
 .pdiConfig {
   max-width: 60px;
-  min-width: 60px; }
+  min-width: 60px;
+}
 
 .pdiTrailer {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .headerKit {
   max-width: 320px;
-  min-width: 320px; }
+  min-width: 320px;
+}
 
 .pdiUser {
   max-width: 200px;
-  min-width: 200px; }
+  min-width: 200px;
+}
 
 table.headerTable {
-  width: 230px; }
+  width: 230px;
+}
 
 .headerId {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .headerShipDate {
   max-width: 90px;
-  min-width: 90px; }
+  min-width: 90px;
+}
 
 .headerStatus {
   max-width: 80px;
-  min-width: 80px; }
+  min-width: 80px;
+}
 
 .headerPos {
   position: absolute;
   left: 450px;
-  top: 300px; }
+  top: 300px;
+}
 
 .transparent-box {
-  background: linear-gradient(90deg, rgba(10, 10, 10, 0.55), #030000);
-  height: 2150px;
+  background: linear-gradient(90deg, rgba(10, 10, 10, 0.25), #030000);
+  height: 100em;
   left: 70em;
   position: absolute;
+  top: 5em;
   width: 400px;
-  z-index: 1; }
+  z-index: 1;
+}
+
+.transparent-box-2 {
+  background: linear-gradient(90deg, rgba(10, 10, 10, 0.25), #030000);
+  height: 100em;
+  left: 60em;
+  position: absolute;
+  top: 5em;
+  width: 400px;
+  z-index: 1;
+}
+
+.transparent-box-reverse {
+  background: linear-gradient(270deg, rgba(10, 10, 10, 0.25), #030000);
+  height: 100em;
+  left: 1em;
+  position: absolute;
+  top: 5em;
+  width: 280px;
+  z-index: 1;
+}
 
 .insideNavBar {
-  margin-top: 25px; }
+  margin-top: 25px;
+}
 
 .topNav {
   left: 40em;
   margin-top: 25px;
-  position: relative; }
+  position: relative;
+}
 
 #logo {
-  margin: 10px; }
+  margin: 10px;
+}
 
 .selected {
-  background-color: #978f93; }
+  background-color: #978f93;
+}
 
 .selectedMachine {
-  background-color: #978f93; }
+  background-color: #978f93;
+}
 
 .selectedArea {
-  background-color: #978f93; }
+  background-color: #978f93;
+}
 
 .selectedBackgroundGreen {
-  background-color: green; }
+  background-color: green;
+}
 
 .individualNavigation {
-  font-size: 16px; }
+  font-size: 16px;
+}
 
 .navigation {
-  margin-left: 25px; }
+  margin-left: 25px;
+}
 
 .marginMain {
-  margin-left: 25px; }
+  margin-left: 25px;
+}
 
 .mainLayout {
   color: #000;
   left: 560px;
-  position: relative; }
+  position: relative;
+}
 
 .in-active-button {
   background-color: #252525;
-  opacity: .5;
-  pointer-events: none; }
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 .activeButton {
   opacity: 1;
-  pointer-events: auto; }
+  pointer-events: auto;
+}
 
 .inActive {
-  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px); }
+  background: repeating-linear-gradient(45deg, #e6e6e6, #bc171b 10px, #e6e6e6 10px, #bc171b 20px);
+}
 
 /*# sourceMappingURL=main.css.map */

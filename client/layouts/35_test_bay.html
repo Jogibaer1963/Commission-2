@@ -1,0 +1,190 @@
+<template name="test_bay">
+    {{#if currentUser}}
+        {{> back_to_assembly_line }}
+        {{> team_1_buttons }}
+        {{> team_2_buttons }}
+        {{> team_4_buttons }}
+        {{> team_5_buttons }}
+        {{> test_bay_over_view }}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="test_bay_over_view">
+    <html lang="en">
+    <head>
+        <title>Team 3</title>
+    </head>
+
+    <style>
+        body{
+            background-color:black;
+        }
+    </style>
+
+    <div class="team-header">
+        <h1>Test Bay </h1>
+    </div>
+
+<div class="chevron-test-bay">
+    <div class="station-1-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-2-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-3-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-4-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-5-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-6-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+</div>
+    <div class="transparent-box-reverse"></div>
+
+    <div class="team-container-test-bay">
+        <div class="assembly-line-fields team3-bay9">
+            <div class="bay-3-text">
+                <h4>Bay 9</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                                       btn-default
+                                       btn-success
+                                       bay-9-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team3-bay10">
+            <div class="bay-3-text">
+                <h4>Bay 10</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                                       btn-default
+                                       btn-success
+                                       bay-10-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-1">
+            <div class="bay-3-text">
+                <h4>Test Bay 1</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-1-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_1}} id="machine_field_test_bay_1" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-2">
+            <div class="bay-3-text">
+                <h4>Test Bay 2</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-2-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_2}} id="machine_field_test_bay_2" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="assembly-line-fields team-test-bay-3">
+            <div class="bay-3-text">
+                <h4>Test Bay 3</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-3-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_3}} id="machine_field_test_bay_3" class="canvas-class"></canvas>
+            </div>
+        </div>
+        <div class="assembly-line-fields team-test-bay-4">
+
+            <div class="bay-3-text">
+                <h4>Test Bay 4</h4>
+            </div>
+            <div class="bay-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               bay-test-bay-4-move-button">Move</button>
+            </div>
+            <div>
+                <canvas {{draw_test_bay_4}} id="machine_field_test_bay_4" class="canvas-class"></canvas>
+            </div>
+        </div>
+
+        <div class="final-assembly-container">
+            <div class="assembly-line-fields team5-bay-14">
+                <div class="bay-3-text">
+                    <h4>Bay 14</h4>
+                </div>
+                <div>
+                    <canvas {{draw_bay_14}} id="machine_field_bay_14" class="canvas-class"></canvas>
+                </div>
+            </div>
+
+            <div class="assembly-line-fields team5-bay-15">
+                <div class="bay-3-text">
+                    <h4>Bay 15</h4>
+                </div>
+                <div>
+                    <canvas {{draw_bay_15}} id="machine_field_bay_15" class="canvas-class"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="transparent-box-2"></div>
+    </html>
+</template>

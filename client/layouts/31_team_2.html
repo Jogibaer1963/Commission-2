@@ -1,0 +1,157 @@
+<template name="team_2">
+    {{#if currentUser}}
+            {{> back_to_assembly_line }}
+            {{> team_1_buttons }}
+            {{> team_3_buttons }}
+            {{> team_4_buttons }}
+            {{> team_test_bay_buttons }}
+            {{> team_5_buttons }}
+            {{> team_2_over_view }}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+
+<template name="team_2_over_view">
+    <html lang="en-US">
+    <head>
+        <title>Team 2</title>
+    </head>
+
+    <style>
+        body{
+            background-color:black;
+        }
+    </style>
+    <div class="team-header">
+        <h1>Team 2 </h1>
+    </div>
+    <div class="station-1-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-2-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-3-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-4-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-5-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="station-6-arrows">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+    <div class="transparent-box-reverse"></div>
+
+ <div class="team-2-position">
+    <div class="assembly-line-fields team1-bay3">
+        <div class="bay-3-text">
+            <h4>Bay 3</h4>
+        </div>
+        <div>
+            <canvas {{draw_bay3}} id="machine_field_bay_3" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team1-bay4">
+        <div class="bay-3-text">
+            <h4>Bay 4</h4>
+        </div>
+        <div>
+            <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team2-bay5">
+        <div class="bay-3-text">
+            <h4>Bay 5</h4>
+        </div>
+        <div class="bay-move-button">
+            <label for="bay2-button"></label>
+            <button type="button"
+                    class="btn
+                               btn-default
+                               btn-success
+                               bay-5-move-button">Move</button>
+        </div>
+        <div>
+            <canvas {{draw_bay5}} id="machine_field_bay_5" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team2-bay6">
+        <div class="bay-3-text">
+            <h4>Bay 6</h4>
+        </div>
+        <div class="bay-move-button">
+            <label for="bay2-button"></label>
+            <button type="button"
+                    class="btn
+                               btn-default
+                               btn-success
+                               bay-6-move-button">Move</button>
+        </div>
+        <div>
+            <canvas {{draw_bay6}} id="machine_field_bay_6" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team2-bay7">
+        <div class="bay-3-text">
+            <h4>Bay 7</h4>
+        </div>
+        <div class="bay-move-button">
+            <label for="bay2-button"></label>
+            <button type="button"
+                    class="btn
+                               btn-default
+                               btn-success
+                               bay-7-move-button">Move</button>
+        </div>
+        <div>
+            <canvas {{draw_bay7}} id="machine_field_bay_7" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team3-bay8">
+        <div class="bay-3-text">
+            <h4>Bay 8</h4>
+        </div>
+        <div>
+            <canvas {{draw_bay8}} id="machine_field_bay_8" class="canvas-class"></canvas>
+        </div>
+    </div>
+
+    <div class="assembly-line-fields team3-bay9">
+        <div class="bay-3-text">
+            <h4>Bay 9</h4>
+        </div>
+        <div>
+            <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
+        </div>
+    </div>
+</div>
+    <div class="transparent-box"></div>
+    <div class="team-2-sun-burst-container">
+        {{> burstSunTimerTeam_2}}
+    </div>
+    </html>
+</template>
+
+

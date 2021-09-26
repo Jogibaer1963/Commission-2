@@ -1,0 +1,237 @@
+<template name="team_4">
+    {{#if currentUser}}
+        {{> back_to_assembly_line }}
+        {{> team_1_buttons }}
+        {{> team_2_buttons }}
+        {{> team_3_buttons }}
+        {{> team_test_bay_buttons }}
+        {{> team_5_buttons }}
+        {{> team_4_over_view }}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="team_4_over_view">
+    <html lang="en">
+    <head>
+        <title>Team 4</title>
+    </head>
+    <style>
+        body{
+            background-color:black;
+        }
+    </style>
+
+    <div class="team-header">
+        <h1>Team 4 </h1>
+    </div>
+    <div class="chevron-engine-bays">
+        <div class="engine-arrow-1">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="engine-arrow-2">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="engine-arrow-3">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="engine-arrow-4">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="cooling-arrow-1">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="cooling-arrow-2">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="merging-arrow-1">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+    </div>
+
+        <div class="engine-reservoir">
+            <h4 class="">Machine Reservoir</h4>
+            <table class="table blueTable pdiMachineField">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField">Machine</th>
+                    <th class="in-line-date">Planned in Station 1</th>
+                </tr>
+                </thead>
+                <tbody class="bodyHeight">
+                {{#each machineReservoir}}
+                    <tr class="selectedAssemblyMachine">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="in-line-date">{{timeLine.station1}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+<!-- ************  Engine Assembly Line starts here **************** -->
+
+    <div class="engine-assembly-container">
+        <div class="station-1">
+            <div class="engine-text">
+                <h4>Station 1</h4>
+            </div>
+            <div class="engine-1-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               engine-1-move-button">Move</button>
+            </div>
+            <div class="engine-canvas-correction">
+                    <canvas {{draw_engine_1}} id="engine-station-1" class=""></canvas>
+            </div>
+        </div>
+
+        <div class="station-2">
+            <div class="engine-text">
+                <h4>Station 2</h4>
+            </div>
+            <div class="engine-2-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               engine-2-move-button">Move</button>
+            </div>
+            <div class="engine-canvas-correction">
+                <canvas {{draw_engine_2}} id="engine-station-2" class=""></canvas>
+            </div>
+        </div>
+
+        <div class="station-3">
+            <div class="engine-text">
+                <h4>Station 3</h4>
+            </div>
+            <div class="engine-3-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               engine-3-move-button">Move</button>
+            </div>
+            <div class="engine-canvas-correction">
+                <canvas {{draw_engine_3}} id="engine-station-3" class=""></canvas>
+            </div>
+        </div>
+
+        <div class="station-4">
+            <div class="engine-text">
+                <h4>Station 4</h4>
+            </div>
+            <div class="engine-4-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                               btn-default
+                               btn-success
+                               engine-4-move-button">Move</button>
+            </div>
+            <div class="engine-canvas-correction">
+                <canvas {{draw_engine_4}} id="engine-station-4" class=""></canvas>
+            </div>
+        </div>
+
+  <!-- *******************************  Cooling Box Pre and Merging **********************  -->
+
+        <div class="cooling-station-1">
+            <div class="engine-text">
+                <h4>Box 1</h4>
+            </div>
+            <div class="cooling-1-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                           btn-default
+                           btn-success
+                           cooling-1-move-button">Move</button>
+            </div>
+            <div class="">
+       <!--         <canvas {{draw_cooling_1}} id="cooling-station-1" class=""></canvas>  -->
+                <canvas class="my-canvas" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+            </div>
+        </div>
+
+        <div class="cooling-station-2">
+            <div class="engine-text">
+                <h4>Box 2</h4>
+            </div>
+            <div class="cooling.2-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                           btn-default
+                           btn-success
+                           cooling.2-move-button">Move</button>
+            </div>
+            <div class="">
+                <!--       <canvas {{draw_cooling_2}} id="cooling-station-2" class="" ></canvas>   -->
+                <canvas class="my-canvas-2" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+            </div>
+        </div>
+
+
+        <div class="engine-merge-station-1">
+            <div class="engine-text">
+                <h4>Merge 1</h4>
+            </div>
+            <div class="merge-1-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                           btn-default
+                           btn-success
+                           merge-1-move-button">Go to Bay 4</button>
+            </div>
+            <div class="">
+                <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                <canvas {{draw_merge_1}} id="merge-station-1" class=""></canvas>
+            </div>
+        </div>
+
+        <div class="engine-merge-station-2">
+            <div class="engine-text">
+                <h4>Merge 2</h4>
+            </div>
+            <div class="merge-2-move-button">
+                <label for="bay2-button"></label>
+                <button type="button"
+                        class="btn
+                           btn-default
+                           btn-success
+                           merge-2-move-button">Go to Bay 4</button>
+            </div>
+            <div class="">
+                <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                <canvas {{draw_merge_2}} id="merge-station-2" class=""></canvas>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+ </html>
+</template>

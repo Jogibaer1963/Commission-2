@@ -1,66 +1,60 @@
 <template name="assemblyLine">
     {{#if currentUser}}
-        <div class="tabletCommissioning">
+
+            {{> back_to_assembly_line }}
+            {{> team_1_buttons }}
+            {{> team_2_buttons }}
+            {{> team_3_buttons }}
+            {{> team_4_buttons }}
+            {{> team_test_bay_buttons }}
+            {{> team_5_buttons }}
             {{> moveMachines}}
             {{> burstSunTimerTeam_1}}
             {{> burstSunTimerTeam_2}}
             {{> burstSunTimerTeam_3}}
             {{> burstSunTimerTeam_5}}
-        </div>
+
     {{else}}
         {{> login}}
     {{/if}}
 </template>
     <!--  **********************************  Sun Burst Team 1 to Team 4  **************************** --->
 <template name="burstSunTimerTeam_1">
-    {{tactTimeLeft}}
-    <div class="team-container-1">
-        <div class="body body-timer-block">
-            <div class="clock-sunset-container">//
-                <div class="clock-container-team-1">
-                    <div class="clock-team-1">
-                        <div class="time-team-1">
-                            <span>loading</span>
-                        </div>
-                    </div>
+    <div class="team-1-sun-burst-container">
+        <div class="clock-container-team-1">
+            <div class="clock-team-1">
+                <div class="time-team-1">
+                    <span>loading</span>
                 </div>
             </div>
-            <div class="sunset-container-team-1">
-                <div class="horizon-team-1"></div>
-                <div class="">
-                    <div class="sun-team-1 sun-container-team-1"></div>
-                </div>
-            </div>
+        </div>
+        <div class="sunset-container-team-1">
+            <div class="horizon-team-1"></div>  <!-- paint horizon  -->
+                <div class="sun-team-1 sun-container-team-1"></div>
         </div>
     </div>
 </template>
 
 <template name="burstSunTimerTeam_2">
     <div class="team-container-2">
-        <div class="body body-timer-block">
-            <div class="clock-sunset-container">
-                <div class="clock-container-team-2">
-                    <div class="clock-team-2">
-                        <div class="time-team-2">
-                            <span>loading</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="sunset-container-team-2">
-                <div class="horizon-team-2"></div>
-                <div class="">
-                    <div class="sun-team-2 sun-container-team-2"></div>
+        <div class="clock-container-team-2">
+            <div class="clock-team-2">
+                <div class="time-team-2">
+                    <span>loading</span>
                 </div>
             </div>
         </div>
+    <div class="sunset-container-team-2">
+        <div class="horizon-team-2"></div>
+        <div class="">
+            <div class="sun-team-2 sun-container-team-2"></div>
+        </div>
+    </div>
     </div>
 </template>
 
 <template name="burstSunTimerTeam_3">
     <div class="team-container-3">
-        <div class="body body-timer-block">
-            <div class="clock-sunset-container">
                 <div class="clock-container">
                     <div class="clock">
                         <div class="time">
@@ -68,20 +62,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="sunset-container">
                 <div class="horizon"></div>
                 <div class="">
                     <div class="sun-team-3 sun-container"></div>
                 </div>
             </div>
-        </div>
+
     </div>
 </template>
 
 <template name="burstSunTimerTeam_5">
     <div class="team-container-5">
-        <div class="body body-timer-block">
+        <div class="body">
             <div class="clock-sunset-container">
                 <div class="clock-container">
                     <div class="clock">
@@ -102,18 +95,15 @@
 </template>
    <!--    **************************************** Sun Burst Ends here  **************************** -->
 <template name="moveMachines">
-    <html lang="">
+
+    <html lang="en-US">
         <style>
             body{
             background-color:black;
             }
         </style>
+        <div class="rectangle"></div>
 
-        <div>
-            <div class="nav-bar">
-                <label for="button-back"></label>
-                <button class="btn btn-default btn-success btn-back">Back to Over View</button>
-            </div>
             <div class="machine-reservoir">
                 <h4 class="">Machine Reservoir</h4>
                     <table class="table blueTable pdiMachineField">
@@ -133,113 +123,18 @@
                         </tbody>
                     </table>
             </div>
-            <div class="invisible-box">
-            </div>
-        </div>
-
         <div class="machine-entry assembly-line-arrow-1">
             <div class="chevron"></div>
             <div class="chevron"></div>
             <div class="chevron"></div>
         </div>
--->
+
   <!-- ****************************** Engine Container starts here ********************    -->
 
-        <div class="engine-assembly-container">
-            <div class="engine-station engine-station-1">
-                <div class="engine-line-arrow-2">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_ST1}} id="machine-field-st1" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="engine-text">
-                    <h4>Station 1</h4>
-                </div>
-            </div>
 
-            <div class="engine-station engine-station-2">
-                <div class="engine-line-arrow-2">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_ST2}} id="machine-field-st2" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="engine-text">
-                    <h4>Station 2</h4>
-                </div>
-            </div>
-            <div class="engine-station engine-station-3">
-                <div class="engine-line-arrow-2">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_ST3}} id="machine-field-st3" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="engine-text">
-                    <h4>Station 3</h4>
-                </div>
-            </div>
-            <div class="engine-station engine-station-4">
-                <div class="engine-line-arrow-2">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_ST4}} id="machine-field-st4" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="engine-text">
-                    <h4>Station 4</h4>
-                </div>
-            </div>
-            <div class="engine-station engine-cooling-merge">
-                <div class="engine-lift-up">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_ST_merge}} id="machine-field-st-merge" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="engine-text">
-                    <h4>Merge Engine and Cooling Box</h4>
-                </div>
-            </div>
-            <div class="engine-cooling-1">
-                <div class="engine-line-arrow-2">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_cooling1}} id="machine-field-cooling-1" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="cooling-text">
-                    <h4>Cooling Box 1</h4>
-                </div>
-            </div>
-            <div class="engine-cooling-2">
-                <div class="engine-line-arrow-3">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div>
-                    <canvas {{draw_cooling2}} id="machine-field-cooling-2" class="machine-field" width="90" height="30"></canvas>
-                </div>
-                <div class="cooling-text">
-                    <h4>Cooling Box 2</h4>
-                </div>
-            </div>
-        </div>
    <!--  **************************************  Engine ends here  ***********************************  -->
+
+
   <!-- ****************************** Assembly Line starts here ''''''''''''''''''''''''''''''''''''' -->
 
         <div class="assembly-line-fields bay2-fcb-merge-threshing">
@@ -260,7 +155,7 @@
                 <h4>Merge FCB with Threshing Unit</h4>
             </div>
             <div>
-                <canvas {{draw_fcb_threshing}} id="machine-field-fcb-threshing"
+                <canvas {{draw_fcb_threshing}} id="machine_field_fcb_threshing"
                                                class="canvas-class canvas-correction"></canvas>
             </div>
         </div>
@@ -283,7 +178,7 @@
                                bay-3-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay3}} id="machine-field-bay3" class="canvas-class"></canvas>
+                <canvas {{draw_bay3}} id="machine_field_bay_3" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -305,7 +200,7 @@
                                bay-4-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay4}} id="machine-field-bay4" class="canvas-class"></canvas>
+                <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -327,7 +222,7 @@
                                bay-5-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay5}} id="machine-field-bay5" class="canvas-class"></canvas>
+                <canvas {{draw_bay5}} id="machine_field_bay_5" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -349,7 +244,7 @@
                                bay-6-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay6}} id="machine-field-bay6" class="canvas-class"></canvas>
+                <canvas {{draw_bay6}} id="machine_field_bay_6" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -371,7 +266,7 @@
                                bay-7-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay7}} id="machine-field-bay7" class="canvas-class"></canvas>
+                <canvas {{draw_bay7}} id="machine_field_bay_7" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -393,7 +288,7 @@
                                bay-8-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay8}} id="machine-field-bay8" class="canvas-class"></canvas>
+                <canvas {{draw_bay8}} id="machine_field_bay_8" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -415,7 +310,7 @@
                                bay-9-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay9}} id="machine-field-bay9" class="canvas-class"></canvas>
+                <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
             </div>
 
         </div>
@@ -438,11 +333,11 @@
                                bay-10-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay10}} id="machine-field-bay10" class="canvas-class"></canvas>
+                <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
             </div>
         </div>
 
-    <div class="test-bay-container">
+
         <div class="assembly-line-fields team-test-bay-1">
             <div class="bay-arrows assembly-line-arrow-1">
                 <div class="chevron"></div>
@@ -461,7 +356,7 @@
                                bay-test-bay-1-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_test_bay_1}} id="machine-field-test-bay-1" class="canvas-class"></canvas>
+                <canvas {{draw_test_bay_1}} id="machine_field_test_bay_1" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -483,7 +378,7 @@
                                bay-test-bay-2-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_test_bay_2}} id="machine-field-test-bay-2" class="canvas-class"></canvas>
+                <canvas {{draw_test_bay_2}} id="machine_field_test_bay_2" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -501,7 +396,7 @@
                                bay-test-bay-3-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_test_bay_3}} id="machine-field-test-bay-3" class="canvas-class"></canvas>
+                <canvas {{draw_test_bay_3}} id="machine_field_test_bay_3" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -519,10 +414,10 @@
                                bay-test-bay-4-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_test_bay_4}} id="machine-field-test-bay-4" class="canvas-class"></canvas>
+                <canvas {{draw_test_bay_4}} id="machine_field_test_bay_4" class="canvas-class"></canvas>
             </div>
         </div>
-    </div>
+
 
      <div class="final-assembly-container">
         <div class="assembly-line-fields team5-bay-14">
@@ -543,7 +438,7 @@
                                bay-14-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_14}} id="machine-field-bay-14" class="canvas-class"></canvas>
+                <canvas {{draw_bay_14}} id="machine_field_bay_14" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -565,7 +460,7 @@
                                bay-15-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_15}} id="machine-field-bay-15" class="canvas-class"></canvas>
+                <canvas {{draw_bay_15}} id="machine_field_bay_15" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -587,7 +482,7 @@
                                bay-16-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_16}} id="machine-field-bay-16" class="canvas-class"></canvas>
+                <canvas {{draw_bay_16}} id="machine_field_bay_16" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -609,7 +504,7 @@
                                bay-17-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_17}} id="machine-field-bay-17" class="canvas-class"></canvas>
+                <canvas {{draw_bay_17}} id="machine_field_bay_17" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -631,7 +526,7 @@
                                bay-18-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_18}} id="machine-field-bay-18" class="canvas-class"></canvas>
+                <canvas {{draw_bay_18}} id="machine_field_bay_18" class="canvas-class"></canvas>
             </div>
         </div>
 
@@ -653,11 +548,11 @@
                                bay-19-move-button">Move</button>
             </div>
             <div>
-                <canvas {{draw_bay_19}} id="machine-field-bay-19" class="canvas-class"></canvas>
+                <canvas {{draw_bay_19}} id="machine_field_bay_19" class="canvas-class"></canvas>
             </div>
         </div>
      </div>
+
     </html>
-    -->
 </template>
 

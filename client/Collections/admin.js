@@ -156,10 +156,8 @@ Template.adminView.events({
     'click .failureCorrection': () => {
         console.log('yes')
        // Meteor.call('failureCorrection');
-        Meteor.call('machineTableUpdate')
+        Meteor.call('alterDataBase')
     },
-
-
 
    'click .area': function (e) {
        e.preventDefault();

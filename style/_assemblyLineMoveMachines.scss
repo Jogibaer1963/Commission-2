@@ -15,7 +15,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 5em;
   position: absolute;
   top: 11em;
-  width: 300px;
+ // width: 300px;
 }
 
 .in-line-date {
@@ -31,13 +31,22 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //box is covering Table except 1st line.
 
-.invisible-box {
-  height: 20em;
+.rectangle {
+  background: #0000FFFF;
+  height: 22em;
   left: 5em;
   opacity: .1;
-  position: absolute;
-  top: 24em;
-  width: 18em;
+  position: relative;
+  top: 21em;
+  width: 200px;
+  z-index: 1;
+}
+
+.cover-box {
+  height: 20em;
+  left: 5em;
+  position: relative;
+  width: 20em;
 }
 
 .machine-field {
@@ -55,12 +64,16 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .canvas-correction {
   position: absolute;
-  top: 60px;
+  top: 1px;
 }
 
-
-
 // **************************** arrows Assembly Line ****************************
+
+@mixin param-1 {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+}
 
 .assembly-line-arrow-1 {
   display: flex;
@@ -74,96 +87,242 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 4em;
 }
 
-//  **********************************************************
-
-.engine-lift-up {
-  display: flex;
-  left: -18.5em;
-  position: relative;
-  top: .5em;
-  transform: rotate(180deg);
-}
-
-.bay-2-merge {
-  left: 9em;
+.team-1-arrows {
+  left: 38.1em;
   position: absolute;
-  top: 2.5em;
+  top: 24em;
 }
 
-.engine-line-arrow-2 {
-  display: flex;
-  left: -3em;
-  position: relative;
+.team-2-position {
+  left: -39em;
+  position: absolute;
   top: 1em;
-  transform: rotate(180deg);
 }
 
-.engine-line-arrow-3 {
-  display: flex;
-  left: -3em;
-  position: relative;
-  top: -2.7em;
-  transform: rotate(-135deg);
+.station-1-arrows {
+  @include param-1;
+  left: 13em;
 }
 
-.engine-station {
-  left: 50em;
+.station-2-arrows {
+  @include param-1;
+  left: 27em;
+}
+
+.station-3-arrows {
+  @include param-1;
+  left: 41em;
+}
+
+.station-4-arrows {
+  @include param-1;
+  left: 55em;
+}
+
+.station-5-arrows {
+  @include param-1;
+  left: 69em;
+}
+
+.station-6-arrows {
+  @include param-1;
+  left: 83em;
+}
+
+.station-7-arrows {
+  @include param-1;
+  left: 97em;
+}
+
+.station-8-arrows {
+  @include param-1;
+  left: 111em;
+}
+
+//  *******************************  Team 4 Assembly  ****************
+
+.engine-reservoir {
+  color: $color-machine-reservoir;
+  left: 6em;
   position: absolute;
+  top: 42em;
 }
 
-.engine-station-1 {
-  top: 90em;
+
+.engine-assembly-container {
+  left: 35em;
+  position: absolute;
+  top: 12em;
 }
+
+$station-text-color: #03ff84;
 
 .engine-text {
-  color: $text-color-engine-stations;
-  font-weight: bolder;
-  left: 10em;
-  position: relative;
-  top: -4em;
+  color: $station-text-color;
 }
 
-.cooling-text {
-  color: $text-color-engine-stations;
-  font-weight: bolder;
-  left: -12em;
-  position: relative;
-  top: -4em;
-}
-
-.engine-station-2 {
-  top: 83em;
-}
-
-.engine-station-3 {
-  top: 76em;
-}
-
-.engine-station-3-text {
-  top: -18em;
-}
-
-.engine-station-4 {
-  top: 69em;
-}
-
-.engine-cooling-merge {
-  left: 46em;
-  top: 62em;
-}
-
-.engine-cooling-1 {
-  left: 40em;
+.station-1 {
+  left: 0;
   position: absolute;
-  top: 76em;
+  top: 30em;
 }
 
-.engine-cooling-2 {
-  left: 40em;
-  position: absolute;
-  top: 69em;
+.engine-canvas-correction {
+  left: -12px;
+  position: relative;
+  top: 14px;
 }
+
+.station-2 {
+  left: 13em;
+  position: absolute;
+  top: 30em;
+}
+
+.station-3 {
+  left: 26em;
+  position: absolute;
+  top: 30em;
+}
+
+.station-4 {
+  left: 39em;
+  position: absolute;
+  top: 30em;
+}
+
+//  **************** chevron arrows Engine Assembly  ************************
+
+.chevron-engine-bays {
+  left: 25.2em;
+  position: absolute;
+  top: 40em;
+}
+
+@mixin engine-param-1 {
+  position: relative;
+  top: 15em;
+  transform: rotate(-90deg);
+}
+
+.engine-arrow-1 {
+  @include engine-param-1;
+  left: 1em;
+}
+
+.engine-arrow-2 {
+  @include engine-param-1;
+  left: 17em;
+}
+
+.engine-arrow-3 {
+  @include engine-param-1;
+  left: 30em;
+}
+
+.engine-arrow-4 {
+  @include engine-param-1;
+  left: 43em;
+}
+
+@mixin cooling-param-1 {
+  position: absolute;
+  top: 1px;
+  transform: rotate(-90deg);
+}
+
+.cooling-arrow-1 {
+  @include cooling-param-1;
+  left: 1em;
+}
+
+.cooling-arrow-2 {
+  @include cooling-param-1;
+  left: 17em;
+}
+
+.merging-arrow-1 {
+  @include cooling-param-1;
+  left: 30em;
+}
+
+.merging-arrow-2 {
+  @include cooling-param-1;
+  left: 49em;
+}
+
+// ****************************  Cooling Box and Merging ****************************
+
+.cooling-canvas-correction {
+  left: -20px;
+  position: relative;
+}
+
+@mixin cooling-param-2 {
+  position: absolute;
+  top: 16.6em;
+}
+
+.cooling-station-1 {
+  left: -5px;
+  position: absolute;
+  top: 10em;
+}
+
+.my-canvas {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.my-canvas-2 {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.cooling-station-2 {
+  left: 13em;
+  position: absolute;
+  top: 10em;
+}
+
+.merge-1-move-button {
+  left: -30px;
+}
+
+.engine-merge-station-1 {
+  position: absolute;
+  top: 7em;
+  left: 24.8em;
+}
+
+.engine-merge-station-2 {
+  position: absolute;
+  top: 7em;
+  left: 40em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //  --------------------------  Bay 2  -----------------------------
+
+.team-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 35em;
+  position: absolute;
+}
+
 .assembly-line-fields {
   height: 10em;
   position: absolute;
@@ -250,12 +409,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 35em;
 }
 
-.engine-assembly-container {
-  left: 10em;
-  position: absolute;
-  top: 20em;
-}
-
 .test-bay-container {
   position: absolute;
   top: -.5px;
@@ -297,72 +450,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 50em;
 }
 
-// **************** template tactTime *****************
-
-$input-field-height: 30em;
-$rgba-colors: rgba(17, 9, 117, .46);
-
-.input-field-team-1 {
-  background-color: $rgba-colors;
-  height: 250px;
-  left: 21em;
-  position: absolute;
-  top: $input-field-height;
-}
-
-.input-field-team-2 {
-  background-color: $rgba-colors;
-  height: 250px;
-  left: 51em;
-  position: absolute;
-  top: $input-field-height;
-}
-
-.input-field-team-3 {
-  background-color: $rgba-colors;
-  height: 250px;
-  left: 81em;
-  position: absolute;
-  top: $input-field-height;
-}
-
-.input-field-team-4 {
-  background-color: $rgba-colors;
-  height: 250px;
-  left: 60em;
-  position: absolute;
-  top: 60em;
-}
-
-.input-field-team-5 {
-  background-color: $rgba-colors;
-  height: 250px;
-  left: 141em;
-  position: absolute;
-  top: $input-field-height;
-}
-
-.tact-time {
-  color: $text-color-tact-time;
-  font-family: Cambria, serif;
-  font-size: large;
-}
-
-.work-hours {
-  color: $text-color-tact-time;
-  font-family: Cambria, serif;
-  font-size: large;
-}
-
-.work-start {
-  color: $text-color-tact-time;
-  font-family: Cambria, serif;
-  font-size: large;
-}
-
-
-
-
 // ****************  Sun Timer  ********************************************
 
 $begin-horizon: #00f;
@@ -373,21 +460,40 @@ $text-ilumination: rgba(0, 0, 0, .6) 0 0 3px;
 $transition: all 1.5s;
 
 .team-container-2 {
-  left: 30em;
+  left: 12em;
   position: absolute;
   top: .2em;
+  z-index: -1;
 }
 
 .team-container-3 {
-  left: 60em;
+  left: -81em;
   position: absolute;
-  top: .2em;
+  top: 1em;
+}
+
+.team-container-4 {
+  left: -153em;
+  position: absolute;
+  top: 1em;
+}
+
+.team-container-test-bay {
+  left: -125em;
+  position: absolute;
+  top: 1em;
+}
+
+.chevron-test-bay {
+  left: -1.3em;
+  position: absolute;
+  top: -.2em;
 }
 
 .team-container-5 {
-  left: 120em;
+  left: -153em;
   position: absolute;
-  top: .2em;
+  top: 1em;
 }
 
 .body-timer-block {
@@ -396,14 +502,22 @@ $transition: all 1.5s;
   top: -5em;
 }
 //---------------------  Team 1 -----------------------------------
-.clock-container-team-1 {
-  left: -30em;
+
+.team-1-sun-burst-container {
+  left: -4em;
   position: relative;
-  top: 40em;
+  top: 6em;
+}
+
+.clock-container-team-1 {
+  left: -43em;
+  position: fixed;
+  top: 20em;
 
   .clock-team-1 {
+    left: 20em;
     position: relative;
-    top: -16em;
+    top: 1em;
 
     .title {
       display: none;
@@ -429,7 +543,7 @@ $transition: all 1.5s;
   bottom: auto;
   left: 25em;
   position: relative;
-  top: 25em;
+  top: 2em;
   width: 350px;
 
   .horizon-team-1 {
@@ -441,11 +555,8 @@ $transition: all 1.5s;
     }
 
   .sun-team-1 {
-    height: 50px;
-    left: -100px;
     position: absolute;
-    top: -25px;
-    width: 200px;
+
 
     .sun-spot-team-1 {
       animation: pulse 4s linear infinite;
@@ -462,8 +573,14 @@ $transition: all 1.5s;
 
 //----------------------------- Team 2 -------------------------------
 
+.team-2-sun-burst-container {
+  left: -4em;
+  position: relative;
+  top: 6em;
+}
+
 .clock-container-team-2 {
-  left: -30em;
+  left: -50em;
   position: relative;
   top: 40em;
 
