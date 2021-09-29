@@ -487,6 +487,13 @@ Template.moveMachines.events({
                }
     },
 
+
+
+});
+
+
+Template.overViewButtons.events({
+
     'click .bay-2-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_fcb_threshing'
@@ -563,22 +570,22 @@ Template.moveMachines.events({
         let newCanvasId = "machine_field_bay_14";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
-/*
-    'click .bay-test-bay-3-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine-field-test-bay-2'
-        let newCanvasId = "machine-field-bay11";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
-    },
+    /*
+        'click .bay-test-bay-3-move-button': (e) => {
+            e.preventDefault();
+            let oldCanvasId = 'machine-field-test-bay-2'
+            let newCanvasId = "machine-field-bay11";
+            invokeMoveMachine(oldCanvasId, newCanvasId)
+        },
 
-    'click .bay-test-bay-4-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine-field-bay10'
-        let newCanvasId = "machine-field-bay11";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
-    },
+        'click .bay-test-bay-4-move-button': (e) => {
+            e.preventDefault();
+            let oldCanvasId = 'machine-field-bay10'
+            let newCanvasId = "machine-field-bay11";
+            invokeMoveMachine(oldCanvasId, newCanvasId)
+        },
 
- */
+     */
 
     'click .bay-14-move-button': (e) => {
         e.preventDefault();
@@ -621,11 +628,7 @@ Template.moveMachines.events({
         invokeMoveFromLastBay(oldCanvasId)
     }
 
-
-});
-
-
-
+})
 
 
 

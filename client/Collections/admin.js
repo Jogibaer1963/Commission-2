@@ -52,13 +52,20 @@ Template.adminNewUser.events({
             roleConst = 'washBay'
         } else if (role === 'Loading') {
             roleConst = 'outBound'
-        }  else if (role === 'Operation Supervisor') {
+        } else if (role === 'Operation Supervisor') {
             roleConst = 'Ops_admin'
-        }   else if (role === 'Team Lead') {
-            roleConst = 'teamLead'
-        }else if (role === 'Picker') {
-            roleConst = 'Picker';
-
+        } else if (role === 'Team 1') {
+            roleConst = 'team_1';
+        } else if (role === 'Team 2') {
+            roleConst = 'team_2';
+        } else if (role === 'Team 3') {
+            roleConst = 'team_3';
+        } else if (role === 'Team 4') {
+            roleConst = 'team_4';
+        } else if (role === 'Team 5') {
+            roleConst = 'team_5';
+        } else if (role === 'Test Bay') {
+            roleConst = 'test_bay';
         }
 
         event.target.registerUser.value = '';

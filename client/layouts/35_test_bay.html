@@ -1,14 +1,73 @@
 <template name="test_bay">
     {{#if currentUser}}
+       {{#if isInRole 'test_bay, admin' }}
         {{> back_to_assembly_line }}
         {{> team_1_buttons }}
         {{> team_2_buttons }}
         {{> team_4_buttons }}
         {{> team_5_buttons }}
+        {{> list_of_points }}
+        {{> log_out_button }}
         {{> test_bay_over_view }}
+        {{> test_bay_move_buttons }}
+        {{/if }}
+        {{#if isInRole 'team_1, team_2, team_3, team_4, team_5' }}
+            {{> back_to_assembly_line }}
+            {{> team_1_buttons }}
+            {{> team_2_buttons }}
+            {{> team_4_buttons }}
+            {{> team_5_buttons }}
+            {{> list_of_points }}
+            {{> log_out_button }}
+            {{> test_bay_over_view }}
+            {{/if }}
     {{else}}
         {{> login}}
     {{/if}}
+</template>
+
+<template name="test_bay_move_buttons">
+
+<div class="template-test-bay">
+
+    <div class="test-1-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-test-bay-1-move-button">Move</button>
+    </div>
+
+    <div class="test-2-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-test-bay-2-move-button">Move</button>
+    </div>
+
+    <div class="test-3-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-test-bay-3-move-button">Move</button>
+    </div>
+
+    <div class="test-4-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-test-bay-4-move-button">Move</button>
+    </div>
+
+</div>
+
 </template>
 
 <template name="test_bay_over_view">
@@ -66,14 +125,7 @@
             <div class="bay-3-text">
                 <h4>Bay 9</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                                       btn-default
-                                       btn-success
-                                       bay-9-move-button">Move</button>
-            </div>
+
             <div>
                 <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
             </div>
@@ -83,30 +135,14 @@
             <div class="bay-3-text">
                 <h4>Bay 10</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                                       btn-default
-                                       btn-success
-                                       bay-10-move-button">Move</button>
-            </div>
             <div>
                 <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
             </div>
         </div>
 
         <div class="assembly-line-fields team-test-bay-1">
-            <div class="bay-3-text">
-                <h4>Test Bay 1</h4>
-            </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-test-bay-1-move-button">Move</button>
+            <div class="test-bay-1-2-text">
+                <h4>Test 1</h4>
             </div>
             <div>
                 <canvas {{draw_test_bay_1}} id="machine_field_test_bay_1" class="canvas-class"></canvas>
@@ -114,52 +150,29 @@
         </div>
 
         <div class="assembly-line-fields team-test-bay-2">
-            <div class="bay-3-text">
-                <h4>Test Bay 2</h4>
+            <div class="test-bay-1-2-text">
+                <h4>Test 2</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-test-bay-2-move-button">Move</button>
-            </div>
+
             <div>
                 <canvas {{draw_test_bay_2}} id="machine_field_test_bay_2" class="canvas-class"></canvas>
             </div>
         </div>
 
         <div class="assembly-line-fields team-test-bay-3">
-            <div class="bay-3-text">
-                <h4>Test Bay 3</h4>
+            <div class="test-bay-3-4-text">
+                <h4>Test 3</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-test-bay-3-move-button">Move</button>
-            </div>
-            <div>
+            <div class="canvas-test-3-4">
                 <canvas {{draw_test_bay_3}} id="machine_field_test_bay_3" class="canvas-class"></canvas>
             </div>
         </div>
-        <div class="assembly-line-fields team-test-bay-4">
 
-            <div class="bay-3-text">
-                <h4>Test Bay 4</h4>
+        <div class="assembly-line-fields team-test-bay-4">
+            <div class="test-bay-3-4-text">
+                <h4>Test 4</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-test-bay-4-move-button">Move</button>
-            </div>
-            <div>
+            <div class="canvas-test-3-4">
                 <canvas {{draw_test_bay_4}} id="machine_field_test_bay_4" class="canvas-class"></canvas>
             </div>
         </div>

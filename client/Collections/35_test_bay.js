@@ -57,7 +57,7 @@ Template.test_bay_over_view.helpers({
 
 })
 
-Template.test_bay_over_view.events({
+Template.test_bay_move_buttons.events({
 
     'click .bay-test-bay-1-move-button': (e) => {
         e.preventDefault();

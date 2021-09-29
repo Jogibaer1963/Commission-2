@@ -71,24 +71,7 @@ Template.team_1_over_view.helpers({
 
 })
 
-Template.team_1_over_view.events({
-
-
-
-    'click .selectedAssemblyMachine': async function(e) {
-        e.preventDefault();
-        let selectedAssemblyMachine = this._id;
-        let machineNr = this.machineId;
-        let canvasId = "machine_field_fcb_threshing"
-        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
-        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatus[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
-            invokeDrawNewMachine(machineNr, canvasId)
-        } else {
-            window.alert('2 Machines in Bay 2 are not allowed')
-        }
-    },
+Template.team_1_move_buttons.events({
 
     'click .bay-2-move-button': (e) => {
         e.preventDefault();
@@ -110,6 +93,27 @@ Template.team_1_over_view.events({
         let newCanvasId = "machine_field_bay_5";
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
+
+})
+
+Template.team_1_over_view.events({
+
+    'click .selectedAssemblyMachine': async function(e) {
+        e.preventDefault();
+        let selectedAssemblyMachine = this._id;
+        let machineNr = this.machineId;
+        let canvasId = "machine_field_fcb_threshing"
+        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
+    },
+
+
 })
 
 Template.back_to_assembly_line.events({
@@ -159,6 +163,21 @@ Template.team_5_buttons.events({
     'click .btn-team_5': (e) => {
         e.preventDefault();
         FlowRouter.go('/team_5')
+    },
+})
+
+Template.list_of_points.events({
+    'click .lop': (e) => {
+        e.preventDefault();
+        FlowRouter.go('/lop')
+    },
+})
+
+Template.log_out_button.events({
+    'click .log_out': (e) => {
+        e.preventDefault();
+        Meteor.logout();
+        //Meteor.call('logOut', userName)
     },
 })
 

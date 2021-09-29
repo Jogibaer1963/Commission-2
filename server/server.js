@@ -112,27 +112,9 @@ if(Meteor.isServer){
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
            // console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
-
             let bayArray = [];
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
-
-         //  ************  start empty Bay Counter ***************************************************
-         //  following Machine need to know the _id to stop the empty-bay-counter
-            // here starts the leaving-bay process, saving time when leaving in "12_activeAssembly"
-            // store the time as it is also the _id for the leaving data field in next machines data block
-            // as emptyBay
-            let leavingBay = {
-                "bay_left" : movingTime,
-                "bay_left_unix" : todayUnix,
-            }
-            activeAssembly.update({_id: "empty_bay_timer"},
-                             {$push: {[thisBay] : leavingBay}})
-
-
-
-
-
 
            // ******************  move machine to next Bay ************************************************************
             machineCommTable.update({_id: machineId, 'bayReady._id': thisBay},
@@ -183,6 +165,7 @@ if(Meteor.isServer){
                     bayDateLandingUnix : todayUnix,
                 }
                 bayArray.push(machineInfo)
+              //  console.log('thisBay', thisBay)
                 let result = activeAssembly.findOne({_id: thisBay});
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
              //   console.log('Pulled Machine ', pullMachineId)
@@ -195,17 +178,13 @@ if(Meteor.isServer){
             // **********  count time in Bay spent ****************
 
 
-
-
-
-
         },
 
         // ****************** move from list to FCB Bay ********************
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
-
+          //  console.log(machineNr, canvasId)
           let listObjects = [];
             let result = assemblyLineBay.find({}).fetch();
            result.forEach((element) => {
@@ -214,13 +193,16 @@ if(Meteor.isServer){
             machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
 
             // *********  End preparing   ****************************************************************************
-
+            let activeEngineList = '';
             let bayArray = [];
             let today = moment().format('YYYY-MM-DD HH:mm:ss ');
             let todayUnix = (Date.now()).toFixed(0); // milliseconds
-
+            if (canvasId === 'engine-station-1') {
+                activeEngineList = false;
+            }
             machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                                     {$set: {
+                                        'activeEngineList': activeEngineList,
                                         'activeAssemblyLineList' : false,
                                         'activeInBay' : true,
                                         'bayReady.$.bayDateLanding': today,
@@ -1149,6 +1131,11 @@ if(Meteor.isServer){
             } else if(status === 3) {
                 CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: 1, clearDate: 're-opened'}});
             }
+        },
+
+        'logOut': (userName) => {
+            Meteor.users.update({username: userName}, {$set: {'services.resume.loginTokens': []}});
+            usersProfile.upsert({username: userName}, {$set: {loginStatus: 0}});
         },
 
         'userManualLogout': function (logOutUser) {

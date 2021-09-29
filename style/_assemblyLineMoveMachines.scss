@@ -4,6 +4,11 @@ $text-color-engine-stations: #71f323;
 $text-color-tact-time: #bc171b;
 $background-admin-field: rgba(17, 9, 117, 0.46);
 
+.lop-nav {
+  left: 30em;
+  position: absolute;
+}
+
 .nav-bar {
   left: 20em;
   position: absolute;
@@ -42,11 +47,136 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 1;
 }
 
+.rectangle-2 {
+  background: #0000FFFF;
+  height: 22em;
+  left: 5em;
+  opacity: .1;
+  position: relative;
+  top: 53em;
+  width: 200px;
+  z-index: 1;
+}
+
 .cover-box {
   height: 20em;
   left: 5em;
   position: relative;
   width: 20em;
+}
+
+@mixin move-buttons {
+  position: absolute;
+  top: -1.5em;
+}
+
+.move-buttons-over-view {
+  left: 22em;
+  position: absolute;
+  top: 12em;
+}
+
+.bay-3-button {
+  @include move-buttons;
+  left: 10em;
+}
+
+.bay-4-button {
+  @include move-buttons;
+  left: 20em;
+}
+
+.bay-5-button {
+  @include move-buttons;
+  left: 30em;
+}
+
+.bay-6-button {
+  @include move-buttons;
+  left: 40em;
+}
+
+.bay-7-button {
+  @include move-buttons;
+  left: 50em;
+}
+
+.bay-8-button {
+  @include move-buttons;
+  left: 60em;
+}
+
+.bay-9-button {
+  @include move-buttons;
+  left: 70em;
+}
+
+.bay-10-button {
+  @include move-buttons;
+  left: 80em;
+}
+
+.bay-test-1-button {
+  @include move-buttons;
+  left: 90em;
+}
+
+.bay-test-2-button {
+  @include move-buttons;
+  left: 100em;
+}
+
+.bay-test-3-button {
+  left: 90em;
+  position: absolute;
+  top: 9.6em;
+}
+
+.bay-test-4-button {
+  left: 100em;
+  position: absolute;
+  top: 9.6em;
+}
+
+//  ****************** Test Bay 3 & 4 Text boxes  **************************
+
+.test-3-4-text {
+  color: $text-color-engine-stations;
+  font-weight: bolder;
+  position: relative;
+  top: -6em;
+}
+
+//  *********************************************************************************
+
+.bay-14-button {
+  @include move-buttons;
+  left: 110em;
+}
+
+.bay-15-button {
+  @include move-buttons;
+  left: 120em;
+}
+
+.bay-16-button {
+  @include move-buttons;
+  left: 130em;
+}
+
+.bay-17-button {
+  @include move-buttons;
+  left: 140em;
+}
+
+.bay-18-button {
+  @include move-buttons;
+  left: 150em;
+}
+
+.bay-19-button {
+  @include move-buttons;
+  left: 160em;
 }
 
 .machine-field {
@@ -139,6 +269,207 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 111em;
 }
 
+//   ************************* Team 1 move buttons  **********************
+
+.team-1-buttons {
+  left: 22em;
+  position: absolute;
+  top: 12em;
+}
+
+.bay-3-team-button {
+  left: 10em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-4-team-button {
+  left: 20em;
+  position: absolute;
+  top: -1.5em;
+}
+
+//   **************************  Team 2 move buttons  *******************
+
+.template-team-2 {
+  left: 23.7em;
+  position: absolute;
+  top: 12.5em;
+}
+
+.bay-6-team-button {
+  left: 10em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-7-team-button {
+  left: 20em;
+  position: absolute;
+  top: -1.5em;
+}
+
+//  ***************************  Team 3 move buttons   ++++++++++++++++++++++
+
+.template-team-3 {
+  left: 23.7em;
+  position: absolute;
+  top: 12.5em;
+}
+
+.bay-9-team-button {
+  left: 10em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-10-team-button {
+  left: 20em;
+  position: absolute;
+  top: -1.5em;
+}
+
+//    *********************************   Team 4 move buttons  *********************
+
+.template-team-4 {
+  left: 25em;
+  position: absolute;
+  top: 34.5em;
+}
+
+.engine-2-team-button {
+  left: 9.5em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.engine-3-team-button {
+  left: 19em;
+  position: absolute;
+  top: -1.5em;
+  z-index: 1;
+}
+
+.engine-4-team-button {
+  left: 26em;
+  position: absolute;
+  top: -1.5em;
+  z-index: 1;
+}
+
+.cooling-1-team-button {
+  left: 0em;
+  position: absolute;
+  top: -18em;
+}
+
+.cooling-2-team-button {
+  left: 10em;
+  position: absolute;
+  top: -19.5em;
+}
+
+.merge-1-team-button {
+  left: 17em;
+  position: absolute;
+  top: -19.5em;
+}
+
+.merge-2-team-button {
+  left: 28em;
+  position: absolute;
+  top: -19.5em;
+}
+
+//  **************************  Test Bay Text and boxes in Single View ********************
+
+@mixin test-bay-text-boxes {
+  color: $text-color-engine-stations;
+  font-weight: bolder;
+  left: 2em;
+  position: relative;
+}
+
+.test-bay-1-2-text {
+  @include test-bay-text-boxes;
+  top: -9em;
+
+}
+
+.test-bay-3-4-text {
+  @include test-bay-text-boxes;
+  top: -5em;
+}
+
+.canvas-test-3-4 {
+  position: relative;
+  top: 2em;
+}
+
+
+//  ***************************  Test Bay Move Buttons  ************************
+
+.template-test-bay {
+  left: 22.4em;
+  position: absolute;
+  top: 13em;
+}
+
+.test-2-team-button {
+  left: 10em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.test-3-team-button {
+  position: absolute;
+  top: 10em;
+}
+
+.test-4-team-button {
+  left: 10em;
+  position: absolute;
+  top: 8.5em;
+}
+
+//   *********************************** Team 5 Move Buttons  *********************
+
+.template-team-5 {
+  left: 24em;
+  position: absolute;
+  top: 12.5em;
+}
+
+.bay-15-team-button {
+  left: 10em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-16-team-button {
+  left: 20em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-17-team-button {
+  left: 30em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-18-team-button {
+  left: 40em;
+  position: absolute;
+  top: -1.5em;
+}
+
+.bay-19-team-button {
+  left: 50em;
+  position: absolute;
+  top: -1.5em;
+}
+
 //  *******************************  Team 4 Assembly  ****************
 
 .engine-reservoir {
@@ -152,14 +483,18 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .engine-assembly-container {
   left: 35em;
   position: absolute;
-  top: 12em;
+  top: 15.5em;
 }
 
 $station-text-color: #03ff84;
 
 .engine-text {
   color: $station-text-color;
+  position: relative;
+  top: -2em;
 }
+
+//  **********************  Single position of assembly stations  ***********
 
 .station-1 {
   left: 0;
@@ -183,12 +518,14 @@ $station-text-color: #03ff84;
   left: 26em;
   position: absolute;
   top: 30em;
+  z-index: 1;
 }
 
 .station-4 {
   left: 39em;
   position: absolute;
   top: 30em;
+  z-index: 1;
 }
 
 //  **************** chevron arrows Engine Assembly  ************************
@@ -227,7 +564,7 @@ $station-text-color: #03ff84;
 
 @mixin cooling-param-1 {
   position: absolute;
-  top: 1px;
+  top: -9em;
   transform: rotate(-90deg);
 }
 
@@ -260,13 +597,13 @@ $station-text-color: #03ff84;
 
 @mixin cooling-param-2 {
   position: absolute;
-  top: 16.6em;
+  top: 5em;
 }
 
 .cooling-station-1 {
   left: -5px;
   position: absolute;
-  top: 10em;
+  top: 6em;
 }
 
 .my-canvas {
@@ -281,38 +618,33 @@ $station-text-color: #03ff84;
   top: 2em;
 }
 
+.my-canvas-3 {
+  position: relative;
+  top: 2em;
+}
+
+.merging-canvas-correction {
+  position: relative;
+  top: 2em;
+}
+
 .cooling-station-2 {
   left: 13em;
   position: absolute;
-  top: 10em;
-}
-
-.merge-1-move-button {
-  left: -30px;
+  top: 5em;
 }
 
 .engine-merge-station-1 {
-  position: absolute;
-  top: 7em;
   left: 24.8em;
+  position: absolute;
+  top: 5em;
 }
 
 .engine-merge-station-2 {
-  position: absolute;
-  top: 7em;
   left: 40em;
+  position: absolute;
+  top: 5em;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //  --------------------------  Bay 2  -----------------------------
 
@@ -341,13 +673,6 @@ $station-text-color: #03ff84;
   position: relative;
   top: -10em;
   width: 150px;
-}
-
-
-.bay-move-button {
-  left: .5em;
-  position: absolute;
-  top: -4em;
 }
 
 // -----------------------------    Bay 3  ------------------------------------
@@ -415,10 +740,11 @@ $station-text-color: #03ff84;
 }
 
 .final-assembly-container {
-  left: 100em;
+  left: 98em;
   position: absolute;
   top: -30em;
 }
+
 
 .team5-bay-14 {
   left: 86em;
@@ -491,7 +817,7 @@ $transition: all 1.5s;
 }
 
 .team-container-5 {
-  left: -153em;
+  left: -151em;
   position: absolute;
   top: 1em;
 }
@@ -510,9 +836,9 @@ $transition: all 1.5s;
 }
 
 .clock-container-team-1 {
-  left: -43em;
-  position: fixed;
-  top: 20em;
+  left: -40em;
+  position: absolute;
+  top: -5em;
 
   .clock-team-1 {
     left: 20em;

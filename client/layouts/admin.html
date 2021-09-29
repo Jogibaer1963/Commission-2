@@ -187,8 +187,11 @@
     <div class="new-user">
         <h2>New User</h2>
         <form class="adminRegisterNewUser">
-            <input class="omInput" name="registerUser" placeholder="User Name">
-            <input class="omInput" name="registerPassword" placeholder="Password">
+            <label for="userName"></label>
+            <input class="omInput" id="userName" name="registerUser" placeholder="User Name">
+            <label for="password"></label>
+            <input class="omInput" id="password" name="registerPassword" placeholder="Password">
+            <label for="selectMe"></label>
             <select name="userRole" class="omInput omInputButton"  id="selectMe">
                 <option>Admin</option>
                 <option>Logistics</option>
@@ -199,6 +202,12 @@
                 <option>Operation Supervisor</option>
                 <option>Team Lead</option>
                 <option>Picker</option>
+                <option>Team 1</option>
+                <option>Team 2</option>
+                <option>Team 3</option>
+                <option>Team 4</option>
+                <option>Team 5</option>
+                <option>Test Bay</option>
             </select>
             <input type="submit" value="Register" class="adminRegister">
             <p>Roles are</p>

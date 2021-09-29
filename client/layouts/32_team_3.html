@@ -1,15 +1,65 @@
 <template name="team_3">
     {{#if currentUser}}
+        {{#if isInRole 'team_3, admin' }}
         {{> back_to_assembly_line }}
         {{> team_1_buttons }}
         {{> team_2_buttons }}
         {{> team_4_buttons }}
         {{> team_test_bay_buttons }}
         {{> team_5_buttons }}
+        {{> list_of_points }}
+        {{> log_out_button }}
         {{> team_3_over_view }}
-    {{else}}
-        {{> login}}
-    {{/if}}
+        {{> team_3_move_buttons }}
+    {{/if }}
+    {{#if isInRole 'team_1, team_2, team_4, team_5, test_bay' }}
+        {{> back_to_assembly_line }}
+        {{> team_1_buttons }}
+        {{> team_2_buttons }}
+        {{> team_4_buttons }}
+        {{> team_test_bay_buttons }}
+        {{> team_5_buttons }}
+        {{> list_of_points }}
+        {{> log_out_button }}
+        {{> team_3_over_view }}
+    {{/if }}
+        {{else}}
+            {{> login}}
+        {{/if}}
+</template>
+
+<template name="team_3_move_buttons">
+
+    <div class="template-team-3">
+
+        <div class="">
+            <label for="bay-button"></label>
+            <button type="button" id="bay-button"
+                    class="btn
+                           btn-default
+                           btn-success
+                           bay-8-move-button">Move</button>
+        </div>
+
+        <div class="bay-9-team-button">
+            <label for="bay-button"></label>
+            <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-9-move-button">Move</button>
+        </div>
+
+        <div class="bay-10-team-button">
+            <label for="bay-button"></label>
+            <button type="button" id="bay-button"
+                    class="btn
+                           btn-default
+                           btn-success
+                           bay-10-move-button">Move</button>
+        </div>
+
+    </div>
 </template>
 
 <template name="team_3_over_view">
@@ -80,14 +130,6 @@
             <div class="bay-3-text">
                 <h4>Bay 8</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                                       btn-default
-                                       btn-success
-                                       bay-8-move-button">Move</button>
-            </div>
             <div>
                 <canvas {{draw_bay8}} id="machine_field_bay_8" class="canvas-class"></canvas>
             </div>
@@ -97,14 +139,6 @@
             <div class="bay-3-text">
                 <h4>Bay 9</h4>
             </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                                       btn-default
-                                       btn-success
-                                       bay-9-move-button">Move</button>
-            </div>
             <div>
                 <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
             </div>
@@ -113,14 +147,6 @@
         <div class="assembly-line-fields team3-bay10">
             <div class="bay-3-text">
                 <h4>Bay 10</h4>
-            </div>
-            <div class="bay-move-button">
-                <label for="bay2-button"></label>
-                <button type="button"
-                        class="btn
-                                       btn-default
-                                       btn-success
-                                       bay-10-move-button">Move</button>
             </div>
             <div>
                 <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>

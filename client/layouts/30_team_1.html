@@ -1,15 +1,28 @@
 <template name="team_1">
     {{#if currentUser}}
-        <div class="tabletCommissioning">
+            {{#if isInRole 'team_1' }}
             {{> back_to_assembly_line }}
             {{> team_2_buttons }}
             {{> team_3_buttons }}
             {{> team_4_buttons }}
             {{> team_test_bay_buttons }}
             {{> team_5_buttons }}
+            {{> list_of_points }}
+            {{> log_out_button }}
             {{> team_1_over_view }}
+            {{> team_1_move_buttons }}
             {{> burstSunTimerTeam_1}}
-        </div>
+            {{/if }}
+       {{#if isInRole 'team_2, team_3, team_4, test_bay, team_5' }}
+           {{> back_to_assembly_line }}
+           {{> team_2_buttons }}
+           {{> team_3_buttons }}
+           {{> team_4_buttons }}
+           {{> team_test_bay_buttons }}
+           {{> team_5_buttons }}
+           {{> log_out_button }}
+           {{> team_1_over_view }}
+           {{/if }}
     {{else}}
         {{> login}}
     {{/if}}
@@ -43,6 +56,47 @@
     <label for="team_5_button"></label>
     <button class="btn btn-default btn-success btn-team_5">Team 5</button>
 </template>
+<template name="list_of_points">
+    <label for="lop"></label>
+    <button class="btn btn-default btn-info lop" id="lop">List of open Points</button>
+</template>
+<template name="log_out_button">
+    <label for="log_out"></label>
+    <button class="btn btn-default btn-danger log_out">Logout</button>
+</template>
+
+<template name="team_1_move_buttons">
+<div class="team-1-buttons">
+    <div class="bay-2-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-2-move-button">Move</button>
+    </div>
+
+    <div class="bay-3-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-3-move-button">Move</button>
+    </div>
+
+    <div class="bay-4-team-button">
+        <label for="bay-button"></label>
+        <button type="button" id="bay-button"
+                class="btn
+                       btn-default
+                       btn-success
+                       bay-4-move-button">Move</button>
+    </div>
+
+</div>
+</template>
+
 
 <template name="team_1_over_view">
     <html lang="en-US">
@@ -92,14 +146,6 @@
         <div class="bay-2-merge-text">
             <h4>Merge FCB with Threshing Unit</h4>
         </div>
-        <div class="bay-move-button">
-            <label for="bay2-button"></label>
-            <button type="button"
-                    class="btn
-                               btn-default
-                               btn-success
-                               bay-2-move-button">Move</button>
-        </div>
         <div>
             <canvas {{draw_fcb_threshing_team_1}} id="machine_field_fcb_threshing"
                                            class="canvas-class" style="position: relative; top: -57px;"></canvas>
@@ -121,14 +167,6 @@
         <div class="bay-3-text">
             <h4>Bay 3</h4>
         </div>
-        <div class="bay-move-button">
-            <label for="bay2-button"></label>
-            <button type="button"
-                    class="btn
-                               btn-default
-                               btn-success
-                               bay-3-move-button">Move</button>
-        </div>
         <div>
             <canvas {{draw_bay3}} id="machine_field_bay_3" class="canvas-class"></canvas>
         </div>
@@ -142,14 +180,6 @@
         </div>
         <div class="bay-3-text">
             <h4>Bay 4</h4>
-        </div>
-        <div class="bay-move-button">
-            <label for="bay2-button"></label>
-            <button type="button"
-                    class="btn
-                               btn-default
-                               btn-success
-                               bay-4-move-button">Move</button>
         </div>
         <div>
             <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-class"></canvas>

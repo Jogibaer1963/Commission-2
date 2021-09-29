@@ -51,7 +51,7 @@ Template.team_2_over_view.helpers({
 
 })
 
-Template.team_2_over_view.events({
+Template.team_2_move_buttons.events({
 
     'click .bay-5-move-button': (e) => {
         e.preventDefault();
@@ -75,6 +75,3 @@ Template.team_2_over_view.events({
     },
 
 })
-
-
-
