@@ -195,8 +195,15 @@ Template.adminView.events({
     'submit .addingArea': (e) => {
        e.preventDefault();
        let newArea = e.target.addNewArea.value;
-       Meteor.call('addSupplyArea', newArea);
-       target.addNewArea.value = '';
+       let number = e.target.position.value;
+       let team = e.target.team.value;
+       let orderNumber = e.target.orderNumber.value;
+       console.log(newArea, team, number)
+       Meteor.call('insertNewCostCenter', newArea, number, team, orderNumber);
+        e.target.addNewArea.value = '';
+        e.target.position.value = '';
+        e.target.team.value = '';
+        e.target.orderNumber.value = '';
     },
 
     'click .picker-active': (e) => {

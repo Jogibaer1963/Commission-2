@@ -32,6 +32,7 @@ Template.machine_picking_list.helpers({
 
     machineList: () => {
         let machineResult = [];
+        let testArray = [];
         let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
                                                         {fields: {
                                                                             counter: 1,
@@ -40,6 +41,7 @@ Template.machine_picking_list.helpers({
                                                                             supplyAreas: 1,
                                                                             commissionStatus: 1
                                                                             }}).fetch();
+
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
                if (element.supplyAreas[i].active === false) {
@@ -53,6 +55,9 @@ Template.machine_picking_list.helpers({
            }
            machineResult.push(element);
         });
+        machineResult.forEach((element) => {
+            element.supplyAreas.sort(function(a, b) {return a.supplyPosition - b.supplyPosition})
+        })
         return _.sortBy(machineResult, 'counter');
     },
 

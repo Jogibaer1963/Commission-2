@@ -57,6 +57,40 @@ if(Meteor.isServer){
 
     Meteor.methods({
 
+        'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
+            let intSupplyPos = parseInt(supplyPosition);
+            let numberOfOrder = parseInt(orderNumber)
+            let costCenter = {
+                _id: newCostCenter,
+                "supplyPosition" : intSupplyPos,
+                "active" : true,
+                "supplyStatus" : 0,
+                "team" : team,
+                "orderNumber" : numberOfOrder
+               }
+            supplyAreas.insert({ _id: newCostCenter,
+                "supplyPosition" : intSupplyPos, "active" : true, "supplyStatus" : 0,
+                "team" : team, "orderNumber" : numberOfOrder})
+            let counterPosition = [];
+            let newSupplyAreas = [];
+            let result = machineCommTable.find({active: true}, 
+                {fields: {supplyAreas: 1, counter: 1}}).fetch()
+            result.forEach((element) => {
+                if (element.counter === undefined) {
+
+                } else {
+                    counterPosition.push(element.counter)
+                }
+            })
+            counterPosition.forEach((element) => {
+               let newResultSet = machineCommTable.findOne({counter: element},
+                   {fields: {supplyAreas: 1}});
+                let newSet = newResultSet.supplyAreas;
+                newSet.push(costCenter)
+                machineCommTable.update({counter: element}, {$set: {supplyAreas: newSet}});
+            })
+        },
+
 
         'desiredMachinesList': (dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate,  machines) => {
             console.log(dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate, machines)
@@ -133,19 +167,18 @@ if(Meteor.isServer){
                        'bayReady.$.bayDateLandingUnix': todayUnix,
                    }
                });
-            // ****** check if Bay contains 2 Machines
+            // ****** check if Bay contains 2 Machines = true
             if (boolean === true) {
-         //       console.log(boolean)
-                // 2 Machines in Bay, move first machine
+
+   //   ******************************  2 Machines in Bay, move first machine   ************************
+
                 let result = activeAssembly.findOne({_id: thisBay});
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
-          //      console.log('Pulled Machine ', pullMachineId)
-
                 activeAssembly.update({_id : thisBay},
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
 
-                // write machine info into next bay
-          //      console.log('neu in next bay ', machineNr)
+   // write machine info into next bay
+
                 let  machineInfo = {
                     machineId : machineId,
                     machineNr : machineNr,
@@ -156,8 +189,8 @@ if(Meteor.isServer){
                 activeAssembly.update({_id : nextBayId},
                                       {$push: {bayArray: machineInfo}})
 
-            } else if (boolean === false) {
-              //  console.log(boolean)
+
+            } else if (boolean === false) {   // only 1 Machine in present Bay
                 let  machineInfo = {
                     machineId : machineId,
                     machineNr : machineNr,
@@ -165,17 +198,19 @@ if(Meteor.isServer){
                     bayDateLandingUnix : todayUnix,
                 }
                 bayArray.push(machineInfo)
-              //  console.log('thisBay', thisBay)
                 let result = activeAssembly.findOne({_id: thisBay});
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
-             //   console.log('Pulled Machine ', pullMachineId)
-
                 activeAssembly.update({_id : thisBay},
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
+                let bayInfo = {
+                    machineNr : machineNr,
+                    bayDateLeaving : movingTime,
+                    bayDateLeavingUnix : todayUnix
+                }
+                activeAssembly.update({_id: "empty_bay_counter"},
+                    {$push: {[thisBay] : bayInfo}})
                 activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
             }
-
-            // **********  count time in Bay spent ****************
 
 
         },
@@ -384,8 +419,9 @@ if(Meteor.isServer){
 
                               lastCounter ++;
                               updatedMachine ++;
-                              userActions.upsert({_id: 'serverHelper'}, {machineCount: updatedMachine})
-
+                              userActions.upsert({_id: 'serverHelper'},
+                                  {machineCount: updatedMachine})
+                          console.log('new machine ', newMachine)
                           } else {
 
                               // *************** machine already exists and just  update timeline and in line dates  *********************
@@ -397,12 +433,13 @@ if(Meteor.isServer){
                               if (firstMachine.inLineDate === inLineDate) {
                                   machineCounter = firstMachine.counter;
                               }
-                              machineCommTable.update({machineId: newMachine},
+                              machineCommTable.upsert({machineId: newMachine},
                                   {
                                       $set: {
                                           counter : machineCounter,
                                           inLineDate: inLineDate,
                                           timeLine,
+                                          supplyAreas: supplyResult
                                       }
                                   });
                           }
@@ -414,6 +451,8 @@ if(Meteor.isServer){
                           console.log(e)
                       }
           });
+
+
 
 
         },
@@ -615,7 +654,7 @@ if(Meteor.isServer){
         'multipleMachines': (machineIds, loggedUser) => {
 
             let supplyArray0 = [];
-            /*
+
            let supplyArray1 = [];
            let supplyArray2 = [];
            let supplyArray3 = [];
@@ -625,7 +664,7 @@ if(Meteor.isServer){
            let supplyArray7 = [];
            let supplyArray8 = [];
            let supplyArray9 = [];
-            */
+
             let supplyArray = [];
             let newSet = [];
             let newObjectSet = [];
@@ -669,7 +708,7 @@ if(Meteor.isServer){
             }, {});
 
             let arr1 = Object.values(countedNames);
-            console.log('Array 1 ', arr1);
+          //  console.log('Array 1 ', arr1);
             let key = Object.keys(countedNames);
             let max = Math.max(...arr1);
             let i = 0;

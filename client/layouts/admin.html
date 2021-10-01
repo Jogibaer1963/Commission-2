@@ -119,12 +119,18 @@
                 <thead>
                 <tr>
                     <th class="">Supply Area</th>
+                    <th class="">Position</th>
+                    <th>Team</th>
+                    <th>Order</th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each supplyArea}}
                 <tr class="table-size area {{selectedArea}}">
                     <th>{{_id}}</th>
+                    <th>{{supplyPosition}}</th>
+                    <th class="">{{team}}</th>
+                    <th class="">{{orderNumber}}</th>
                 </tr>
                 {{/each}}
                 </tbody>
@@ -141,12 +147,14 @@
                 <thead>
                 <tr>
                     <th class="">Supply Area</th>
+                    <th class="">Position</th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each inActive}}
                     <tr class="table-size inactiveArea {{selectedInactiveArea}}">
                         <th>{{_id}}</th>
+                        <th>{{supplyPosition}}</th>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -155,8 +163,15 @@
         <div class="add-area">
             <form class="addingArea">
                 <label for="addNewArea"></label>
-                <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area" disabled>
-                <button type="submit" class="btn btn-success btn-default" disabled>Submit new Area</button>
+                <input type="text" id="addNewArea" name="addNewArea" placeholder="Add new Area">
+                <label for="supplyPosition"></label>
+                <input type="number" id="supplyPosition" name="position" placeholder="Supply Position">
+                <label for="team"></label>
+                <input type="number" id="team" name="team" placeholder="Team">
+                <label for="orderNumber"></label>
+                <input type="number" id="orderNumber" name="orderNumber" placeholder="Order Number">
+                <p></p>
+                <button type="submit" class="btn btn-success btn-default">Submit new Area</button>
             </form>
         </div>
     </div>

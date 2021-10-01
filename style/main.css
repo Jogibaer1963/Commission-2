@@ -67,6 +67,7 @@
 }
 
 .active-supply {
+  left: -10em;
   position: absolute;
   top: 15em;
 }
@@ -482,7 +483,7 @@ table.supply-table {
 }
 
 .inactive-machine-table {
-  left: 120em;
+  left: 130em;
   position: absolute;
   top: 26em;
 }
