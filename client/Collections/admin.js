@@ -54,6 +54,8 @@ Template.adminNewUser.events({
             roleConst = 'outBound'
         } else if (role === 'Operation Supervisor') {
             roleConst = 'Ops_admin'
+        } else if (role === 'Picker') {
+            roleConst = 'Picker';
         } else if (role === 'Team 1') {
             roleConst = 'team_1';
         } else if (role === 'Team 2') {
@@ -227,6 +229,10 @@ Template.adminView.events({
         e.target.addNewBay.value = '';
     },
 
+    'click .special-function': (e) => {
+        e.preventDefault();
+        Meteor.call('specialFunction');
+    },
 
 
 

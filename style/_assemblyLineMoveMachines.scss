@@ -4,6 +4,7 @@ $text-color-engine-stations: #71f323;
 $text-color-tact-time: #bc171b;
 $background-admin-field: rgba(17, 9, 117, 0.46);
 
+
 .lop-nav {
   left: 30em;
   position: absolute;
@@ -34,6 +35,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 22.5em;
 }
 
+.overview-assembly-line {
+  left: 1em;
+  position: relative;
+  top: 10em;
+}
+
+
 //box is covering Table except 1st line.
 
 .rectangle {
@@ -50,7 +58,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .rectangle-2 {
   background: #0000FFFF;
   height: 22em;
-  left: 5em;
+  left: 55.5em;
   opacity: .1;
   position: relative;
   top: 53em;
@@ -651,8 +659,9 @@ $station-text-color: #03ff84;
 .team-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 35em;
+  left: 50em;
   position: absolute;
+  top: 12em;
 }
 
 .assembly-line-fields {

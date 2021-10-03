@@ -1081,6 +1081,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: 22.5em;
 }
 
+.overview-assembly-line {
+  left: 1em;
+  position: relative;
+  top: 10em;
+}
+
 .rectangle {
   background: #0000FFFF;
   height: 22em;
@@ -1095,7 +1101,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .rectangle-2 {
   background: #0000FFFF;
   height: 22em;
-  left: 5em;
+  left: 55.5em;
   opacity: 0.1;
   position: relative;
   top: 53em;
@@ -1679,8 +1685,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 35em;
+  left: 50em;
   position: absolute;
+  top: 12em;
 }
 
 .assembly-line-fields {

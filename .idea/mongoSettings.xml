@@ -14,7 +14,19 @@
             <SshTunnelingConfiguration />
           </option>
         </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="production" />
+          <option name="serverUrls">
+            <list>
+              <option value="localhost:27017" />
+            </list>
+          </option>
+          <option name="sshTunnelingConfiguration">
+            <SshTunnelingConfiguration />
+          </option>
+        </ServerConfiguration>
       </list>
     </option>
+    <option name="shellPath" value="C:\Program Files\MongoDB\Server\4.4\bin\mongo.exe" />
   </component>
 </project>

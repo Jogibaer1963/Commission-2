@@ -14,38 +14,4 @@
         <label for="button_5"></label>
         <button type="button" class="btn btn-default btn-info" id="button_5">Button 5</button>
     </div>
-    <div class="assembly-line-head-liner">
-        <h3>Overview Assembly Line</h3>
-    </div>
-    <div class="over-view-table-assembly-line">
-        <table class="table table-header-rotated fixed-header">
-            <thead>
-            <tr>
-                <th class="pdiMachineField"><strong>Machine Id</strong></th>
-                <th class="pdiShipField"><strong>Date In Line</strong></th>
-                {{#each bayList}}
-                    <th class="rotate-45"><div><span>{{bay}}</span></div></th>
-                {{/each}}
-                <th class=""></th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each machineList}}
-                <tr class="">
-                    <td class="pdiMachineField">{{machineId}}</td>
-                    <td class="pdiShipField">{{inLineDate}}</td>
-                    {{#each bayReady}}
-                        <td class="{{getStatusColor bayStatus}}"
-                            style="background-color:{{getStatusColor bayStatus}};
-                                    color:{{getStatusColor bayStatus}}">
-                            {{bayStatus}}
-                        </td>
-                    {{/each}}
-            <!--        <td class="commMachineField">{{machineId}}</td>  -->
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-
 </template>
