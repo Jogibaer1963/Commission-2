@@ -13,7 +13,7 @@ Template.team_1_over_view.helpers({
 
     machineReservoir: () => {
         let today = moment().add( -16, 'days').format('YYYY-MM-DD')
-        let result = machineCommTable.find({inLineDate : {$gt: today}, activeAssemblyLineList : true},
+        let result = machineCommTable.find({activeAssemblyLineList : true},
             {fields: {
                     counter: 1,
                     machineId: 1,

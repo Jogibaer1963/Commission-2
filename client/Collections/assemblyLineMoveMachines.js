@@ -278,6 +278,7 @@ Template.moveMachines.helpers({
         let today = moment().add( -16, 'days').format('YYYY-MM-DD')
         let result = machineCommTable.find({activeAssemblyLineList : true},
                                                        {fields: {
+                                                           activeAssemblyLineList: 1,
                                                                          counter: 1,
                                                                          machineId: 1,
                                                                          timeLine: 1,
@@ -301,7 +302,6 @@ Template.moveMachines.helpers({
         try {
             if (result.bayArray.length === 0) {
                 // draw empty field in Bay
-                console.log('empty')
                 invokeEmptyBay(canvasId)
             } else if (result.bayArray.length === 1) {
                 let locator = 'helper draw_fcb...'

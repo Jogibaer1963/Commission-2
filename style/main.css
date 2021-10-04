@@ -2335,6 +2335,40 @@ table.headerTable {
   z-index: 1;
 }
 
+.time-study-table-1 {
+  left: 10em;
+  position: absolute;
+  top: 20em;
+}
+
+.table-overflow {
+  overflow: auto;
+}
+
+.table-time-study-height {
+  height: 700px;
+}
+
+.bay {
+  width: 200px;
+}
+
+.machine-number {
+  width: 80px;
+}
+
+.machine-in-bay {
+  width: 150px;
+}
+
+.machine-spent-time {
+  width: 80px;
+}
+
+.machine-left-bay {
+  width: 150px;
+}
+
 .insideNavBar {
   margin-top: 25px;
 }

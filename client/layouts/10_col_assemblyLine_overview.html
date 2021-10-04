@@ -4,7 +4,7 @@
     </div>
     <div class="button-box">
         <label for="button_1"></label>
-        <button type="button" class="btn btn-default btn-info assemblyLine" id="button_1" >Move Machines</button>
+        <button type="button" class="btn btn-default btn-success assemblyLine" id="button_1" >Assembly Line</button>
         <label for="button_2"></label>
         <button type="button" class="btn btn-default btn-info" id="button_2">Button 2</button>
         <label for="button_3"></label>
@@ -13,5 +13,38 @@
         <button type="button" class="btn btn-default btn-info" id="button_4">Button 4</button>
         <label for="button_5"></label>
         <button type="button" class="btn btn-default btn-info" id="button_5">Button 5</button>
+        <label for="button_6"></label>
+        <button type="button" class="btn btn-default btn-danger jumpBack" id="button_6">Back to Admin Dashboard</button>
     </div>
+    <div class="time-study-table-1">
+        {{> timeStudies }}
+    </div>
+</template>
+
+<template name="timeStudies">
+  <div>
+      <table class="blueTable">
+          <thead>
+          <tr>
+              <th class="bay">Bay</th>
+              <th class="machine-number">Machine Nr</th>
+              <th class="machine-in-bay">Machine reaches Bay</th>
+              <th class="machine-spent-time">Minutes spent</th>
+              <th class="machine-left-bay">Machine left Bay</th>
+          </tr>
+          </thead>
+          <tbody class="table-time-study-height">
+          {{#each timeMachineMoved}}
+          <tr>
+              <td class="bay">{{bay}}</td>
+              <td class="machine-number">{{machineId}}</td>
+              <td class="machine-in-bay">{{comingIn}}</td>
+              <td class="machine-spent-time">{{timeSpent}}</td>
+              <td class="machine-left-bay">{{goingOut}}</td>
+          </tr>
+          {{/each}}
+          </tbody>
+      </table>
+  </div>
+
 </template>

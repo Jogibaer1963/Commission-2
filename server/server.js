@@ -265,6 +265,7 @@ if(Meteor.isServer){
                            'bayReady.$.bayStatus' : 2
                        }});
            } else if (activeFirst.activeEngineList === false && activeFirst.activeAssemblyLineList === true && canvasId === 'machine_field_fcb_threshing') {
+            //   console.log('engine false, assembly Line true and canvas Id = fcb threshing', selectedMachine, canvasId)
                machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                    {$set: {
                            'activeAssemblyLineList': false,

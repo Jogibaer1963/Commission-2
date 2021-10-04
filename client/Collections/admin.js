@@ -107,7 +107,13 @@ Template.adminNewUser.events({
 Template.adminView.helpers({
 
     supplyArea: () => {
-      return supplyAreas.find({active: true}).fetch();
+      let result = supplyAreas.find({active: true}).fetch();
+      Session.set('activeSupplyAreas', result.length)
+      return _.sortBy(result, "supplyPosition")
+    },
+
+    activeSupplyAreas: () => {
+        return Session.get('activeSupplyAreas')
     },
 
     inActive: () => {
