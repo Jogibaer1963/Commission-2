@@ -2369,6 +2369,29 @@ table.headerTable {
   width: 150px;
 }
 
+.time-dash-board {
+  left: 65em;
+  position: absolute;
+  top: 18em;
+  width: 60em;
+}
+
+.shift-submit-container {
+  left: 40em;
+  position: absolute;
+  top: 2em;
+}
+
+.input-distance {
+  padding-bottom: 100px;
+}
+
+.shift-submit-button {
+  left: 110px;
+  position: absolute;
+  top: 45em;
+}
+
 .insideNavBar {
   margin-top: 25px;
 }

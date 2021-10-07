@@ -306,57 +306,31 @@ if(Meteor.isServer){
                 {sort: {supplyPosition: 1}}).fetch();
             let timeLine = {};
             let countFind = [];
+            let lastSortedKey = [];
             let updatedMachine = 0;
+            let k = 0;
             let today, countMax, firstMachine, machineStartUpdate, arr, i, newElement, sliceIndex,
-                 counter, indexCounter, slicedElement, result, inLineDate, newMachine;
+                 counter, indexCounter, slicedElement, result, ecnMachine, inLineDate, newMachine;
             today = moment().format('YYYY-MM-DD');
 
             //  ******************************  Update Machine List **************************************
 
-            // find machine closest to the most finished commission Machine, collecting the count number.
-            // cut the CSV File above this Machine.
+            // find Machine with commission status 0 (untouched from Commission)
+            // then cut the CSV File above this Machine and cut machines without sequence number
 
-            firstMachine = machineCommTable.find({$and: [{commissionStatus: {$lt: 23}},
-                                                                    {active: true}]}).fetch();
+            firstMachine = machineCommTable.find({commissionStatus: 0},
+                {fields: {_id : 1, machineId: 1, counter: 1}}).fetch();
 
             let sortResult = [];
-            let sortLastResult = [];
-            firstMachine.forEach((element) => {
-                let machineKey = element.machineId;
-                let commissionKey = element.commissionStatus;
-                let counter = element.counter;
-                if (commissionKey > 0) {
-                    let keyPair = {
-                        machineKey: machineKey,
-                        commKey: commissionKey,
-                        counter: counter
-                    }
-                    sortResult.push(keyPair)
-                } else if (commissionKey === 0) {
-                    // find last  Machine
-                    let lastKeyPair = {
-                        machineKey: machineKey,
-                        commKey: commissionKey,
-                        counter: counter
-                    }
-                    sortLastResult.push(lastKeyPair)
-                }
-          })
 
-          let sortedKey =  sortResult.reduce(function (a, b) {
-                return a.counter < b.counter ? a:b;
+             lastSortedKey = firstMachine.sort(function (a, b) {
+                return a.counter - b.counter;
             })
 
-            let startMachine =  sortedKey.machineKey;
-            let machineCounter = sortedKey.counter;
+            let startMachine =  lastSortedKey[0].machineId;
+            let machineCounter = lastSortedKey[0].counter;
 
-            let lastSortedKey = sortLastResult.reduce(function (a, b) {
-                return a.counter > b.counter ? a : b;
-            })
-
-            let lastMachine = lastSortedKey.machineKey;
-            let lastCounter = lastSortedKey.counter;
-
+ // *****************************************************************************************************************
             // processing CSV File starts here.
             //console.log(contents)
 
@@ -391,15 +365,34 @@ if(Meteor.isServer){
                 }
                 indexCounter++
             })
+
             // Next step : CSV file is shortened to the remaining Machines. slice Index is the position in the array of the identified Machine
+
             slicedElement = newElement.slice(sliceIndex)
+
+            let foundSequence = [];
+            slicedElement.forEach((element) => {
+                let sequence = element.split(',');
+                let sequence_2 = sequence[sequence.length - 9]
+                if (sequence_2 !== '') {
+                    // console.log(element) // , (element.match(/,/g)).length, sequence_2)
+                    foundSequence.push(element)
+                }
+            })
+            console.log('existent list', lastSortedKey.length)
+            console.log ('new list ', foundSequence.length)
+
             // generate machine list
-           slicedElement.forEach((element) => {
+
+           foundSequence.forEach((element) => {
                result = element.split(',').map(e => e.split(','));
                // eliminate white spaces behind last column in csv file
-               result.splice(32, 8);
+               result.splice(34, 8);
                inLineDate = moment(new Date(result[6][0])).format('YYYY-MM-DD');
-               newMachine = result[0][0];
+               ecnMachine = result[32][0];
+               newMachine = result[0][0]; // machine number from csv
+            //   console.log(newMachine, startMachine)
+
                timeLine = {
                   'machineId': result[0][0],
                   'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
@@ -433,69 +426,57 @@ if(Meteor.isServer){
                   'salesOrder': result[29][0],
                   'productionOrder': result[30][0],
                   'sequence': result[31][0],
-                  //'ecnMachine': result[40][0]
+                  'ecnMachine': result[32][0],
+                  'reserved': result[33][0]
 
                       }
-                      try {
-                          // ****************************************  new machine added to List  *******************************
 
-                          if (typeof machineCommTable.findOne({machineId: newMachine}) === 'undefined') {
-                              lastCounter = lastCounter + 1;
-                              let today = Date.now();
-                           //   console.log('Machine does not exist ', newMachine, lastCounter)
+                          // ****************************************  update and insert  *******************************
 
-                              machineCommTable.upsert({machineId: newMachine},
-                                  {
-                                      $set: {
-                                          counter : lastCounter,
-                                          inLineDate: inLineDate,
-                                          commissionStatus: 0,
-                                          dateOfCreation: today,
-                                          active: true,
-                                          activeAssemblyLineList: true,
-                                          activeEngineList: true,
-                                          timeLine,
-                                          supplyAreas : supplyResult
-                                      }
-                                  });
 
-                              lastCounter ++;
-                              updatedMachine ++;
-                              userActions.upsert({_id: 'serverHelper'},
-                                  {machineCount: updatedMachine})
-                          console.log('new machine ', newMachine)
-                          } else {
 
-                              // *************** machine already exists and just  update timeline and in line dates  *********************
+                        machineCommTable.update({machineId: newMachine},
+                            {
+                                $set: {
+                                    counter : machineCounter,
+                                    inLineDate: inLineDate,
+                                    commissionStatus: 0,
+                                    dateOfCreation: today,
+                                    active: true,
+                                    activeAssemblyLineList: true,
+                                    activeEngineList: true,
+                                    timeLine,
+                                    supplyAreas : supplyResult
+                                }
+                            }, {upsert: true});
+                        machineCounter = machineCounter + 1;
 
-                            //  console.log('Machine Exists :', newMachine, machineCounter, inLineDate)
-                             let firstMachine = machineCommTable.findOne({machineId: newMachine}, {fields: {
-                                 machineId: 1, inLineDate: 1, counter: 1
-                                 }})
-                              if (firstMachine.inLineDate === inLineDate) {
-                                  machineCounter = firstMachine.counter;
-                              }
-                              machineCommTable.upsert({machineId: newMachine},
-                                  {
-                                      $set: {
-                                          counter : machineCounter,
-                                          inLineDate: inLineDate,
-                                          timeLine,
-                                          supplyAreas: supplyResult
-                                      }
-                                  });
+
+
+          //   console.log('found Machine', i, result[0][0], lastSortedKey[0].machineId)
+
+               //    console.log(newMachine, machineCounter, inLineDate)
+                    /*
+                  machineCommTable.update({machineId: newMachine},
+                      {
+                          $set: {
+                              counter : machineCounter,
+                              inLineDate: inLineDate,
+                              commissionStatus: 0,
+                              dateOfCreation: today,
+                              active: true,
+                              activeAssemblyLineList: true,
+                              activeEngineList: true,
+                              timeLine,
+                              supplyAreas : supplyResult
                           }
-                          machineCounter ++;
-                        updatedMachine ++;
-                        userActions.upsert({_id: 'serverHelper'}, {machineCount: updatedMachine})
-                          // ***********************************************************************************************
-                      } catch (e) {
-                          console.log(e)
-                      }
+                      }, {upsert: true});
+
+                  machineCounter = machineCounter + 1;
+
+                     */
+
           });
-
-
-
 
         },
 
@@ -562,15 +543,29 @@ if(Meteor.isServer){
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------
 
         'startPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
+            let commStat = machineCommTable.findOne({_id: pickedMachineId}, {fields: {commissionStatus : 1}});
             let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
             let pickingStart = Date.now();
             pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
-                                                                      pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreas.$.supplyStatus": status,
-                                            "supplyAreas.$.pickerStart": user,
-                                            "supplyAreas.$.pickingStart": pickingStart,
-                                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+                    pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
+            console.log(commStat.commissionStatus)
+            if (commStat.commissionStatus !== 0 ) {
+                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {
+                            "supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerStart": user,
+                            "supplyAreas.$.pickingStart": pickingStart,
+                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+            } else {
+                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {
+                             commissionStatus : 1,
+                            "supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerStart": user,
+                            "supplyAreas.$.pickingStart": pickingStart,
+                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+            }
+
             let findPicker = pickers.find().fetch();
             let result = findPicker.find(picker => picker._id === user);
             if(typeof result === 'undefined') {
