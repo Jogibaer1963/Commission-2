@@ -169,7 +169,7 @@ Template.adminView.events({
     },
 
     'click .failureCorrection': () => {
-        console.log('yes')
+      //  console.log('yes')
        // Meteor.call('failureCorrection');
         Meteor.call('alterDataBase')
     },
@@ -206,7 +206,7 @@ Template.adminView.events({
        let number = e.target.position.value;
        let team = e.target.team.value;
        let orderNumber = e.target.orderNumber.value;
-       console.log(newArea, team, number)
+     //  console.log(newArea, team, number)
        Meteor.call('insertNewCostCenter', newArea, number, team, orderNumber);
         e.target.addNewArea.value = '';
         e.target.position.value = '';

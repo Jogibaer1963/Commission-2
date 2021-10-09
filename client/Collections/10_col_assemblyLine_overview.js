@@ -139,14 +139,14 @@ Template.adminDashboard.events({
         breakFour = e.target.break_4.value;
         durationFour = e.target.break_4_duration.value;
         Session.set()
-        console.log(shiftStart, shiftEnd, breakOne, durationOne, breakTwo,
-            durationTwo, breakThree, durationThree, breakFour, durationFour)
+     //   console.log(shiftStart, shiftEnd, breakOne, durationOne, breakTwo,
+     //       durationTwo, breakThree, durationThree, breakFour, durationFour)
         let firstShift = shiftStart.split(':');
         let secondShift = shiftEnd.split(':');
         let firstSeconds = (firstShift[0] * 3600 + firstShift[1] * 60)
         let secondSeconds = (secondShift[0] * 3600 + secondShift[1] * 60)
         let workingShift = secondSeconds - firstSeconds;
-        console.log('result', workingShift)
+    //    console.log('result', workingShift)
     }
 
 

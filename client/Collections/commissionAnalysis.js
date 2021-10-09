@@ -4,10 +4,28 @@ const Highcharts = require('highcharts');
 
 Session.set('errorPickingDate', false);
 Session.set('01-supplyMachine', false);
+Session.set('returnResult', false);
+
+Session.set('chosenPicker', false);
+Session.set('specificArea', false);
+Session.set('specificDate', false);
+Session.set('specificMonth', false);
+Session.set('range', false);
+Session.set('monthSupply',  false);
+Session.set('monthDuration',  false);
+Session.set('monthCart',  false);
+Session.set('diagramDate', false);
+Session.set('diagramMonth', false);
+Session.set('diagramRange', false);
+Session.set('diagramArea', false);
+Session.set('errorResponse', false);
+
 // Start with Fiscal Year 2021, later user can choose which Fiscal Year
 Session.set('newFiscalYear', "2021")
 
 Template.analysisOverView.helpers({
+
+
 
     pickers: () => {
         return pickers.find({active: 1}, {fields: {_id: 1}}).fetch();
@@ -99,7 +117,7 @@ Template.analysisOverView.helpers({
                 resultObj.forEach((element) => {
                     if (element >= newFiscalYear) {
                         arraySummery.push(result[element]);
-                        console.log(arraySummery)
+                    //    console.log(arraySummery)
                     }
                 });
             }
@@ -537,12 +555,68 @@ Template.analysisOverView.helpers({
 
     diagramError: function () {
         return Session.get('errorResponse')
-    }
+    },
+
+    singleDateSearch: () => {  // query starts at Line 552
+        return Session.get('returnResult')
+    },
+
 
 });
 
 
 Template.analysisOverView.events({
+    
+    // **  Search for a specific Date without Picker / commissionAnalysis.html  Line 75 to 82 / 
+    // and _commission_statistics.scss line 250 to 260 / server.js Line 519
+    
+    'submit .search-for-date': function(e) {
+        e.preventDefault();
+        // Set all previous Session to false, clears the Screen
+        Session.set('chosenPicker', false);
+        Session.set('specificArea', false);
+        Session.set('specificDate', false);
+        Session.set('specificMonth', false);
+        Session.set('range', false);
+        Session.set('monthSupply',  false);
+        Session.set('monthDuration',  false);
+        Session.set('monthCart',  false);
+        Session.set('diagramDate', false);
+        Session.set('diagramMonth', false);
+        Session.set('diagramRange', false);
+        Session.set('diagramArea', false);
+        Session.set('errorResponse', false);
+
+
+        let readyArray = [];
+        let returnArray = []
+        let date = e.target.searchForDate.value;
+        Meteor.call('searchDate', date, function (error, response) {
+            if (error) {
+
+            } else {
+              //  console.log(typeof response)
+               response.forEach((element) => {
+                  let pickerId = element.pickerId
+                   returnArray = element.supplyResult
+                   returnArray.forEach((element2) => {
+                       let supplies = {
+                           supply : element2.supplyArea,
+                           machine : element2.machine,
+                           duration : ((element2.duration) / 60000).toFixed(0),
+                           date : element2.date,
+                           picker : pickerId
+                       }
+                       readyArray.push(supplies)
+                   })
+               })
+                Session.set('returnResult', readyArray)
+            }
+        });
+    },
+    
+    
+    //  ****************************************************************************************
 
     'click .area': function (e) {
         e.preventDefault();

@@ -837,13 +837,25 @@ table.commOverView {
 .area-result {
   position: absolute;
   top: 60em;
-  left: 20em;
+  left: 25em;
 }
 
 .diagram-4 {
   position: absolute;
   top: 60em;
   left: 35em;
+}
+
+.search-for-date {
+  left: 3em;
+  position: absolute;
+  top: 60em;
+}
+
+.date-search-table {
+  left: 1em;
+  position: absolute;
+  top: 65em;
 }
 
 .new-supply-area {
@@ -1605,23 +1617,30 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .cooling-arrow-1 {
   position: absolute;
-  top: -9em;
-  transform: rotate(-90deg);
-  left: 1em;
+  top: -20em;
+  transform: rotate(180deg);
+  left: 40em;
 }
 
 .cooling-arrow-2 {
   position: absolute;
-  top: -9em;
-  transform: rotate(-90deg);
-  left: 17em;
+  top: -20em;
+  transform: rotate(180deg);
+  left: 56em;
 }
 
 .merging-arrow-1 {
   position: absolute;
-  top: -9em;
-  transform: rotate(-90deg);
-  left: 30em;
+  top: 4em;
+  transform: rotate(180deg);
+  left: 55em;
+}
+
+.merging-arrow-3 {
+  position: absolute;
+  top: 3em;
+  transform: rotate(135deg);
+  left: 50em;
 }
 
 .merging-arrow-2 {

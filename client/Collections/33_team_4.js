@@ -93,7 +93,7 @@ Template.team_4_move_buttons.events({
         // checking which merging station is open
         result_1 = activeAssembly.findOne({_id: "merge-station-1"}, {fields: {bayArray: 1}});
         result_2 = activeAssembly.findOne({_id: "merge-station-2"}, {fields: {bayArray: 1}});
-        console.log(result_1.bayArray.length, result_2.bayArray.length)
+     //   console.log(result_1.bayArray.length, result_2.bayArray.length)
         if (result_1.bayArray.length === 1 && result_2.bayArray.length === 1) {
             // Machine is Station 1 and 2 detected triggers windows alert
 
@@ -104,7 +104,7 @@ Template.team_4_move_buttons.events({
             // No Machine in Station 2
             newCanvasId = 'merge-station-2'
         }
-        console.log(oldCanvasId, newCanvasId)
+     //   console.log(oldCanvasId, newCanvasId)
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
@@ -208,7 +208,7 @@ Template.team_4_over_view.events({
         let machineNr = this.machineId;
         let canvasId = "engine-station-1"
         let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
-        console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+    //    console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
             invokeDrawNewMachine(machineNr, canvasId)

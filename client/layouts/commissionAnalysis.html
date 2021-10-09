@@ -70,7 +70,9 @@
                 <div  id="chart_3">{{pickersAnnualChartResult}}</div>
             </div>
         </div>
-        <!--   -->
+
+
+        <!--   **********************************************************************     -->
         {{#if pickerChosen}}
             <div class="analysis-selection">
                     <label for="specificDate">Specific Date&nbsp;&nbsp;&nbsp;</label>
@@ -194,5 +196,45 @@
             </div>
         {{/if}}
     </div>
+
+    <!--  *** Search for specific date what was picked / commissionAnalysis.js Line 550 / _commission_statistics.css Line 250   ****    -->
+
+    <div class="search-for-date">
+        <form class="inputSearchDate">
+            <label for="searchForDate">Search for specific Date without Picker</label>
+            <br>
+            <input type="date" id="searchForDate" name="searchForDate"/>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+
+    <div class="date-search-table">
+        <table class="table table-striped table-blue">
+            <thead>
+                <tr>
+                    <th>Supply Area</th>
+                    <th>Machine</th>
+                    <th>Duration</th>
+                    <th>Date and Time</th>
+                    <th style="width: 167px">Picker</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each singleDateSearch}}
+                    <tr>
+                        <td>{{supply}}</td>
+                        <td>{{machine}}</td>
+                        <td>{{duration}}</td>
+                        <td>{{date}}</td>
+                        <td>{{picker}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+
+
+
 </template>
 

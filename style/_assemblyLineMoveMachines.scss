@@ -577,18 +577,32 @@ $station-text-color: #03ff84;
 }
 
 .cooling-arrow-1 {
-  @include cooling-param-1;
-  left: 1em;
+  position: absolute;
+  top: -20em;
+  transform: rotate(180deg);
+  left: 40em;
 }
 
 .cooling-arrow-2 {
-  @include cooling-param-1;
-  left: 17em;
+  position: absolute;
+  top: -20em;
+  transform: rotate(180deg);
+  left: 56em;
 }
 
+
 .merging-arrow-1 {
-  @include cooling-param-1;
-  left: 30em;
+  position: absolute;
+  top: 4em;
+  transform: rotate(180deg);
+  left: 55em;
+}
+
+.merging-arrow-3 {
+  position: absolute;
+  top: 3em;
+  transform: rotate(135deg);
+  left: 50em;
 }
 
 .merging-arrow-2 {

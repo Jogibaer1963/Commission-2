@@ -56,12 +56,24 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
-
+/*
         'specialFunction': () => {
-            console.log('function started');
-                machineCommTable.update({counter: {$lt: 196}}, {$set: {activeAssemblyLineList: false}})
-            console.log('Function finished');
+         console.log('function started');
+               let result = machineCommTable.find({machineId : {$gt: 'C8900777'}},
+                   {fields: {machineId: 1, counter: 1}}).fetch()
+            let counter = 196;
+            result.forEach(function(element) {
+                machineCommTable.update({machineId: element.machineId}, {$set: {counter: counter}})
+                counter = counter + 1;
+                console.log(element.machineId, counter)
+            })
+            console.log(result)
+           console.log('Function finished');
         },
+
+ */
+
+
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
             let intSupplyPos = parseInt(supplyPosition);
@@ -99,11 +111,11 @@ if(Meteor.isServer){
 
 
         'desiredMachinesList': (dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate,  machines) => {
-            console.log(dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate, machines)
+         //   console.log(dateStart, dateEnd, unixStartDate, unixEndDate, otherStartDate, otherEndDate, machines)
             let currentDate = new Date();
             let firstDay = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay())).toUTCString();
             let lastDay = new Date(otherStartDate.setDate(otherStartDate.getDate() - otherStartDate.getDay() + 7)).toUTCString();
-            console.log(firstDay, lastDay, otherStartDate)
+        //    console.log(firstDay, lastDay, otherStartDate)
            // console.log(new Date(unixStartDate).getDate())
         },
 
@@ -131,7 +143,7 @@ if(Meteor.isServer){
         },
 
         'tactTime': (tact_time) => {
-            console.log(tact_time)
+          //  console.log(tact_time)
         },
 
         'leaveLine': (machineId, canvasId, user) => {
@@ -320,7 +332,7 @@ if(Meteor.isServer){
 
             firstMachine = machineCommTable.find({commissionStatus: 0},
                 {fields: {_id : 1, machineId: 1, counter: 1}}).fetch();
-
+         //   console.log('first ', firstMachine)
             let sortResult = [];
 
              lastSortedKey = firstMachine.sort(function (a, b) {
@@ -329,6 +341,7 @@ if(Meteor.isServer){
 
             let startMachine =  lastSortedKey[0].machineId;
             let machineCounter = lastSortedKey[0].counter;
+         //   console.log(startMachine, machineCounter)
 
  // *****************************************************************************************************************
             // processing CSV File starts here.
@@ -379,8 +392,8 @@ if(Meteor.isServer){
                     foundSequence.push(element)
                 }
             })
-            console.log('existent list', lastSortedKey.length)
-            console.log ('new list ', foundSequence.length)
+           // console.log('existent list', lastSortedKey.length)
+            //console.log ('new list ', foundSequence.length)
 
             // generate machine list
 
@@ -394,89 +407,85 @@ if(Meteor.isServer){
             //   console.log(newMachine, startMachine)
 
                timeLine = {
-                  'machineId': result[0][0],
-                  'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
-                  'station2': moment(new Date(result[2][0])).format('YYYY-MM-DD'),
-                  'station3': moment(new Date(result[3][0])).format('YYYY-MM-DD'),
-                  'station4': moment(new Date(result[4][0])).format('YYYY-MM-DD'),
-                  'mergeEngine': moment(new Date(result[5][0])).format('YYYY-MM-DD'),
-                  'inLine': moment(new Date(result[6][0])).format('YYYY-MM-DD'),
-                  'bay3': moment(new Date(result[7][0])).format('YYYY-MM-DD'),
-                  'bay4': moment(new Date(result[8][0])).format('YYYY-MM-DD'),
-                  'bay5': moment(new Date(result[9][0])).format('YYYY-MM-DD'),
-                  'bay6': moment(new Date(result[10][0])).format('YYYY-MM-DD'),
-                  'bay7': moment(new Date(result[11][0])).format('YYYY-MM-DD'),
-                  'bay8': moment(new Date(result[12][0])).format('YYYY-MM-DD'),
-                  'bay9': moment(new Date(result[13][0])).format('YYYY-MM-DD'),
-                  'bay10': moment(new Date(result[14][0])).format('YYYY-MM-DD'),
-                  'testBay1': moment(new Date(result[15][0])).format('YYYY-MM-DD'),
-                  'testBay2': moment(new Date(result[16][0])).format('YYYY-MM-DD'),
-                  'bay14': moment(new Date(result[17][0])).format('YYYY-MM-DD'),
-                  'bay15': moment(new Date(result[18][0])).format('YYYY-MM-DD'),
-                  'bay16': moment(new Date(result[19][0])).format('YYYY-MM-DD'),
-                  'bay17': moment(new Date(result[20][0])).format('YYYY-MM-DD'),
-                  'bay18': moment(new Date(result[21][0])).format('YYYY-MM-DD'),
-                  'bay19Planned': moment(new Date(result[22][0])).format('YYYY-MM-DD'),
-                  'bay19SAP': moment(new Date(result[23][0])).format('YYYY-MM-DD'),
-                  'bay19Actual': moment(new Date(result[24][0])).format('YYYY-MM-DD'),
-                  'terraTRack' : result[25][0],
-                  'fourWheel': result[26][0],
-                  'EngineMTU': result[27][0],
-                  'bekaMax': result[28][0],
-                  'salesOrder': result[29][0],
-                  'productionOrder': result[30][0],
-                  'sequence': result[31][0],
-                  'ecnMachine': result[32][0],
-                  'reserved': result[33][0]
-
-                      }
-
+                              'machineId': result[0][0],
+                              'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
+                              'station2': moment(new Date(result[2][0])).format('YYYY-MM-DD'),
+                              'station3': moment(new Date(result[3][0])).format('YYYY-MM-DD'),
+                              'station4': moment(new Date(result[4][0])).format('YYYY-MM-DD'),
+                              'mergeEngine': moment(new Date(result[5][0])).format('YYYY-MM-DD'),
+                              'inLine': moment(new Date(result[6][0])).format('YYYY-MM-DD'),
+                              'bay3': moment(new Date(result[7][0])).format('YYYY-MM-DD'),
+                              'bay4': moment(new Date(result[8][0])).format('YYYY-MM-DD'),
+                              'bay5': moment(new Date(result[9][0])).format('YYYY-MM-DD'),
+                              'bay6': moment(new Date(result[10][0])).format('YYYY-MM-DD'),
+                              'bay7': moment(new Date(result[11][0])).format('YYYY-MM-DD'),
+                              'bay8': moment(new Date(result[12][0])).format('YYYY-MM-DD'),
+                              'bay9': moment(new Date(result[13][0])).format('YYYY-MM-DD'),
+                              'bay10': moment(new Date(result[14][0])).format('YYYY-MM-DD'),
+                              'testBay1': moment(new Date(result[15][0])).format('YYYY-MM-DD'),
+                              'testBay2': moment(new Date(result[16][0])).format('YYYY-MM-DD'),
+                              'bay14': moment(new Date(result[17][0])).format('YYYY-MM-DD'),
+                              'bay15': moment(new Date(result[18][0])).format('YYYY-MM-DD'),
+                              'bay16': moment(new Date(result[19][0])).format('YYYY-MM-DD'),
+                              'bay17': moment(new Date(result[20][0])).format('YYYY-MM-DD'),
+                              'bay18': moment(new Date(result[21][0])).format('YYYY-MM-DD'),
+                              'bay19Planned': moment(new Date(result[22][0])).format('YYYY-MM-DD'),
+                              'bay19SAP': moment(new Date(result[23][0])).format('YYYY-MM-DD'),
+                              'bay19Actual': moment(new Date(result[24][0])).format('YYYY-MM-DD'),
+                              'terraTRack' : result[25][0],
+                              'fourWheel': result[26][0],
+                              'EngineMTU': result[27][0],
+                              'bekaMax': result[28][0],
+                              'salesOrder': result[29][0],
+                              'productionOrder': result[30][0],
+                              'sequence': result[31][0],
+                              'ecnMachine': result[32][0],
+                              'reserved': result[33][0]
+                           }
                           // ****************************************  update and insert  *******************************
 
 
+                        if (machineCommTable.findOne({machineId: newMachine}) === undefined) {
+            // **** If Machine already exists dont touch supply Areas. Here machine was not found, upsert supply Areas
+                       //    console.log(' did not find ', newMachine)
+                            machineCommTable.update({machineId: newMachine},
+                                {
+                                    $set: {
+                                        counter : machineCounter,
+                                        inLineDate: inLineDate,
+                                        commissionStatus: 0,
+                                        dateOfCreation: today,
+                                        active: true,
+                                        activeAssemblyLineList: true,
+                                        activeEngineList: true,
+                                        timeLine,
+                                        supplyAreas : supplyResult
+                                    }
+                                }, {upsert: true});
+                            machineCounter = machineCounter + 1;
+                      //  console.log('counter ', machineCounter)
+                        } else {
 
-                        machineCommTable.update({machineId: newMachine},
-                            {
-                                $set: {
-                                    counter : machineCounter,
-                                    inLineDate: inLineDate,
-                                    commissionStatus: 0,
-                                    dateOfCreation: today,
-                                    active: true,
-                                    activeAssemblyLineList: true,
-                                    activeEngineList: true,
-                                    timeLine,
-                                    supplyAreas : supplyResult
-                                }
-                            }, {upsert: true});
-                        machineCounter = machineCounter + 1;
-
-
-
-          //   console.log('found Machine', i, result[0][0], lastSortedKey[0].machineId)
-
-               //    console.log(newMachine, machineCounter, inLineDate)
-                    /*
-                  machineCommTable.update({machineId: newMachine},
-                      {
-                          $set: {
-                              counter : machineCounter,
-                              inLineDate: inLineDate,
-                              commissionStatus: 0,
-                              dateOfCreation: today,
-                              active: true,
-                              activeAssemblyLineList: true,
-                              activeEngineList: true,
-                              timeLine,
-                              supplyAreas : supplyResult
-                          }
-                      }, {upsert: true});
-
-                  machineCounter = machineCounter + 1;
-
-                     */
-
+                  // ***********  Machine exists dont overwrite supply Areas  *************************
+                         //  console.log('found Machine ', newMachine)
+                            machineCommTable.update({machineId: newMachine},
+                                {
+                                    $set: {
+                                        counter : machineCounter,
+                                        inLineDate: inLineDate,
+                                        commissionStatus: 0,
+                                        dateOfCreation: today,
+                                        active: true,
+                                        activeAssemblyLineList: true,
+                                        activeEngineList: true,
+                                        timeLine
+                                    }
+                                }, {upsert: true});
+                            machineCounter = machineCounter + 1;
+                           // console.log('counter ', machineCounter)
+                        }
           });
+
 
         },
 
@@ -514,7 +523,7 @@ if(Meteor.isServer){
         try {
             machineCommTable.upsert({}, {$push: {'supplyAreas': object}}, {multi: true});
         } catch (e) {
-            console.log(e)
+          //  console.log(e)
         }
     },
 
@@ -540,7 +549,47 @@ if(Meteor.isServer){
                 {$set: {'supplyAreas.$.active': true}}, {multi: true});
         },
 
+//***********************************************************************************************************
+//***********************************************************************************************************
 //----------------------------------------------- Commissioning Zone --------------------------------------------------------------
+
+        // **  Search for a specific Date without Picker / commissionAnalysis.html  Line 75 to 82 /
+        // and _commission_statistics.scss line 250 to 260 / commissionAnalysis.js Line 550
+
+        'searchDate': (date) => {
+            let searchResult, newDate, wd, weekDay, yyyy, mm, dd, searchString, result;
+            let returnResult = [];
+            newDate = new Date(date);
+            wd = newDate.getDay() + 1; // find day of the week and add 1, Monday must start with 1
+            weekDay = '0' + wd;// because a '0' would make trouble in search functions
+            yyyy = date.slice(0, 4)
+            mm = (date.slice(5, 7) - 1).toString()
+            if (mm.length === 1) {
+                mm = '0' + mm;
+            }
+            dd =  date.slice(8, 10)
+            if (dd.length === 1) {
+                dd = '0' + dd;
+            }
+            searchString = yyyy + mm + dd + weekDay;
+            // search String must be like 2021100705 (YYYYMMDDWD) WD = Day of the Week (Mo = 0, Sun = 6)
+            // first slice is Year, then Month, ten Day and weekday with leading 0.
+            result = pickers.find({}, {fields: {[searchString]: 1}}).fetch();
+            result.forEach((element) => {
+                if (Object.keys(element).length >> 1 ) {
+                    searchResult = {
+                        pickerId : element._id,
+                        supplyResult : element[searchString]
+                    }
+                    returnResult.push(searchResult)
+                }
+            })
+            return returnResult;
+        },
+
+
+      //******************************************************************************************************
+
 
         'startPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
             let commStat = machineCommTable.findOne({_id: pickedMachineId}, {fields: {commissionStatus : 1}});
@@ -548,7 +597,7 @@ if(Meteor.isServer){
             let pickingStart = Date.now();
             pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
                     pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
-            console.log(commStat.commissionStatus)
+        //    console.log(commStat.commissionStatus)
             if (commStat.commissionStatus !== 0 ) {
                 machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
                     {$set: {

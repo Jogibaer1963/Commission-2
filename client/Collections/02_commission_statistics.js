@@ -181,7 +181,7 @@ Template.dailyResult.helpers({
                 durationGraph.push(parseInt((duration / i).toFixed()));
             });
         } catch (e) {
-            console.log(e)
+         //   console.log(e)
         }
         Session.set('carts', counter);
         Session.set('totalResultSupply', uniqueSupplyAreas);

@@ -6,7 +6,6 @@
             event.preventDefault();
             const userVar = event.target.loginUser.value;
             const passwordVar = event.target.loginPassword.value;
-            const dateLogin = moment().format('MMMM Do YYYY, h:mm:ss a');
             Session.set('loginId', userVar);
             Session.set('selectedMachine', '');
             Meteor.loginWithPassword(userVar, passwordVar, function(){

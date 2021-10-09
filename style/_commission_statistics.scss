@@ -238,7 +238,7 @@ $table-head: #1cbdee;
 .area-result {
   position: absolute;
   top: 60em;
-  left: 20em;
+  left: 25em;
 }
 
 .diagram-4 {
@@ -247,4 +247,16 @@ $table-head: #1cbdee;
   left: 35em;
 }
 
+//      *****************************   specific date without picker / commissionAnalysis.html Line 75 to 83
 
+.search-for-date {
+  left: 3em;
+  position: absolute;
+  top: 60em;
+}
+
+.date-search-table {
+  left: 1em;
+  position: absolute;
+  top: 65em;
+}
