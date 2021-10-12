@@ -59,21 +59,12 @@ if(Meteor.isServer){
 /*
         'specialFunction': () => {
          console.log('function started');
-               let result = machineCommTable.find({machineId : {$gt: 'C8900777'}},
+               let result = machineCommTable.find({activeAssemblyLineList: true},
                    {fields: {machineId: 1, counter: 1}}).fetch()
-            let counter = 196;
-            result.forEach(function(element) {
-                machineCommTable.update({machineId: element.machineId}, {$set: {counter: counter}})
-                counter = counter + 1;
-                console.log(element.machineId, counter)
-            })
-            console.log(result)
+               console.log(result)
            console.log('Function finished');
         },
-
- */
-
-
+         */
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
             let intSupplyPos = parseInt(supplyPosition);
@@ -341,7 +332,7 @@ if(Meteor.isServer){
 
             let startMachine =  lastSortedKey[0].machineId;
             let machineCounter = lastSortedKey[0].counter;
-         //   console.log(startMachine, machineCounter)
+          //  console.log(startMachine, machineCounter)
 
  // *****************************************************************************************************************
             // processing CSV File starts here.
@@ -447,7 +438,7 @@ if(Meteor.isServer){
 
                         if (machineCommTable.findOne({machineId: newMachine}) === undefined) {
             // **** If Machine already exists dont touch supply Areas. Here machine was not found, upsert supply Areas
-                       //    console.log(' did not find ', newMachine)
+                      //     console.log(' did not find ', newMachine, machineCounter)
                             machineCommTable.update({machineId: newMachine},
                                 {
                                     $set: {
@@ -467,7 +458,7 @@ if(Meteor.isServer){
                         } else {
 
                   // ***********  Machine exists dont overwrite supply Areas  *************************
-                         //  console.log('found Machine ', newMachine)
+                       //    console.log('found Machine ', newMachine, machineCounter)
                             machineCommTable.update({machineId: newMachine},
                                 {
                                     $set: {
@@ -485,6 +476,10 @@ if(Meteor.isServer){
                            // console.log('counter ', machineCounter)
                         }
           });
+
+
+
+
 
 
         },

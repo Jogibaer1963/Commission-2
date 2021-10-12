@@ -33,7 +33,7 @@ Template.machine_picking_list.helpers({
     machineList: () => {
         let machineResult = [];
         let testArray = [];
-        let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true},
+        let result = machineCommTable.find({active: true},
                                                         {fields: {
                                                                             counter: 1,
                                                                             machineId: 1,
