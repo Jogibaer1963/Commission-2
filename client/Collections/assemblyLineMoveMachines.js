@@ -416,6 +416,11 @@ Template.moveMachines.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
+    draw_front_test_bay: () => {
+        let canvasId = "machine_field_front_test_bay";
+        invokeDrawMachineInBay(canvasId)
+    },
+
     draw_test_bay_1: () => {
         let canvasId = "machine_field_test_bay_1";
         invokeDrawMachineInBay(canvasId)
@@ -498,134 +503,187 @@ Template.overViewButtons.events({
         e.preventDefault();
         let oldCanvasId = 'machine_field_fcb_threshing'
         let newCanvasId = "machine_field_bay_3";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-3-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_3'
         let newCanvasId = "machine_field_bay_4";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-4-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_4'
         let newCanvasId = "machine_field_bay_5";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-5-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_5'
         let newCanvasId = "machine_field_bay_6";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-6-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_6'
         let newCanvasId = "machine_field_bay_7";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-7-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_7'
         let newCanvasId = "machine_field_bay_8";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-8-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_8'
         let newCanvasId = "machine_field_bay_9";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-9-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_9'
         let newCanvasId = "machine_field_bay_10";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-10-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'machine_field_bay_10'
+        // check if test bay 1 is empty, if not then move to front of test bay
+        let result = activeAssembly.findOne({_id: 'machine_field_test_bay_1'},
+            {fields: {bayArray : 1}})
+        if (result.bayArray.length > 0) {
+           // console.log('test bay 1 is engaged move in front of test bay')
+            let oldCanvasId = 'machine_field_bay_10'
+            let newCanvasId = "machine_field_front_test_bay";
+            invokeMoveMachine(oldCanvasId, newCanvasId, false)
+        } else if (result.bayArray.length === 0 ) {
+          // console.log('test bay 1 is empty, move into test bay')
+            let oldCanvasId = 'machine_field_bay_10'
+            let newCanvasId = "machine_field_test_bay_1";
+            invokeMoveMachine(oldCanvasId, newCanvasId, false)
+        }
+    },
+
+    'click .front-test-bay-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_front_test_bay'
         let newCanvasId = "machine_field_test_bay_1";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-test-bay-1-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_test_bay_1'
         let newCanvasId = "machine_field_test_bay_2";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-1-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_3";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-1-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-test-bay-2-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_test_bay_2'
         let newCanvasId = "machine_field_bay_14";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
-    /*
-        'click .bay-test-bay-3-move-button': (e) => {
-            e.preventDefault();
-            let oldCanvasId = 'machine-field-test-bay-2'
-            let newCanvasId = "machine-field-bay11";
-            invokeMoveMachine(oldCanvasId, newCanvasId)
-        },
 
-        'click .bay-test-bay-4-move-button': (e) => {
-            e.preventDefault();
-            let oldCanvasId = 'machine-field-bay10'
-            let newCanvasId = "machine-field-bay11";
-            invokeMoveMachine(oldCanvasId, newCanvasId)
-        },
+    'click .test-bay-2-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
 
-     */
+    'click .test-bay-2-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_test_bay_3";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_3'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_4'
+        let newCanvasId = "machine_field_bay_14";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+
 
     'click .bay-14-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_14'
         let newCanvasId = "machine_field_bay_15";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-15-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_15'
         let newCanvasId = "machine_field_bay_16";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-16-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_16'
         let newCanvasId = "machine_field_bay_17";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-17-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_17'
         let newCanvasId = "machine_field_bay_18";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-18-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_18'
         let newCanvasId = "machine_field_bay_19";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
     'click .bay-19-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_19' // Last Bay
         invokeMoveFromLastBay(oldCanvasId)
+    },
+
+    'click .move-back': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_bay_19'
+        let newCanvasId = "machine_field_bay_18";
+        invokeMoveMachine(oldCanvasId, newCanvasId, true)
     }
 
 })

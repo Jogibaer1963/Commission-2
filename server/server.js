@@ -154,7 +154,7 @@ if(Meteor.isServer){
         },
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
-           // console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
+         //  console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
             let bayArray = [];
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);

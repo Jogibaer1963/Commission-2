@@ -125,25 +125,28 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-test-1-button {
-  @include move-buttons;
-  left: 90em;
+  left: 88em;
+  position: absolute;
+  top: 2.5em;
+
 }
 
 .bay-test-2-button {
-  @include move-buttons;
-  left: 100em;
+  left: 98em;
+  position: absolute;
+  top: 2.5em;
 }
 
 .bay-test-3-button {
-  left: 90em;
+  left: 88.5em;
   position: absolute;
-  top: 9.6em;
+  top: -11.5em;
 }
 
 .bay-test-4-button {
-  left: 100em;
+  left: 98.5em;
   position: absolute;
-  top: 9.6em;
+  top: -11.5em;
 }
 
 //  ****************** Test Bay 3 & 4 Text boxes  **************************
@@ -152,10 +155,17 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   color: $text-color-engine-stations;
   font-weight: bolder;
   position: relative;
-  top: -6em;
+  top: -9em;
 }
 
 //  *********************************************************************************
+
+.final-assembly-container-button {
+  left: 5em;
+  position: absolute;
+  top: 7em;
+}
+
 
 .bay-14-button {
   @include move-buttons;
@@ -217,6 +227,26 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   display: flex;
   top: 24.5em;
   transform: rotate(-90deg);
+}
+
+.assembly-line-bay-10-arrow {
+  display: flex;
+  top: 24.5em;
+  transform: rotate(-45deg);
+}
+
+.front-test-bay-arrow {
+  display: flex;
+  left: 9em;
+  position: absolute;
+  top: 2em;
+  transform: rotate(-135deg);
+}
+
+.test-bay-4-arrow {
+  display: flex;
+  top: 24.5em;
+  transform: rotate(-45deg);
 }
 
 .bay-arrows {
@@ -366,7 +396,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .cooling-1-team-button {
-  left: 0em;
   position: absolute;
   top: -18em;
 }
@@ -391,27 +420,202 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //  **************************  Test Bay Text and boxes in Single View ********************
 
+.front-test-bay {
+  left: 85em;
+  position: absolute;
+  top: 6em;
+}
+
+.test-bay-1-2-container {
+  left: 6em;
+  position: absolute;
+  top: 10em;
+}
+
+.test-bay-1-to-3-arrows {
+  left: 162em;
+  position: absolute;
+  top: 24em;
+  transform: rotate(180deg);
+}
+
+.test-bay-1-3-button {
+  left: 88.5em;
+  opacity: 0;
+  position: absolute;
+  top: -3.5em;
+  transform: rotate(90deg);
+}
+
+.test-bay-1-to-4-arrows {
+  left: 166em;
+  position: absolute;
+  top: 24em;
+  transform: rotate(240deg);
+}
+
+.test-bay-2-4-button {
+  left:102em;
+  opacity: 0;
+  position: absolute;
+  top: -3.5em;
+  transform: rotate(90deg);
+}
+
+.test-bay-1-4-button {
+  left:92em;
+  opacity: 0;
+  position: absolute;
+  top: -2.3em;
+  transform: rotate(137deg);
+}
+
+.test-bay-2-3-button {
+  left:98em;
+  opacity: 0;
+  position: absolute;
+  top: -3.8em;
+  transform: rotate(45deg);
+}
+
+.test-bay-3-4-container {
+  left: 6em;
+  position: absolute;
+  top: -15em;
+}
+
+.test-bay-2-to-4-arrows {
+  left: 181em;
+  position: absolute;
+  top: 24em;
+  transform: rotate(180deg);
+}
+
+.test-bay-2-to-3-arrows {
+  left: 177em;
+  position: absolute;
+  top: 24em;
+  transform: rotate(120deg);
+}
+
+// ************** inside Test Bay  ******************
+
+.scroll-down {
+  --color: #ff0000;
+  --sizeX: 30px;
+  --sizeY: 50px;
+  position: relative;
+//  width: var(--sizeX);
+ // height: var(--sizeY);
+ // margin-left: var(sizeX / 2);
+//  border: calc(var(--sizeX) / 10) solid var(--color);
+//  border-radius: 50px;
+ // box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+/*
+
+.scroll-down::before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background-color: var(--color);
+  border-radius: 100%;
+  animation: scroll-down-anim 2s infinite;
+  box-sizing: border-box;
+  box-shadow: 0px -5px 3px 1px #ffffff66;
+}
+
+
+
+@keyframes scroll-down-anim {
+  0% {
+    opacity: 0;
+    height: 6px;
+  }
+  40% {
+    opacity: 1;
+    height: 10px;
+  }
+  80% {
+    transform: translate(0, 20px);
+    height: 10px;
+    opacity: 0;
+  }
+  100% {
+    height: 3px;
+    opacity: 0;
+  }
+}
+ */
+
+.chevrons {
+  padding: 10px 0 10px 0;
+  margin-left: -3px;
+  margin-top: 48px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chevron-down {
+  margin-top: -2px;
+  position: relative;
+  border: solid var(--color);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+.chevron-down:nth-child(odd) {
+  animation: pulse 800ms ease infinite alternate;
+}
+
+.chevron-down:nth-child(even) {
+  animation: pulse 800ms ease infinite alternate 250ms;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity:0.51;
+  }
+}
+
+//  ***********************************************
+
+
 @mixin test-bay-text-boxes {
   color: $text-color-engine-stations;
   font-weight: bolder;
-  left: 2em;
+  left: -1em;
   position: relative;
 }
 
 .test-bay-1-2-text {
   @include test-bay-text-boxes;
-  top: -9em;
+  top: 10em;
 
 }
 
 .test-bay-3-4-text {
   @include test-bay-text-boxes;
-  top: -5em;
+  top: -4em;
 }
 
 .canvas-test-3-4 {
   position: relative;
-  top: 2em;
+  top: 3em;
 }
 
 
@@ -477,6 +681,27 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   position: absolute;
   top: -1.5em;
 }
+
+.bay-19-back-button {
+  left: 159em;
+  position: absolute;
+  top: 10em;
+
+}
+
+.move-back:hover {
+  width: 90px;
+  height: 40px;
+
+
+}
+
+.move-back {
+  width: 80px;
+  height: 30px;
+  pointer-events: all;
+}
+
 
 //  *******************************  Team 4 Assembly  ****************
 
@@ -698,7 +923,7 @@ $station-text-color: #03ff84;
   width: 150px;
 }
 
-// -----------------------------    Bay 3  ------------------------------------
+// -----------------------------   Assembly Line ------------------------------------
 .team1-bay3 {
   left: 44em;
 }
@@ -739,6 +964,12 @@ $station-text-color: #03ff84;
   left: 142em;
 }
 
+.team3-front-test-bay {
+  left: 149em;
+  transform: rotate(90deg);
+  top: 21.5em;
+}
+
 .team-test-bay-1 {
   left: 156em;
 }
@@ -757,15 +988,10 @@ $station-text-color: #03ff84;
   top: 35em;
 }
 
-.test-bay-container {
-  position: absolute;
-  top: -.5px;
-}
-
 .final-assembly-container {
-  left: 98em;
+  left: 105em;
   position: absolute;
-  top: -30em;
+  top: -20em;
 }
 
 
