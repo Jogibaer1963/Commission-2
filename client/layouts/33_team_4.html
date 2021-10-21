@@ -65,7 +65,7 @@
                        btn-success
                        engine-4-move">Move to Merge</button>
     </div>
-<!--
+
     <div class="cooling-1-team-button">
         <label for="bay-button"></label>
         <button type="button" id="bay-button"
@@ -83,7 +83,7 @@
                        btn-success
                        cooling-2-move-button">Move</button>
     </div>
--->
+
     <div class="merge-1-team-button">
         <label for="bay-button"></label>
         <button type="button" id="bay-button"
@@ -104,7 +104,7 @@
 </div>
 
 </template>
-
+<!--  ******************************   Team 4 Over View  **********************  -->
 <template name="team_4_over_view">
     <html lang="en">
     <head>
@@ -159,6 +159,28 @@
             <div class="chevron"></div>
             <div class="chevron"></div>
             <div class="chevron"></div>
+        </div>
+    </div>
+
+    <div class="cooling-box-reservoir">
+        <div class="engine-reservoir">
+            <h4 class="">Machine Reservoir</h4>
+            <table class="table blueTable pdiMachineField">
+                <thead>
+                <tr>
+                    <th class="pdiMachineField">Machine</th>
+                    <th class="in-line-date">Planned in Line</th>
+                </tr>
+                </thead>
+                <tbody class="cooling-table-height">
+                {{#each coolingBoxReservoir}}
+                    <tr class="selectedAssemblyMachine">
+                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="in-line-date">{{timeLine.station1}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -223,7 +245,7 @@
         </div>
 
   <!-- *******************************  Cooling Box Pre and Merging **********************  -->
-<!--
+
         <div class="cooling-station-1">
             <div class="engine-text">
                 <h4>Box 1</h4>
@@ -244,7 +266,7 @@
             </div>
         </div>
 
--->
+
 
         <div class="engine-merge-station-1">
             <div class="engine-text">

@@ -492,6 +492,72 @@ Template.moveMachines.events({
                }
     },
 
+    //****************  Test Bay Move Buttons  *******************************
+
+    'click .front-test-bay-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_front_test_bay'
+        let newCanvasId = "machine_field_test_bay_1";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-1-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_2";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-1-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_3";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-1-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_1'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-2-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_bay_14";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-2-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .test-bay-2-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_2'
+        let newCanvasId = "machine_field_test_bay_3";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-3-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_3'
+        let newCanvasId = "machine_field_test_bay_4";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+    'click .bay-test-bay-4-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'machine_field_test_bay_4'
+        let newCanvasId = "machine_field_bay_14";
+        invokeMoveMachine(oldCanvasId, newCanvasId, false)
+    },
+
+
 
 
 });
@@ -573,68 +639,6 @@ Template.overViewButtons.events({
         }
     },
 
-    'click .front-test-bay-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_front_test_bay'
-        let newCanvasId = "machine_field_test_bay_1";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .bay-test-bay-1-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_1'
-        let newCanvasId = "machine_field_test_bay_2";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .test-bay-1-3-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_1'
-        let newCanvasId = "machine_field_test_bay_3";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .test-bay-1-4-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_1'
-        let newCanvasId = "machine_field_test_bay_4";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .bay-test-bay-2-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_2'
-        let newCanvasId = "machine_field_bay_14";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .test-bay-2-4-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_2'
-        let newCanvasId = "machine_field_test_bay_4";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .test-bay-2-3-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_2'
-        let newCanvasId = "machine_field_test_bay_3";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .bay-test-bay-3-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_3'
-        let newCanvasId = "machine_field_test_bay_4";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
-
-    'click .bay-test-bay-4-move-button': (e) => {
-        e.preventDefault();
-        let oldCanvasId = 'machine_field_test_bay_4'
-        let newCanvasId = "machine_field_bay_14";
-        invokeMoveMachine(oldCanvasId, newCanvasId, false)
-    },
 
 
 

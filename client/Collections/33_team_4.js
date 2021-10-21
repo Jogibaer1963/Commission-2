@@ -127,6 +127,20 @@ Template.team_4_move_buttons.events({
 
 Template.team_4_over_view.helpers({
 
+    coolingBoxReservoir: () => {
+        let result = machineCommTable.find({activeCoolingBoxList: true},
+            {fields: {
+                    counter: 1,
+                    machineId: 1,
+                    timeLine: 1,
+                    inLineDate: 1,
+                    bayReady: 1
+                }}).fetch();
+        console.log(result)
+        result.sort((a, b) => (a.counter > b.counter) ? 1 : ((b.counter > a.counter) ? -1 : 0))
+        return result;
+    },
+
     machineReservoir: () => {
         let result = machineCommTable.find({activeEngineList : true},
             {fields: {
@@ -137,8 +151,7 @@ Template.team_4_over_view.helpers({
                     bayReady: 1
                                    }}).fetch();
 
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
+        result.sort((a, b) => (a.counter > b.counter) ? 1 : ((b.counter > a.counter) ? -1 : 0));
         // console.log(result)
         return result;
     },

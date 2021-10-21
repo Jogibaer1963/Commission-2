@@ -22,7 +22,7 @@ $gradient-color: #030000;
   background: linear-gradient(
                   $angle-back, $rgba-field, $gradient-color);
   height: 100em;
-  left: 57em;
+  left: 65em;
   position: absolute;
   top: 5em;
   width: 400px;
@@ -33,7 +33,7 @@ $gradient-color: #030000;
   background: linear-gradient(
                   $angle-front, $rgba-field, $gradient-color);
   height: 100em;
-  left: 1em;
+  left: -3em;
   position: absolute;
   top: 5em;
   width: 280px;
