@@ -65,6 +65,20 @@ Template.team_5_buttons.events({
 
 Template.team_4_move_buttons.events({
 
+    'click .cooling-1-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'cooling-station-1';
+        let newCanvasId = 'cooling-station-2';
+        invokeMoveMachine(oldCanvasId, newCanvasId)
+    },
+
+    'click .cooling-2-move-button': (e) => {
+         e.preventDefault();
+         let oldCanvasId = 'cooling-station-2';
+        invokeMoveFromLastBay(oldCanvasId)
+    },
+
+
     'click .engine-1-move': (e) => {
         e.preventDefault();
         let oldCanvasId = 'engine-station-1'
@@ -123,8 +137,6 @@ Template.team_4_move_buttons.events({
 })
 
 
-
-
 Template.team_4_over_view.helpers({
 
     coolingBoxReservoir: () => {
@@ -136,7 +148,7 @@ Template.team_4_over_view.helpers({
                     inLineDate: 1,
                     bayReady: 1
                 }}).fetch();
-        console.log(result)
+      //  console.log(result)
         result.sort((a, b) => (a.counter > b.counter) ? 1 : ((b.counter > a.counter) ? -1 : 0))
         return result;
     },
@@ -214,6 +226,22 @@ Template.team_4_over_view.helpers({
 })
 
 Template.team_4_over_view.events({
+
+    'click .selectedCoolingBox': async function (e) {
+        e.preventDefault();
+        let selectedCoolingBox = this._id;
+        let machineNr = this.machineId;
+        let canvasId = "cooling-station-1"
+      //  console.log(selectedCoolingBox, machineNr, canvasId)
+        let bayStatus = await invokeMachineTest(canvasId)
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedCoolingBox, machineNr, canvasId);
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Cooling Boxes not allowed in Station 1')
+        }
+    },
+
 
     'click .selectedAssemblyMachine': async function(e) {
         e.preventDefault();

@@ -47,7 +47,17 @@ Template.team_3_over_view.helpers({
     draw_test_bay_2: () => {
         let canvasId = "machine_field_test_bay_2";
         invokeDrawMachineInBay(canvasId)
-    }
+    },
+
+    draw_test_bay_3: () => {
+        let canvasId = "machine_field_test_bay_3";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_test_bay_4: () => {
+        let canvasId = "machine_field_test_bay_4";
+        invokeDrawMachineInBay(canvasId)
+    },
 
 })
 

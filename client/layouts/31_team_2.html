@@ -11,6 +11,9 @@
                 {{> log_out_button }}
                 {{> team_2_over_view }}
                 {{> team_2_move_buttons }}
+                <div>
+                    {{> table_cover_box}}
+                </div>
                 {{/if }}
             {{#if isInRole 'team_1, team_3, team_4, team_5, test_bay' }}
                 {{> back_to_assembly_line }}
@@ -65,24 +68,20 @@
 
 <template name="team_2_over_view">
     <html lang="en-US">
-    <head>
-        <title>Team 2</title>
-    </head>
-
     <style>
         body{
             background-color:black;
         }
     </style>
-    <div class="team-header">
+    <div class="team-2-header">
         <h1>Team 2 </h1>
     </div>
-    <div class="station-1-arrows">
+    <div class="team-2-1-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="station-2-arrows">
+    <div class="team-2-2-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
@@ -174,9 +173,6 @@
     </div>
 </div>
     <div class="transparent-box"></div>
-    <div class="team-2-sun-burst-container">
-        {{> burstSunTimerTeam_2}}
-    </div>
     </html>
 </template>
 

@@ -84,16 +84,7 @@ Template.test_bay_over_view.helpers({
 
     //  ***************    Move Machine from List to the FCB merging Station  *************
 
-    draw_bay9: () => {
-        let canvasId = "machine_field_bay_9";
-        invokeDrawMachineInBay(canvasId)
 
-    },
-
-    draw_bay10: () => {
-        let canvasId = "machine_field_bay_10";
-        invokeDrawMachineInBay(canvasId)
-    },
 
     draw_front_test_bay: () => {
         let canvasId = "machine_field_front_test_bay";
@@ -120,15 +111,7 @@ Template.test_bay_over_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
-    draw_bay_14: () => {
-        let canvasId = "machine_field_bay_14";
-        invokeDrawMachineInBay(canvasId)
-    },
 
-    draw_bay_15: () => {
-        let canvasId = "machine_field_bay_15";
-        invokeDrawMachineInBay(canvasId)
-    },
 
 })
 
@@ -199,3 +182,26 @@ Template.test_bay_over_view.events({
 
 })
 
+Template.bay_9_10_to_14_15.helpers({
+
+    draw_bay9: () => {
+        let canvasId = "machine_field_bay_9";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_bay10: () => {
+        let canvasId = "machine_field_bay_10";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_bay_14: () => {
+        let canvasId = "machine_field_bay_14";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_bay_15: () => {
+        let canvasId = "machine_field_bay_15";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+})

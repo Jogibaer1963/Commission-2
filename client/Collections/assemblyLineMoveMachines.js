@@ -314,66 +314,6 @@ Template.moveMachines.helpers({
         }
     },
 
-    draw_merge_Engine: () => {
-        let canvasId = "engine_merge";
-       // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_cooling_box_1: () => {
-        let canvasId = "engine_cooling_box_1";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_cooling_box_2: () => {
-        let canvasId = "engine_cooling_box_2";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_station_1: () => {
-        let canvasId = "engine_station_1";
-        // invokeDrawMachineInBay(canvasId)
-    },
-    draw_engine_station_2: () => {
-        let canvasId = "engine_station_2";
-        // invokeDrawMachineInBay(canvasId)
-    },
-    draw_engine_station_3: () => {
-        let canvasId = "engine_station_3";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_station_4: () => {
-        let canvasId = "engine_station_4";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_storage_1: () => {
-        let canvasId = "engine_storage_1";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_storage_2: () => {
-        let canvasId = "engine_storage_2";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_storage_3: () => {
-        let canvasId = "engine_storage_3";
-        // invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_engine_storage_4: () => {
-        let canvasId = "engine_storage_4";
-        // invokeDrawMachineInBay(canvasId)
-    },
-/*
-    draw_fcb_threshing: () => {
-        let canvasId = "machine_field_fcb_threshing";
-        invokeDrawMachineInBay(canvasId)
-    },
-
- */
-
     draw_bay3: () => {
         let canvasId = "machine_field_bay_3";
         invokeDrawMachineInBay(canvasId)
@@ -413,31 +353,6 @@ Template.moveMachines.helpers({
 
     draw_bay10: () => {
         let canvasId = "machine_field_bay_10";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_front_test_bay: () => {
-        let canvasId = "machine_field_front_test_bay";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_1: () => {
-        let canvasId = "machine_field_test_bay_1";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_2: () => {
-        let canvasId = "machine_field_test_bay_2";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_3: () => {
-        let canvasId = "machine_field_test_bay_3";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_4: () => {
-        let canvasId = "machine_field_test_bay_4";
         invokeDrawMachineInBay(canvasId)
     },
 

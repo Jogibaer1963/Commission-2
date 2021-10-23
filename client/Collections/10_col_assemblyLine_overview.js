@@ -1,10 +1,9 @@
+import { calcTime } from '../../lib/99_functionCollector.js';
 Meteor.subscribe('assemblyLineBay');
 Meteor.subscribe('scheduleConfig')
 
 
 Template.assemblyLineOverView.helpers({
-
-
 
 
 })
@@ -23,6 +22,10 @@ Template.assemblyLineOverView.events({
 
 })
 
+//********************  Time Calc function  ***************************
+
+//*****************************************************************************
+
 Template.timeStudies.helpers({
 
     // loading machines with activeAssemblyLineList = false (Machine left reservoir)
@@ -37,13 +40,19 @@ Template.timeStudies.helpers({
             firstStage.forEach((element_2) => {
                 if (element_2.bayStatus === 1) {
                     // convert Unix milliseconds into minutes (60)
-                    minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
+                    //  minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
 
                     comingIn = (element_2.bayDateLanding)
                     goingOut = (element_2.bayDateLeaving)
                     machineNr = (element.machineId)
                     bayId = element_2.bayName;
                     position = element_2.bayPosition
+
+                    // convert Unix milliseconds into minutes (60)
+                    //minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
+
+                    //Call function to calculate our time
+                    minutes = calcTime(element_2.bayDateLeavingUnix, element_2.bayDateLandingUnix);
                     machineResult = {
                         bay: bayId,
                         machineId: machineNr,
@@ -51,13 +60,13 @@ Template.timeStudies.helpers({
                         comingIn: comingIn,
                         goingOut: goingOut,
                         bayPosition: position
-                       }
+                    }
                     machineArray.push(machineResult)
                 }
             } )
         })
         let resultArray = _.sortBy(machineArray, 'goingOut')
-    //   console.log(resultArray)
+     //   console.log(resultArray)
         return resultArray.reverse();
     }
 

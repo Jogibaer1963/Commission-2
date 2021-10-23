@@ -1094,7 +1094,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .overview-assembly-line {
-  left: 1em;
+  left: -1em;
   position: relative;
   top: 10em;
 }
@@ -1117,6 +1117,53 @@ table.supply-multi-table td, table.supply-multi-table th {
   opacity: 0.1;
   position: relative;
   top: 53em;
+  width: 200px;
+  z-index: 1;
+}
+
+.rectangle-engines-1 {
+  background: #0000FFFF;
+  height: 22em;
+  left: 5.5em;
+  opacity: 0.1;
+  position: relative;
+  top: 44em;
+  width: 200px;
+  z-index: 1;
+}
+
+.rectangle-cooling-1 {
+  background: #0000FFFF;
+  height: 12em;
+  left: 5.5em;
+  opacity: 0.1;
+  position: relative;
+  top: 30em;
+  width: 200px;
+  z-index: 1;
+}
+
+.unauthorized-box {
+  left: 3em;
+  position: relative;
+  top: -32em;
+  width: 206px;
+  height: 1019px;
+}
+
+.unauthorized-cover-team-4 {
+  left: 3em;
+  position: relative;
+  top: -12em;
+  width: 206px;
+  height: 568px;
+}
+
+.view-cover-box {
+  background: #0000FFFF;
+  height: 22em;
+  opacity: 0.1;
+  position: relative;
   width: 200px;
   z-index: 1;
 }
@@ -1182,6 +1229,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 80em;
 }
 
+.test-bay-move-buttons {
+  left: 90em;
+  position: absolute;
+  top: -2em;
+}
+
 .test-3-4-text {
   color: #71f323;
   font-weight: bolder;
@@ -1192,7 +1245,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .final-assembly-container-button {
   left: 5em;
   position: absolute;
-  top: 7em;
+  top: 8em;
 }
 
 .bay-14-button {
@@ -1286,15 +1339,15 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .station-1-arrows {
   position: absolute;
-  top: 24.9em;
+  top: 18.5em;
   transform: rotate(-90deg);
-  left: 13em;
+  left: 8em;
 }
 
 .station-2-arrows {
-  left: 27em;
+  left: 19em;
   position: absolute;
-  top: 24em;
+  top: 17em;
   transform: rotate(-45deg);
 }
 
@@ -1358,6 +1411,20 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -1.5em;
 }
 
+.team-2-1-arrows {
+  position: absolute;
+  top: 24.8em;
+  transform: rotate(-90deg);
+  left: 13em;
+}
+
+.team-2-2-arrows {
+  position: absolute;
+  top: 24.8em;
+  transform: rotate(-90deg);
+  left: 27em;
+}
+
 .template-team-2 {
   left: 23.7em;
   position: absolute;
@@ -1374,6 +1441,28 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 20em;
   position: absolute;
   top: -1.5em;
+}
+
+.team-3-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 47em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-3-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 128em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-3-test-bay-view {
+  left: 30em;
+  position: relative;
+  top: -3em;
 }
 
 .template-team-3 {
@@ -1394,10 +1483,17 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -1.5em;
 }
 
+.bay-10-to-test-bay-arrow {
+  left: 47em;
+  position: relative;
+  top: -32em;
+  transform: rotate(-45deg);
+}
+
 .template-team-4 {
   left: 25em;
   position: absolute;
-  top: 34.5em;
+  top: 34.1em;
 }
 
 .engine-2-team-button {
@@ -1425,10 +1521,66 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -18em;
 }
 
+.cooling-box-1-text {
+  color: #71f323;
+  left: 2em;
+  position: relative;
+  top: -3em;
+}
+
+.cooling-box-2-text {
+  color: #71f323;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.merge-1-text {
+  color: #71f323;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.merge-2-text {
+  color: #71f323;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.canvas-box-1 {
+  left: -1em;
+  position: relative;
+  top: 1em;
+}
+
+.canvas-box-2 {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.canvas-cooling-1 {
+  position: relative;
+  top: -14em;
+  width: 91px;
+  height: 70px;
+  border: 2px solid #ee0e0e;
+}
+
 .cooling-2-team-button {
   left: 10em;
   position: absolute;
   top: -19.5em;
+}
+
+.canvas-cooling-2 {
+  position: relative;
+  top: -14em;
+  width: 91px;
+  height: 70px;
+  border: 2px solid #ee0e0e;
 }
 
 .merge-1-team-button {
@@ -1538,6 +1690,27 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 43em;
 }
 
+.box-arrow-1 {
+  left: 2em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
+.box-arrow-2 {
+  left: 17em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
+.box-arrow-3 {
+  left: 30em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
 .cooling-arrow-1 {
   position: absolute;
   top: -20em;
@@ -1598,7 +1771,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .my-canvas-3 {
   position: relative;
-  top: 2em;
+  top: 4em;
 }
 
 .merging-canvas-correction {
@@ -1622,6 +1795,48 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 40em;
   position: absolute;
   top: 5em;
+}
+
+.test-bay-main-view {
+  left: 89em;
+  position: relative;
+  top: -18em;
+}
+
+.test-bay-head {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 43em;
+  position: absolute;
+  top: 7em;
+}
+
+.bay-9-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: -1em;
+  position: relative;
+  top: -11em;
+}
+
+.bay-10-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 8em;
+  position: relative;
+  top: -25em;
+}
+
+.canvas-class-bay-9 {
+  left: -2em;
+  position: relative;
+  top: -8.5em;
+}
+
+.canvas-class-bay-10 {
+  left: 7em;
+  position: relative;
+  top: -22.3em;
 }
 
 .test-bay-single-view {
@@ -1810,9 +2025,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .station-5-arrows-single {
-  left: 76em;
-  position: absolute;
-  top: 35.9em;
+  left: 56em;
+  position: relative;
+  top: 26em;
   transform: rotate(-90deg);
 }
 
@@ -1822,9 +2037,32 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -4em;
 }
 
-.final-assembly-container-single {
-  left: 67em;
+.final-assembly-single-container {
+  left: 48em;
   position: relative;
+  top: 17.5em;
+}
+
+.bay-14-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 1em;
+  position: relative;
+  top: -2em;
+}
+
+.bay-15-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 12em;
+  position: relative;
+  top: -15.8em;
+}
+
+.canvas-class-bay-15 {
+  left: 11em;
+  position: relative;
+  top: -13.8em;
 }
 
 .test-bay-2-14-arrows-single {
@@ -2025,7 +2263,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #71f323;
   font-weight: bolder;
   position: relative;
-  top: -13em;
+  top: 20.9em;
 }
 
 .canvas-test-bay-3 {
@@ -2058,7 +2296,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #71f323;
   font-weight: bolder;
   position: relative;
-  top: -13em;
+  top: 24em;
 }
 
 .canvas-test-bay-4 {
@@ -2151,6 +2389,35 @@ table.supply-multi-table td, table.supply-multi-table th {
     opacity: 0.51;
   }
 }
+.test-bay-team-5-view {
+  left: -21em;
+  position: relative;
+  top: -2em;
+}
+
+.chevron-box-team-4 {
+  left: 7em;
+  position: relative;
+  top: 9em;
+}
+
+.team-5-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 75em;
+  position: absolute;
+  top: 14em;
+}
+
+.team-5-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 226em;
+  position: absolute;
+  top: 14em;
+  width: 110px;
+}
+
 .template-team-5 {
   left: 24em;
   position: absolute;
@@ -2207,7 +2474,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 43em;
+  left: 53em;
   position: absolute;
   top: 7em;
 }
@@ -2275,7 +2542,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .final-assembly-container {
   left: 105em;
   position: absolute;
-  top: -20em;
+  top: -18em;
 }
 
 .team5-bay-14 {
@@ -2351,6 +2618,14 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -5em;
 }
 
+.team-1-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 43em;
+  position: absolute;
+  top: 4em;
+}
+
 .team-1-sun-burst-container {
   left: -4em;
   position: relative;
@@ -2407,6 +2682,22 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 .sunset-container-team-1 .sun-team-1 .sun-spot-team-1.pulse {
   animation: white-pulse 4s linear infinite;
+}
+
+.team-2-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 47em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-2-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 86em;
+  position: absolute;
+  top: 4em;
 }
 
 .team-2-sun-burst-container {
@@ -2817,7 +3108,7 @@ table.headerTable {
 .transparent-box-2 {
   background: linear-gradient(90deg, rgba(10, 10, 10, 0.25), #030000);
   height: 100em;
-  left: 65em;
+  left: 48em;
   position: absolute;
   top: 5em;
   width: 400px;

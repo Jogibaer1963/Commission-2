@@ -11,6 +11,9 @@
         {{> log_out_button }}
         {{> team_3_over_view }}
         {{> team_3_move_buttons }}
+    <div class="team-3-test-bay-view">
+        {{> test_bay_over_view}}
+    </div>
     {{/if }}
     {{#if isInRole 'team_1, team_2, team_4, team_5, test_bay' }}
         {{> back_to_assembly_line }}
@@ -21,6 +24,9 @@
         {{> team_5_buttons }}
         {{> list_of_points }}
         {{> log_out_button }}
+    <div class="team-3-test-bay-view">
+        {{> test_bay_over_view}}
+    </div>
         {{> team_3_over_view }}
     {{/if }}
         {{else}}
@@ -64,24 +70,20 @@
 
 <template name="team_3_over_view">
 <html lang="en">
-<head>
-    <title>Team 3</title>
-</head>
-
     <style>
         body{
             background-color:black;
         }
     </style>
-<div class="team-header">
+<div class="team-3-header">
     <h1>Team 3 </h1>
 </div>
-    <div class="station-1-arrows">
+    <div class="team-2-1-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="station-2-arrows">
+    <div class="team-2-2-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
@@ -96,16 +98,12 @@
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="station-5-arrows">
+    <div class="bay-10-to-test-bay-arrow">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="station-6-arrows">
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-    </div>
+
     <div class="transparent-box-reverse"></div>
     <div class="team-container-3">
         <div class="assembly-line-fields team2-bay6">
@@ -152,25 +150,7 @@
                 <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
             </div>
         </div>
-
-        <div class="assembly-line-fields team-test-bay-1">
-            <div class="bay-3-text">
-                <h4>Test Bay 1</h4>
-            </div>
-            <div>
-                <canvas {{draw_test_bay_1}} id="machine_field_test_bay_1" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team-test-bay-2">
-            <div class="bay-3-text">
-                <h4>Test Bay 2</h4>
-            </div>
-            <div>
-                <canvas {{draw_test_bay_2}} id="machine_field_test_bay_2" class="canvas-class"></canvas>
-            </div>
-        </div>
     </div>
-    <div class="transparent-box"></div>
+<div class="transparent-box"></div>
 </html>
 </template>

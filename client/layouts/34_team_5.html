@@ -9,6 +9,9 @@
         {{> team_test_bay_buttons }}
         {{> list_of_points }}
         {{> log_out_button }}
+        <div class="test-bay-team-5-view">
+            {{> test_bay_over_view}}
+        </div>
         {{> team_5_over_view }}
         {{>team_5_move_buttons }}
             {{/if }}
@@ -21,6 +24,9 @@
             {{> team_test_bay_buttons }}
             {{> list_of_points }}
             {{> log_out_button }}
+            <div class="test-bay-team-5-view">
+                {{> test_bay_over_view}}
+            </div>
             {{> team_5_over_view }}
             {{/if }}
     {{else}}
@@ -89,29 +95,15 @@
 
 <template name="team_5_over_view">
     <html lang="en">
-    <head>
-        <title>Team 5</title>
-    </head>
         <style>
             body{
                 background-color:black;
             }
         </style>
-
-    <div class="team-header">
+    <div class="team-5-header">
         <h1>Team 5 </h1>
     </div>
-
-        <div class="station-1-arrows">
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-        </div>
-        <div class="station-2-arrows">
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-        </div>
+<div class="chevron-box-team-4">
         <div class="station-3-arrows">
             <div class="chevron"></div>
             <div class="chevron"></div>
@@ -142,6 +134,7 @@
             <div class="chevron"></div>
             <div class="chevron"></div>
         </div>
+</div>
 
         <div class="transparent-box-reverse"></div>
 

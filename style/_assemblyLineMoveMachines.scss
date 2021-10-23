@@ -36,7 +36,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .overview-assembly-line {
-  left: 1em;
+  left: -1em;
   position: relative;
   top: 10em;
 }
@@ -62,6 +62,53 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   opacity: .1;
   position: relative;
   top: 53em;
+  width: 200px;
+  z-index: 1;
+}
+
+.rectangle-engines-1 {
+  background: #0000FFFF;
+  height: 22em;
+  left: 5.5em;
+  opacity: 0.1;
+  position: relative;
+  top: 44em;
+  width: 200px;
+  z-index: 1;
+}
+
+.rectangle-cooling-1 {
+  background: #0000FFFF;
+  height: 12em;
+  left: 5.5em;
+  opacity: 0.1;
+  position: relative;
+  top: 30em;
+  width: 200px;
+  z-index: 1;
+}
+
+.unauthorized-box {
+  left: 3em;
+  position: relative;
+  top: -32em;
+  width: 206px;
+  height: 1019px;
+}
+
+.unauthorized-cover-team-4 {
+  left: 3em;
+  position: relative;
+  top: -12em;
+  width: 206px;
+  height: 568px;
+}
+
+.view-cover-box {
+  background: #0000FFFF;
+  height: 22em;
+  opacity: 0.1;
+  position: relative;
   width: 200px;
   z-index: 1;
 }
@@ -124,6 +171,12 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 80em;
 }
 
+.test-bay-move-buttons {
+  left: 90em;
+  position: absolute;
+  top: -2em;
+}
+
 
 
 
@@ -142,7 +195,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .final-assembly-container-button {
   left: 5em;
   position: absolute;
-  top: 7em;
+  top: 8em;
 }
 
 
@@ -241,16 +294,17 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .station-1-arrows {
-  @include param-1;
-  left: 13em;
+  position: absolute;
+  top: 18.5em;
+  transform: rotate(-90deg);
+  left: 8em;
 }
 
 .station-2-arrows {
-  left: 27em;
+  left: 19em;
   position: absolute;
-  top: 24em;
+  top: 17em;
   transform: rotate(-45deg);
-
 }
 
 .station-3-arrows {
@@ -305,6 +359,20 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //   **************************  Team 2 move buttons  *******************
 
+.team-2-1-arrows {
+  position: absolute;
+  top: 24.8em;
+  transform: rotate(-90deg);
+  left: 13em;
+}
+
+.team-2-2-arrows {
+  position: absolute;
+  top: 24.8em;
+  transform: rotate(-90deg);
+  left: 27em;
+}
+
 .template-team-2 {
   left: 23.7em;
   position: absolute;
@@ -325,6 +393,28 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //  ***************************  Team 3 move buttons   ++++++++++++++++++++++
 
+.team-3-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 47em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-3-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 128em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-3-test-bay-view {
+  left: 30em;
+  position: relative;
+  top: -3em;
+}
+
 .template-team-3 {
   left: 23.7em;
   position: absolute;
@@ -343,12 +433,19 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -1.5em;
 }
 
+.bay-10-to-test-bay-arrow {
+  left: 47em;
+  position: relative;
+  top: -32em;
+  transform: rotate(-45deg);
+}
+
 //    *********************************   Team 4 move buttons  *********************
 
 .template-team-4 {
   left: 25em;
   position: absolute;
-  top: 34.5em;
+  top: 34.1em;
 }
 
 .engine-2-team-button {
@@ -376,10 +473,66 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -18em;
 }
 
+.cooling-box-1-text {
+  color: $color-machine-reservoir;
+  left: 2em;
+  position: relative;
+  top: -3em;
+}
+
+.cooling-box-2-text {
+  color: $color-machine-reservoir;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.merge-1-text {
+  color: $color-machine-reservoir;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.merge-2-text {
+  color: $color-machine-reservoir;
+  left: 2em;
+  position: relative;
+  top: -2em;
+}
+
+.canvas-box-1 {
+  left: -1em;
+  position: relative;
+  top: 1em;
+}
+
+.canvas-box-2 {
+  left: -1em;
+  position: relative;
+  top: 2em;
+}
+
+.canvas-cooling-1 {
+  position: relative;
+  top: -14em;
+  width: 91px;
+  height: 70px;
+  border: 2px solid #ee0e0e;
+}
+
 .cooling-2-team-button {
   left: 10em;
   position: absolute;
   top: -19.5em;
+}
+
+.canvas-cooling-2 {
+  position: relative;
+  top: -14em;
+  width: 91px;
+  height: 70px;
+  border: 2px solid #ee0e0e;
 }
 
 .merge-1-team-button {
@@ -496,6 +649,27 @@ $station-text-color: #03ff84;
   left: 43em;
 }
 
+.box-arrow-1 {
+  left: 2em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
+.box-arrow-2 {
+  left: 17em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
+.box-arrow-3 {
+  left: 30em;
+  position: relative;
+  top: -10em;
+  transform: rotate(-90deg);
+}
+
 @mixin cooling-param-1 {
   position: absolute;
   top: -9em;
@@ -568,7 +742,7 @@ $station-text-color: #03ff84;
 
 .my-canvas-3 {
   position: relative;
-  top: 2em;
+  top: 4em;
 }
 
 .merging-canvas-correction {
@@ -597,6 +771,20 @@ $station-text-color: #03ff84;
 
 //  **************************  Test Bay Text and boxes in Single View ********************
 
+.test-bay-main-view {
+  left: 89em;
+  position: relative;
+  top: -18em;
+}
+
+.test-bay-head {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 43em;
+  position: absolute;
+  top: 7em;
+}
+
 @mixin test-bay-text-boxes {
   color: $text-color-engine-stations;
   font-weight: bolder;
@@ -612,6 +800,34 @@ $station-text-color: #03ff84;
 
 //  ***************************  Test Bay Container  ************************
  //   *****  Single View classes
+.bay-9-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: -1em;
+  position: relative;
+  top: -11em;
+}
+
+.bay-10-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 8em;
+  position: relative;
+  top: -25em;
+}
+
+.canvas-class-bay-9 {
+  left: -2em;
+  position: relative;
+  top: -8.5em;
+}
+
+.canvas-class-bay-10 {
+  left: 7em;
+  position: relative;
+  top: -22.3em;
+}
+
 .test-bay-single-view {
   left: 37em;
   position: absolute;
@@ -793,9 +1009,9 @@ $station-text-color: #03ff84;
 }
 
 .station-5-arrows-single {
-  left: 76em;
-  position: absolute;
-  top: 35.9em;
+  left: 56em;
+  position: relative;
+  top: 26em;
   transform: rotate(-90deg);
 }
 
@@ -805,9 +1021,32 @@ $station-text-color: #03ff84;
   top: -4em;
 }
 
-.final-assembly-container-single {
-  left: 67em;
+.final-assembly-single-container {
+  left: 48em;
   position: relative;
+  top: 17.5em;
+}
+
+.bay-14-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 1em;
+  position: relative;
+  top: -2em;
+}
+
+.bay-15-text {
+  color: #71f323;
+  font-weight: bolder;
+  left: 12em;
+  position: relative;
+  top: -15.8em;
+}
+
+.canvas-class-bay-15 {
+  left: 11em;
+  position: relative;
+  top: -13.8em;
 }
 
 .test-bay-2-14-arrows-single {
@@ -1013,7 +1252,7 @@ $station-text-color: #03ff84;
 
 .test-bay-3-text {
   @include test-bay-text-boxes;
-  top: -13em;
+  top: 20.9em;
 }
 
 .canvas-test-bay-3 {
@@ -1046,7 +1285,7 @@ $station-text-color: #03ff84;
 
 .test-bay-4-text {
   @include test-bay-text-boxes;
-  top: -13em;
+  top: 24em;
 }
 
 .canvas-test-bay-4 {
@@ -1154,6 +1393,36 @@ $station-text-color: #03ff84;
 
 //   *********************************** Team 5 Move Buttons  *********************
 
+.test-bay-team-5-view {
+  left: -21em;
+  position: relative;
+  top: -2em;
+}
+
+.chevron-box-team-4 {
+  left: 7em;
+  position: relative;
+  top: 9em;
+}
+
+.team-5-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 75em;
+  position: absolute;
+  top: 14em;
+}
+
+.team-5-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 226em;
+  position: absolute;
+  top: 14em;
+  width: 110px;
+}
+
+
 .template-team-5 {
   left: 24em;
   position: absolute;
@@ -1216,7 +1485,7 @@ $station-text-color: #03ff84;
 .team-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 43em;
+  left: 53em;
   position: absolute;
   top: 7em;
 }
@@ -1289,7 +1558,7 @@ $station-text-color: #03ff84;
 .final-assembly-container {
   left: 105em;
   position: absolute;
-  top: -20em;
+  top: -18em;
 }
 
 
@@ -1376,6 +1645,15 @@ $transition: all 1.5s;
 }
 //---------------------  Team 1 -----------------------------------
 
+.team-1-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 43em;
+  position: absolute;
+  top: 4em;
+}
+
+
 .team-1-sun-burst-container {
   left: -4em;
   position: relative;
@@ -1445,6 +1723,23 @@ $transition: all 1.5s;
 }
 
 //----------------------------- Team 2 -------------------------------
+
+.team-2-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 47em;
+  position: absolute;
+  top: 4em;
+}
+
+.team-2-overView-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 86em;
+  position: absolute;
+  top: 4em;
+}
+
 
 .team-2-sun-burst-container {
   left: -4em;

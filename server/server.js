@@ -228,66 +228,70 @@ if(Meteor.isServer){
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
-          //  console.log(machineNr, canvasId)
-        let listObjects = [];
-        let result = assemblyLineBay.find({}).fetch();
-        let activeEngineList = '';
-        let bayArray = [];
-        let today = moment().format('YYYY-MM-DD HH:mm:ss ');
-        let todayUnix = (Date.now()).toFixed(0); // milliseconds
+            //  console.log(machineNr, canvasId)
+            let result, activeEngineList, today, todayUnix;
+            let bayArray = [];
+            let listObjects = [];
+            if (canvasId === 'cooling-station-1') {  // cooling Stations is just for optic, data's are recorded
+                machineCommTable.update({_id: selectedMachine}, {$set: {activeCoolingBoxList: false}})
+            } else {
+                    result = assemblyLineBay.find({}).fetch();
+                    activeEngineList = '';
+                    today = moment().format('YYYY-MM-DD HH:mm:ss ');
+                    todayUnix = (Date.now()).toFixed(0); // milliseconds
 
-        // ************  prepare bay ready list for insert into machines list
+                    // ************  prepare bay ready list for insert into machines list
 
-           result.forEach((element) => {
-               listObjects.push(element)
-           })
+                       result.forEach((element) => {
+                           listObjects.push(element)
+                       })
 
-        //  ****************   check if machine is already in line ( mostly engines first ) **********
-          let activeFirst = machineCommTable.findOne({_id: selectedMachine},
-            {fields: {activeEngineList: 1, activeAssemblyLineList: 1}});
-           if (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === true && canvasId === 'engine-station-1') {
-               // Machine is touched by engines first, insert ListObjects first and update activeAAssembly with landing date / time in engines
-               machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
-               machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
-                   {$set: {
-                           'activeEngineList': false,
-                           'activeInBay' : true,
-                           'bayReady.$.bayDateLanding': today,
-                           'bayReady.$.bayDateLandingUnix': todayUnix,
-                           'bayReady.$.bayStatus' : 2
-                       }});
-           } else if (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === true && canvasId === 'machine_field_fcb_threshing') {
-               // Machine is touched by Assembly Line first, insert ListObjects first and update activeAAssembly with landing date / time in Assembly Line
-               machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
-               machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
-                   {$set: {
-                           'activeAssemblyLineList': false,
-                           'activeInBay' : true,
-                           'bayReady.$.bayDateLanding': today,
-                           'bayReady.$.bayDateLandingUnix': todayUnix,
-                           'bayReady.$.bayStatus' : 2
-                       }});
-           } else if (activeFirst.activeEngineList === false && activeFirst.activeAssemblyLineList === true && canvasId === 'machine_field_fcb_threshing') {
-            //   console.log('engine false, assembly Line true and canvas Id = fcb threshing', selectedMachine, canvasId)
-               machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
-                   {$set: {
-                           'activeAssemblyLineList': false,
-                           'activeInBay' : true,
-                           'bayReady.$.bayDateLanding': today,
-                           'bayReady.$.bayDateLandingUnix': todayUnix,
-                           'bayReady.$.bayStatus' : 2
-                       }});
-           } else if  (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === false && canvasId === 'engine-station-1') {
-               machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
-                   {$set: {
-                           'activeEngineList': false,
-                           'activeInBay' : true,
-                           'bayReady.$.bayDateLanding': today,
-                           'bayReady.$.bayDateLandingUnix': todayUnix,
-                           'bayReady.$.bayStatus' : 2
-                       }});
-           }
-
+                    //  ****************   check if machine is already in line ( mostly engines first ) **********
+                      let activeFirst = machineCommTable.findOne({_id: selectedMachine},
+                        {fields: {activeEngineList: 1, activeAssemblyLineList: 1}});
+                      if (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === true && canvasId === 'engine-station-1') {
+                           // Machine is touched by engines first, insert ListObjects first and update activeAAssembly with landing date / time in engines
+                           machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
+                           machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
+                               {$set: {
+                                       'activeEngineList': false,
+                                       'activeInBay' : true,
+                                       'bayReady.$.bayDateLanding': today,
+                                       'bayReady.$.bayDateLandingUnix': todayUnix,
+                                       'bayReady.$.bayStatus' : 2
+                                   }});
+                      } else if (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === true && canvasId === 'machine_field_fcb_threshing') {
+                           // Machine is touched by Assembly Line first, insert ListObjects first and update activeAAssembly with landing date / time in Assembly Line
+                           machineCommTable.upsert({_id: selectedMachine}, {$set: {bayReady: listObjects}})
+                           machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
+                               {$set: {
+                                       'activeAssemblyLineList': false,
+                                       'activeInBay' : true,
+                                       'bayReady.$.bayDateLanding': today,
+                                       'bayReady.$.bayDateLandingUnix': todayUnix,
+                                       'bayReady.$.bayStatus' : 2
+                                   }});
+                      } else if (activeFirst.activeEngineList === false && activeFirst.activeAssemblyLineList === true && canvasId === 'machine_field_fcb_threshing') {
+                        //   console.log('engine false, assembly Line true and canvas Id = fcb threshing', selectedMachine, canvasId)
+                           machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
+                               {$set: {
+                                       'activeAssemblyLineList': false,
+                                       'activeInBay' : true,
+                                       'bayReady.$.bayDateLanding': today,
+                                       'bayReady.$.bayDateLandingUnix': todayUnix,
+                                       'bayReady.$.bayStatus' : 2
+                                   }});
+                      } else if  (activeFirst.activeEngineList === true && activeFirst.activeAssemblyLineList === false && canvasId === 'engine-station-1') {
+                           machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
+                               {$set: {
+                                       'activeEngineList': false,
+                                       'activeInBay' : true,
+                                       'bayReady.$.bayDateLanding': today,
+                                       'bayReady.$.bayDateLandingUnix': todayUnix,
+                                       'bayReady.$.bayStatus' : 2
+                                   }});
+                      }
+            }
          //  *****************  Update html canvas box with the new location  ***********************
           let  machineInfo = {
                 machineId : selectedMachine,
@@ -301,7 +305,7 @@ if(Meteor.isServer){
                           bayArray
                 }})
         },
-
+//  ************************************************************************************************************************
         //--------------  Update Machine List with in Line and off Line Date  --------------
 
         'updateMachineInLine': (contents) => {
