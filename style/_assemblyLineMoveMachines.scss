@@ -4,6 +4,11 @@ $text-color-engine-stations: #71f323;
 $text-color-tact-time: #bc171b;
 $background-admin-field: rgba(17, 9, 117, 0.46);
 
+.diagrams {
+  left: 67em;
+  position: relative;
+  top: 19em;
+}
 
 .lop-nav {
   left: 30em;
@@ -434,9 +439,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-10-to-test-bay-arrow {
-  left: 47em;
+  left: 38em;
   position: relative;
-  top: -32em;
+  top: -56em;
   transform: rotate(-45deg);
 }
 
@@ -1424,9 +1429,9 @@ $station-text-color: #03ff84;
 
 
 .template-team-5 {
-  left: 24em;
+  left: 29em;
   position: absolute;
-  top: 12.5em;
+  top: 20.5em;
 }
 
 .bay-15-team-button {

@@ -1064,6 +1064,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   width: 40px;
 }
 
+.diagrams {
+  left: 67em;
+  position: relative;
+  top: 19em;
+}
+
 .lop-nav {
   left: 30em;
   position: absolute;
@@ -1484,9 +1490,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-10-to-test-bay-arrow {
-  left: 47em;
+  left: 38em;
   position: relative;
-  top: -32em;
+  top: -56em;
   transform: rotate(-45deg);
 }
 
@@ -2419,9 +2425,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .template-team-5 {
-  left: 24em;
+  left: 29em;
   position: absolute;
-  top: 12.5em;
+  top: 20.5em;
 }
 
 .bay-15-team-button {
