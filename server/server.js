@@ -227,21 +227,26 @@ if(Meteor.isServer){
         // ****************** move from list to FCB Bay ********************
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId) => {
+         //   toDo: change name, implement cooling box if its first inLine
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
             //  console.log(machineNr, canvasId)
             let result, activeEngineList, today, todayUnix;
+            today = moment().format('YYYY-MM-DD HH:mm:ss ');
+            todayUnix = (Date.now()).toFixed(0); // milliseconds
             let bayArray = [];
             let listObjects = [];
             if (canvasId === 'cooling-station-1') {  // cooling Stations is just for optic, data's are recorded
-                machineCommTable.update({_id: selectedMachine}, {$set: {activeCoolingBoxList: false}})
+                machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
+                    {$set: {
+                            'activeCoolingBoxList': false,
+                            'activeInBay' : true,
+                            'bayReady.$.bayDateLanding': today,
+                            'bayReady.$.bayDateLandingUnix': todayUnix,
+                            'bayReady.$.bayStatus' : 2
+                        }});
             } else {
                     result = assemblyLineBay.find({}).fetch();
-                    activeEngineList = '';
-                    today = moment().format('YYYY-MM-DD HH:mm:ss ');
-                    todayUnix = (Date.now()).toFixed(0); // milliseconds
-
                     // ************  prepare bay ready list for insert into machines list
-
                        result.forEach((element) => {
                            listObjects.push(element)
                        })

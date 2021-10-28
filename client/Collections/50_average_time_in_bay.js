@@ -10,25 +10,30 @@ Template.average_time_in_bay.helpers({
     average_time: function () {
         let result, comingIn, goingOut, machineResult, minutes, bayId, position;
         let machineArray = [];
-        result = machineCommTable.find({activeAssemblyLineList: false, inLineDate: {$gt: "2021-08-31"}},
+        result = machineCommTable.find({inLineDate: {$gt: "2021-08-31"}},
             {fields: {bayReady: 1}}).fetch()
         result.forEach((element) => {
-            element.bayReady.forEach(function (element_2) {
-                if (element_2.bayStatus === 1) {
-                    comingIn = element_2.bayDateLandingUnix
-                    goingOut = element_2.bayDateLeavingUnix
-                    bayId = element_2.bayName;
-                    position = element_2.bayPosition
-                    //Call function to calculate time / eliminate time difference overnight, weekends
-                    minutes = calcTime(goingOut, comingIn);
-                    machineResult = {
-                        bay: bayId,
-                        timeSpent: minutes,
-                        bayPosition: position
+            if (element.bayReady === undefined) {
+
+            } else {
+                element.bayReady.forEach(function (element_2) {
+                    if (element_2.bayStatus === 1) {
+                        comingIn = element_2.bayDateLandingUnix
+                        goingOut = element_2.bayDateLeavingUnix
+                        bayId = element_2.bayName;
+                        position = element_2.bayPosition
+                        //Call function to calculate time / eliminate time difference overnight, weekends
+                        minutes = calcTime(goingOut, comingIn);
+                        machineResult = {
+                            bay: bayId,
+                            timeSpent: minutes,
+                            bayPosition: position
+                        }
+                        machineArray.push(machineResult)
                     }
-                    machineArray.push(machineResult)
-                }
-            })
+                })
+            }
+
         });
         machineArray.sort((a, b) => (a.bayPosition > b.bayPosition) ? 1 : ((b.bayPosition > a.bayPosition) ? -1 : 0))
         Session.set('resultArray', machineArray)

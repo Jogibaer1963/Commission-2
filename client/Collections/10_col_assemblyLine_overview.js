@@ -22,8 +22,6 @@ Template.assemblyLineOverView.events({
 
 })
 
-//********************  Time Calc function  ***************************
-
 //*****************************************************************************
 
 Template.timeStudies.helpers({
@@ -31,42 +29,45 @@ Template.timeStudies.helpers({
     // loading machines with activeAssemblyLineList = false (Machine left reservoir)
 
     timeMachineMoved: () => {
+        // toDo: why is cooling box not behind engine station 4, why is moving from list into line not displayed in Table
         let result, firstStage, timeSpent, calculatedTime, comingIn, goingOut, machineResult, machineNr,
             minutes, bayId, position;
         let machineArray = [];
-        result = machineCommTable.find({activeAssemblyLineList : false, inLineDate : {$gt: "2021-08-31"}}).fetch()
-        result.forEach((element) => {
-            firstStage = element.bayReady;
-            firstStage.forEach((element_2) => {
-                if (element_2.bayStatus === 1) {
-                    // convert Unix milliseconds into minutes (60)
-                    //  minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
+        result = machineCommTable.find({inLineDate : {$gt: "2021-08-31"}},
+             {fields: {bayReady: 1, machineId: 1, activeAssemblyLineList: 1, activeEngineList: 1, activeCoolingBoxList: 1}}).fetch()
 
-                    comingIn = (element_2.bayDateLanding)
-                    goingOut = (element_2.bayDateLeaving)
-                    machineNr = (element.machineId)
-                    bayId = element_2.bayName;
-                    position = element_2.bayPosition
+            result.forEach((element) => {
+                if (element.bayReady === undefined) {
 
-                    // convert Unix milliseconds into minutes (60)
-                    //minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
-
-                    //Call function to calculate our time
-                    minutes = calcTime(element_2.bayDateLeavingUnix, element_2.bayDateLandingUnix);
-                    machineResult = {
-                        bay: bayId,
-                        machineId: machineNr,
-                        timeSpent: minutes,
-                        comingIn: comingIn,
-                        goingOut: goingOut,
-                        bayPosition: position
-                    }
-                    machineArray.push(machineResult)
+                } else {
+                    let bayReader = element.bayReady;
+                  //  console.log(element.machineId, bayReader)
+                    bayReader.forEach((element_2) => {
+                        // convert Unix milliseconds into minutes (60)
+                        //  minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
+                        comingIn = element_2.bayDateLanding
+                        goingOut = element_2.bayDateLeaving
+                        machineNr = element.machineId
+                        bayId = element_2.bayName;
+                        position = element_2.bayPosition
+                        // convert Unix milliseconds into minutes (60)
+                        //minutes = ((element_2.bayDateLeavingUnix - element_2.bayDateLandingUnix) / 60000).toFixed(0);
+                        //Call function to calculate our time
+                        minutes = calcTime(element_2.bayDateLeavingUnix, element_2.bayDateLandingUnix);
+                        machineResult = {
+                            bay: bayId,
+                            machineId: machineNr,
+                            timeSpent: minutes,
+                            comingIn: comingIn,
+                            goingOut: goingOut,
+                            bayPosition: position
+                        }
+                        machineArray.push(machineResult)
+                    })
                 }
-            } )
-        })
+            })
         let resultArray = _.sortBy(machineArray, 'goingOut')
-     //   console.log(resultArray)
+        console.log(resultArray.length)
         return resultArray.reverse();
     }
 
