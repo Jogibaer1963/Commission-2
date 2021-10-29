@@ -58,13 +58,21 @@ if(Meteor.isServer){
     Meteor.methods({
 /*
         'specialFunction': () => {
+            let canvasId = 'cooling-station-2';
          console.log('function started');
-               let result = machineCommTable.find({activeAssemblyLineList: true},
-                   {fields: {machineId: 1, counter: 1}}).fetch()
-               console.log(result)
+         let result = machineCommTable.find({inLineDate : {$gt: '2021-08-31'}}, {fields: {machineId: 1}}).fetch()
+
+            result.forEach((element) => {
+                let machine = element.machineId
+                console.log(element.machineId)
+                machineCommTable.update({machineId: machine, 'bayReady._id': canvasId},
+                    {$set: {'bayReady.$.bayPosition': 46}});
+            })
            console.log('Function finished');
         },
-         */
+
+ */
+
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
             let intSupplyPos = parseInt(supplyPosition);

@@ -2,76 +2,110 @@ import { calcTime } from '../../lib/99_functionCollector.js';
 import { Template } from 'meteor/templating';
 const Highcharts = require('highcharts');
 
-
-
-
 Template.average_time_in_bay.helpers({
 
-    average_time: function () {
+    average_time: () => {
+        //Declare some variables and create machineArray
         let result, comingIn, goingOut, machineResult, minutes, bayId, position;
         let machineArray = [];
-        result = machineCommTable.find({inLineDate: {$gt: "2021-08-31"}},
+
+        //Find all of the machines that have entered the line by a specified date ("2021-08-31")
+        //Date can be changed here
+        result = machineCommTable.find({activeAssemblyLineList: false, inLineDate: {$gt: "2021-10-04"}},
             {fields: {bayReady: 1}}).fetch()
+
+        //Cycle through the machines to grab data
         result.forEach((element) => {
-            if (element.bayReady === undefined) {
+            //Cycle through each bay a machine has traveled through
+            element.bayReady.forEach(function (element_2) {
+                //If the machine has been in a bay we need to store data
+                if (element_2.bayStatus === 1) {
+                    comingIn = element_2.bayDateLandingUnix
+                    goingOut = element_2.bayDateLeavingUnix
+                    bayId = element_2.bayName;
+                    position = element_2.bayPosition
 
-            } else {
-                element.bayReady.forEach(function (element_2) {
-                    if (element_2.bayStatus === 1) {
-                        comingIn = element_2.bayDateLandingUnix
-                        goingOut = element_2.bayDateLeavingUnix
-                        bayId = element_2.bayName;
-                        position = element_2.bayPosition
-                        //Call function to calculate time / eliminate time difference overnight, weekends
-                        minutes = calcTime(goingOut, comingIn);
-                        machineResult = {
-                            bay: bayId,
-                            timeSpent: minutes,
-                            bayPosition: position
-                        }
-                        machineArray.push(machineResult)
+                    //Call function to calculate time / eliminate time difference overnight, weekends
+                    minutes = calcTime(goingOut, comingIn);
+
+                    //Add relevant data to machineResult
+                    machineResult = {
+                        bay: bayId,
+                        timeSpent: minutes,
+                        bayPosition: position
                     }
-                })
-            }
 
+                    //Add this instance of machineResult to our machineArray
+                    machineArray.push(machineResult)
+                }
+            })
         });
+
+        //Sort  machineArray by bay
         machineArray.sort((a, b) => (a.bayPosition > b.bayPosition) ? 1 : ((b.bayPosition > a.bayPosition) ? -1 : 0))
-        Session.set('resultArray', machineArray)
+
+        //Session.set('resultArray', machineArray)
+
+        //Create arrays to store values in
         let retentionTime = [];
+        let badMovesGraph = [];
         let durationGraph = [];
+
+        //???
         machineArray.forEach((element) => {
             retentionTime.push(element.bay)
         })
         let uniqueBays = Array.from(new Set(retentionTime));
+
+        //We need to gather all of our information for the graphs into arrays
+        //Cycle through each bay
         uniqueBays.forEach((element) => {
             let i = 1;
+            let badMoves = 0;
             let duration = 0;
+
+            //Cycle through each machine that has been through the current bay we are on
             machineArray.forEach((element2) => {
                 if (element === element2.bay) {
-                    if (element2.timeSpent === undefined || element2.timeSpent <= 160) {
-                        // values below 160 minutes are being ignored because too short of time in bay
+                    //Don't add times below 90 to our Average Time spent
+                    if (element2.timeSpent === undefined || element2.timeSpent <= 90) {
+                        //If time is less than 90, we assume it was a bad move
+                        badMoves++;
                     } else {
+                        //Add to our duration and i
+                        //i will be used to get our average
                         let minutes = parseInt(element2.timeSpent);
                         duration = duration + minutes;
                         i++
                     }
                 }
             });
+
+            //Add the average duration to our Average Time array
             durationGraph.push(parseInt((duration / i).toFixed()));
+
+            //Add # of bad moves to our Bad Moves array
+            badMovesGraph.push(parseInt((badMoves).toFixed()));
         });
-        // console.log(uniqueBays)
+
+        //Create our session to gather data from
         Session.set('uniqueBays', uniqueBays)
         Session.set('durationGraph', durationGraph)
-        // Gather data:
-        let averagePerBay = Session.get('durationGraph')
-        //  let tasksData = Session.get('dayResult');
-        let categories = Session.get('uniqueBays');
+        Session.set('badMovesGraph', badMovesGraph)
+
+        // Gather data: This data is used to fill our charts
+        let AveragePerBay = Session.get('durationGraph') //Contains our Average Time Per Bay (Y axis 1)
+        let BadMovesPerBay = Session.get('badMovesGraph') //Contains our Bad Moves Per Bay (Y axis 2)
+        let Categories = Session.get('uniqueBays'); //Contains our Unique Bays (X axis 1 & 2)
+
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function () {
             // Create standard Highcharts chart with options:
+
+            //Average Time Chart ------------------------------------------------------------------------
             Highcharts.chart('chart_1', {
                 title: {
-                    text: 'Average Time in min spent per Bay (Machines below 160 min are ignored)'
+                    text: 'Average Time in min spent per Bay (Machines below 90 min are ignored)'
                 },
                 tooltip: {
                     shared: true
@@ -96,7 +130,7 @@ Template.average_time_in_bay.helpers({
                     }
                 },
                 xAxis: {
-                    categories: categories,
+                    categories: Categories,
                     title: {
                         enabled: false,
                         text: '',
@@ -109,48 +143,15 @@ Template.average_time_in_bay.helpers({
                     {
                         name: 'Average time in min',
                         type: 'column',
-                        data: averagePerBay
+                        data: AveragePerBay
                     },
                 ]
-            });
-        })
+            })
 
-    },
-/*
-    unreliable_chart: () => {
-        let uniqueBays = Session.get('uniqueBays')
-        let workArray = Session.get('resultArray')
-        console.log(uniqueBays)
-        console.log(workArray)
-        let timeCount = []
-        let countArray = []
-        let countLength;
-        uniqueBays.forEach((element) => {
-            workArray.forEach((element_2) => {
-                if (element === element_2.bay) {
-                    if (element_2.timeSpent <= 160) {
-                        // values below 160 minutes are being ignored because too short of time in bay
-                        timeCount.push(element_2.timeSpent)
-                    } else {
-                        //  console.log(element, element2.timeSpent)
-                    }
-                }
-                countLength = timeCount.length;
-                console.log(countLength)
-                countArray.push(countLength)
-                countLength = []
-            });
-           // console.log(countArray)
-        })
-
-      // console.log(countArray)
-        // Gather data:
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function () {
-            // Create standard Highcharts chart with options:
+            //Bad Moves chart ----------------------------------------------------------------------------
             Highcharts.chart('chart_2', {
                 title: {
-                    text: 'Unreliable Numbers per Bay in counts (how often they failed pushing buttons)'
+                    text: 'Unreliable Moves per Bay in counts (how often they failed pushing buttons)'
                 },
                 tooltip: {
                     shared: true
@@ -168,14 +169,14 @@ Template.average_time_in_bay.helpers({
                     categories: [],
                     title: {
                         enabled: true,
-                        text: 'Average Time per Bay',
+                        text: 'Number of Unreliable Moves',
                         style: {
                             fontWeight: 'normal'
                         }
                     }
                 },
                 xAxis: {
-                    categories: [],
+                    categories: Categories,
                     title: {
                         enabled: false,
                         text: '',
@@ -186,15 +187,12 @@ Template.average_time_in_bay.helpers({
                 },
                 series: [
                     {
-                        name: 'Average time in min',
+                        name: 'Number of bad moves',
                         type: 'column',
-                        data: []
+                        data: BadMovesPerBay
                     },
                 ]
             });
-
         })
-    }
-
- */
+    },
 })

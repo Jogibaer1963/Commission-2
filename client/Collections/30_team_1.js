@@ -12,7 +12,6 @@ Session.set('twoMachines', false)
 Template.team_1_over_view.helpers({
 
     machineReservoir: () => {
-        let today = moment().add( -16, 'days').format('YYYY-MM-DD')
         let result = machineCommTable.find({activeAssemblyLineList : true},
             {fields: {
                     counter: 1,
@@ -21,10 +20,8 @@ Template.team_1_over_view.helpers({
                     inLineDate: 1,
                     bayReady: 1
                 }}).fetch();
-
         result.sort((a, b) => (a.counter > b.counter) ? 1 :
             ((b.counter > a.counter) ? -1 : 0));
-        // console.log(result)
         return result;
     },
 
@@ -119,7 +116,7 @@ Template.team_1_over_view.events({
 Template.back_to_assembly_line.events({
     'click .btn-back': (e) => {
         e.preventDefault();
-        FlowRouter.go('/assemblyLine')
+        FlowRouter.go('/assemblyLineOverView')
     },
 })
 
