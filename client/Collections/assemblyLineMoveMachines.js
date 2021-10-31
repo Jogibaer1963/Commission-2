@@ -275,7 +275,6 @@ function build_sun_spots_team_2 (count) {
 Template.moveMachines.helpers({
 
     machineReservoir: () => {
-        let today = moment().add( -16, 'days').format('YYYY-MM-DD')
         let result = machineCommTable.find({activeAssemblyLineList : true},
                                                        {fields: {
                                                            activeAssemblyLineList: 1,
@@ -501,6 +500,43 @@ Template.overViewButtons.events({
         invokeMoveMachine(oldCanvasId, newCanvasId, false)
     },
 
+    'click .bay-4-engine-1-move-button': (e) => {
+        e.preventDefault();
+        // toDo check if machine in Bay 4 matches machine in merge station 1
+        let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
+        let result_2 = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {bayArray: 1}});
+        try {
+        if (result.bayArray[0].machineNr === result_2.bayArray[0].machineNr) {
+            let oldCanvasId = 'merge-station-1' // Last Bay
+            invokeMoveFromLastBay(oldCanvasId)
+            Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
+        } else {
+            alert('Machine in Bay 4 does not match Machine in Merge Station 1')
+        }
+        } catch (e) {
+
+        }
+    },
+
+    'click .bay-4-engine-2-move-button': (e) => {
+        e.preventDefault();
+        // toDo check if machine in Bay 4 matches machine in merge station 2
+        let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
+        let result_2 = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {bayArray: 1}});
+        try {
+        if (result.bayArray[0].machineNr === result_2.bayArray[0].machineNr) {
+            let oldCanvasId = 'merge-station-2' // Last Bay
+            invokeMoveFromLastBay(oldCanvasId)
+            Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
+        } else {
+            alert('Machine in Bay 4 does not match Machine in Merge Station 2')
+        }
+        } catch (e) {
+
+        }
+    },
+
+
     'click .bay-5-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_5'
@@ -554,9 +590,6 @@ Template.overViewButtons.events({
         }
     },
 
-
-
-
     'click .bay-14-move-button': (e) => {
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_14'
@@ -607,5 +640,22 @@ Template.overViewButtons.events({
 
 })
 
+Template.overViewButtons.helpers({
 
+    disableMoveButton_1: () => {
+        try {
+         let result = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {machineReady: 1}});
+        document.getElementById('engine-1-move-button').disabled = result.machineReady === false;
+        console.log(result.machineReady)
+        } catch (e) {}
+    },
+
+    disableMoveButton_2: () => {
+        try {
+        let result = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {machineReady: 1}});
+        document.getElementById('engine-2-move-button').disabled = result.machineReady === false;
+        } catch (e) {}
+    },
+
+})
 

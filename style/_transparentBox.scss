@@ -10,7 +10,7 @@ $gradient-color: #030000;
 .transparent-box {
   background: linear-gradient(
                   $angle-back, $rgba-field, $gradient-color);
-  height: 100em;
+  height: 35em;
   left: 70em;
   position: absolute;
   top: 5em;
@@ -40,3 +40,13 @@ $gradient-color: #030000;
   z-index: 1;
 }
 
+.transparent-box-reverse-engine {
+  background: linear-gradient($angle-front, $rgba-field, $gradient-color);
+  height: 99em;
+  left: -3em;
+  position: absolute;
+  top: 50em;
+  width: 826px;
+  z-index: 1;
+  transform: rotate(270deg);
+}

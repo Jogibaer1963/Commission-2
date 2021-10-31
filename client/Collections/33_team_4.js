@@ -62,6 +62,28 @@ Template.team_5_buttons.events({
 })
 
 //  ************************** Header Buttons end  ********************************
+Template.team_4_move_buttons.helpers({
+
+    disableEngineReady_1: () => {
+        try {
+            let result = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {bayArray: 1}});
+            document.getElementById('engine-ready-1').disabled = result.bayArray.length === 0;
+            console.log(result.bayArray.length)
+        } catch (e) {}
+    },
+
+    disableEngineReady_2: () => {
+        try {
+            let result = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {bayArray: 1}});
+            document.getElementById('engine-ready-2').disabled = result.bayArray.length === 0;
+            console.log(result.bayArray.length)
+        } catch (e) {}
+    },
+
+})
+
+
+
 
 Template.team_4_move_buttons.events({
 
@@ -122,22 +144,36 @@ Template.team_4_move_buttons.events({
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
-    'click .merge-1-move-button': (e) => {
+    'click .engine-1-ready-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'merge-station-1' // Last Bay
-        invokeMoveFromLastBay(oldCanvasId)
+        Meteor.call('engineReady', 1)
     },
 
-    'click .merge-2-move-button': (e) => {
+    'click .engine-2-ready-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'merge-station-2' // Last Bay
-        invokeMoveFromLastBay(oldCanvasId)
+        Meteor.call('engineReady', 2)
     }
 
 })
 
 
 Template.team_4_over_view.helpers({
+
+    engineReady_1: () => {
+        try {
+           let result = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {machineReady: 1}})
+           // console.log(result.machineReady)
+            return result.machineReady
+        } catch(e) {}
+    },
+
+    engineReady_2: () => {
+        try {
+            let result = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {machineReady: 1}})
+            // console.log(result.machineReady)
+            return result.machineReady
+        } catch(e) {}
+    },
 
     coolingBoxReservoir: () => {
         let result = machineCommTable.find({activeCoolingBoxList: true},

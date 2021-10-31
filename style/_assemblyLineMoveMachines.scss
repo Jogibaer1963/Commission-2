@@ -362,6 +362,20 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -1.5em;
 }
 
+.bay-4-engine-1-button {
+  left: 19em;
+  position: absolute;
+  top: 23em;
+  z-index: 1;
+}
+
+.bay-4-engine-2-button {
+  left: 30em;
+  position: absolute;
+  top: 23em;
+  z-index: 1;
+}
+
 //   **************************  Team 2 move buttons  *******************
 
 .team-2-1-arrows {
@@ -554,6 +568,20 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 //  *******************************  Team 4 Assembly  **************************************************************
+.team-4-over-view {
+  left: -1em;
+  position: absolute;
+  top: 30em;
+}
+
+.team-4-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 45em;
+  position: absolute;
+  top: 7em;
+  width: 110px;
+}
 
 .engine-reservoir {
   color: $color-machine-reservoir;
@@ -610,14 +638,14 @@ $station-text-color: #03ff84;
   left: 26em;
   position: absolute;
   top: 30em;
-  z-index: 1;
+  z-index: 0;
 }
 
 .station-4 {
   left: 39em;
   position: absolute;
   top: 30em;
-  z-index: 1;
+  z-index: 0;
 }
 
 //  **************** chevron arrows Engine Assembly  ************************
@@ -772,6 +800,110 @@ $station-text-color: #03ff84;
   position: absolute;
   top: 5em;
 }
+//  ************************************    Engine ready to move Arrows  ***********************************
+
+.engine-move-arrows {
+  left: -7em;
+  position: absolute;
+  top: 40em;
+}
+
+.engine-move-arrows-1 {
+  left: 0;
+  position: relative;
+  top: 3em;
+}
+
+.engine-move-arrows-2 {
+  left: 16em;
+  position: relative;
+  top: 0;
+}
+
+.indicator_1 {
+  top: -40em;
+  left: 70em;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: #000909;
+  transform: rotate(225deg);
+}
+
+.indicator_2 {
+  top: -38em;
+  left: 66em;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: #000909;
+  transform: rotate(200deg);
+}
+
+.indicator span
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  border-right: 7px solid #d70f0f;
+  border-bottom: 7px solid #d70f0f;
+  animation: animate 1s linear infinite;
+}
+
+.indicator span:nth-child(1)
+{
+  top: -30px;
+  left: -30px;
+  animation-delay: 0s;
+}
+.indicator span:nth-child(2)
+{
+  top: -15px;
+  left: -15px;
+  animation-delay: 0.2s;
+}
+.indicator span:nth-child(3)
+{
+  top: 0;
+  left: 0;
+  animation-delay: 0.4s;
+}
+.indicator span:nth-child(4)
+{
+  top: 15px;
+  left: 15px;
+  animation-delay: 0.6s;
+}
+.indicator span:nth-child(5)
+{
+  top: 30px;
+  left: 30px;
+  animation-delay: 0.8s;
+}
+
+@keyframes animate
+{
+  0%
+  {
+    border-color: #ef0808;
+    transform: translate(0,0);
+  }
+  20%
+  {
+    border-color: #d4aa25;
+    transform: translate(15px,15px);
+  }
+  20.1%, 100%
+  {
+    border-color: #7d3620;
+  }
+}
+
 //**************************  End of Engines *********************************************
 
 //  **************************  Test Bay Text and boxes in Single View ********************
@@ -1487,13 +1619,7 @@ $station-text-color: #03ff84;
 
 //  --------------------------  Bay 2  -----------------------------
 
-.team-header {
-  color: #c80b0b;
-  font-family: "Times New Roman", Times, serif;
-  left: 53em;
-  position: absolute;
-  top: 7em;
-}
+
 
 .assembly-line-fields {
   height: 10em;

@@ -89,20 +89,20 @@
 
     <div class="merge-1-team-button">
         <label for="bay-button"></label>
-        <button type="button" id="bay-button"
+        <button type="button" id="engine-ready-1"
                 class="btn
                        btn-default
                        btn-success
-                       merge-1-move-button">Move to Bay 4</button>
+                       engine-1-ready-button" {{disableEngineReady_1}}>Engine Ready</button>
     </div>
 
     <div class="merge-2-team-button">
         <label for="bay-button"></label>
-        <button type="button" id="bay-button"
+        <button type="button" id="engine-ready-2"
                 class="btn
                        btn-default
                        btn-success
-                       merge-2-move-button">Move to Bay 4</button>
+                       engine-2-ready-button" {{disableEngineReady_2}}>Engine Ready</button>
     </div>
 </div>
 
@@ -119,7 +119,7 @@
         }
     </style>
 
-    <div class="team-header">
+    <div class="team-4-header">
         <h1>Team 4 </h1>
     </div>
     <div class="chevron-engine-bays">
@@ -179,6 +179,31 @@
             <div class="chevron"></div>
         </div>
     </div>
+    <div class="engine-move-arrows">
+        {{#if engineReady_1}}
+            <div class="engine-move-arrows-1">
+                <div class="indicator indicator_1">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            {{/if}}
+        {{#if engineReady_2}}
+            <div class="engine-move-arrows-2">
+                <div class="indicator indicator_2">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+       {{/if}}
+    </div>
+
 
     <div class="rectangle-cooling-1"></div>
     <div class="cooling-box-reservoir">

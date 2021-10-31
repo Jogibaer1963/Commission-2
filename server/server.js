@@ -74,6 +74,7 @@ if(Meteor.isServer){
  */
 
 
+
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
             let intSupplyPos = parseInt(supplyPosition);
             let numberOfOrder = parseInt(orderNumber)
@@ -231,6 +232,21 @@ if(Meteor.isServer){
 
 
         },
+
+        'engineReady': (bayReady) => {
+            let bay = parseInt(bayReady)
+            if (bay === 1) {
+                activeAssembly.update({_id: 'merge-station-1'}, {$set: {machineReady: true}})
+            } else if (bay === 2) {
+                activeAssembly.update({_id: 'merge-station-2'}, {$set: {machineReady: true}})
+            } else if (bay === 3) {
+                activeAssembly.update({_id: 'merge-station-1'}, {$set: {machineReady: false}})
+            } else if (bay === 4) {
+                activeAssembly.update({_id: 'merge-station-2'}, {$set: {machineReady: false}})
+            }
+    },
+
+
 
         // ****************** move from list to FCB Bay ********************
 
