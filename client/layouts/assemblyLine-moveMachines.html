@@ -1,225 +1,67 @@
 <template name="assemblyLine">
     {{#if currentUser}}
         {{#if isInRole 'admin'}}
-            {{> back_to_assembly_line }}
-            {{> list_of_points }}
-            {{> log_out_button }}
-            {{> moveMachines }}
-            <div class="test-bay-main-view">
-                {{> test_bay_over_view}}
+            <div class="navigation-buttons">
+                {{> admin_navi_buttons}}
+            </div>
+            <div>
+                {{> team_1_over_view }}
+                {{> team_1_move_buttons }}
+            </div>
+            <div class="team-4-over-view">
+                {{> team_4_over_view}}
+                {{> team_4_move_buttons }}
+            </div>
+            <div class="admin-view-team-2">
+                {{> team_2_over_view }}
+                {{> team_2_move_buttons }}
+            </div>
+            <div class="admin-view-team-3">
+                {{> team_3_over_view }}
+                {{> team_3_move_buttons }}
+            </div>
+            <div class="test-bay-over-view">
+                {{> test_bay_over_view }}
                 {{> test_bay_move_buttons}}
             </div>
-            {{> overViewButtons }}
-            {{> burstSunTimerTeam_1 }}
-            <div class="overview-assembly-line">
-                {{> team_4_over_view }}
-                {{> team_4_move_buttons }}
+            <div>
+                {{> team_5_over_view }}
+                {{>team_5_move_buttons }}
             </div>
         {{/if}}
         {{#if isInRole 'team_1, team_2, team_3, team_4, team_5, test_bay' }}
-            {{> back_to_assembly_line }}
-            {{> team_1_buttons }}
-            {{> team_2_buttons }}
-            {{> team_3_buttons }}
-            {{> team_4_buttons }}
-            {{> team_test_bay_buttons }}
-            {{> team_5_buttons }}
-            {{> list_of_points }}
-            {{> log_out_button }}
-            {{> moveMachines }}
-            <div class="test-bay-main-view">
-                {{> test_bay_over_view}}
+            <div class="navigation-buttons">
+                {{> navigation_buttons}}
             </div>
-            {{> burstSunTimerTeam_1 }}
-            <div class="overview-assembly-line">
-                {{> team_4_over_view }}
+            <div>
+                {{> team_1_over_view }}
             </div>
-            <div class="unauthorized-box">
-                {{> unauthorized_box}}
+            <div class="team-4-over-view">
+                {{> team_4_over_view}}
             </div>
-
+            <div>
+                {{> team_2_over_view }}
+            </div>
+            <div>
+                {{> team_3_over_view }}
+            </div>
+            <div class="test-bay-over-view">
+                {{> test_bay_over_view }}
+            </div>
+            <div>
+                {{> team_5_over_view }}
+            </div>
         {{/if}}
    {{else}}
        {{> login}}
     {{/if}}
-
 </template>
 
 <template name="unauthorized_box">
     <div></div>
 </template>
 
-<template name="overViewButtons">
-
-    <div class="move-buttons-over-view">
-
-        <div class="">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-2-move-button">Move</button>
-        </div>
-
-        <div class="bay-3-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-3-move-button">Move</button>
-        </div>
-
-        <div class="bay-4-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-4-move-button">Move</button>
-        </div>
-
-        <div class="bay-4-engine-1-button">
-            <label for="bay-button"></label>
-            <button type="button" id="engine-1-move-button"
-                    class="btn
-                       btn-default
-                       btn-success
-                       bay-4-engine-1-move-button" {{disableMoveButton_1}}>Move to Bay 4</button>
-        </div>
-
-        <div class="bay-4-engine-2-button">
-            <label for="bay-button"></label>
-            <button type="button" id="engine-2-move-button"
-                    class="btn
-                       btn-default
-                       btn-success
-                       bay-4-engine-2-move-button" {{disableMoveButton_2}}>Move to Bay 4</button>
-        </div>
-
-        <div class="bay-5-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-5-move-button">Move</button>
-        </div>
-
-        <div class="bay-6-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-6-move-button">Move</button>
-        </div>
-
-        <div class="bay-7-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-7-move-button">Move</button>
-        </div>
-
-        <div class="bay-8-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-8-move-button">Move</button>
-        </div>
-
-        <div class="bay-9-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-9-move-button">Move</button>
-        </div>
-
-        <div class="bay-10-button">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-10-move-button">Move</button>
-        </div>
-
-       <div class="final-assembly-container-button">
-            <div class="bay-14-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-14-move-button">Move</button>
-            </div>
-
-            <div class="bay-15-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-15-move-button">Move</button>
-            </div>
-
-            <div class="bay-16-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-16-move-button">Move</button>
-            </div>
-
-            <div class="bay-17-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-17-move-button">Move</button>
-            </div>
-
-            <div class="bay-18-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-18-move-button">Move</button>
-            </div>
-
-            <div class="bay-19-button">
-                <label for="bay-button"></label>
-                <button type="button" id="bay-button"
-                        class="btn
-                               btn-default
-                               btn-success
-                               bay-19-move-button">Move</button>
-            </div>
-           <!--
-            <div class="bay-19-back-button">
-               <img class="move-back" src="move-back-button.JPG" disabled>
-            </div>
-            -->
-       </div>
-
-    </div>
-
-</template>
-
-    <!--  **********************************  Sun Burst Team 1 to Team 4  **************************** --->
-
-    <template name="burstSunTimerTeam_1">
+<template name="burstSunTimerTeam_1">
     <div class="team-1-sun-burst-container">
         <div class="clock-container-team-1">
             <div class="clock-team-1">
@@ -230,344 +72,7 @@
         </div>
         <div class="sunset-container-team-1">
             <div class="horizon-team-1"></div>  <!-- paint horizon  -->
-                <div class="sun-team-1 sun-container-team-1"></div>
+            <div class="sun-team-1 sun-container-team-1"></div>
         </div>
     </div>
 </template>
-
-<template name="burstSunTimerTeam_2">
-    <div class="team-container-2">
-        <div class="clock-container-team-2">
-            <div class="clock-team-2">
-                <div class="time-team-2">
-                    <span>loading</span>
-                </div>
-            </div>
-        </div>
-    <div class="sunset-container-team-2">
-        <div class="horizon-team-2"></div>
-        <div class="">
-            <div class="sun-team-2 sun-container-team-2"></div>
-        </div>
-    </div>
-    </div>
-</template>
-
-<template name="burstSunTimerTeam_3">
-    <div class="team-container-3">
-                <div class="clock-container">
-                    <div class="clock">
-                        <div class="time">
-                            <span>loading</span>
-                        </div>
-                    </div>
-                </div>
-            <div class="sunset-container">
-                <div class="horizon"></div>
-                <div class="">
-                    <div class="sun-team-3 sun-container"></div>
-                </div>
-            </div>
-    </div>
-</template>
-
-<template name="burstSunTimerTeam_5">
-    <div class="team-container-5">
-        <div class="body">
-            <div class="clock-sunset-container">
-                <div class="clock-container">
-                    <div class="clock">
-                        <div class="time">
-                            <span>loading</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="sunset-container">
-                <div class="horizon"></div>
-                <div class="">
-                    <div class="sun sun-container"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-   <!--    **************************************** Sun Burst Ends here  **************************** -->
-<template name="moveMachines">
-    <html lang="en-US">
-        <style>
-            body{
-            background-color:black;
-            }
-        </style>
-        <div class="rectangle">
-
-        </div>
-
-        <div class="machine-reservoir">
-                <h4 class="">Machine Reservoir</h4>
-                    <table class="table blueTable pdiMachineField">
-                        <thead>
-                            <tr>
-                                <th class="pdiMachineField">Machine</th>
-                                <th class="in-line-date">Planned to be in Line</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bodyHeight">
-                            {{#each machineReservoir}}
-                                <tr class="selectedAssemblyMachine">
-                                    <td class="pdiMachineField">{{machineId}}</td>
-                                    <td class="in-line-date">{{inLineDate}}</td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-        </div>
-        <div class="machine-entry assembly-line-arrow-1">
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-            <div class="chevron"></div>
-        </div>
-
-  <!-- ****************************** Assembly Line starts here ''''''''''''''''''''''''''''''''''''' -->
-
-        <div class="team-1-header">
-            <h1>Team 1</h1>
-        </div>
-
-        <div class="assembly-line-fields bay2-fcb-merge-threshing">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-2-merge-text">
-                <h4>Merge FCB with Threshing Unit</h4>
-            </div>
-            <div>
-                <canvas {{draw_fcb_threshing}} id="machine_field_fcb_threshing"
-                                               class="canvas-class canvas-correction"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team1-bay3">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 3</h4>
-            </div>
-
-            <div>
-                <canvas {{draw_bay3}} id="machine_field_bay_3" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team1-bay4">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 4</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="team-2-overView-header">
-            <h1>Team 2 </h1>
-        </div>
-
-        <div class="assembly-line-fields team2-bay5">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 5</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay5}} id="machine_field_bay_5" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team2-bay6">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 6</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay6}} id="machine_field_bay_6" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team2-bay7">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 7</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay7}} id="machine_field_bay_7" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="team-3-overView-header">
-            <h1>Team 3</h1>
-        </div>
-
-        <div class="assembly-line-fields team3-bay8">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 8</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay8}} id="machine_field_bay_8" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team3-bay9">
-            <div class="bay-arrows assembly-line-arrow-1">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 9</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay9}} id="machine_field_bay_9" class="canvas-class"></canvas>
-            </div>
-
-        </div>
-
-        <div class="assembly-line-fields team3-bay10">
-            <div class="bay-arrows assembly-line-bay-10-arrow">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-3-text">
-                <h4>Bay 10</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <!--  *******************  Test Bay  ***************************************  -->
-
-
-
-        <!-- *************************************** Test Bay End ***********************************  -->
-
-        <div class="team-5-overView-header">
-            <h1>Team 5 </h1>
-        </div>
-
-         <div class="final-assembly-container">
-            <div class="assembly-line-fields team5-bay-14">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4>Bay 14</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_14}} id="machine_field_bay_14" class="canvas-class"></canvas>
-                </div>
-            </div>
-
-            <div class="assembly-line-fields team5-bay-15">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4>Bay 15</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_15}} id="machine_field_bay_15" class="canvas-class"></canvas>
-                </div>
-            </div>
-
-            <div class="assembly-line-fields team5-bay-16">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4>Bay 16</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_16}} id="machine_field_bay_16" class="canvas-class"></canvas>
-                </div>
-            </div>
-
-            <div class="assembly-line-fields team5-bay-17">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4> Bay 17</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_17}} id="machine_field_bay_17" class="canvas-class"></canvas>
-                </div>
-            </div>
-
-            <div class="assembly-line-fields team5-bay-18">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4>Bay 18</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_18}} id="machine_field_bay_18" class="canvas-class"></canvas>
-                </div>
-            </div>
-
-            <div class="assembly-line-fields team5-bay-19">
-                <div class="bay-arrows assembly-line-arrow-1">
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                    <div class="chevron"></div>
-                </div>
-                <div class="bay-3-text">
-                    <h4>Bay 19</h4>
-                </div>
-                <div>
-                    <canvas {{draw_bay_19}} id="machine_field_bay_19" class="canvas-class"></canvas>
-                </div>
-            </div>
-         </div>
-
-   </html>
-</template>
-

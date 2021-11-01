@@ -91,27 +91,44 @@ Template.team_1_over_view.events({
 
 Template.team_1_move_buttons.helpers({
 
-    disableMoveButton_1: () => {
+    disableBay_4_MoveButton_1: () => {
         try {
-            let result = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {machineReady: 1}});
-            document.getElementById('engine-1-move-button').disabled = result.machineReady === false;
-            console.log(result.machineReady)
+            let result = activeAssembly.findOne({_id: 'merge-station-1'},
+                {fields: {machineReady: 1}});
+            Session.set('machineState', result.machineReady);
+            let machineState= Session.get('machineState');
+            if (machineState === false) {
+                document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
+                Session.set('machineState', false)
+                //  console.log('Machine not ready yet')
+            } else {
+                document.getElementById('engine-1-move-button').removeAttribute("disabled");
+                Session.set('machineState', true)
+                //    console.log('Bay is not empty button is enabled')
+            }
+        } catch (e) {}
+
+    },
+
+    disableBay_4_MoveButton_2: () => {
+        try {
+            let result = activeAssembly.findOne({_id: 'merge-station-2'},
+                {fields: {machineReady: 1}});
+            Session.set('machineState_2', result.machineReady);
+            let machineState= Session.get('machineState_2');
+            if (machineState === false) {
+                document.getElementById('engine-2-move-button').setAttribute("disabled","disabled");
+                Session.set('machineState', false)
+                //  console.log('Machine not ready yet')
+            } else {
+                document.getElementById('engine-2-move-button').removeAttribute("disabled");
+                Session.set('machineState', true)
+                //    console.log('Bay is not empty button is enabled')
+            }
         } catch (e) {}
     },
 
-    disableMoveButton_2: () => {
-        try {
-            let result = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {machineReady: 1}});
-            document.getElementById('engine-2-move-button').disabled = result.machineReady === false;
-        } catch (e) {
-        }
-    }
-
 })
-
-
-
-
 
 Template.team_1_move_buttons.events({
 
@@ -138,7 +155,6 @@ Template.team_1_move_buttons.events({
 
     'click .bay-4-engine-1-move-button': (e) => {
         e.preventDefault();
-        // toDo check if machine in Bay 4 matches machine in merge station 1
         let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
         let result_2 = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {bayArray: 1}});
         try {
@@ -146,17 +162,18 @@ Template.team_1_move_buttons.events({
                 let oldCanvasId = 'merge-station-1' // Last Bay
                 invokeMoveFromLastBay(oldCanvasId)
                 Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
+            } else if (result.bayArray[1].machineNr === result_2.bayArray[0].machineNr) {
+                let oldCanvasId = 'merge-station-1' // Last Bay
+                invokeMoveFromLastBay(oldCanvasId)
+                Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
             } else {
                 alert('Machine in Bay 4 does not match Machine in Merge Station 1')
             }
-        } catch (e) {
-
-        }
+        } catch (e) {}
     },
 
     'click .bay-4-engine-2-move-button': (e) => {
         e.preventDefault();
-        // toDo check if machine in Bay 4 matches machine in merge station 2
         let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
         let result_2 = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {bayArray: 1}});
         try {
@@ -164,82 +181,42 @@ Template.team_1_move_buttons.events({
                 let oldCanvasId = 'merge-station-2' // Last Bay
                 invokeMoveFromLastBay(oldCanvasId)
                 Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
+            } else if (result.bayArray[1].machineNr === result_2.bayArray[0].machineNr) {
+                let oldCanvasId = 'merge-station-2' // Last Bay
+                invokeMoveFromLastBay(oldCanvasId)
+                Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
             } else {
-                alert('Machine in Bay 4 does not match Machine in Merge Station 2')
+                alert('Machine in Bay 4 does not match Machine in Merge Station 1')
             }
-        } catch (e) {
+        } catch (e) {}
+    },
 
+})
+
+
+Template.team_1_move_buttons.onRendered(function() {
+    try {
+        let result = Session.get('machineState')
+        if (result === false) {
+            //  console.log('first', result)
+            document.getElementById('engine-1-move-button').setAttribute("disabled","disabled"); // no machine in Bay button is disabled
+        } else {
+            //  console.log('second', result)
+            document.getElementById('engine-1-move-button').removeAttribute("disabled");
         }
-    },
+    } catch (e) {}
 
-
+    try {
+        let result = Session.get('machineState_2')
+        if (result === false) {
+            //  console.log('first', result)
+            document.getElementById('engine-2-move-button').setAttribute("disabled","disabled"); // no machine in Bay button is disabled
+        } else {
+            //  console.log('second', result)
+            document.getElementById('engine-2-move-button').removeAttribute("disabled");
+        }
+    } catch (e) {}
 
 })
 
-
-
-Template.back_to_assembly_line.events({
-    'click .btn-back': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/assemblyLineOverView')
-    },
-})
-
-
-Template.team_1_buttons.events({
-    'click .btn-team_1': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_1')
-    },
-})
-
-Template.team_2_buttons.events({
-    'click .btn-team_2': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_2')
-    },
-})
-
-Template.team_3_buttons.events({
-    'click .btn-team_3': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_3')
-    },
-})
-
-Template.team_4_buttons.events({
-    'click .btn-team_4': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_4')
-    },
-})
-
-Template.team_test_bay_buttons.events({
-    'click .btn-team_test_bay': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/test_bay')
-    },
-})
-
-Template.team_5_buttons.events({
-    'click .btn-team_5': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_5')
-    },
-})
-
-Template.list_of_points.events({
-    'click .lop': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/lop')
-    },
-})
-
-Template.log_out_button.events({
-    'click .log_out': (e) => {
-        e.preventDefault();
-        Meteor.logout();
-        //Meteor.call('logOut', userName)
-    },
-})
 

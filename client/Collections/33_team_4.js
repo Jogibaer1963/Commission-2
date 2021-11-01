@@ -11,78 +11,69 @@ Session.set('twoMachines', false)
 
 // *********************  Header Buttons  ***********************************
 
-Template.back_to_assembly_line.events({
-    'click .btn-back': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/assemblyLine')
-    },
+Template.team_4_move_buttons.onRendered(function() {
+    try {
+        let result = Session.get('machineStatus')
+        if (result === false) {
+          //  console.log('first', result)
+            document.getElementById('engine-ready-1').setAttribute("disabled","disabled"); // no machine in Bay button is disabled
+        } else {
+          //  console.log('second', result)
+            document.getElementById('engine-ready-1').removeAttribute("disabled");
+        }
+    } catch (e) {}
+
+    let result_2 = Session.get('machineStatus_2')
+    try {
+        if (result_2 === false) {
+            document.getElementById('engine-ready-2').setAttribute("disabled","disabled");
+         //   console.log('No array, Bay is empty button is disabled')
+        } else {
+            document.getElementById('engine-ready-2').removeAttribute("disabled");
+         //   console.log('Bay is not empty button is enabled')
+        }
+    } catch (e) {}
 })
 
-
-Template.team_1_buttons.events({
-    'click .btn-team_1': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_1')
-    },
-})
-
-Template.team_2_buttons.events({
-    'click .btn-team_2': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_2')
-    },
-})
-
-Template.team_3_buttons.events({
-    'click .btn-team_3': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_3')
-    },
-})
-
-Template.team_4_buttons.events({
-    'click .btn-team_4': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_4')
-    },
-})
-
-Template.team_test_bay_buttons.events({
-    'click .btn-team_test_bay': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/test_bay')
-    },
-})
-
-Template.team_5_buttons.events({
-    'click .btn-team_5': (e) => {
-        e.preventDefault();
-        FlowRouter.go('/team_5')
-    },
-})
 
 //  ************************** Header Buttons end  ********************************
 Template.team_4_move_buttons.helpers({
 
     disableEngineReady_1: () => {
         try {
-            let result = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {bayArray: 1}});
-            document.getElementById('engine-ready-1').disabled = result.bayArray.length === 0;
-            console.log(result.bayArray.length)
+            let result = activeAssembly.findOne({_id: 'merge-station-1'},
+                               {fields: {bayArray: 1}});
+            if (result.bayArray.length === 0) {
+                document.getElementById('engine-ready-1').setAttribute("disabled","disabled");
+                Session.set('machineStatus', false)
+              //  console.log('No array, Bay is empty button is disabled')
+            } else {
+                document.getElementById('engine-ready-1').removeAttribute("disabled");
+                Session.set('machineStatus', true)
+            //    console.log('Bay is not empty button is enabled')
+            }
         } catch (e) {}
+
+
     },
 
     disableEngineReady_2: () => {
         try {
-            let result = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {bayArray: 1}});
-            document.getElementById('engine-ready-2').disabled = result.bayArray.length === 0;
-            console.log(result.bayArray.length)
+            let result = activeAssembly.findOne({_id: 'merge-station-2'},
+                                                 {fields: {bayArray: 1}});
+            if (result.bayArray.length === 0) {
+                document.getElementById('engine-ready-2').setAttribute("disabled","disabled");
+                Session.set('machineStatus_2', false)
+            //    console.log('No array, Bay is empty button is disabled')
+            } else {
+                document.getElementById('engine-ready-2').removeAttribute("disabled");
+                Session.set('machineStatus_2', true)
+            //    console.log('Bay is not empty button is enabled')
+            }
         } catch (e) {}
-    },
+   }
 
 })
-
-
 
 
 Template.team_4_move_buttons.events({
@@ -124,7 +115,7 @@ Template.team_4_move_buttons.events({
 
     'click .engine-4-move': (e) => {
         e.preventDefault();
-        let oldCanvasId, newCanvasId, result_1, result_2, machine_1, machine_2;
+        let oldCanvasId, newCanvasId, result_1, result_2
         oldCanvasId = 'engine-station-4'
         // checking which merging station is open
         result_1 = activeAssembly.findOne({_id: "merge-station-1"}, {fields: {bayArray: 1}});

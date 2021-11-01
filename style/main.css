@@ -1081,6 +1081,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: 5em;
 }
 
+.navigation-buttons {
+  left: 5em;
+  position: absolute;
+  top: 2em;
+}
+
 .machine-reservoir {
   color: #71f323;
   left: 5em;
@@ -1111,7 +1117,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 5em;
   opacity: 0.1;
   position: relative;
-  top: 21em;
+  top: 25em;
   width: 200px;
   z-index: 1;
 }
@@ -1343,6 +1349,18 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: 1em;
 }
 
+.team-2-buttons {
+  left: 51.5em;
+  position: absolute;
+  top: 12em;
+}
+
+.team-3-buttons {
+  left: 82em;
+  position: absolute;
+  top: 12em;
+}
+
 .station-1-arrows {
   position: absolute;
   top: 18.5em;
@@ -1355,6 +1373,27 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: 17em;
   transform: rotate(-45deg);
+}
+
+.bay-7-8-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 108em;
+}
+
+.bay-8-9-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 122em;
+}
+
+.bay-9-10-arrows {
+  position: absolute;
+  top: 24.9em;
+  transform: rotate(-90deg);
+  left: 136em;
 }
 
 .station-3-arrows {
@@ -1399,6 +1438,31 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 111em;
 }
 
+.team-1-template {
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.team-4-template {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.team-4-buttons {
+  left: 25em;
+  position: absolute;
+  top: 34em;
+}
+
+.engine-1-move-button {
+  left: 0;
+  position: relative;
+  top: -1.5em;
+}
+
 .team-1-buttons {
   left: 22em;
   position: absolute;
@@ -1420,15 +1484,39 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-4-engine-1-button {
   left: 19em;
   position: absolute;
-  top: 23em;
+  top: 20em;
   z-index: 1;
 }
 
 .bay-4-engine-2-button {
   left: 30em;
   position: absolute;
-  top: 23em;
+  top: 20em;
   z-index: 1;
+}
+
+.team-3-template-2-over-view {
+  left: -49em;
+  position: absolute;
+  top: 2em;
+}
+
+.team-3-template-3-over-view {
+  left: -50em;
+  position: absolute;
+  top: 2em;
+}
+
+.team-3-test-bay-view {
+  left: 37em;
+  position: relative;
+  top: 1em;
+}
+
+.team-2-template {
+  left: 38em;
+  position: absolute;
+  top: -1em;
 }
 
 .team-2-1-arrows {
@@ -1466,29 +1554,22 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-3-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 47em;
+  left: 127em;
   position: absolute;
-  top: 4em;
-}
-
-.team-3-overView-header {
-  color: #c80b0b;
-  font-family: "Times New Roman", Times, serif;
-  left: 128em;
-  position: absolute;
-  top: 4em;
-}
-
-.team-3-test-bay-view {
-  left: 30em;
-  position: relative;
-  top: -3em;
+  width: 110px;
+  top: 5em;
 }
 
 .template-team-3 {
   left: 23.7em;
   position: absolute;
   top: 12.5em;
+}
+
+.bay-8-team-button {
+  left: 0;
+  position: absolute;
+  top: -1.5em;
 }
 
 .bay-9-team-button {
@@ -1504,16 +1585,16 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-10-to-test-bay-arrow {
-  left: 38em;
-  position: relative;
-  top: -56em;
+  left: 150em;
+  position: absolute;
+  top: 23em;
   transform: rotate(-45deg);
 }
 
 .template-team-4 {
   left: 25em;
   position: absolute;
-  top: 34.1em;
+  top: 35.1em;
 }
 
 .engine-2-team-button {
@@ -1537,8 +1618,8 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .cooling-1-team-button {
-  position: absolute;
-  top: -18em;
+  position: relative;
+  top: -23.5em;
 }
 
 .cooling-box-1-text {
@@ -1618,7 +1699,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-4-over-view {
   left: -1em;
   position: absolute;
-  top: 30em;
+  top: 25em;
 }
 
 .team-4-header {
@@ -1937,6 +2018,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
   left: 43em;
+  width: 130px;
   position: absolute;
   top: 7em;
 }
@@ -1984,7 +2066,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-test-1-button-single {
   left: -10em;
   position: relative;
-  top: 17em;
+  top: 14em;
   z-index: 1;
 }
 
@@ -2000,10 +2082,10 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .test-bay-1-3-button-single {
-  left: -12em;
+  left: -11em;
   opacity: 0;
   position: relative;
-  top: 2em;
+  top: -5em;
   transform: rotate(90deg);
   z-index: 1;
 }
@@ -2026,7 +2108,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 3em;
   opacity: 0;
   position: relative;
-  top: 1em;
+  top: -6em;
   transform: rotate(90deg);
   z-index: 1;
 }
@@ -2035,6 +2117,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: -8em;
   opacity: 0;
   position: relative;
+  top: -7em;
   transform: rotate(135deg);
   z-index: 1;
 }
@@ -2042,7 +2125,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .test-bay-2-3-button-single {
   opacity: 0;
   position: relative;
-  top: -1.5em;
+  top: -8.5em;
   transform: rotate(45deg);
   z-index: 1;
 }
@@ -2063,7 +2146,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-test-2-button-single {
   left: 0.5em;
   position: relative;
-  top: 14.7em;
+  top: 10.7em;
   z-index: 1;
 }
 
@@ -2089,9 +2172,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-test-3-button-single {
-  left: -10em;
+  left: -9em;
   position: relative;
-  top: -2em;
+  top: -7em;
   z-index: 1;
 }
 
@@ -2117,7 +2200,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-test-4-button-single {
   left: 1em;
   position: relative;
-  top: -4.5em;
+  top: -11em;
   z-index: 1;
 }
 
@@ -2138,7 +2221,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .front-test-bay-single-button {
   left: -19em;
   position: relative;
-  top: 13em;
+  top: 14em;
   z-index: 1;
 }
 
@@ -2238,6 +2321,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: relative;
   transform: rotate(90deg);
   top: 19em;
+  z-index: -1;
 }
 
 .team-test-bay-1 {
@@ -2402,6 +2486,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -8.5em;
 }
 
+.test-bay-over-view {
+  left: 87em;
+  position: absolute;
+  top: -1em;
+}
+
 .team-test-bay-4 {
   left: 15em;
   position: relative;
@@ -2525,10 +2615,22 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -2em;
 }
 
+.team-5-test-bay-view {
+  left: -20em;
+  position: absolute;
+  top: 2em;
+}
+
+.team-5-over-view {
+  left: -108em;
+  position: absolute;
+  top: 3.5em;
+}
+
 .chevron-box-team-4 {
   left: 7em;
   position: relative;
-  top: 9em;
+  top: 12em;
 }
 
 .team-5-header {
@@ -2536,6 +2638,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   font-family: "Times New Roman", Times, serif;
   left: 75em;
   position: absolute;
+  width: 110px;
   top: 14em;
 }
 
@@ -2548,10 +2651,22 @@ table.supply-multi-table td, table.supply-multi-table th {
   width: 110px;
 }
 
-.template-team-5 {
-  left: 29em;
+.team-5-template {
+  left: 151em;
   position: absolute;
-  top: 20.5em;
+  top: -3em;
+}
+
+.team-5-buttons {
+  left: 137em;
+  position: absolute;
+  top: 18.5em;
+}
+
+.bay-14-team-button {
+  left: 0;
+  position: absolute;
+  top: -1.5em;
 }
 
 .bay-15-team-button {
@@ -2745,7 +2860,8 @@ table.supply-multi-table td, table.supply-multi-table th {
   font-family: "Times New Roman", Times, serif;
   left: 43em;
   position: absolute;
-  top: 4em;
+  top: 5em;
+  width: 110px;
 }
 
 .team-1-sun-burst-container {
@@ -2811,7 +2927,8 @@ table.supply-multi-table td, table.supply-multi-table th {
   font-family: "Times New Roman", Times, serif;
   left: 47em;
   position: absolute;
-  top: 4em;
+  width: 110px;
+  top: 6em;
 }
 
 .team-2-overView-header {
@@ -3222,7 +3339,7 @@ table.headerTable {
   height: 35em;
   left: 70em;
   position: absolute;
-  top: 5em;
+  top: 8em;
   width: 400px;
   z-index: 1;
 }
@@ -3252,7 +3369,7 @@ table.headerTable {
   height: 99em;
   left: -3em;
   position: absolute;
-  top: 50em;
+  top: 45em;
   width: 826px;
   z-index: 1;
   transform: rotate(270deg);

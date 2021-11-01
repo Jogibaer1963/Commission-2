@@ -1,33 +1,19 @@
 <template name="team_3">
     {{#if currentUser}}
-        {{#if isInRole 'team_3, admin' }}
-        {{> back_to_assembly_line }}
-        {{> team_1_buttons }}
-        {{> team_2_buttons }}
-        {{> team_4_buttons }}
-        {{> team_test_bay_buttons }}
-        {{> team_5_buttons }}
-        {{> list_of_points }}
-        {{> log_out_button }}
-        {{> team_3_over_view }}
-        {{> team_3_move_buttons }}
-    <div class="team-3-test-bay-view">
-        {{> test_bay_over_view}}
-    </div>
-    {{/if }}
-    {{#if isInRole 'team_1, team_2, team_4, team_5, test_bay' }}
-        {{> back_to_assembly_line }}
-        {{> team_1_buttons }}
-        {{> team_2_buttons }}
-        {{> team_4_buttons }}
-        {{> team_test_bay_buttons }}
-        {{> team_5_buttons }}
-        {{> list_of_points }}
-        {{> log_out_button }}
-    <div class="team-3-test-bay-view">
-        {{> test_bay_over_view}}
-    </div>
-        {{> team_3_over_view }}
+        {{#if isInRole 'team_3' }}
+            <div class="navigation-buttons">
+                {{> navigation_buttons}}
+            </div>
+            <div class="team-3-template-2-over-view">
+                {{> team_2_over_view }}
+            </div>
+            <div class="team-3-template-3-over-view">
+                {{> team_3_over_view }}
+                {{> team_3_move_buttons }}
+            </div>
+            <div class="team-3-test-bay-view">
+                {{> test_bay_over_view}}
+            </div>
     {{/if }}
         {{else}}
             {{> login}}
@@ -36,11 +22,11 @@
 
 <template name="team_3_move_buttons">
 
-    <div class="template-team-3">
+    <div class="team-3-buttons">
 
-        <div class="">
-            <label for="bay-button"></label>
-            <button type="button" id="bay-button"
+        <div class="bay-8-team-button">
+            <label for="bay-8-move-button"></label>
+            <button type="button" id="bay-8-move-button"
                     class="btn
                            btn-default
                            btn-success
@@ -64,7 +50,6 @@
                            btn-success
                            bay-10-move-button">Move</button>
         </div>
-
     </div>
 </template>
 
@@ -75,25 +60,23 @@
             background-color:black;
         }
     </style>
+    <div class="team-3-template">
+
+    </div>
 <div class="team-3-header">
     <h1>Team 3 </h1>
 </div>
-    <div class="team-2-1-arrows">
+    <div class="bay-7-8-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="team-2-2-arrows">
+    <div class="bay-8-9-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-    <div class="station-3-arrows">
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-    </div>
-    <div class="station-4-arrows">
+    <div class="bay-9-10-arrows">
         <div class="chevron"></div>
         <div class="chevron"></div>
         <div class="chevron"></div>
@@ -103,26 +86,6 @@
         <div class="chevron"></div>
         <div class="chevron"></div>
     </div>
-
-    <div class="transparent-box-reverse"></div>
-    <div class="team-container-3">
-        <div class="assembly-line-fields team2-bay6">
-            <div class="bay-3-text">
-                <h4>Bay 6</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay6}} id="machine_field_bay_6" class="canvas-class"></canvas>
-            </div>
-        </div>
-
-        <div class="assembly-line-fields team2-bay7">
-            <div class="bay-3-text">
-                <h4>Bay 7</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay7}} id="machine_field_bay_7" class="canvas-class"></canvas>
-            </div>
-        </div>
 
         <div class="assembly-line-fields team3-bay8">
             <div class="bay-3-text">
@@ -150,7 +113,5 @@
                 <canvas {{draw_bay10}} id="machine_field_bay_10" class="canvas-class"></canvas>
             </div>
         </div>
-    </div>
-<div class="transparent-box"></div>
 </html>
 </template>
