@@ -15,7 +15,7 @@ Template.commTablet.helpers ({
                 FlowRouter.go('/multiMachines');
             }
         }
-        let result = machineCommTable.find({commissionStatus: {$lt: 26}, active: true}).fetch();
+        let result = machineCommTable.find({active: true}).fetch();
          return _.sortBy(result, 'counter');
     },
 

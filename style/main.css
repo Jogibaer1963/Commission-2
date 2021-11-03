@@ -3432,6 +3432,49 @@ table.headerTable {
   top: 45em;
 }
 
+.header-commission-monitor {
+  left: 42em;
+  position: absolute;
+  top: 1em;
+}
+
+.header-style {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 5em;
+  font-weight: bolder;
+}
+
+.table-commission-monitor {
+  left: 10em;
+  position: absolute;
+  top: 10em;
+}
+
+.machine-style {
+  color: #cede0c;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+}
+
+.in-line-date-style {
+  color: #f60cc7;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+}
+
+.today-result-monitor {
+  left: 47em;
+  position: absolute;
+  top: 67em;
+}
+
+.diagram-monitor {
+  left: -39em;
+  position: absolute;
+  top: 10em;
+}
+
 .insideNavBar {
   margin-top: 25px;
 }

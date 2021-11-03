@@ -1,0 +1,55 @@
+<template name="picking_over_view_monitor">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Picking Monitor</title>
+    </head>
+    <style>body{background-color:black;}</style>
+    <body>
+    <div class="header-commission-monitor">
+        <h4 class="header-style">Over View Commission </h4>
+    </div>
+        <div class="table-commission-monitor">
+            <div class="">
+                <table class="table table-header-rotated fixed-header">
+                    <thead>
+                    <tr>
+                        <th class="pdiMachineField"><strong>Machine Id</strong></th>
+                        <th class="pdiShipField"><strong>Date In Line</strong></th>
+                        {{#each supplyList}}
+                            <th class="rotate-45"><div><span>{{_id}}</span></div></th>
+                        {{/each}}
+                        <th class=""></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each machineList}}
+                        <tr class="commissionMachine {{selectedMachine}}">
+                            <td class="pdiMachineField machine-style">{{machineId}}</td>
+                            <td class="pdiShipField in-line-date-style">{{inLineDate}}</td>
+                            {{#each supplyAreas}}
+                                <td class="{{getStatusColor supplyStatus}}"
+                                    style="background-color:{{getStatusColor supplyStatus}};
+                                            font-size: 14px;
+                                            font-weight: bolder;
+                                            text-align: left;
+                                            white-space: nowrap">{{pickingTime}}</td>
+                            {{/each}}
+                            <td class="commMachineField machine-style">{{machineId}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="today-result-monitor" {{teamToday}}>
+            <div>
+                <h3 class="header-style">Daily Team result  </h3>
+            </div>
+            <div class="diagram-monitor">
+                <div  id="chart_4">{{daylieTeamResult}}</div>
+            </div>
+        </div>
+    </body>
+</html>
+</template>

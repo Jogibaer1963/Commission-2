@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import {pickingToDay} from "../../lib/99_functionCollector";
 const Highcharts = require('highcharts');
 Meteor.subscribe('pickers');
 Meteor.subscribe('usersProfile');
@@ -495,29 +496,7 @@ Template.dailyResult.helpers({
 });
 
 
-function pickingToDay () {
-    let today = Date.now();
-    let timeResult = new Date(today);
-    let pickingMonth = timeResult.getMonth();
-    if (pickingMonth === 0) {
-        pickingMonth = '00';
-    }
-    if (pickingMonth < 10 ) {
-        pickingMonth = ("0" + timeResult.getMonth()).toString();
-    }
-    if (pickingMonth >= 10) {
-        pickingMonth = (timeResult.getMonth()).toString();
-    }
-    let pickingDate = (timeResult.getDate()).toString();
-    if (pickingDate < 10) {
-        pickingDate = ("0" + timeResult.getDate()).toString()
-    }
-    let pickingDay = ("0" + timeResult.getDay()).toString() ;
-    let pickingYear = (timeResult.getFullYear()).toString();
 
-   // return (pickingYear + pickingMonth + pickingDate + pickingDay);
-    return (pickingYear + pickingMonth + pickingDate + pickingDay)
-}
 
 function daylieResult(loggedUser) {
     let pickingString = pickingToDay();
