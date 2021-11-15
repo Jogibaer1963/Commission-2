@@ -4,13 +4,15 @@
             <div class="navigation-buttons">
                 {{> navigation_buttons}}
             </div>
-            <div class="team-5-test-bay-view">
-                {{> test_bay_over_view}}
+        <div class="team-5-view">
+            <div class="test-bay-over-view">
+                {{> test_bay_over_view }}
             </div>
-            <div class="team-5-over-view">
+            <div class="team-5">
                 {{> team_5_over_view }}
                 {{>team_5_move_buttons }}
             </div>
+        </div>
         {{/if }}
     {{else}}
         {{> login}}

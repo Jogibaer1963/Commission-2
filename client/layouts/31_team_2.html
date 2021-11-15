@@ -4,20 +4,20 @@
                 <div class="navigation-buttons">
                     {{> navigation_buttons}}
                 </div>
-                <div class="team-2-template-1-over-view">
+                <div class="team-1-over-view">
                     {{> team_1_over_view }}
-                </div>
-                <div class="team-2-template-2-over-view">
-                    {{> team_2_over_view }}
-                    {{> team_2_move_buttons }}
-                </div>
-                <div class="team-2-template-3-over-view">
-                    {{> team_3_over_view }}
                 </div>
                 <div class="team-4-over-view">
                     {{> team_4_over_view}}
                 </div>
-                {{/if }}
+                <div class="admin-view-team-2">
+                    {{> team_2_over_view }}
+                    {{> team_2_move_buttons }}
+                </div>
+                <div class="admin-view-team-3">
+                    {{> team_3_over_view }}
+                </div>
+            {{/if }}
     {{else}}
         {{> login}}
     {{/if }}

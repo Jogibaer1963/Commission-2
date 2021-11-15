@@ -172,11 +172,10 @@ Template.team_4_over_view.helpers({
                     counter: 1,
                     machineId: 1,
                     timeLine: 1,
-                    inLineDate: 1,
-                    bayReady: 1
-                }}).fetch();
-      //  console.log(result)
-        result.sort((a, b) => (a.counter > b.counter) ? 1 : ((b.counter > a.counter) ? -1 : 0))
+                    inLineDate: 1
+                                 }}).fetch();
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0))
         return result;
     },
 
@@ -189,9 +188,8 @@ Template.team_4_over_view.helpers({
                     inLineDate: 1,
                     bayReady: 1
                                    }}).fetch();
-
-        result.sort((a, b) => (a.counter > b.counter) ? 1 : ((b.counter > a.counter) ? -1 : 0));
-        // console.log(result)
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
         return result;
     },
 

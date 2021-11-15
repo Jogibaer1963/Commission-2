@@ -11,9 +11,16 @@ Template.addMachine.helpers ({
 
     updatedMachines: () => {
         try {
-        return userActions.findOne({_id: 'serverHelper'}).machineCount;
+        return userActions.findOne({_id: 'updateMachines'}).machineCount;
         } catch (e) {
           }
+    },
+
+    newMachines: () => {
+        try {
+            return userActions.findOne({_id: 'newMachines'}).machineCount;
+        } catch (e) {
+        }
     }
 
 

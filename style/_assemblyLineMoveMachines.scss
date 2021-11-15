@@ -22,22 +22,31 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .navigation-buttons {
-  left: 5em;
+  left: 36em;
   position: absolute;
   top: 2em;
 }
 
 .machine-reservoir {
   color: $color-machine-reservoir;
-  left: 5em;
+  left: 0;
   position: absolute;
-  top: 11em;
+  top: 2em;
  // width: 300px;
 }
 
 .in-line-date {
   max-width: 100px;
   min-width: 100px;
+  color: #cf70ec;
+  font-weight: bolder;
+}
+
+.in-line-time {
+  max-width: 70px;
+  min-width: 70px;
+  color: #db9315;
+  font-weight: bolder;
 }
 
 .machine-entry {
@@ -55,16 +64,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //box is covering Table except 1st line.
 
-.rectangle {
-  background: #0000FFFF;
-  height: 22em;
-  left: 5em;
-  opacity: .1;
-  position: relative;
-  top: 25em;
-  width: 200px;
-  z-index: 1;
-}
+
 
 .rectangle-2 {
   background: #0000FFFF;
@@ -80,23 +80,23 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .rectangle-engines-1 {
   background: #0000FFFF;
   height: 22em;
-  left: 5.5em;
+  left: 6.5em;
   opacity: 0.1;
   position: relative;
   top: 44em;
-  width: 200px;
-  z-index: 1;
+  width: 257px;
+  z-index: 2;
 }
 
 .rectangle-cooling-1 {
   background: #0000FFFF;
   height: 12em;
-  left: 5.5em;
+  left: 7.5em;
   opacity: 0.1;
   position: relative;
-  top: 30em;
-  width: 200px;
-  z-index: 1;
+  top: 31em;
+  width: 249px;
+  z-index: 2;
 }
 
 .unauthorized-box {
@@ -141,6 +141,20 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   position: absolute;
   top: 12em;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .bay-3-button {
   @include move-buttons;
@@ -198,10 +212,604 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   color: $text-color-engine-stations;
   font-weight: bolder;
   position: relative;
-  top: -9em;
+  top: -5em;
 }
 
-//  *********************************************************************************
+//  *********************************  Team 1  ************************************************
+@mixin start-stop-button{
+  display:block;
+  width:30px;
+  height:30px;
+  line-height:80px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align: left;
+  text-decoration:none;
+  background: #e73811;
+  box-shadow: 0 0 3px gray;
+  font-size:15px;
+}
+
+.arrows-list-fcb {
+  left: 272px;
+  position: absolute;
+  top: 153px;
+  transform: rotate(270deg);
+}
+
+.fcb-1-canvas {
+  left: -30px;
+  position: relative;
+  top: -62px;
+}
+
+.arrow-button-fcb-1 {
+  left: 67px;
+  position: relative;
+  top: -329px;
+  transform: rotate(90deg);
+
+    .arrow-fcb-1 {
+      top: -80px;
+      position: relative;
+      left: 70px;
+      border: solid #ec0d0d;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(45deg);
+    }
+
+}
+
+.arrow-button-fcb-2 {
+  top: -603px;
+  position: relative;
+  left: 69px;
+  transform: rotate(90deg);
+
+    .arrow-fcb-2 {
+      top: -79px;
+      position: relative;
+      left: 70px;
+      border: solid #ec0d0d;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(45deg);
+    }
+}
+
+.team-1-template {
+  left: 27px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.fcb-body-height {
+  height: 175px;
+}
+
+// Main Box
+.team-1-over-view {
+  left: 3em;
+  position: absolute;
+  top: 10em;
+}
+
+.team-1-header {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 43em;
+  position: relative;
+  top: -5em;
+  width: 110px;
+}
+// cover table except first line
+.rectangle {
+  background: #0000FFFF;
+  height: 14em;
+  left: 0;
+  opacity: .1;
+  position: relative;
+  top: 9em;
+  width: 252px;
+  z-index: 1;
+}
+
+.fcb-1-start-button {
+  @include start-stop-button
+}
+
+.fcb-1-start-button:hover {
+  background: #5aec11;
+}
+
+
+.fcb-station-1 {  // canvas field
+  left: 31em;
+  position: relative;
+  top: -3.5em;
+}
+
+.fcb-1-move-button {  // move button to station 2
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  left: 229px;
+  position: relative;
+  top: -256px;
+}
+
+.fcb-1-start-stop-button {   // fcb start stop button
+  left: 155px;
+  position: relative;
+  top: -483px;
+  width: 1px;
+  z-index: 1;
+}
+
+.fcb-2-canvas {
+  left: -28px;
+  position: relative;
+  top: -56px;
+}
+
+.fcb-station-2 {
+  left: 31em;
+  position: relative;
+  top: -13em;
+}
+
+.fcb-2-start-stop-button {
+  left: 158px;
+  position: relative;
+  top: -505px;
+  width: 1px;
+  z-index: 1;
+}
+
+.fcb-2-start-button {
+  @include start-stop-button
+}
+
+.fcb-2-start-button:hover {
+  background: #5aec11;
+}
+
+.fcb-2-button {
+  left: 228px;
+  position: relative;
+  top: -483px;
+  z-index: 1;
+}
+
+.fcb-2-move-button {
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+}
+
+
+.assembly-line-fields {
+  height: 10em;
+  position: absolute;
+  top: 32em;
+  width: 9em;
+}
+
+.bay2-fcb-merge-threshing {
+  left: 31em;
+  position: relative;
+  top: -18em;
+}
+
+// ****************  Steering Axle  ****************************
+
+.rear-axle-reservoir {
+  left: -8px;
+  position: relative;
+  top: -594px;
+  color: $color-machine-reservoir;
+}
+
+.rear-axle-text {
+  left: -128px;
+  position: relative;
+  top: -130px;
+  color: $color-machine-reservoir;
+}
+
+.rear-axle-canvas {
+  left: 146px;
+  position: relative;
+  top: -78px;
+}
+
+.axle-body-height {
+  height: 100px;
+}
+
+.team-1-rear-axle {
+  left: 12em;
+  position: relative;
+  top: -677px;
+}
+
+.rear-axle-arrow {
+  left: -10px;
+  position: relative;
+  top: -159px;
+  transform: rotate(270deg);
+}
+
+
+
+.team-1-front-axle {
+  left: 17em;
+  position: relative;
+  top: -777px;
+}
+
+.front-axle-arrow {
+  left: -19em;
+  position: relative;
+  top: -106px;
+  transform: rotate(215deg);
+}
+
+.team-1-threshing {
+  left: 32em;
+  position: relative;
+  top: -966px;
+}
+
+.canvas-threshing-unit {
+  left: 4em;
+  position: relative;
+  top: -15px;
+}
+
+.threshing-arrows {
+  left: -19em;
+  position: relative;
+  top: 0;
+  transform: rotate(171deg);
+}
+
+.bay-2-canvas {
+  left: -29px;
+  position: relative;
+  top: -54px;
+}
+
+.bay-2-merge-text {
+  color: $color-machine-reservoir;
+  font-weight: bolder;
+  left: -2em;
+  position: relative;
+  top: -10em;
+  width: 150px;
+}
+
+.bay-2-start-stop-button {
+  left: 21px;
+  position: relative;
+  top: -676px;
+  z-index: 1;
+}
+
+.bay-2-start-button {
+  @include start-stop-button
+}
+
+.basic-arrow-bay-2 {
+  top: 39px;
+  position: relative;
+  left: 21px;
+  border: solid #ec0d0d;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(23deg);
+}
+
+
+.bay-2-start-arrow {
+  left: 47px;
+  position: relative;
+  top: -709px;
+  width: 1px;
+  height: 1px;
+}
+
+.bay-2-start-button:hover {
+  background: #5aec11;
+}
+
+.bay-2-move-button {
+  left: 70px;
+  position: relative;
+  top: -711px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.bay-2-move-arrow{
+  left: 57px;
+  position: relative;
+  top: -709px;
+
+    .arrow-to-target-bay {
+      left: 85px;
+      position: relative;
+      top: 0;
+      border: solid #ec0d0d;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(0deg);
+    }
+}
+
+.bay-3-north-start-arrow {
+  left: 181px;
+  position: relative;
+  top: -820px;
+  width: 1px;
+  height: 1px;
+}
+
+.basic-arrow-bay-3-north {
+  top: 39px;
+  position: relative;
+  left: 21px;
+  border: solid #ec0d0d;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(23deg);
+}
+
+.bay-3-south-start-arrow {
+  left: 198px;
+  position: relative;
+  top: -861px;
+  width: 1px;
+  height: 1px;
+
+    .basic-arrow-bay-3-south {
+      top: 17px;
+      position: relative;
+      left: 15px;
+      border: solid #ec0d0d;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 5px;
+      transform: rotate(205deg);
+    }
+}
+
+
+
+.bay-3-move-arrow{
+  left: 195px;
+  position: relative;
+  top: -819px;
+
+  .arrow-to-target-bay {
+    top: 0;
+    position: relative;
+    left: 85px;
+    border: solid #ec0d0d;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(0deg);
+  }
+}
+
+
+.team-1-buttons {
+  left: 337px;
+  position: relative;
+  top: 318px;
+}
+
+.team1-bay3 {
+  left: 44.5em;
+  position: relative;
+  top: -43em;
+}
+
+.bay-3-canvas {
+  left: -28px;
+  position: relative;
+  top: 2px;
+}
+
+.bay-3-text {
+  color: $text-color-engine-stations;
+  font-weight: bolder;
+  left: 5em;
+  position: relative;
+  top: -38px;
+}
+
+.arrows-team-1-bay-2 {
+  left: 261px;
+  position: relative;
+  top: -344px;
+  transform: rotate(270deg);
+}
+
+.arrows-team-1-bay-3 {
+  left: 398px;
+  position: relative;
+  top: -691px;
+  transform: rotate(270deg);
+}
+
+.team-1-arrows {
+  left: 25.1em;
+  position: relative;
+  top: -540px;
+}
+
+.team1-bay4 {
+  left: 564px;
+  position: relative;
+  top: -621px;
+}
+
+.arrows-team-1-bay-4 {
+  left: 545px;
+  position: relative;
+  top: -882px;
+  transform: rotate(270deg);
+}
+
+.bay-3-north-start-stop-button {
+  left: 155px;
+  position: relative;
+  top: -784px;
+  z-index: 1;
+}
+
+.bay-3-south-start-stop-button {
+  left: 209px;
+  position: relative;
+  top: -781px;
+  z-index: 1;
+}
+
+.bay-3-start-button:hover {
+  background: #5aec11;
+}
+
+
+.bay-3-start-button {
+  @include start-stop-button
+}
+
+.bay-4-canvas {
+  left:-5px;
+  position: relative;
+  top: 1px;
+}
+
+.bay-4-north-start-stop-button {
+  left: 21em;
+  position: relative;
+  top: -979px;
+  z-index: 1;
+}
+
+.bay-4-north-start-arrow {
+  left: 320px;
+  position: relative;
+  top: -1014px;
+  width: 1px;
+  height: 1px;
+}
+
+.basic-arrow-bay-4 {
+  top: 39px;
+  position: relative;
+  left: 21px;
+  border: solid #ec0d0d;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(23deg);
+}
+
+.bay-4-south-start-stop-button {
+  left: 352px;
+  position: relative;
+  top: -917px;
+  z-index: 1;
+}
+
+.bay-4-start-button:hover {
+  background: #5aec11;
+}
+
+.bay-4-south-start-arrow {
+  left: 341px;
+  position: relative;
+  top: -997px;
+  width: 1px;
+  height: 1px;
+
+  .basic-arrow-bay-4-south {
+    top: 17px;
+    position: relative;
+    left: 15px;
+    border: solid #ec0d0d;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(205deg);
+  }
+}
+
+
+.bay-4-start-button {
+  @include start-stop-button
+}
+
+.bay-4-text {
+  left: 5em;
+  position: relative;
+  top: -40px;
+  color: #71f323;
+}
+
+
+.bay-3-move-button {
+  left: 15em;
+  position: relative;
+  top: -820px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.bay-4-move-button {
+  left: 351px;
+  position: relative;
+  top: -929px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.rear-axle-start-stop-button {
+ left: 6px;
+  position: relative;
+  top: -711px;
+  @include start-stop-button;
+  z-index: 1;
+}
+
+
+.rear-axle-move-button {
+  left: -28px;
+  position: relative;
+  top: -882px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
 
 .final-assembly-container-button {
   left: 5em;
@@ -248,7 +856,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   height: 150px;
   left: -5px;
   position: relative;
-  top: -40px;
+  top: 1px;
   width: 280px;
 }
 
@@ -262,13 +870,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 @mixin param-1 {
   position: absolute;
-  top: 24.9em;
+  top: 256px;
   transform: rotate(-90deg);
 }
 
 .assembly-line-arrow-1 {
   display: flex;
-  top: 24.5em;
+  top: 15.5em;
   transform: rotate(-90deg);
 }
 
@@ -277,7 +885,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 24.5em;
   transform: rotate(-45deg);
 }
-
 
 
 .test-bay-4-arrow {
@@ -292,28 +899,24 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 4em;
 }
 
-.team-1-arrows {
-  left: 38.1em;
-  position: absolute;
-  top: 24em;
-}
 
 .team-2-position {
   left: -39em;
   position: absolute;
-  top: 1em;
+  top: -14.5em;
 }
 
 .team-2-buttons {
-  left: 51.5em;
+  left: 838px;
   position: absolute;
-  top: 12em;
+  top: 382px;
+  z-index: 1;
 }
 
 .team-3-buttons {
-  left: 82em;
+  left: 1235px;
   position: absolute;
-  top: 12em;
+  top: 382px;
 }
 
 .station-1-arrows {
@@ -347,42 +950,36 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .station-3-arrows {
   @include param-1;
-  left: 41em;
+  left: 452px;
 }
 
 .station-4-arrows {
   @include param-1;
-  left: 55em;
+  left: 593px;
 }
 
 .station-5-arrows {
   @include param-1;
-  left: 69em;
+  left: 74em;
 }
 
 .station-6-arrows {
   @include param-1;
-  left: 83em;
+  left: 88em;
 }
 
 .station-7-arrows {
   @include param-1;
-  left: 97em;
+  left: 102em;
 }
 
 .station-8-arrows {
   @include param-1;
-  left: 111em;
+  left: 115em;
 }
 
 //   ************************* Team 1 move buttons  **********************
 
-.team-1-template {
-  left: 0;
-  position: absolute;
-  top: 0;
-  z-index: -1;
-}
 
 .team-4-template {
   left: 0;
@@ -391,7 +988,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .team-4-buttons {
-  left: 25em;
+  left: 29em;
   position: absolute;
   top: 34em;
 }
@@ -402,35 +999,21 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -1.5em;
 }
 
-.team-1-buttons {
-  left: 22em;
-  position: absolute;
-  top: 12em;
-}
 
-.bay-3-team-button {
-  left: 10em;
-  position: absolute;
-  top: -1.5em;
-}
 
-.bay-4-team-button {
-  left: 20em;
-  position: absolute;
-  top: -1.5em;
-}
+// *************************  Team 4  *************************************************
 
 .bay-4-engine-1-button {
-  left: 19em;
+  left: 20em;
   position: absolute;
-  top: 20em;
+  top: 25em;
   z-index: 1;
 }
 
 .bay-4-engine-2-button {
-  left: 30em;
+  left: 439px;
   position: absolute;
-  top: 20em;
+  top: 350px;
   z-index: 1;
 }
 
@@ -455,9 +1038,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .team-2-template {
-  left: 38em;
+  left: 46em;
   position: absolute;
-  top: -1em;
+  top: 21em;
 }
 
 .team-2-1-arrows {
@@ -500,7 +1083,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 127em;
   position: absolute;
   width: 110px;
-  top: 5em;
+  top: 27em;
 }
 
 .template-team-3 {
@@ -510,19 +1093,19 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-8-team-button {
-  left: 0;
+  left: 20px;
   position: absolute;
   top: -1.5em;
 }
 
 .bay-9-team-button {
-  left: 10em;
+  left: 11em;
   position: absolute;
   top: -1.5em;
 }
 
 .bay-10-team-button {
-  left: 20em;
+  left: 22em;
   position: absolute;
   top: -1.5em;
 }
@@ -569,40 +1152,40 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .cooling-box-1-text {
   color: $color-machine-reservoir;
-  left: 2em;
+  left: 7em;
   position: relative;
   top: -3em;
 }
 
 .cooling-box-2-text {
   color: $color-machine-reservoir;
-  left: 2em;
+  left: 7em;
   position: relative;
   top: -2em;
 }
 
 .merge-1-text {
   color: $color-machine-reservoir;
-  left: 2em;
+  left: 7em;
   position: relative;
   top: -2em;
 }
 
 .merge-2-text {
   color: $color-machine-reservoir;
-  left: 2em;
+  left: 7em;
   position: relative;
   top: -2em;
 }
 
 .canvas-box-1 {
-  left: -1em;
+  left: 2px;
   position: relative;
   top: 1em;
 }
 
 .canvas-box-2 {
-  left: -1em;
+  left: 7px;
   position: relative;
   top: 2em;
 }
@@ -646,7 +1229,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .team-4-over-view {
   left: -1em;
   position: absolute;
-  top: 25em;
+  top: 51em;
 }
 
 .team-4-header {
@@ -660,19 +1243,22 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .engine-reservoir {
   color: $color-machine-reservoir;
-  left: 6em;
+  left: 71px;
   position: absolute;
   top: 42em;
+  z-index: 1;
 }
 
 .cooling-box-reservoir {
   color: $color-machine-reservoir;
   position: absolute;
-  top: -25em;
+  top: 172px;
+  left: 72px;
+  z-index: 1;
 }
 
 .cooling-table-height {
-  height: 150px;
+  height: 140px;
 }
 
 .engine-assembly-container {
@@ -687,6 +1273,7 @@ $station-text-color: #03ff84;
   color: $station-text-color;
   position: relative;
   top: -2em;
+  left: 59px;
 }
 
 //  **********************  Single position of assembly stations  ***********
@@ -698,7 +1285,7 @@ $station-text-color: #03ff84;
 }
 
 .engine-canvas-correction {
-  left: -12px;
+  left: -7px;
   position: relative;
   top: 14px;
 }
@@ -726,7 +1313,7 @@ $station-text-color: #03ff84;
 //  **************** chevron arrows Engine Assembly  ************************
 
 .chevron-engine-bays {
-  left: 25.2em;
+  left: 31.2em;
   position: absolute;
   top: 40em;
 }
@@ -739,22 +1326,22 @@ $station-text-color: #03ff84;
 
 .engine-arrow-1 {
   @include engine-param-1;
-  left: 1em;
+  left: 2em;
 }
 
 .engine-arrow-2 {
   @include engine-param-1;
-  left: 17em;
+  left: 16em;
 }
 
 .engine-arrow-3 {
   @include engine-param-1;
-  left: 30em;
+  left: 29em;
 }
 
 .engine-arrow-4 {
   @include engine-param-1;
-  left: 43em;
+  left: 42em;
 }
 
 .box-arrow-1 {
@@ -850,12 +1437,14 @@ $station-text-color: #03ff84;
 
 .my-canvas-3 {
   position: relative;
-  top: 4em;
+  top: 28px;
+  left: 62px;
 }
 
 .merging-canvas-correction {
   position: relative;
   top: 2em;
+  left: 18px;
 }
 
 .cooling-station-2 {
@@ -878,7 +1467,7 @@ $station-text-color: #03ff84;
 //  ************************************    Engine ready to move Arrows  ***********************************
 
 .engine-move-arrows {
-  left: -7em;
+  left: -1em;
   position: absolute;
   top: 40em;
 }
@@ -890,9 +1479,9 @@ $station-text-color: #03ff84;
 }
 
 .engine-move-arrows-2 {
-  left: 16em;
+  left: 18em;
   position: relative;
-  top: 0;
+  top: -23px;
 }
 
 .indicator_1 {
@@ -983,6 +1572,30 @@ $station-text-color: #03ff84;
 
 //  **************************  Test Bay Text and boxes in Single View ********************
 
+.test-bay-template {
+  left: 1px;
+  position: absolute;
+  top: 1px;
+}
+
+.test-bay-view-team-3 {
+  left: -77em;
+  position: absolute;
+  top: 2em;
+}
+
+.test-bay-view-test-bay {
+  left: 11em;
+  position: absolute;
+  top: 1em;
+}
+
+.test-bay-view-team-5 {
+  left: -77em;
+  position: absolute;
+  top: 2.3em;
+}
+
 .test-bay-main-view {
   left: 89em;
   position: relative;
@@ -1066,6 +1679,7 @@ $station-text-color: #03ff84;
 }
 
 .canvas-test-bay-1-single {
+  left: -41px;
   position: relative;
 }
 
@@ -1134,7 +1748,7 @@ $station-text-color: #03ff84;
 .bay-test-2-button-single {
   left: .5em;
   position: relative;
-  top: 10.7em;
+  top: 141px;
   z-index: 1;
 }
 
@@ -1216,10 +1830,52 @@ $station-text-color: #03ff84;
   top: 21em;
 }
 
+.team3-bay8 {
+  left: 1226px;
+  position: relative;
+  top: 386px;
+}
+
+.team3-bay9 {
+  left: 1364px;
+  position: relative;
+  top: 194px;
+}
+
+.team3-bay10 {
+  left: 1507px;
+  position: relative;
+  top: 2px;
+}
+
+.canvas-team3-bay8 {
+  left: -33px;
+  position: relative;
+  top: 1px;
+}
+
+.canvas-team3-bay9 {
+  left: -33px;
+  position: relative;
+  top: 1px;
+}
+
+.canvas-team3-bay10 {
+  left: -33px;
+  position: relative;
+  top: 1px;
+}
+
 .team3-bay10-single {
   left: 14em;
   position: relative;
   top: -19.4em;
+}
+
+.team-3-arrow-package {
+  left: 106px;
+  position: absolute;
+  top: 209px;
 }
 
 .station-5-arrows-single {
@@ -1398,9 +2054,9 @@ $station-text-color: #03ff84;
 }
 
 .canvas-test-bay-2 {
-  left: -.5em;
+  left: -51px;
   position: relative;
-  top: -10em;
+  top: -102px;
 }
 
 .test-bay-2-14-arrows {
@@ -1479,9 +2135,9 @@ $station-text-color: #03ff84;
 //  ***********  Test Bay 4  ************************
 
 .test-bay-over-view {
-  left: 87em;
+  left: 1333px;
   position: absolute;
-  top: -1em;
+  top: 201px;
 }
 
 .team-test-bay-4 {
@@ -1615,9 +2271,21 @@ $station-text-color: #03ff84;
 //   *********************************** Team 5 Move Buttons  *********************
 
 .test-bay-team-5-view {
-  left: -21em;
-  position: relative;
-  top: -2em;
+  left: -77em;
+  position: absolute;
+  top: -3em;
+}
+
+.test-bay-view {
+  left: -83em;
+  position: absolute;
+  top: -8em;
+}
+
+.team-5-view {
+  left: -115em;
+  position: absolute;
+  top: -9em;
 }
 
 .team-5-test-bay-view {
@@ -1633,9 +2301,9 @@ $station-text-color: #03ff84;
 }
 
 .chevron-box-team-4 {
-  left: 7em;
+  left: 66px;
   position: relative;
-  top: 12em;
+  top: 156px;
 }
 
 .team-5-header {
@@ -1658,15 +2326,15 @@ $station-text-color: #03ff84;
 
 
 .team-5-template {
-  left: 151em;
+  left: 156em;
   position: absolute;
-  top: -3em;
+  top: 145px;
 }
 
 .team-5-buttons {
-  left: 137em;
+  left: 143em;
   position: absolute;
-  top: 18.5em;
+  top: 34.5em;
 }
 
 .bay-14-team-button {
@@ -1715,8 +2383,6 @@ $station-text-color: #03ff84;
 .move-back:hover {
   width: 90px;
   height: 40px;
-
-
 }
 
 .move-back {
@@ -1730,42 +2396,8 @@ $station-text-color: #03ff84;
 
 
 
-.assembly-line-fields {
-  height: 10em;
-  position: absolute;
-  top: 20em;
-  width: 9em;
-}
-
-.bay2-fcb-merge-threshing {
-  left: 30.5em;
-}
-
-.bay-2-merge-text {
-  color: $color-machine-reservoir;
-  font-weight: bolder;
-  left: -2em;
-  position: relative;
-  top: -10em;
-  width: 150px;
-}
-
 // -----------------------------   Assembly Line ------------------------------------
-.team1-bay3 {
-  left: 44em;
-}
 
-.bay-3-text {
-  color: $text-color-engine-stations;
-  font-weight: bolder;
-  left: 2em;
-  position: relative;
-  top: -9em;
-}
-
-.team1-bay4 {
-  left: 58em;
-}
 
 .team2-bay5 {
   left: 72em;
@@ -1778,22 +2410,6 @@ $station-text-color: #03ff84;
 .team2-bay7 {
   left: 100em;
 }
-
-.team3-bay8 {
-  left: 114em;
-}
-
-.team3-bay9 {
-  left: 128em;
-}
-
-.team3-bay10 {
-  left: 142em;
-}
-
-
-
-
 
 .final-assembly-container {
   left: 105em;
@@ -1885,14 +2501,7 @@ $transition: all 1.5s;
 }
 //---------------------  Team 1 -----------------------------------
 
-.team-1-header {
-  color: #c80b0b;
-  font-family: "Times New Roman", Times, serif;
-  left: 43em;
-  position: absolute;
-  top: 5em;
-  width: 110px;
-}
+
 
 
 .team-1-sun-burst-container {

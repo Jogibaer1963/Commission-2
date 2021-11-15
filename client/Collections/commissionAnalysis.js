@@ -660,7 +660,7 @@ Template.analysisOverView.events({
     'click .fiscal-year-chosen': function(e) {
         e.preventDefault();
         let fiscalYear = this.year;
-        // console.log(fiscalYear)
+       //  console.log(fiscalYear)
         Session.set('newFiscalYear', fiscalYear);
     },
 

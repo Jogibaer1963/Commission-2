@@ -338,39 +338,33 @@ if(Meteor.isServer){
         //--------------  Update Machine List with in Line and off Line Date  --------------
 
         'updateMachineInLine': (contents) => {
+            let timeLine = {};
+            let lastSortedKey = [];
+            let today, firstMachine,  arr, i, newElement, inLineDate, inLineTime;
+            let newMachine = 0;
+            let updateMachine = 0;
+            today = moment().format('YYYY-MM-DD');
             let supplyResult = supplyAreas.find({active: true},
                 {sort: {supplyPosition: 1}}).fetch();
-            let timeLine = {};
-            let countFind = [];
-            let lastSortedKey = [];
-            let updatedMachine = 0;
-            let k = 0;
-            let today, countMax, firstMachine, machineStartUpdate, arr, i, newElement, sliceIndex,
-                 counter, indexCounter, slicedElement, result, ecnMachine, inLineDate, newMachine;
-            today = moment().format('YYYY-MM-DD');
-
             //  ******************************  Update Machine List **************************************
 
-            // find Machine with commission status 0 (untouched from Commission)
+            // find Machine with active Engine List : true (not touched bt Engines)
             // then cut the CSV File above this Machine and cut machines without sequence number
 
-            firstMachine = machineCommTable.find({commissionStatus: 0},
-                {fields: {_id : 1, machineId: 1, counter: 1}}).fetch();
-         //   console.log('first ', firstMachine)
-            let sortResult = [];
+            firstMachine = machineCommTable.find({activeEngineList: true},
+                {fields: {_id : 1, machineId: 1, counter: 1, timeLine: 1 }}).fetch();
+          //  console.log('first ', firstMachine)
 
              lastSortedKey = firstMachine.sort(function (a, b) {
                 return a.counter - b.counter;
             })
 
-            let startMachine =  lastSortedKey[0].machineId;
-            let machineCounter = lastSortedKey[0].counter;
-          //  console.log(startMachine, machineCounter)
+            let counterStart = lastSortedKey[0].counter;
+            let startSequence = lastSortedKey[0].timeLine.sequence;
+          // console.log(counterStart, startSequence)
 
  // *****************************************************************************************************************
             // processing CSV File starts here.
-            //console.log(contents)
-
             arr = contents.split(/[\n\r]/g);
             i = 0;
             arr.forEach((element) => {
@@ -390,131 +384,124 @@ if(Meteor.isServer){
                        newElement.push(element)
                    }
                })
-           sliceIndex = 0;
-           indexCounter = 0;
-
-           // only if the file is updated the following lines are elementary.
-           // looking for a non existing machine number
-
+           let sequencedMachines = [];
+           // cut file size from top to first unpicked machine to last machine with sequence number
             newElement.forEach((element) => {
-                if (element.indexOf(startMachine) === 0) {
-                    sliceIndex = indexCounter;
-                }
-                indexCounter++
-            })
-
-            // Next step : CSV file is shortened to the remaining Machines. slice Index is the position in the array of the identified Machine
-
-            slicedElement = newElement.slice(sliceIndex)
-
-            let foundSequence = [];
-            slicedElement.forEach((element) => {
                 let sequence = element.split(',');
-                let sequence_2 = sequence[sequence.length - 9]
-                if (sequence_2 !== '') {
-                    // console.log(element) // , (element.match(/,/g)).length, sequence_2)
-                    foundSequence.push(element)
+                if (sequence[31] >= startSequence && sequence[31] > '0') {
+                    sequencedMachines.push(element)
                 }
+            });
+          //  console.log(sequencedMachines)
+
+            // build time line for new machines to insert and existing machines to update
+           sequencedMachines.forEach((element) => {
+                let sequence = element.split(',');
+                inLineDate = moment(new Date(sequence[6])).format('YYYY-MM-DD');
+                inLineTime = moment(new Date(sequence[6])).format('h:mm A')
+                timeLine = {
+                    'machineId': sequence[0],
+                    'station1': moment(new Date(sequence[1])).format('YYYY-MM-DD'),
+                    'station_1_time': moment(new Date(sequence[1])).format('h:mm A'),
+                    'station2': moment(new Date(sequence[2])).format('YYYY-MM-DD'),
+                    'station_2_time': moment(new Date(sequence[2])).format('h:mm A'),
+                    'station3': moment(new Date(sequence[3])).format('YYYY-MM-DD'),
+                    'station_3_time': moment(new Date(sequence[3])).format('h:mm A'),
+                    'station4': moment(new Date(sequence[4])).format('YYYY-MM-DD'),
+                    'station_4_time': moment(new Date(sequence[4])).format('h:mm A'),
+                    'mergeEngine': moment(new Date(sequence[5])).format('YYYY-MM-DD'),
+                    'mergeEngine_time': moment(new Date(sequence[5])).format('h:mm A'),
+                    'inLine': moment(new Date(sequence[6])).format('YYYY-MM-DD'),
+                    'inLine_time': moment(new Date(sequence[6])).format('h:mm A'),
+                    'bay3': moment(new Date(sequence[7])).format('YYYY-MM-DD'),
+                    'bay_3_time': moment(new Date(sequence[7])).format('h:mm A'),
+                    'bay4': moment(new Date(sequence[8])).format('YYYY-MM-DD'),
+                    'bay_4_time': moment(new Date(sequence[8])).format('h:mm A'),
+                    'bay5': moment(new Date(sequence[9])).format('YYYY-MM-DD'),
+                    'bay_5_time': moment(new Date(sequence[9])).format('h:mm A'),
+                    'bay6': moment(new Date(sequence[10])).format('YYYY-MM-DD'),
+                    'bay_6_time': moment(new Date(sequence[10])).format('h:mm A'),
+                    'bay7': moment(new Date(sequence[11])).format('YYYY-MM-DD'),
+                    'bay_7_time': moment(new Date(sequence[11])).format('h:mm A'),
+                    'bay8': moment(new Date(sequence[12])).format('YYYY-MM-DD'),
+                    'bay_8_time': moment(new Date(sequence[12])).format('h:mm A'),
+                    'bay9': moment(new Date(sequence[13])).format('YYYY-MM-DD'),
+                    'bay_9_time': moment(new Date(sequence[13])).format('h:mm A'),
+                    'bay10': moment(new Date(sequence[14])).format('YYYY-MM-DD'),
+                    'bay_10_time': moment(new Date(sequence[14])).format('h:mm A'),
+                    'testBay1': moment(new Date(sequence[15])).format('YYYY-MM-DD'),
+                    'testBay_1_time': moment(new Date(sequence[15])).format('h:mm A'),
+                    'testBay2': moment(new Date(sequence[16])).format('YYYY-MM-DD'),
+                    'testBay_2_time': moment(new Date(sequence[16])).format('h:mm A'),
+                    'bay14': moment(new Date(sequence[17])).format('YYYY-MM-DD'),
+                    'bay_14_time': moment(new Date(sequence[17])).format('h:mm A'),
+                    'bay15': moment(new Date(sequence[18])).format('YYYY-MM-DD'),
+                    'bay_15_time': moment(new Date(sequence[18])).format('h:mm A'),
+                    'bay16': moment(new Date(sequence[19])).format('YYYY-MM-DD'),
+                    'bay_16_time': moment(new Date(sequence[19])).format('h:mm A'),
+                    'bay17': moment(new Date(sequence[20])).format('YYYY-MM-DD'),
+                    'bay_17_time': moment(new Date(sequence[20])).format('h:mm A'),
+                    'bay18': moment(new Date(sequence[21])).format('YYYY-MM-DD'),
+                    'bay_18_time': moment(new Date(sequence[21])).format('h:mm A'),
+                    'bay19Planned': moment(new Date(sequence[22])).format('YYYY-MM-DD'),
+                    'bay_19_planned_time': moment(new Date(sequence[22])).format('h:mm A'),
+                    'bay19SAP': moment(new Date(sequence[23])).format('YYYY-MM-DD'),
+                    'bay_19_sap_time': moment(new Date(sequence[23])).format('h:mm A'),
+                    'bay19Actual': moment(new Date(sequence[24])).format('YYYY-MM-DD'),
+                    'bay_19_actual_time': moment(new Date(sequence[24])).format('h:mm A'),
+                    'terraTRack' : sequence[25],
+                    'fourWheel': sequence[26],
+                    'EngineMTU': sequence[27],
+                    'bekaMax': sequence[28],
+                    'salesOrder': sequence[29],
+                    'productionOrder': sequence[30],
+                    'sequence': sequence[31],
+                    'ecnMachine': sequence[32],
+                    'reserved': sequence[33]
+                    }
+                  //  console.log(timeLine)
+
+                    if (machineCommTable.findOne({machineId: sequence[0]}) === undefined) {
+                        // found new Machine, insert timeline supply Areas and some other things
+                        newMachine ++;
+                        userActions.update({_id: "newMachines"}, // update machine Counter for pickingOverview.html
+                            {$set: {machineCount: newMachine}})
+                        machineCommTable.update({machineId: sequence[0]},
+                            {
+                                machineId: sequence[0],
+                                commissionStatus: 0,
+                                inLineDate: inLineDate,
+                                inLineTime: inLineTime,
+                                counter: counterStart,
+                                dateOfCreation: today,
+                                active: true,
+                                activeAssemblyLineList: true,
+                                activeEngineList: true,
+                                activeCoolingBoxList: true,
+                                timeLine,
+                                supplyAreas : supplyResult
+                            }, {upsert: true});
+                        counterStart  ++ ;
+                    } else {
+                        // machine Exists, just update inline date, timeLines and counter
+                        updateMachine ++;
+                        userActions.update({_id: "updateMachines"}, // update machine Counter
+                            {$set: {machineCount: updateMachine}})  // for pickingOverview.html
+                        machineCommTable.update({machineId: sequence[0]},
+                            {
+                                $set: {
+                                    counter : counterStart,
+                                    inLineDate: inLineDate,
+                                    inLineTime: inLineTime,
+                                    dateOfCreation: today,
+                                    timeLine
+                                }
+                            }, {upsert: true});
+                        counterStart  ++ ;
+                            }
+
+
             })
-           // console.log('existent list', lastSortedKey.length)
-            //console.log ('new list ', foundSequence.length)
-
-            // generate machine list
-
-           foundSequence.forEach((element) => {
-               result = element.split(',').map(e => e.split(','));
-               // eliminate white spaces behind last column in csv file
-               result.splice(34, 8);
-               inLineDate = moment(new Date(result[6][0])).format('YYYY-MM-DD');
-               ecnMachine = result[32][0];
-               newMachine = result[0][0]; // machine number from csv
-            //   console.log(newMachine, startMachine)
-
-               timeLine = {
-                              'machineId': result[0][0],
-                              'station1': moment(new Date(result[1][0])).format('YYYY-MM-DD'),
-                              'station2': moment(new Date(result[2][0])).format('YYYY-MM-DD'),
-                              'station3': moment(new Date(result[3][0])).format('YYYY-MM-DD'),
-                              'station4': moment(new Date(result[4][0])).format('YYYY-MM-DD'),
-                              'mergeEngine': moment(new Date(result[5][0])).format('YYYY-MM-DD'),
-                              'inLine': moment(new Date(result[6][0])).format('YYYY-MM-DD'),
-                              'bay3': moment(new Date(result[7][0])).format('YYYY-MM-DD'),
-                              'bay4': moment(new Date(result[8][0])).format('YYYY-MM-DD'),
-                              'bay5': moment(new Date(result[9][0])).format('YYYY-MM-DD'),
-                              'bay6': moment(new Date(result[10][0])).format('YYYY-MM-DD'),
-                              'bay7': moment(new Date(result[11][0])).format('YYYY-MM-DD'),
-                              'bay8': moment(new Date(result[12][0])).format('YYYY-MM-DD'),
-                              'bay9': moment(new Date(result[13][0])).format('YYYY-MM-DD'),
-                              'bay10': moment(new Date(result[14][0])).format('YYYY-MM-DD'),
-                              'testBay1': moment(new Date(result[15][0])).format('YYYY-MM-DD'),
-                              'testBay2': moment(new Date(result[16][0])).format('YYYY-MM-DD'),
-                              'bay14': moment(new Date(result[17][0])).format('YYYY-MM-DD'),
-                              'bay15': moment(new Date(result[18][0])).format('YYYY-MM-DD'),
-                              'bay16': moment(new Date(result[19][0])).format('YYYY-MM-DD'),
-                              'bay17': moment(new Date(result[20][0])).format('YYYY-MM-DD'),
-                              'bay18': moment(new Date(result[21][0])).format('YYYY-MM-DD'),
-                              'bay19Planned': moment(new Date(result[22][0])).format('YYYY-MM-DD'),
-                              'bay19SAP': moment(new Date(result[23][0])).format('YYYY-MM-DD'),
-                              'bay19Actual': moment(new Date(result[24][0])).format('YYYY-MM-DD'),
-                              'terraTRack' : result[25][0],
-                              'fourWheel': result[26][0],
-                              'EngineMTU': result[27][0],
-                              'bekaMax': result[28][0],
-                              'salesOrder': result[29][0],
-                              'productionOrder': result[30][0],
-                              'sequence': result[31][0],
-                              'ecnMachine': result[32][0],
-                              'reserved': result[33][0]
-                           }
-                          // ****************************************  update and insert  *******************************
-
-
-                        if (machineCommTable.findOne({machineId: newMachine}) === undefined) {
-            // **** If Machine already exists dont touch supply Areas. Here machine was not found, upsert supply Areas
-                      //     console.log(' did not find ', newMachine, machineCounter)
-                            machineCommTable.update({machineId: newMachine},
-                                {
-                                    $set: {
-                                        counter : machineCounter,
-                                        inLineDate: inLineDate,
-                                        commissionStatus: 0,
-                                        dateOfCreation: today,
-                                        active: true,
-                                        activeAssemblyLineList: true,
-                                        activeEngineList: true,
-                                        timeLine,
-                                        supplyAreas : supplyResult
-                                    }
-                                }, {upsert: true});
-                            machineCounter = machineCounter + 1;
-                      //  console.log('counter ', machineCounter)
-                        } else {
-
-                  // ***********  Machine exists dont overwrite supply Areas  *************************
-                       //    console.log('found Machine ', newMachine, machineCounter)
-                            machineCommTable.update({machineId: newMachine},
-                                {
-                                    $set: {
-                                        counter : machineCounter,
-                                        inLineDate: inLineDate,
-                                        commissionStatus: 0,
-                                        dateOfCreation: today,
-                                        active: true,
-                                        activeAssemblyLineList: true,
-                                        activeEngineList: true,
-                                        timeLine
-                                    }
-                                }, {upsert: true});
-                            machineCounter = machineCounter + 1;
-                           // console.log('counter ', machineCounter)
-                        }
-          });
-
-
-
-
-
-
         },
 
 //---------------------------------------------- New Fiscal Year added -----------------------------
@@ -1209,6 +1196,13 @@ if(Meteor.isServer){
                     });
                 } else if (newFiscalYear === "2021") {
                     newFiscalYear = "2020090401"
+                    resultObj.forEach((element) => {
+                        if (element >= newFiscalYear) {
+                            arraySummary.push(result[element]);
+                        }
+                    });
+                } else if (newFiscalYear === "2022") {
+                    newFiscalYear = "2021090401"
                     resultObj.forEach((element) => {
                         if (element >= newFiscalYear) {
                             arraySummary.push(result[element]);

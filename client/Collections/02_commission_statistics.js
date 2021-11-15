@@ -132,7 +132,7 @@ Template.dailyResult.helpers({
                 chosenPicker = Session.get('loggedUser')
             }
         } catch {}
-        let fiscalYear = '2020090401' //ToDo : fiscalYear als Variable
+        let fiscalYear = '2021090401' //ToDo : fiscalYear als Variable
         let arraySummery = [];
         let newArray = [];
         try {
@@ -562,8 +562,8 @@ function daylieResult(loggedUser) {
 
 
 function lastYearResult(loggedUser) {
-    let newFiscalYear = '2020090401' //ToDo : newFiscalYear from table
-    let lastFiscalYear = '2019090401' //ToDo : lastFiscalYear from table
+    let newFiscalYear = '2021090401' //ToDo : newFiscalYear from table
+    let lastFiscalYear = '2020090401' //ToDo : lastFiscalYear from table
     let arraySummary = [];
     let newArray = [];
     try {

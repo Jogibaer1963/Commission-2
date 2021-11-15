@@ -190,15 +190,16 @@
         </div>
 
 
-        <div class="rectangle-cooling-1"></div>
-        <div class="cooling-box-reservoir">
-            <div class="engine-reservoir">
-                <h4 class="">Machine Reservoir</h4>
+           <div class="rectangle-cooling-1"></div>
+
+           <div class="cooling-box-reservoir">
+                <h4 class="">Cooling Box Reservoir</h4>
                 <table class="table blueTable pdiMachineField">
                     <thead>
                     <tr>
                         <th class="pdiMachineField">Machine</th>
                         <th class="in-line-date">Cooler Assembly</th>
+                        <th class="in-line-time">Planned Time</th>
                     </tr>
                     </thead>
                     <tbody class="cooling-table-height">
@@ -206,21 +207,23 @@
                         <tr class="selectedCoolingBox">
                             <td class="pdiMachineField">{{machineId}}</td>
                             <td class="in-line-date">{{timeLine.station3}}</td>
+                            <td class="in-line-time">{{timeLine.station_3_time}}</td>
                         </tr>
                     {{/each}}
                     </tbody>
                 </table>
-            </div>
-        </div>
+           </div>
 
-        <div class="rectangle-engines-1"></div>
+            <div class="rectangle-engines-1"></div>
+
             <div class="engine-reservoir">
-                <h4 class="">Machine Reservoir</h4>
+                <h4 class="">Engine Reservoir</h4>
                 <table class="table blueTable pdiMachineField">
                     <thead>
                     <tr>
                         <th class="pdiMachineField">Machine</th>
                         <th class="in-line-date">Planned in Station 1</th>
+                        <th class="in-line-time">Planned Time</th>
                     </tr>
                     </thead>
                     <tbody class="bodyHeight">
@@ -228,6 +231,7 @@
                         <tr class="selectedAssemblyMachine">
                             <td class="pdiMachineField">{{machineId}}</td>
                             <td class="in-line-date">{{timeLine.station1}}</td>
+                            <td class="in-line-time">{{timeLine.station_1_time}}</td>
                         </tr>
                     {{/each}}
                     </tbody>
@@ -281,7 +285,6 @@
                 </div>
                 <div class="canvas-box-1">
                 <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
-                <canvas class="canvas-cooling-1" id="myCanvas"></canvas>
                 </div>
             </div>
 
@@ -291,7 +294,6 @@
                 </div>
                 <div class="canvas-box-2">
                     <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
-                    <canvas class="canvas-cooling-2"></canvas>
                 </div>
             </div>
 
@@ -315,7 +317,7 @@
                     <canvas {{draw_merge_2}} id="merge-station-2" class="merging-canvas-correction"></canvas>
                 </div>
             </div>
-            <div>
+        <div>
 
             </div>
         </div>

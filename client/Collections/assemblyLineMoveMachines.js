@@ -1,6 +1,6 @@
 Meteor.subscribe('activeAssembly')
 
-Session.set('twoMachines', false)
+
 //-----------------  Global Sun set theme function -----------------------------------
 
 function set_theme(current_theme) {
