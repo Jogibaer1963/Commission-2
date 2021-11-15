@@ -353,15 +353,16 @@ if(Meteor.isServer){
 
             firstMachine = machineCommTable.find({activeEngineList: true},
                 {fields: {_id : 1, machineId: 1, counter: 1, timeLine: 1 }}).fetch();
-          //  console.log('first ', firstMachine)
+
 
              lastSortedKey = firstMachine.sort(function (a, b) {
                 return a.counter - b.counter;
             })
-
+            let machineFound = lastSortedKey[0].machineId;
             let counterStart = lastSortedKey[0].counter;
-            let startSequence = lastSortedKey[0].timeLine.sequence;
-          // console.log(counterStart, startSequence)
+            console.log('first ', machineFound)
+         //   let startSequence = lastSortedKey[0].timeLine.sequence;
+         //  console.log(counterStart, lastSortedKey[0])
 
  // *****************************************************************************************************************
             // processing CSV File starts here.
@@ -373,6 +374,7 @@ if(Meteor.isServer){
                     }
                     i++
                 })
+           let copyOfNewElement = []
            newElement = [];
            arr.forEach((element) => {
                    // *********************  important Step  *********************************
@@ -382,18 +384,32 @@ if(Meteor.isServer){
                    // *********************  important step end ********************************
                    if (validStringTest === 0) {
                        newElement.push(element)
+                       copyOfNewElement.push(element)
                    }
                })
+
+          //  console.log(newElement)
+           for (let k = 0; k <= newElement.length; k++) {
+             let machineList = newElement[k].substring(0,8);
+             let returnValue = machineFound.localeCompare(machineList);
+            if (returnValue === 0) {
+                break;
+                } else {
+                    copyOfNewElement.shift()
+                }
+            }
+         //  console.log('newest Array ', copyOfNewElement)
+
            let sequencedMachines = [];
            // cut file size from top to first unpicked machine to last machine with sequence number
-            newElement.forEach((element) => {
+            copyOfNewElement.forEach((element) => {
                 let sequence = element.split(',');
-                if (sequence[31] >= startSequence && sequence[31] > '0') {
+
+                if (sequence[31] > '0') {
                     sequencedMachines.push(element)
                 }
             });
-          //  console.log(sequencedMachines)
-
+            console.log(sequencedMachines)
             // build time line for new machines to insert and existing machines to update
            sequencedMachines.forEach((element) => {
                 let sequence = element.split(',');
@@ -499,9 +515,8 @@ if(Meteor.isServer){
                             }, {upsert: true});
                         counterStart  ++ ;
                             }
-
-
             })
+
         },
 
 //---------------------------------------------- New Fiscal Year added -----------------------------
