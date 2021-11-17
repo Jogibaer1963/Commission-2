@@ -28,6 +28,37 @@ Template.team_1_over_view.helpers({
         return result;
     },
 
+    rearAxleReservoir: () => {
+        let result = machineCommTable.find({activeRearAxleList : true},
+            {fields: {
+                    counter: 1,
+                    machineId: 1,
+                    timeLine: 1,
+                    inLineDate: 1,
+                    inLineTime: 1,
+                    bayReady: 1
+                }}).fetch();
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
+        return result;
+    },
+
+    frontThreshingReservoir: () => {
+        let result = machineCommTable.find({activeFrontThreshingList: true},
+            {
+                fields: {
+                    counter: 1,
+                    machineId: 1,
+                    timeLine: 1,
+                    inLineDate: 1,
+                    inLineTime: 1,
+                    bayReady: 1
+                }
+            }).fetch();
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
+        return result;
+    },
 
     //  ***************    Move Machine from List to the FCB merging Station  *************
 
@@ -58,6 +89,22 @@ Template.team_1_over_view.helpers({
         invokeDrawMachineInBay(canvasId)
       },
 
+    draw_front_threshing_merge: () => {
+        let canvasId = "front_threshing_merge"
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_rear_axle_machine_merge: () => {
+        let canvasId = "rear_axle_machine_merge"
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_front_threshing_machine_merge: () => {
+        let canvasId = "front_threshing_machine_merge"
+        invokeDrawMachineInBay(canvasId)
+    },
+
+
     draw_fcb_station_2: () => {
         let canvasId = "fcb_station_2";
         invokeDrawMachineInBay(canvasId)
@@ -76,17 +123,7 @@ Template.team_1_over_view.helpers({
     draw_bay4: () => {
         let canvasId = "machine_field_bay_4";
         invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_bay5: () => {
-        let canvasId = "machine_field_bay_5";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_bay6: () => {
-        let canvasId = "machine_field_bay_6";
-        invokeDrawMachineInBay(canvasId)
-    },
+    }
 
 })
 

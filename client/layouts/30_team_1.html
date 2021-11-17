@@ -216,6 +216,18 @@
                            btn-success
                            rear-axle-move-button">Move</button>
 
+        <label for="front-threshing"></label>
+        <button type="button" id="front-threshing"
+                class="front-threshing-start-button"></button>
+
+
+        <label for="front-threshing-move"></label>
+        <button type="button" id="front-threshing-move"
+                class="btn
+                           btn-default
+                           btn-success
+                          front-threshing-move-button">Move</button>
+
     </div>
 </template>
 
@@ -332,7 +344,7 @@
             </tr>
             </thead>
             <tbody class="axle-body-height">
-            {{#each machineReservoir}}
+            {{#each rearAxleReservoir}}
                 <tr class="selectedRearAxle">
                     <td class="pdiMachineField">{{machineId}}</td>
                     <td class="in-line-date">{{inLineDate}}</td>
@@ -358,37 +370,65 @@
                                       class="rear-axle-canvas"></canvas>
             </div>
         </div>
-    <!--
-        <div class="team-1-front-axle">
-            <div class="front-axle-arrow">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
+
+        <div class="team-1-rear-axle-fcb-merge">
             <div class="bay-4-text">
-                <h4>Front Axle</h4>
+                <p>Rear Axle -> </p>
+                  <p>  FCB merge</p>
             </div>
             <div>
-                <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-class"></canvas>
+                <canvas {{draw_rear_axle_machine_merge}} id="rear_axle_machine_merge"
+                                                         class="rear-axle-merge-canvas"></canvas>
             </div>
         </div>
 
+    <div class="front-threshing-reservoir">
+        <table class="table blueTable pdiMachineField">
+            <thead>
+            <tr>
+                <th class="">Machine</th>
+                <th class="in-line-date">In Line Date</th>
+                <th class="in-line-time">Time</th>
+            </tr>
+            </thead>
+            <tbody class="axle-body-height">
+            {{#each frontThreshingReservoir}}
+                <tr class="selectedRearAxle">
+                    <td class="pdiMachineField">{{machineId}}</td>
+                    <td class="in-line-date">{{inLineDate}}</td>
+                    <td class="in-line-time">{{inLineTime}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
 
 
-        <div class="team-1-threshing">
-            <div class="threshing-arrows">
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-                <div class="chevron"></div>
-            </div>
-            <div class="bay-4-text">
-                <h4>Threshing Unit</h4>
-            </div>
-            <div>
-                <canvas {{draw_bay4}} id="machine_field_bay_4" class="canvas-threshing-unit"></canvas>
-            </div>
+    <div class="team-1-front-threshing-merge">
+        <div class="front-axle-arrow">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
         </div>
-        -->
+        <div>
+            <canvas {{draw_front_threshing_merge}} id="front_threshing_merge"
+                                                   class="front-threshing-merge-canvas"></canvas>
+        </div>
+    </div>
+
+    <div class="team-1-front-threshing-fcb-merge">
+        <div>
+            <canvas {{draw_front_threshing_machine_merge}} id="front_threshing_machine_merge"
+                                                           class="front-threshing-fcb-merge"></canvas>
+        </div>
+    </div>
+
+<div class="bay-2-merge-text">
+  <h4>Bay 2 Merge</h4>
+</div>
+
+
+
 </div>
  </html>
 </template>

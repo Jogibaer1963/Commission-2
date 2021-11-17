@@ -290,6 +290,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .fcb-body-height {
   height: 175px;
+  width: 267px;
 }
 
 // Main Box
@@ -416,7 +417,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .rear-axle-text {
-  left: -128px;
+  left: -105px;
   position: relative;
   top: -130px;
   color: $color-machine-reservoir;
@@ -433,7 +434,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .team-1-rear-axle {
-  left: 12em;
+  left: 10em;
   position: relative;
   top: -677px;
 }
@@ -445,59 +446,70 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   transform: rotate(270deg);
 }
 
-
-
-.team-1-front-axle {
-  left: 17em;
+.team-1-rear-axle-fcb-merge {
+  left: 41px;
   position: relative;
-  top: -777px;
+  top: -1017px;
+}
+
+.rear-axle-merge-canvas {
+  left: 10px;
+  position: relative;
+  top: -115px;
+  transform: rotate(90deg);
+}
+
+.front-threshing-reservoir {
+  left: 566px;
+  position: relative;
+  top: -1154px;
 }
 
 .front-axle-arrow {
-  left: -19em;
+  left: 31px;
   position: relative;
-  top: -106px;
-  transform: rotate(215deg);
+  top: 172px;
+  transform: rotate(90deg);
 }
 
-.team-1-threshing {
-  left: 32em;
+.team-1-front-threshing-merge {
+  left: 395px;
   position: relative;
-  top: -966px;
+  top: -1294px;
 }
 
-.canvas-threshing-unit {
-  left: 4em;
+.team-1-front-threshing-fcb-merge {
+  left: 319px;
   position: relative;
-  top: -15px;
+  top: -1635px;
 }
 
-.threshing-arrows {
-  left: -19em;
+.front-threshing-fcb-merge {
+  left: -120px;
   position: relative;
-  top: 0;
-  transform: rotate(171deg);
+  top: 14px;
+  transform: rotate(90deg);
 }
 
 .bay-2-canvas {
-  left: -29px;
+  left: -81px;
   position: relative;
-  top: -54px;
+  top: -39px;
 }
 
 .bay-2-merge-text {
   color: $color-machine-reservoir;
   font-weight: bolder;
-  left: -2em;
+  left: 266px;
   position: relative;
-  top: -10em;
+  top: -1772px;
   width: 150px;
 }
 
 .bay-2-start-stop-button {
-  left: 21px;
+  left: -28px;
   position: relative;
-  top: -676px;
+  top: -656px;
   z-index: 1;
 }
 
@@ -518,9 +530,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 .bay-2-start-arrow {
-  left: 47px;
+  left: -6px;
   position: relative;
-  top: -709px;
+  top: -690px;
   width: 1px;
   height: 1px;
 }
@@ -578,7 +590,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-3-south-start-arrow {
   left: 198px;
   position: relative;
-  top: -861px;
+  top: -853px;
   width: 1px;
   height: 1px;
 
@@ -618,6 +630,27 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 337px;
   position: relative;
   top: 318px;
+}
+
+.front-threshing-start-button {
+  @include start-stop-button;
+  left: 158px;
+  position: relative;
+  top: -773px;
+}
+
+.front-threshing-move-button {
+  left: 156px;
+  position: relative;
+  top: -948px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.front-threshing-move-button:hover {
+  background: #5aec11;
 }
 
 .team1-bay3 {
@@ -742,7 +775,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-4-south-start-arrow {
   left: 341px;
   position: relative;
-  top: -997px;
+  top: -990px;
   width: 1px;
   height: 1px;
 
@@ -1006,14 +1039,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-4-engine-1-button {
   left: 20em;
   position: absolute;
-  top: 25em;
+  top: 467px;
   z-index: 1;
 }
 
 .bay-4-engine-2-button {
   left: 439px;
   position: absolute;
-  top: 350px;
+  top: 467px;
   z-index: 1;
 }
 
@@ -1229,7 +1262,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .team-4-over-view {
   left: -1em;
   position: absolute;
-  top: 51em;
+  top: 60em;
 }
 
 .team-4-header {
