@@ -1,0 +1,254 @@
+
+@mixin simple-line {
+  width: 3px;
+  fill: none;
+  stroke: #bc171b;
+  stroke-width: 3px;
+}
+
+.team-4-merge-over-view {
+  left: 100px;
+  position: absolute;
+  top: 100px;
+}
+
+.team-4-head-line {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 300px;
+  position: absolute;
+  width: 2685px;
+  top: 50px;
+}
+
+.team-engine-text-3 {
+  color: #71f323;
+  left: 53px;
+  position: relative;
+  top: -29px;
+}
+
+.team-engine-text-4 {
+  color: #71f323;
+  left: 87px;
+  position: relative;
+  top: -29px;
+}
+
+.team-cooling-box-1-text {
+  color: #71f323;
+  left: 70px;
+  position: relative;
+  top: 32px;
+}
+
+.team-cooling-box-2-text {
+  color: #71f323;
+  left: 75px;
+  position: relative;
+  top: 48px;
+}
+
+.team-merge-1-text {
+  color: #71f323;
+  left: 75px;
+  position: relative;
+  top: 200px;
+}
+
+.team-merge-2-text {
+  color: #71f323;
+  left: 75px;
+  position: relative;
+  top: 200px;
+}
+
+
+.engine-canvas-3 {
+  left: -1px;
+  position: relative;
+  top: -116px;
+}
+
+.engine-canvas-4 {
+  left: 32px;
+  position: relative;
+  top: -116px;
+}
+
+@mixin team-start-stop-button {
+  display:block;
+  width:50px;
+  height:50px;
+  line-height:80px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align: left;
+  text-decoration:none;
+  background: #e73811;
+  box-shadow: 0 0 3px gray;
+  font-size:15px;
+}
+
+.merge-1-start-button {
+  @include team-start-stop-button;
+  left: 530px;
+  position: absolute;
+  top: 250px;
+  z-index: 1;
+}
+
+.merge-2-start-button {
+  @include team-start-stop-button;
+  left: 740px;
+  position: absolute;
+  top: 250px;
+  z-index: 1;
+}
+
+.merge-1-start-button:hover {
+  background-color: #71f323;
+}
+
+.merge-2-start-button:hover {
+  background-color: #71f323;
+}
+
+.engine-cooling-merge-1 {
+  @include simple-line;
+  left: 504px;
+  position: relative;
+  top: 191px;
+  z-index: -1;
+}
+
+.engine-cooling-merge-2 {
+  @include simple-line;
+  left: 714px;
+  position: relative;
+  top: 136px;
+  z-index: -1;
+}
+
+/*
+.pulsate {
+  -webkit-animation: pulsate 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 1.0;
+  width: 50px;
+  height: 50px;
+  left: 100px;
+  position: relative;
+  top: 100px;
+}
+@-webkit-keyframes pulsate {
+  0% {
+    background-color: #f33423;
+    opacity: 0.5;
+  }
+  20% {
+    background-color: #f39923;
+    opacity: 0.5;
+  }
+  40% {
+    background-color: #ecf323;
+    opacity: 0.5;
+  }
+  60% {
+    background-color: #f3e923;
+    opacity: 0.5;
+  }
+  80% {
+    background-color: #f39223;
+    opacity: 0.5;
+  }
+  100% {
+    background-color: #f50d0d;
+    opacity: 0.5;
+  }
+}
+
+ */
+
+.pulse, .pulse::after {
+  animation: 1.05s ease-out 1s normal none infinite running pulse;
+  border: 5px solid #6bb4ce;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 0;
+  transform: scale3d(0.7, 0.7, 0);
+  transition: opacity 0.75s ease 0s;
+  z-index: -2;
+}
+.pulse {
+  position: absolute;
+}
+.pulse::after {
+  content: "";
+  display: block;
+  margin: -5px;
+  padding: 0;
+}
+.pulse-10, .pulse-10::after {
+  height: 10px;
+  width: 10px;
+}
+.pulse-20, .pulse-20::after {
+  height: 20px;
+  width: 20px;
+}
+.pulse-30, .pulse-30::after {
+  height: 30px;
+  width: 30px;
+}
+.pulse-40, .pulse-40::after {
+  height: 40px;
+  width: 40px;
+}
+.pulse-50, .pulse-50::after {
+  height: 50px;
+  width: 50px;
+}
+.pulse-60, .pulse-60::after {
+  height: 60px;
+  width: 60px;
+}
+.pulse-70, .pulse-70::after {
+  height: 70px;
+  width: 70px;
+}
+.pulse-80, .pulse-80::after {
+  height: 80px;
+  width: 80px;
+}
+.pulse-90, .pulse-90::after {
+  height: 90px;
+  width: 90px;
+}
+.pulse-100, .pulse-100::after {
+  height: 100px;
+  width: 100px;
+}
+.pulse-110, .pulse-110::after {
+  height: 110px;
+  width: 110px;
+}
+.pulse-120, .pulse-120::after {
+  height: 120px;
+  width: 120px;
+}
+.pulse-130, .pulse-130::after {
+  height: 130px;
+  width: 130px;
+}
+@keyframes pulse {
+  50% {
+    background: transparent none repeat scroll 0 0;
+    border-color: rgba(230, 230, 230, 0.3);
+  }
+  100% {
+    border-color: transparent;
+    transform: none;
+  }
+}

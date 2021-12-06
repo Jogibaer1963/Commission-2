@@ -1,0 +1,105 @@
+<template name="team_4_merge_station">
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Tem 4e</title>
+        </head>
+        <style>body{
+            background-color:black;
+        }</style>
+        <body>
+
+            <div class="team-4-head-line">
+               <h2>Team 4 Merge Station</h2>
+            </div>
+
+            <div class="team-4-merge-over-view">
+
+                <div class="station-3">
+                    <div class="team-engine-text-3">
+                        <h4>Station 3</h4>
+                    </div>
+                    <div class="engine-canvas-3">
+                        <canvas {{draw_engine_3}} id="engine-station-3" class=""></canvas>
+                    </div>
+                </div>
+
+                <div class="station-4">
+                    <div class="team-engine-text-4">
+                        <h4>Station 4</h4>
+                    </div>
+                    <div class="engine-canvas-4">
+                        <canvas {{draw_engine_4}} id="engine-station-4" class=""></canvas>
+                    </div>
+                </div>
+
+                <div class="cooling-station-1">
+                    <div class="team-cooling-box-1-text">
+                        <h4>Box 1</h4>
+                    </div>
+                    <div class="canvas-box-1">
+                        <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
+                    </div>
+                </div>
+
+                <div class="cooling-station-2">
+                    <div class="team-cooling-box-2-text">
+                        <h4>Box 2</h4>
+                    </div>
+                    <div class="canvas-box-2">
+                        <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
+                    </div>
+                </div>
+
+                <div class="engine-merge-station-1">
+                    <div class="team-merge-1-text">
+                        <h4>Merge 1</h4>
+                    </div>
+                    <div class="">
+                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_merge_1}} id="merge-station-1" class="merging-canvas-correction"></canvas>
+                    </div>
+                </div>
+
+                <label for="merge-station-1-start-button"></label>
+                <button type="button" id="merge-station-1-start-button "
+                        class="merge-1-start-button" style="{{callTimerMergeOne}}" {{disableButtonMergeOne}}> </button>
+
+                <div class="engine-merge-station-2">
+                    <div class="team-merge-2-text">
+                        <h4>Merge 2</h4>
+                    </div>
+                    <div class="">
+                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_merge_2}} id="merge-station-2" class="merging-canvas-correction"></canvas>
+                    </div>
+                </div>
+
+                <label for="merge-station-2-start-button"></label>
+                <button type="button" id="merge-station-2-start-button"
+                        class="merge-2-start-button" style="{{callTimerMergeTwo}}" {{disableButtonMergeTwo}}> </button>
+
+                <div class="engine-cooling-merge-1">
+                    <svg height="50" width="50">
+                        <polyline points="50,50 30,0 0,0">
+                        </polyline>
+                    </svg>
+                </div>
+
+                <div class="engine-cooling-merge-2">
+                    <svg height="50" width="50">
+                        <polyline points="50,50 30,0 0,0">
+                        </polyline>
+                    </svg>
+                </div>
+
+                <div class="pulse pulse-50" style="top: 147px; left: 430px; height: 50px;
+                    width: 50px; opacity: 1; display: block; visibility: {{pulsingOne}};" data-slideiddb="2" data-id="1"></div>
+
+                <div class="pulse pulse-50" style="top: 147px; left: 647px; height: 50px;
+                    width: 50px; opacity: 1; display: block; visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+            </div>
+
+        </body>
+    </html>
+</template>

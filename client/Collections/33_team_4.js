@@ -260,7 +260,8 @@ Template.team_4_over_view.events({
       //  console.log(selectedCoolingBox, machineNr, canvasId)
         let bayStatus = await invokeMachineTest(canvasId)
         if (bayStatus[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedCoolingBox, machineNr, canvasId);
+            Meteor.call('moveFromListToFCB_Bay', selectedCoolingBox,
+                machineNr, canvasId, 'activeCoolingBoxList');
             invokeDrawNewMachine(machineNr, canvasId)
         } else {
             window.alert('2 Cooling Boxes not allowed in Station 1')
@@ -276,7 +277,8 @@ Template.team_4_over_view.events({
         let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
     //    console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeEngineList');
             invokeDrawNewMachine(machineNr, canvasId)
         } else {
             window.alert('2 Engines in Station 1 are not allowed')

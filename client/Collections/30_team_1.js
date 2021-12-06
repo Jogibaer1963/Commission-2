@@ -7,6 +7,7 @@ import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
+import { checkMergeBay } from '../../lib/99_functionCollector.js';
 
 Session.set('twoMachines', false)
 
@@ -43,8 +44,25 @@ Template.team_1_over_view.helpers({
         return result;
     },
 
-    frontThreshingReservoir: () => {
-        let result = machineCommTable.find({activeFrontThreshingList: true},
+    threshingReservoir: () => {
+        let result = machineCommTable.find({activeThreshingList: true},
+            {
+                fields: {
+                    counter: 1,
+                    machineId: 1,
+                    timeLine: 1,
+                    inLineDate: 1,
+                    inLineTime: 1,
+                    bayReady: 1
+                }
+            }).fetch();
+        result.sort((a, b) => (a.counter > b.counter) ? 1 :
+            ((b.counter > a.counter) ? -1 : 0));
+        return result;
+    },
+
+    frontAxleReservoir: () => {
+        let result = machineCommTable.find({activeFrontAxleList: true},
             {
                 fields: {
                     counter: 1,
@@ -88,6 +106,16 @@ Template.team_1_over_view.helpers({
         let canvasId = "rear_axle_canvas"
         invokeDrawMachineInBay(canvasId)
       },
+
+    draw_front_axle: () => {
+        let canvasId = "front_axle"
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_threshing_house: () => {
+        let canvasId = "threshing_house"
+        invokeDrawMachineInBay(canvasId)
+    },
 
     draw_front_threshing_merge: () => {
         let canvasId = "front_threshing_merge"
@@ -138,7 +166,8 @@ Template.team_1_over_view.events({
         let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeAssemblyLineList');
             invokeDrawNewMachine(machineNr, canvasId)
         } else {
             window.alert('2 Machines in Bay 2 are not allowed')
@@ -153,7 +182,40 @@ Template.team_1_over_view.events({
         let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine, machineNr, canvasId);
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeRearAxleList');
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
+    },
+
+    'click .selectedFrontAxle': async function(e) {
+        e.preventDefault();
+        let selectedAssemblyMachine = this._id;
+        let machineNr = this.machineId;
+        let canvasId = "front_axle"
+        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeFrontAxleList');
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
+    },
+
+    'click .selectedThreshing': async function(e) {
+        e.preventDefault();
+        let selectedAssemblyMachine = this._id;
+        let machineNr = this.machineId;
+        let canvasId = "threshing_house"
+        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeThreshingList');
             invokeDrawNewMachine(machineNr, canvasId)
         } else {
             window.alert('2 Machines in Bay 2 are not allowed')
@@ -164,42 +226,61 @@ Template.team_1_over_view.events({
 
 Template.team_1_move_buttons.helpers({
 
-    disableBay_4_MoveButton_1: () => {
+    disable_Bay_4_MoveButton: () => {
+        let target_canvas, target_machine, result_1, result_2, machine_merge_1, machine_merge_2;
+
         try {
-            let result = activeAssembly.findOne({_id: 'merge-station-1'},
-                {fields: {machineReady: 1}});
-            Session.set('machineState', result.machineReady);
-            let machineState= Session.get('machineState');
-            if (machineState === false) {
-                document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
-                Session.set('machineState', false)
-                //  console.log('Machine not ready yet')
-            } else {
-                document.getElementById('engine-1-move-button').removeAttribute("disabled");
-                Session.set('machineState', true)
-                //    console.log('Bay is not empty button is enabled')
-            }
+            result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
+                {fields: {machineReady: 1, bayArray: 1}});
+            result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
+                {fields: {machineReady: 1, bayArray: 1}});
+
+        console.log(result_1, result_2)
+
+        Session.set('machine_merge_1', result_1.bayArray[0].machineNr)
+        Session.set('machine_merge_2', result_2.bayArray[0].machineNr)
+        Session.set('machineState_1', result_1.machineReady);
+        Session.set('machineState_2', result_2.machineReady);
+
+
+
+
+
+       if (result_1.machineReady === false ) {
+           console.log('result 1', result_1.machineReady)
+          return document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
+       }
+       if (result_2.machineReady === false ) {
+           console.log('result 2', result_2.machineReady)
+           return  document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
+       }
+       if (result_1.machineReady === true ) {
+           console.log('result 1', result_1.machineReady)
+           return  document.getElementById('engine-1-move-button').removeAttribute("disabled");
+       }
+       if (result_2.machineReady === true ) {
+           console.log('result 2', result_2.machineReady)
+           return  document.getElementById('engine-1-move-button').removeAttribute('disabled');
+       }
+
+        } catch (err) {}
+        try {
+             target_canvas = activeAssembly.findOne({_id: 'machine_field_bay_4'},
+                {fields: {bayArray: 1}});
+             if (target_canvas.bayArray.length > 1) {
+                 console.log('2 machines detected')
+             } else if (target_canvas.bayArray.length === 1) {
+                 // machine to be pulled out of merging station
+                 target_machine = target_canvas.bayArray[0].machineNr;
+                 Session.set('target-machine', target_machine)
+                 Session.set('machineState', true)
+                 // activate Button
+                 document.getElementById('engine-1-move-button').removeAttribute("disabled");
+                 // pull engine in merge station to bay 4
+             }
         } catch (e) {}
 
-    },
-
-    disableBay_4_MoveButton_2: () => {
-        try {
-            let result = activeAssembly.findOne({_id: 'merge-station-2'},
-                {fields: {machineReady: 1}});
-            Session.set('machineState_2', result.machineReady);
-            let machineState= Session.get('machineState_2');
-            if (machineState === false) {
-                document.getElementById('engine-2-move-button').setAttribute("disabled","disabled");
-                Session.set('machineState', false)
-                //  console.log('Machine not ready yet')
-            } else {
-                document.getElementById('engine-2-move-button').removeAttribute("disabled");
-                Session.set('machineState', true)
-                //    console.log('Bay is not empty button is enabled')
-            }
-        } catch (e) {}
-    },
+    }
 
 })
 
@@ -224,6 +305,8 @@ Template.team_1_move_buttons.events({
         let oldCanvasId = 'machine_field_fcb_threshing'
         let newCanvasId = "machine_field_bay_3";
         invokeMoveMachine(oldCanvasId, newCanvasId)
+        // clear rear Axle merge and FCB-threshing merge canvas
+        Meteor.call('clearMergeCanvas')
     },
 
     'click .bay-3-move-button': (e) => {
@@ -242,19 +325,25 @@ Template.team_1_move_buttons.events({
 
     'click .bay-4-engine-1-move-button': (e) => {
         e.preventDefault();
-        let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
-        let result_2 = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {bayArray: 1}});
+        let target_machine, machine_merge_1, machine_merge_2, machineState_1, machineState_2;
+        machine_merge_1 = Session.get('machine_merge_1') // result_1.bayArray[0].machineNr)
+        machine_merge_2 = Session.get('machine_merge_2')  // result_2.bayArray[0].machineNr)
+        machineState_1 = Session.get('machineState_1')  // result_1.machineReady);
+        machineState_2 = Session.get('machineState_2')  // result_2.machineReady);
+        target_machine = Session.get('target-machine')
         try {
-            if (result.bayArray[0].machineNr === result_2.bayArray[0].machineNr) {
+            if (machine_merge_1 === target_machine) {
+                // matching Machine in merge Station 1
                 let oldCanvasId = 'merge-station-1' // Last Bay
                 invokeMoveFromLastBay(oldCanvasId)
                 Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
-            } else if (result.bayArray[1].machineNr === result_2.bayArray[0].machineNr) {
-                let oldCanvasId = 'merge-station-1' // Last Bay
+            } else if (machine_merge_2 === target_machine) {
+                // matching Machine in merge Station 2
+                let oldCanvasId = 'merge-station-2' // Last Bay
                 invokeMoveFromLastBay(oldCanvasId)
-                Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
+                Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
             } else {
-                alert('Machine in Bay 4 does not match Machine in Merge Station 1')
+                alert('Machine in Bay 4 does not match Machine in Merge Station')
             }
         } catch (e) {}
     },
@@ -273,14 +362,52 @@ Template.team_1_move_buttons.events({
                 invokeMoveFromLastBay(oldCanvasId)
                 Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
             } else {
-                alert('Machine in Bay 4 does not match Machine in Merge Station 1')
+                alert('Machine in Bay 4 does not match Machine in Merge Station')
             }
         } catch (e) {}
     },
 
+     // Threshing & Front Axle List to assembly Bay
+
+    'click .threshing-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'threshing_house';
+        let newCanvasId = 'front_threshing_merge';
+        let mergeCanvas = 'front_threshing_merge';
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+      //  invokeMoveMachine(oldCanvasId, newCanvasId);
+    },
+
+    'click .front-axle-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'front_axle';
+        let newCanvasId = 'front_threshing_merge';
+        let mergeCanvas = 'front_threshing_merge';
+        // check if front-threshing merge bay is empty or if the same machine number is already in
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        // invokeMoveMachine(oldCanvasId, newCanvasId);
+    },
+
+    // *****************  Merge Canvas  Bay 2  *****************************************
+
+    'click .front-threshing-move-button': (e) => {
+        e.preventDefault();
+        let oldCanvasId = 'front_threshing_merge';
+        let newCanvasId = 'front_threshing_machine_merge';
+        let mergeCanvas = 'machine_field_fcb_threshing';
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+         //   invokeMoveMachine(oldCanvasId, newCanvasId);
+    },
+
     'click .rear-axle-move-button': (e => {
         e.preventDefault();
-    })
+        let oldCanvasId = 'rear_axle_canvas'
+        let newCanvasId = "rear_axle_machine_merge";
+        let mergeCanvas = 'machine_field_fcb_threshing'
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        // invokeMoveMachine(oldCanvasId, newCanvasId)
+    }),
+
 
 })
 

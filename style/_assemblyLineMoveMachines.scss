@@ -27,6 +27,24 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 2em;
 }
 
+.admin-view-team-2 {
+  left: 160px;
+  position: absolute;
+  top: 0;
+}
+
+.admin-view-team-3 {
+  left: 160px;
+  position: absolute;
+  top: 0;
+}
+
+.team-5 {
+    left: 160px;
+    position: absolute;
+    top: 16px;
+}
+
 .machine-reservoir {
   color: $color-machine-reservoir;
   left: 0;
@@ -142,20 +160,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 12em;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .bay-3-button {
   @include move-buttons;
   left: 10em;
@@ -216,7 +220,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 //  *********************************  Team 1  ************************************************
-@mixin start-stop-button{
+@mixin start-stop-button {
   display:block;
   width:30px;
   height:30px;
@@ -295,7 +299,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 // Main Box
 .team-1-over-view {
-  left: 3em;
+  left: 15em;
   position: absolute;
   top: 10em;
 }
@@ -410,39 +414,41 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 // ****************  Steering Axle  ****************************
 
 .rear-axle-reservoir {
-  left: -8px;
+  left: -220px;
   position: relative;
-  top: -594px;
+  top: -650px;
   color: $color-machine-reservoir;
+  z-index: 1;
 }
 
 .rear-axle-text {
-  left: -105px;
+  left: 0;
   position: relative;
-  top: -130px;
+  top: 0;
   color: $color-machine-reservoir;
 }
 
 .rear-axle-canvas {
-  left: 146px;
+  left: 110px;
   position: relative;
-  top: -78px;
+  top: 16px;
 }
 
 .axle-body-height {
   height: 100px;
+  width: 270px;
 }
 
 .team-1-rear-axle {
-  left: 10em;
+  left: -50px;
   position: relative;
-  top: -677px;
+  top: -800px;
 }
 
 .rear-axle-arrow {
-  left: -10px;
+  left: -50px;
   position: relative;
-  top: -159px;
+  top: -95px;
   transform: rotate(270deg);
 }
 
@@ -455,39 +461,66 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .rear-axle-merge-canvas {
   left: 10px;
   position: relative;
-  top: -115px;
+  top: -75px;
   transform: rotate(90deg);
 }
 
-.front-threshing-reservoir {
+.threshing-reservoir {
   left: 566px;
   position: relative;
-  top: -1154px;
+  top: -1340px;
+  color: $color-machine-reservoir;
+  z-index: 1;
+}
+
+.front-axle-bay {
+  left: 130px;
+  position: relative;
+  top: -1093px;
 }
 
 .front-axle-arrow {
-  left: 31px;
+  left: -160px;
   position: relative;
-  top: 172px;
+  top: -110px;
+  transform: rotate(270deg);
+}
+
+.team-1-threshing {
+  left: 404px;
+  position: relative;
+  top: -1361px;
+}
+
+.threshing-arrow {
+  left: 20px;
+  position: relative;
+  top: 60px;
   transform: rotate(90deg);
 }
 
-.team-1-front-threshing-merge {
-  left: 395px;
+.threshing-house {
+  left: -21px;
   position: relative;
-  top: -1294px;
+  top: -109px;
+}
+
+.team-1-front-threshing-merge {
+  left: 259px;
+  position: relative;
+  top: -1770px;
 }
 
 .team-1-front-threshing-fcb-merge {
   left: 319px;
   position: relative;
-  top: -1635px;
+  top: -1983px;
 }
 
 .front-threshing-fcb-merge {
   left: -120px;
   position: relative;
-  top: 14px;
+  top: -170px;
   transform: rotate(90deg);
 }
 
@@ -502,7 +535,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   font-weight: bolder;
   left: 266px;
   position: relative;
-  top: -1772px;
+  top: -2295px;
   width: 150px;
 }
 
@@ -632,17 +665,31 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 318px;
 }
 
-.front-threshing-start-button {
-  @include start-stop-button;
-  left: 158px;
+.front-axle-reservoir {
+  left: -150px;
   position: relative;
-  top: -773px;
+  top: -960px;
+  color: $color-machine-reservoir;
 }
 
-.front-threshing-move-button {
-  left: 156px;
+
+.front-threshing-start-button {
+  @include start-stop-button;
+  left: 21px;
   position: relative;
-  top: -948px;
+  top: -850px;
+  z-index: 1;
+}
+
+.front-threshing-start-button:hover {
+  background: #5aec11;
+}
+
+
+.front-threshing-move-button {
+  left: 21px;
+  position: relative;
+  top: -1036px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -824,25 +871,201 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 2;
 }
 
-.rear-axle-start-stop-button {
- left: 6px;
+.sub-components-lines-team-1 {
+  left: -2px;
+  position: absolute;
+  top: 295px;
+}
+
+.rear-axle-start-button {
+ left: -210px;
   position: relative;
-  top: -711px;
+  top: -750px;
   @include start-stop-button;
   z-index: 1;
 }
 
+@mixin simple-line {
+  width: 3px;
+  fill: none;
+  stroke: #bc171b;
+  stroke-width: 3px;
+}
+
+.rear-axle-start-arrow {
+  @include simple-line;
+  left: -194px;
+  position: relative;
+  top: -67px;
+}
+
+.rear-axle-move-arrow-1 {
+  @include simple-line;
+  left: -194px;
+  position: relative;
+  top: -182px;
+}
+
+.rear-axle-move-arrow-2 {
+  @include simple-line;
+  left: -147px;
+  position: relative;
+  top: -310px;
+
+  .basic-arrow-rear-axle {
+    top: 23px;
+    position: relative;
+    left: 57px;
+    border: solid #ec0d0d;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6px;
+    transform: rotate(270deg);
+  }
+
+}
+
+.front-axle-start-arrow {
+  @include simple-line;
+  left: -120px;
+  position: relative;
+  top: -8px;
+}
+
+.front-axle-move-arrow-1 {
+  @include simple-line;
+  left: -118px;
+  position: relative;
+  top: -143px;
+}
+
+.front-axle-move-arrow-2 {
+  @include simple-line;
+  left: -7px;
+  position: relative;
+  top: -284px;
+  transform: rotate(180deg);
+
+  .basic-arrow-front-axle {
+    top: 23px;
+    position: relative;
+    left: 59px;
+    border: solid #ec0d0d;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6px;
+    transform: rotate(270deg);
+  }
+
+}
+
+
+
+
 
 .rear-axle-move-button {
-  left: -28px;
+  left: -210px;
   position: relative;
-  top: -882px;
+  top: -910px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
   z-index: 2;
 }
 
+
+.front-axle-move-button {
+  left: -199px;
+  position: relative;
+  top: -701px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.front-axle-start-button {
+  left: -136px;
+  position: relative;
+  top: -600px;
+  @include start-stop-button;
+  z-index: 1;
+}
+
+.threshing-move-button {
+  left: 137px;
+  position: relative;
+  top: -813px;
+  background-color: #1e3131;
+  font-weight: bold;
+  color: #d104e0;
+  z-index: 2;
+}
+
+.threshing-start-button {
+  left: 170px;
+  position: relative;
+  top: -650px;
+  @include start-stop-button;
+  z-index: 1;
+}
+
+.threshing-start-button:hover {
+  background: #5aec11;
+}
+
+.threshing-start-arrow {
+  @include simple-line;
+  left: 185px;
+  position: relative;
+  top: -191px;
+}
+
+.threshing-move-arrow-1 {
+  @include simple-line;
+  left: 187px;
+  position: relative;
+  top: -325px;
+}
+
+.threshing-move-arrow-2 {
+  @include simple-line;
+  left: 107px;
+  position: relative;
+  top: -492px;
+  transform: rotate(74deg);
+}
+
+.front-threshing-fcb-start-arrow {
+  @include simple-line;
+  left: 37px;
+  position: relative;
+  top: -523px;
+  z-index: -1;
+}
+
+.front-threshing-fcb-move-arrow-1 {
+  @include simple-line;
+  left: 37px;
+  position: relative;
+  top: -667px;
+  z-index: -1;
+}
+
+.front-threshing-fcb-move-arrow-2 {
+  @include simple-line;
+  left: 84px;
+  position: relative;
+  top: -861px;
+  z-index: -1;
+}
+
+.front-threshing-merge-text {
+  color: $color-machine-reservoir;
+  left: 410px;
+  position: relative;
+  top: -2120px;
+}
 
 .final-assembly-container-button {
   left: 5em;
@@ -1030,6 +1253,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 0;
   position: relative;
   top: -1.5em;
+  z-index: 1;
 }
 
 
@@ -1039,14 +1263,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-4-engine-1-button {
   left: 20em;
   position: absolute;
-  top: 467px;
+  top: 180px;
   z-index: 1;
 }
 
 .bay-4-engine-2-button {
   left: 439px;
   position: absolute;
-  top: 467px;
+  top: 900px;
   z-index: 1;
 }
 
@@ -1181,6 +1405,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .cooling-1-team-button {
   position: relative;
   top: -23.5em;
+  z-index: 1;
 }
 
 .cooling-box-1-text {
@@ -1262,7 +1487,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .team-4-over-view {
   left: -1em;
   position: absolute;
-  top: 60em;
+  top: 90em;
 }
 
 .team-4-header {
@@ -1506,9 +1731,9 @@ $station-text-color: #03ff84;
 }
 
 .engine-move-arrows-1 {
-  left: 0;
+  left: 192px;
   position: relative;
-  top: 3em;
+  top: -681px;
 }
 
 .engine-move-arrows-2 {
@@ -1521,8 +1746,8 @@ $station-text-color: #03ff84;
   top: -40em;
   left: 70em;
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background: #000909;
   transform: rotate(225deg);
 }
@@ -1531,8 +1756,8 @@ $station-text-color: #03ff84;
   top: -38em;
   left: 66em;
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   background: #000909;
   transform: rotate(200deg);
 }
@@ -1547,39 +1772,43 @@ $station-text-color: #03ff84;
   display: block;
   box-sizing: border-box;
   border: none;
-  border-right: 7px solid #d70f0f;
-  border-bottom: 7px solid #d70f0f;
+  border-right: 5px solid #d70f0f;
+  border-bottom: 5px solid #d70f0f;
   animation: animate 1s linear infinite;
 }
 
 .indicator span:nth-child(1)
 {
-  top: -30px;
-  left: -30px;
+  top: -20px;
+  left: -20px;
   animation-delay: 0s;
 }
+
 .indicator span:nth-child(2)
 {
-  top: -15px;
-  left: -15px;
+  top: -10px;
+  left: -10px;
   animation-delay: 0.2s;
 }
+
 .indicator span:nth-child(3)
 {
   top: 0;
   left: 0;
   animation-delay: 0.4s;
 }
+
 .indicator span:nth-child(4)
 {
-  top: 15px;
-  left: 15px;
+  top: 10px;
+  left: 10px;
   animation-delay: 0.6s;
 }
+
 .indicator span:nth-child(5)
 {
-  top: 30px;
-  left: 30px;
+  top: 20px;
+  left: 20px;
   animation-delay: 0.8s;
 }
 
@@ -1587,17 +1816,17 @@ $station-text-color: #03ff84;
 {
   0%
   {
-    border-color: #ef0808;
+    border-color: #7f0404;
     transform: translate(0,0);
   }
   20%
   {
-    border-color: #d4aa25;
-    transform: translate(15px,15px);
+    border-color: #ecd78e;
+    transform: translate(10px,10px);
   }
   20.1%, 100%
   {
-    border-color: #7d3620;
+    border-color: #8b2a05;
   }
 }
 
@@ -2168,9 +2397,9 @@ $station-text-color: #03ff84;
 //  ***********  Test Bay 4  ************************
 
 .test-bay-over-view {
-  left: 1333px;
+  left: 1482px;
   position: absolute;
-  top: 201px;
+  top: 217px;
 }
 
 .team-test-bay-4 {

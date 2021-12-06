@@ -186,28 +186,18 @@
         </div>
 
         <div class="bay-4-engine-1-button">
-            <label for="engine-1-move"></label>
+            <label for="engine-1-move-button"></label>
             <button type="button" id="engine-1-move-button"
                     class="btn
                            btn-default
                            btn-success
-                           bay-4-engine-1-move-button" {{disableBay_4_MoveButton_1}}>Move to Bay 4</button>
+                           bay-4-engine-1-move-button" {{disable_Bay_4_MoveButton}}>Move Engine to Bay 4</button>
         </div>
 
-        <div class="bay-4-engine-2-button">
-            <label for="engine-2-move"></label>
-            <button type="button" id="engine-2-move-button"
-                    class="btn
-                           btn-default
-                           btn-success
-                           bay-4-engine-2-move-button" {{disableBay_4_MoveButton_2}}>Move to Bay 4</button>
-        </div>
-
-        <div class="rear-axle-start-stop-button">
+<!-- ********************   Rear Axle  Move and Start-Stop Buttons  **********************  -->
             <label for="rear-axle"></label>
             <button type="button" id="rear-axle"
                     class="rear-axle-start-button"></button>
-        </div>
 
         <label for="rear-axle"></label>
         <button type="button" id="rear-axle"
@@ -216,10 +206,40 @@
                            btn-success
                            rear-axle-move-button">Move</button>
 
+<!--  ****************************   Front Axle  Move and Start-Stop Buttons  ***********************  -->
+
+        <label for="front-axle-move-button"></label>
+        <button type="button" id="front-axle-move-button"
+                class="btn
+                           btn-default
+                           btn-success
+                           front-axle-move-button">Move</button>
+
+        <label for="front-axle-start-button"></label>
+        <button type="button" id="front-axle-start-button"
+                class="front-axle-start-button"></button>
+
+ <!--  ****************************   Threshing Unit Move and Start-Stop Buttons  ***********************  -->
+
+        <label for="threshing-start-button"></label>
+        <button type="button" id="threshing-start-button"
+                class="threshing-start-button"></button>
+
+        <label for="threshing-move-button"></label>
+        <button type="button" id="threshing-move-button"
+                class="btn
+                           btn-default
+                           btn-success
+                          threshing-move-button">Move</button>
+
+
+
+
+  <!-- ****************** Front Axle Threshing Unit Merge  Move and Start-Stop Buttons  ***********************  -->
+
         <label for="front-threshing"></label>
         <button type="button" id="front-threshing"
                 class="front-threshing-start-button"></button>
-
 
         <label for="front-threshing-move"></label>
         <button type="button" id="front-threshing-move"
@@ -228,6 +248,94 @@
                            btn-success
                           front-threshing-move-button">Move</button>
 
+  <!-- *****************   lines and arrows   ***********************************  -->
+        <div class="sub-components-lines-team-1">
+            <div class="rear-axle-start-arrow">
+                <svg height="40" width="3">
+                    <polyline points="0,0 0,40">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="rear-axle-move-arrow-1">
+                <svg height="40" width="3">
+                    <polyline points="0,0 0,40">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="rear-axle-move-arrow-2">
+                <svg height="70" width="70">
+                    <polyline points="0,60 80,0">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-axle-start-arrow">
+                <svg height="40" width="3">
+                    <polyline points="0,0 0,40">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-axle-move-arrow-1">
+                <svg height="60" width="3">
+                    <polyline points="0,0 0,60">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-axle-move-arrow-2">
+         <!--       <div class="basic-arrow-front-axle"></div>  -->
+                <svg height="70" width="70">
+                    <polyline points="0,60 80,0">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="threshing-start-arrow">
+                <svg height="40" width="3">
+                    <polyline points="0,0 0,40">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="threshing-move-arrow-1">
+                <svg height="60" width="3">
+                    <polyline points="0,0 0,60">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="threshing-move-arrow-2">
+                <!--       <div class="basic-arrow-front-axle"></div>  -->
+                <svg height="70" width="70">
+                    <polyline points="0,60 80,0">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-threshing-fcb-start-arrow">
+                <svg height="45" width="3">
+                    <polyline points="0,0 0,45">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-threshing-fcb-move-arrow-1">
+                <svg height="70" width="3">
+                    <polyline points="0,0 0,65">
+                    </polyline>
+                </svg>
+            </div>
+
+            <div class="front-threshing-fcb-move-arrow-2">
+                <svg height="95" width="3">
+                    <polyline points="0,0 0,95">
+                    </polyline>
+                </svg>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -334,7 +442,11 @@
             <div class="chevron"></div>
         </div>
 <!-- *********************   Components for fcb merging  *******************  -->
+
     <div class="rear-axle-reservoir">
+        <div class="rear-axle-text">
+            <h4>Rear Axle Reservoir</h4>
+        </div>
         <table class="table blueTable pdiMachineField">
             <thead>
             <tr>
@@ -361,9 +473,7 @@
                 <div class="chevron"></div>
                 <div class="chevron"></div>
             </div>
-            <div class="rear-axle-text">
-                <h4>Reservoir for Rear Axle</h4>
-            </div>
+
 
             <div>
                 <canvas {{draw_rear_axle}} id="rear_axle_canvas"
@@ -372,9 +482,7 @@
         </div>
 
         <div class="team-1-rear-axle-fcb-merge">
-            <div class="bay-4-text">
-                <p>Rear Axle -> </p>
-                  <p>  FCB merge</p>
+            <div class="">
             </div>
             <div>
                 <canvas {{draw_rear_axle_machine_merge}} id="rear_axle_machine_merge"
@@ -382,7 +490,10 @@
             </div>
         </div>
 
-    <div class="front-threshing-reservoir">
+    <div class="front-axle-reservoir">
+        <div class="front-axle-text">
+            <h4>Front Axle Reservoir</h4>
+        </div>
         <table class="table blueTable pdiMachineField">
             <thead>
             <tr>
@@ -392,8 +503,8 @@
             </tr>
             </thead>
             <tbody class="axle-body-height">
-            {{#each frontThreshingReservoir}}
-                <tr class="selectedRearAxle">
+            {{#each frontAxleReservoir}}
+                <tr class="selectedFrontAxle">
                     <td class="pdiMachineField">{{machineId}}</td>
                     <td class="in-line-date">{{inLineDate}}</td>
                     <td class="in-line-time">{{inLineTime}}</td>
@@ -403,18 +514,61 @@
         </table>
     </div>
 
-
-    <div class="team-1-front-threshing-merge">
+    <div class="front-axle-bay">
         <div class="front-axle-arrow">
             <div class="chevron"></div>
             <div class="chevron"></div>
             <div class="chevron"></div>
         </div>
         <div>
-            <canvas {{draw_front_threshing_merge}} id="front_threshing_merge"
-                                                   class="front-threshing-merge-canvas"></canvas>
+            <canvas {{draw_front_axle}} id="front_axle"
+                                                   class="front-axle-canvas"></canvas>
         </div>
     </div>
+
+    <div class="threshing-reservoir">
+        <div class="threshing-text">
+            <h4>Threshing House Reservoir</h4>
+        </div>
+        <table class="table blueTable pdiMachineField">
+            <thead>
+            <tr>
+                <th class="">Machine</th>
+                <th class="in-line-date">In Line Date</th>
+                <th class="in-line-time">Time</th>
+            </tr>
+            </thead>
+            <tbody class="axle-body-height">
+            {{#each threshingReservoir}}
+                <tr class="selectedThreshing">
+                    <td class="pdiMachineField">{{machineId}}</td>
+                    <td class="in-line-date">{{inLineDate}}</td>
+                    <td class="in-line-time">{{inLineTime}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="team-1-threshing">
+        <div class="threshing-arrow">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div>
+            <canvas {{draw_threshing_house}} id="threshing_house"
+                                                   class="threshing-house"></canvas>
+        </div>
+    </div>
+
+    <div class="team-1-front-threshing-merge">
+        <div>
+            <canvas {{draw_front_threshing_merge}} id="front_threshing_merge"
+                                                           class="front-threshing-merge"></canvas>
+        </div>
+    </div>
+
 
     <div class="team-1-front-threshing-fcb-merge">
         <div>
@@ -426,6 +580,11 @@
 <div class="bay-2-merge-text">
   <h4>Bay 2 Merge</h4>
 </div>
+
+    <div class="front-threshing-merge-text">
+        <h4>Front Axle &</h4>
+        <h4>Threshing Unit Merge</h4>
+    </div>
 
 
 

@@ -68,6 +68,8 @@ Template.adminNewUser.events({
             roleConst = 'team_5';
         } else if (role === 'Test Bay') {
             roleConst = 'test_bay';
+        } else if (role === 'Team-4-Merge') {
+            roleConst = 'team_4_merge';
         }
 
         event.target.registerUser.value = '';

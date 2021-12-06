@@ -77,12 +77,15 @@ Template.average_time_in_bay.helpers({
                         let minutes = parseInt(element2.timeSpent);
                         duration = duration + minutes;
                         i++
+
                     }
                 }
             });
-
+            if (duration < 100000) {
+                durationGraph.push(parseInt((duration / i).toFixed()));
+            }
             //Add the average duration to our Average Time array
-            durationGraph.push(parseInt((duration / i).toFixed()));
+
 
             //Add # of bad moves to our Bad Moves array
             badMovesGraph.push(parseInt((badMoves).toFixed()));
