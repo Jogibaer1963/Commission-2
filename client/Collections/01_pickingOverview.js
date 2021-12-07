@@ -41,13 +41,14 @@ Template.machine_picking_list.helpers({
         let machineResult = [];
         let testArray = [];
         let result = machineCommTable.find({active: true},
-                                                        {fields: {
-                                                                            counter: 1,
-                                                                            machineId: 1,
-                                                                            inLineDate: 1,
-                                                                            supplyAreas: 1,
-                                                                            commissionStatus: 1
-                                                                            }}).fetch();
+                            {fields: {
+                                                counter: 1,
+                                                machineId: 1,
+                                                inLineDate: 1,
+                                                supplyAreas: 1,
+                                                commissionStatus: 1,
+                                                commissionList: 1
+                                                }}).fetch();
 
         result.forEach((element) => {
            for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
@@ -96,6 +97,12 @@ Template.machine_picking_list.events({
             e.preventDefault();
             let selectedMachine = this.machineId;
             Session.set('finishedMachine', selectedMachine);
+    },
+
+    'click .list-print-button': function (e) {
+        e.preventDefault();
+        let selectedMachine =  Session.get('selectedMachine');
+        Meteor.call('commission_list_printed', selectedMachine)
     },
 
     'click .buttonComplete': (e) => {

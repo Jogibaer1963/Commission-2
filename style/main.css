@@ -496,6 +496,12 @@ table.supply-table {
   margin-bottom: 5em;
 }
 
+.list-print-button {
+  left: 22px;
+  position: absolute;
+  top: 447px;
+}
+
 .machineCommissionTable {
   left: 10em;
   position: absolute;
@@ -1225,6 +1231,11 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: -1.5em;
   left: 30em;
+}
+
+.bay-5-move-button {
+  position: relative;
+  top: -20px;
 }
 
 .bay-6-button {
@@ -2615,9 +2626,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .team-4-over-view {
-  left: -1em;
+  left: 18em;
   position: absolute;
-  top: 90em;
+  top: 68em;
 }
 
 .team-4-header {
@@ -2844,9 +2855,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .engine-move-arrows-1 {
-  left: 192px;
+  left: -75px;
   position: relative;
-  top: -681px;
+  top: -350px;
 }
 
 .engine-move-arrows-2 {
@@ -3311,7 +3322,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: -26em;
   position: relative;
   transform: rotate(90deg);
-  top: 19em;
+  top: 15em;
   z-index: -1;
 }
 
@@ -4525,7 +4536,7 @@ table.headerTable {
   left: 740px;
   position: absolute;
   top: 250px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .merge-1-start-button:hover {

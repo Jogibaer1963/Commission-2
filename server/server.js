@@ -192,7 +192,7 @@ if(Meteor.isServer){
                                 'bayReady.$.assemblyTech': userId
                             }})
                     activeAssembly.update({_id: canvasId},
-                        {$set: {bayAssemblyStatus: 1}}, {upsert: true})
+                        {$set: {bayAssemblyStatus: 1, machineReady: true}}, {upsert: true})
                 }
 
             } else if (result.bayArray.length === 0){
@@ -282,7 +282,7 @@ if(Meteor.isServer){
                     {$set: {machineReady: true}})
             } else if (bay === 3) {
                 activeAssembly.update({_id: 'merge-station-1'},
-                    {$set: {machineReady: false}})
+                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
             } else if (bay === 4) {
                 activeAssembly.update({_id: 'merge-station-2'},
                     {$set: {machineReady: false}})
@@ -564,10 +564,14 @@ if(Meteor.isServer){
         }
     },
 
+        'commission_list_printed':(selectedMachine) => {
+          machineCommTable.update({machineId: selectedMachine},
+              {$set: {commissionList: 1}})
+        },
 
         'deactivateMachine': (machineCompleted) => {
-            machineCommTable.update({machineId: machineCompleted}, {$set: {active: false}});
-
+            machineCommTable.update({machineId: machineCompleted}
+                , {$set: {active: false}});
         },
 
         'removeCommMachine': function (removeMachine) {

@@ -227,59 +227,49 @@ Template.team_1_over_view.events({
 Template.team_1_move_buttons.helpers({
 
     disable_Bay_4_MoveButton: () => {
-        let target_canvas, target_machine, result_1, result_2, machine_merge_1, machine_merge_2;
-
+        let  result, target_canvas, target_machine, result_1, result_2, machine_merge_1, machine_merge_2,
+             bay_Status_1, bay_status_2, disable_Status;
         try {
-            result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
-                {fields: {machineReady: 1, bayArray: 1}});
-            result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
-                {fields: {machineReady: 1, bayArray: 1}});
+             result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1 }});
+             target_machine = result.bayArray[0].machineNr;
+             Session.set('target-machine', target_machine)
+             result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
+                   {fields: {bayAssemblyStatus: 1, bayArray: 1}});
+             result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
+                   {fields: {bayAssemblyStatus: 1, bayArray: 1}});
 
-        console.log(result_1, result_2)
+           // console.log(result_1, result_2, target_machine)
+              try {
+                machine_merge_1 = result_1.bayArray[0].machineNr
+                machine_merge_2 = result_2.bayArray[0].machineNr
+                } catch(err) {}
 
-        Session.set('machine_merge_1', result_1.bayArray[0].machineNr)
-        Session.set('machine_merge_2', result_2.bayArray[0].machineNr)
-        Session.set('machineState_1', result_1.machineReady);
-        Session.set('machineState_2', result_2.machineReady);
+            bay_Status_1 = result_1.bayAssemblyStatus
+            bay_status_2 = result_2.bayAssemblyStatus
+
+            Session.set('machine_merge_1', machine_merge_1)
+            Session.set('machine_merge_2', machine_merge_2)
 
 
+            Session.set('machineState_1', bay_Status_1);
+            Session.set('machineState_2', bay_status_2);
 
-
-
-       if (result_1.machineReady === false ) {
-           console.log('result 1', result_1.machineReady)
-          return document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
-       }
-       if (result_2.machineReady === false ) {
-           console.log('result 2', result_2.machineReady)
-           return  document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
-       }
-       if (result_1.machineReady === true ) {
-           console.log('result 1', result_1.machineReady)
-           return  document.getElementById('engine-1-move-button').removeAttribute("disabled");
-       }
-       if (result_2.machineReady === true ) {
-           console.log('result 2', result_2.machineReady)
-           return  document.getElementById('engine-1-move-button').removeAttribute('disabled');
-       }
-
-        } catch (err) {}
-        try {
-             target_canvas = activeAssembly.findOne({_id: 'machine_field_bay_4'},
-                {fields: {bayArray: 1}});
-             if (target_canvas.bayArray.length > 1) {
-                 console.log('2 machines detected')
-             } else if (target_canvas.bayArray.length === 1) {
-                 // machine to be pulled out of merging station
-                 target_machine = target_canvas.bayArray[0].machineNr;
-                 Session.set('target-machine', target_machine)
-                 Session.set('machineState', true)
-                 // activate Button
-                 document.getElementById('engine-1-move-button').removeAttribute("disabled");
-                 // pull engine in merge station to bay 4
-             }
+          //  console.log('before if', bay_Status_1, bay_status_2)
+           // bay Status 0 = nothing done, 2 = assembly in progress, 1 assembly finished
+           if (bay_Status_1 === 0 || bay_Status_1 === 2 || bay_status_2 === 0 || bay_status_2 === 2 ) {
+           //   console.log('result 1', bay_Status_1, bay_status_2)
+               disable_Status = 1 // button is disabled
+           }
+           if (bay_Status_1 === 1 || bay_status_2 === 1) {
+          //    console.log('result 2', bay_Status_1, bay_status_2)
+               disable_Status = 0 // button is active
+           }
+           if (disable_Status === 1) {
+               return document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
+           } else if (disable_Status === 0) {
+               return  document.getElementById('engine-1-move-button').removeAttribute("disabled");
+           }
         } catch (e) {}
-
     }
 
 })
@@ -331,6 +321,7 @@ Template.team_1_move_buttons.events({
         machineState_1 = Session.get('machineState_1')  // result_1.machineReady);
         machineState_2 = Session.get('machineState_2')  // result_2.machineReady);
         target_machine = Session.get('target-machine')
+        console.log(target_machine, machine_merge_2)
         try {
             if (machine_merge_1 === target_machine) {
                 // matching Machine in merge Station 1

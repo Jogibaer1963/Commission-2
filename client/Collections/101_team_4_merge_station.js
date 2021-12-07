@@ -27,7 +27,6 @@ Template.team_4_merge_station.helpers({
                 // process finished
                 Session.set('timerStartStop-1', 1)
                 return 'disabled'
-
             } else if (result.bayAssemblyStatus === 2) {
                 Session.set('timerStartStop-1', 2)
                 // in merging process
@@ -142,7 +141,7 @@ Template.team_4_merge_station.events({
         }
     },
 
-    'click #merge-station-2-start-button': (e) => {
+    'click .merge-2-start-button': (e) => {
         e.preventDefault();
         let timerStartStop = Session.get('timerStartStop-2')
         let userId = Meteor.user().username;

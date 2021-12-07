@@ -175,6 +175,11 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 30em;
 }
 
+.bay-5-move-button {
+  position: relative;
+  top: -20px;
+}
+
 .bay-6-button {
   @include move-buttons;
   left: 40em;
@@ -1485,9 +1490,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 //  *******************************  Team 4 Assembly  **************************************************************
 .team-4-over-view {
-  left: -1em;
+  left: 18em;
   position: absolute;
-  top: 90em;
+  top: 68em;
 }
 
 .team-4-header {
@@ -1731,9 +1736,9 @@ $station-text-color: #03ff84;
 }
 
 .engine-move-arrows-1 {
-  left: 192px;
+  left: -75px;
   position: relative;
-  top: -681px;
+  top: -350px;
 }
 
 .engine-move-arrows-2 {
@@ -2227,7 +2232,7 @@ $station-text-color: #03ff84;
   left: -26em;
   position: relative;
   transform: rotate(90deg);
-  top: 19em;
+  top: 15em;
   z-index: -1;
 }
 

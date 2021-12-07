@@ -65,9 +65,16 @@
 <template name="machine_picking_list">
     {{#if isInRole 'admin'}}
             <div class="comm-tablet-machine-list">
-                <button type="button" class="btn btn-danger btn-primary buttonComplete">Mark Machine as complete</button>
+                <button type="button" class="btn btn-danger
+                btn-primary buttonComplete">Mark Machine as complete</button>
             </div>
         {{/if}}
+    <div>
+        <label for="list-printed"></label>
+        <button type="button" id="list-printed" class="btn
+        btn-default btn-info list-print-button">List Printed</button>
+    </div>
+
     <div class="machineCommissionTable">
         <div class="">
             <table class="table table-header-rotated fixed-header">
@@ -84,7 +91,8 @@
                 <tbody>
                 {{#each machineList}}
                     <tr class="commissionMachine {{selectedMachine}}">
-                        <td class="pdiMachineField">{{machineId}}</td>
+                        <td class="pdiMachineField"
+                            style="background-color:{{getListStatus commissionList}}">{{machineId}}</td>
                         <td class="pdiShipField">{{inLineDate}}</td>
                         {{#each supplyAreas}}
                             <td class="{{getStatusColor supplyStatus}}"
