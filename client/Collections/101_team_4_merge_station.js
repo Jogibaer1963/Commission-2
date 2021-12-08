@@ -8,6 +8,11 @@ Template.team_4_merge_station.onRendered(function() {
 
 Template.team_4_merge_station.helpers({
 
+    logged_user_team_4: () => {
+        return Meteor.user().username;
+    },
+
+
     disableButtonMergeOne: () => {
         let status = Session.get('timerStartStop-1');
         if (status === 1) {

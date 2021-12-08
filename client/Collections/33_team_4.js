@@ -150,17 +150,41 @@ Template.team_4_move_buttons.events({
 
 Template.team_4_over_view.helpers({
 
-    engineReady: () => {
-        let result_1, result_2, merge_1, merge_2;
-        try {
-            result_1 = activeAssembly.findOne({_id: 'merge-station-1'}, {fields: {machineReady: 1}})
-            result_2 = activeAssembly.findOne({_id: 'merge-station-2'}, {fields: {machineReady: 1}})
-            merge_1 = result_1.machineReady;
-            merge_2 = result_2.machineReady;
-            return merge_1 === result_1.machineReady || merge_2 === result_2.machineReady;
 
-        } catch(e) {}
+
+    pulsingOne: () => {
+        let status = Session.get('timerStartStop-1');
+        if (status === 1 || status === 0) {
+            return 'hidden';
+        } else if (status === 2) {
+            return 'display';
+        }
     },
+
+    pulsingTwo: () => {
+        let status = Session.get('timerStartStop-2');
+        if (status === 1 || status === 0) {
+            return 'hidden';
+        } else if (status === 2) {
+            return 'display';
+        }
+    },
+
+    engineReady: () => {
+        let result_1, result_2;
+            result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
+                {fields: {machineReady: 1, bayAssemblyStatus: 1}})
+            result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
+                {fields: {machineReady: 1, bayAssemblyStatus: 1}})
+        Session.set('timerStartStop-1', result_1.bayAssemblyStatus);
+        Session.set('timerStartStop-2', result_2.bayAssemblyStatus)
+       if (result_1.machineReady === true || result_2.machineReady === true) {
+           return 'display';
+       } else  {
+            return 'hidden';
+        }
+    },
+
 
     coolingBoxReservoir: () => {
         let result = machineCommTable.find({activeCoolingBoxList: true},
@@ -243,6 +267,7 @@ Template.team_4_over_view.helpers({
         let canvasId = "merge-station-2";
         invokeDrawMachineInBay(canvasId)
     },
+
 
 })
 

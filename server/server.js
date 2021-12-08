@@ -285,7 +285,7 @@ if(Meteor.isServer){
                     {$set: {machineReady: false, bayAssemblyStatus: 0}})
             } else if (bay === 4) {
                 activeAssembly.update({_id: 'merge-station-2'},
-                    {$set: {machineReady: false}})
+                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
             }
     },
 
@@ -808,7 +808,7 @@ if(Meteor.isServer){
                 k++;
             });
 
-            // compare first array with 2nd, 3rd, 4th.. and eliminate single array values not matching other arrays
+            // compare first array with 2nd, 3rd, 4th and eliminate single array values not matching other arrays
             let finalArray = [];
             for (let i = 1; i <= k; i++) {
                 supplyArray0.forEach((e1) => {
@@ -821,7 +821,7 @@ if(Meteor.isServer){
                supplyArray0 = finalArray;
             }
 
-            // identify supply area with highest number (areas available for all selected machines
+            // identify supply area with the highest number (areas available for all selected machines
 
             let sortedArray = supplyArray0.slice().sort();
             let countedNames = sortedArray.reduce(function (allNames, name) {

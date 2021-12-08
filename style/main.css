@@ -3172,7 +3172,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .front-test-bay-arrow-single {
-  left: -12em;
+  left: -8em;
   position: relative;
   top: -9em;
   transform: rotate(-135deg);
@@ -4435,6 +4435,15 @@ table.headerTable {
 .team-4-merge-over-view {
   left: 100px;
   position: absolute;
+  top: 100px;
+}
+
+.logged-user-team-4 {
+  color: #c80b0b;
+  font-family: "Times New Roman", Times, serif;
+  left: 150px;
+  position: absolute;
+  width: 2685px;
   top: 100px;
 }
 

@@ -164,18 +164,16 @@
                 <div class="chevron"></div>
             </div>
         </div>
-        <div class="engine-move-arrows">
-            {{#if engineReady}}
-                <div class="engine-move-arrows-1">
-                    <div class="indicator indicator_1">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                {{/if}}
-        </div>
 
+         <div class="engine-move-arrows" style="visibility: {{engineReady}}">
+                 <div class="engine-move-arrows-1">
+                     <div class="indicator indicator_1">
+                         <span></span>
+                         <span></span>
+                         <span></span>
+                     </div>
+                 </div>
+         </div>
 
            <div class="rectangle-cooling-1"></div>
 
@@ -227,87 +225,100 @@
 
     <!-- ************  Engine Assembly Line starts here **************** -->
 
-        <div class="engine-assembly-container">
-            <div class="station-1">
-                <div class="engine-text">
-                    <h4>Station 1</h4>
-                </div>
-                <div class="engine-canvas-correction">
-                        <canvas {{draw_engine_1}} id="engine-station-1" class=""></canvas>
-                </div>
-            </div>
-
-            <div class="station-2">
-                <div class="engine-text">
-                    <h4>Station 2</h4>
-                </div>
-                <div class="engine-canvas-correction">
-                    <canvas {{draw_engine_2}} id="engine-station-2" class=""></canvas>
-                </div>
-            </div>
-
-            <div class="station-3">
-                <div class="engine-text">
-                    <h4>Station 3</h4>
-                </div>
-                <div class="engine-canvas-correction">
-                    <canvas {{draw_engine_3}} id="engine-station-3" class=""></canvas>
-                </div>
-            </div>
-
-            <div class="station-4">
-                <div class="engine-text">
-                    <h4>Station 4</h4>
-                </div>
-                <div class="engine-canvas-correction">
-                    <canvas {{draw_engine_4}} id="engine-station-4" class=""></canvas>
-                </div>
-            </div>
-
-      <!-- *******************************  Cooling Box Pre and Merging **********************  -->
-
-            <div class="cooling-station-1">
-                <div class="cooling-box-1-text">
-                    <h4>Box 1</h4>
-                </div>
-                <div class="canvas-box-1">
-                <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
-                </div>
-            </div>
-
-            <div class="cooling-station-2">
-                <div class="cooling-box-2-text">
-                    <h4>Box 2</h4>
-                </div>
-                <div class="canvas-box-2">
-                    <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
-                </div>
-            </div>
-
-            <div class="engine-merge-station-1">
-                <div class="merge-1-text">
-                    <h4>Merge 1</h4>
+          <div class="engine-assembly-container">
+                <div class="station-1">
+                    <div class="engine-text">
+                        <h4>Station 1</h4>
+                    </div>
+                    <div class="engine-canvas-correction">
+                            <canvas {{draw_engine_1}} id="engine-station-1" class=""></canvas>
+                    </div>
                 </div>
 
-                <div class="">
-                    <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
-                    <canvas {{draw_merge_1}} id="merge-station-1" class="merging-canvas-correction"></canvas>
+                <div class="station-2">
+                    <div class="engine-text">
+                        <h4>Station 2</h4>
+                    </div>
+                    <div class="engine-canvas-correction">
+                        <canvas {{draw_engine_2}} id="engine-station-2" class=""></canvas>
+                    </div>
                 </div>
-            </div>
 
-            <div class="engine-merge-station-2">
-                <div class="merge-2-text">
-                    <h4>Merge 2</h4>
+                <div class="station-3">
+                    <div class="engine-text">
+                        <h4>Station 3</h4>
+                    </div>
+                    <div class="engine-canvas-correction">
+                        <canvas {{draw_engine_3}} id="engine-station-3" class=""></canvas>
+                    </div>
                 </div>
-                <div class="">
-                    <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
-                    <canvas {{draw_merge_2}} id="merge-station-2" class="merging-canvas-correction"></canvas>
-                </div>
-            </div>
-        <div>
 
-            </div>
-        </div>
+                <div class="station-4">
+                    <div class="engine-text">
+                        <h4>Station 4</h4>
+                    </div>
+                    <div class="engine-canvas-correction">
+                        <canvas {{draw_engine_4}} id="engine-station-4" class=""></canvas>
+                    </div>
+                </div>
+
+          <!-- *******************************  Cooling Box Pre and Merging **********************  -->
+
+                <div class="cooling-station-1">
+                    <div class="cooling-box-1-text">
+                        <h4>Box 1</h4>
+                    </div>
+                    <div class="canvas-box-1">
+                    <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
+                    </div>
+                </div>
+
+                <div class="cooling-station-2">
+                    <div class="cooling-box-2-text">
+                        <h4>Box 2</h4>
+                    </div>
+                    <div class="canvas-box-2">
+                        <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
+                    </div>
+                </div>
+
+                <div class="engine-merge-station-1">
+                    <div class="merge-1-text">
+                        <h4>Merge 1</h4>
+                    </div>
+
+                    <div class="">
+                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_merge_1}} id="merge-station-1" class="merging-canvas-correction"></canvas>
+                    </div>
+                </div>
+
+                <div class="engine-merge-station-2">
+                    <div class="merge-2-text">
+                        <h4>Merge 2</h4>
+                    </div>
+                    <div class="">
+                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_merge_2}} id="merge-station-2" class="merging-canvas-correction"></canvas>
+                    </div>
+                </div>
+              <div class="pulse pulse-50" style="top: 130px;
+                      left: 332px;
+                      height: 50px;
+                      width: 50px;
+                      opacity: 1;
+                      display: block;
+                      visibility: {{pulsingOne}};" data-slideiddb="2" data-id="1"></div>
+
+              <div class="pulse pulse-50" style="top: 130px;
+                      left: 485px;
+                      height: 50px;
+                      width: 50px;
+                      opacity: 1;
+                      display: block;
+                      visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+
+          </div>
     </div>
  </html>
 </template>

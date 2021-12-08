@@ -338,7 +338,7 @@ Template.team_1_move_buttons.events({
             }
         } catch (e) {}
     },
-
+/*
     'click .bay-4-engine-2-move-button': (e) => {
         e.preventDefault();
         let result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1}});
@@ -357,6 +357,8 @@ Template.team_1_move_buttons.events({
             }
         } catch (e) {}
     },
+
+ */
 
      // Threshing & Front Axle List to assembly Bay
 
