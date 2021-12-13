@@ -104,8 +104,51 @@
                                             display: block;
                                             visibility: {{pulsingOne}};" data-slideiddb="2" data-id="1"></div>
 
-                <div class="pulse pulse-50" style="top: 147px; left: 647px; height: 50px;
-                    width: 50px; opacity: 1; display: block; visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+                <div class="pulse pulse-50" style="top: 147px;
+                                            left: 647px;
+                                            height: 50px;
+                                            width: 50px;
+                                            opacity: 1;
+                                            display: block;
+                                            visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+
+                <div class="pulse pulse-50" style="top: 147px;
+                                            left: 855px;
+                                            height: 50px;
+                                            width: 50px;
+                                            opacity: 1;
+                                            display: block;
+                                            visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+
+                <div class="engine-4-merge-button">
+                    <label for="bay-button"></label>
+                    <button type="button" id="bay-button"
+                            class="btn
+                           btn-default
+                           btn-success
+                           engine-4-move">Move to Merge</button>
+                </div>
+
+                <div class="engine-merge-station-3">
+                    <div class="merge-station-3-text">
+                        <h4>Merge 3</h4>
+                    </div>
+                    <div class="">
+                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_merge_3}} id="merge-station-3" class="merging-canvas-correction"></canvas>
+                    </div>
+                </div>
+
+                <div class="engine-cooling-merge-3">
+                    <svg height="50" width="50">
+                        <polyline points="50,50 30,0 0,0">
+                        </polyline>
+                    </svg>
+                </div>
+
+                <label for="merge-station-3-start-button"></label>
+                <button type="button" id="merge-station-3-start-button"
+                        class="merge-3-start-button" style="{{callTimerMergeTwo}}" {{disableButtonMergeThree}}> </button>
             </div>
 
         </body>

@@ -71,7 +71,23 @@ Template.team_4_move_buttons.helpers({
                 //  Merging is finished Engine is ready to go
             }
         } catch (e) {}
-   }
+   },
+
+    disableEngineReady_3: () => {
+        try {
+            let result = activeAssembly.findOne({_id: 'merge-station-3'},
+                {fields: {bayAssemblyStatus: 1}});
+            if (result.bayAssemblyStatus === 0 || result.bayAssemblyStatus === 2) {
+                Session.set('machineStatus_2', false)
+                return document.getElementById('engine-ready-3').setAttribute("disabled","disabled");
+                //  Bay is empty or engine is not touched = 0 or assembly in progress = 2
+            } else if (result.bayAssemblyStatus === 1) {
+                Session.set('machineStatus_2', true)
+                return document.getElementById('engine-ready-3').removeAttribute("disabled");
+                //  Merging is finished Engine is ready to go
+            }
+        } catch (e) {}
+    }
 
 })
 
@@ -265,6 +281,11 @@ Template.team_4_over_view.helpers({
 
     draw_merge_2: () => {
         let canvasId = "merge-station-2";
+        invokeDrawMachineInBay(canvasId)
+    },
+
+    draw_merge_3: () => {
+        let canvasId = "merge-station-3";
         invokeDrawMachineInBay(canvasId)
     },
 

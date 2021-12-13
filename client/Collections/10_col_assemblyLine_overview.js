@@ -43,7 +43,7 @@ Template.timeStudies.helpers({
                     comingIn = (element_2.bayDateLanding)
                     goingOut = (element_2.bayDateLeaving)
                     machineNr = (element.machineId)
-                    bayId = element_2.bayName;
+                    bayId = (element_2.bayName);
                     position = element_2.bayPosition
 
                     //Check to make sure there is a value in our Unix

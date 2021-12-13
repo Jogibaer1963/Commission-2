@@ -30,9 +30,6 @@
     Template.commissionNav.events({
         'click .logout': function (event) {
             event.preventDefault();
-            const logoutId = Session.get('loginId');
-            const logoutDate = new Date();
-            Meteor.call('successfullLogout', logoutId, logoutDate);
             Session.key = {};
             Meteor.logout();
             FlowRouter.go('/login');
@@ -42,9 +39,6 @@
     Template.adminLayout.events({
         'click .logout': function (event) {
             event.preventDefault();
-            const logoutId = Session.get('loginId');
-            const logoutDate = new Date();
-            Meteor.call('successfullLogout', logoutId, logoutDate);
             Session.key = {};
             Meteor.logout();
             FlowRouter.go('/login');

@@ -227,7 +227,7 @@ Template.team_1_over_view.events({
 Template.team_1_move_buttons.helpers({
 
     disable_Bay_4_MoveButton: () => {
-        let  result, target_canvas, target_machine, result_1, result_2, machine_merge_1, machine_merge_2,
+        let  result, target_machine, result_1, result_2, machine_merge_1, machine_merge_2,
              bay_Status_1, bay_status_2, disable_Status;
         try {
              result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1 }});
@@ -257,16 +257,18 @@ Template.team_1_move_buttons.helpers({
           //  console.log('before if', bay_Status_1, bay_status_2)
            // bay Status 0 = nothing done, 2 = assembly in progress, 1 assembly finished
            if (bay_Status_1 === 0 || bay_Status_1 === 2 || bay_status_2 === 0 || bay_status_2 === 2 ) {
-           //   console.log('result 1', bay_Status_1, bay_status_2)
+            //  console.log('result 1', bay_Status_1, bay_status_2)
                disable_Status = 1 // button is disabled
            }
            if (bay_Status_1 === 1 || bay_status_2 === 1) {
-          //    console.log('result 2', bay_Status_1, bay_status_2)
+           // console.log('result 2', bay_Status_1, bay_status_2)
                disable_Status = 0 // button is active
            }
            if (disable_Status === 1) {
+           //    console.log('disabled')
                return document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
            } else if (disable_Status === 0) {
+           //    console.log('enabled')
                return  document.getElementById('engine-1-move-button').removeAttribute("disabled");
            }
         } catch (e) {}
@@ -315,11 +317,11 @@ Template.team_1_move_buttons.events({
 
     'click .bay-4-engine-1-move-button': (e) => {
         e.preventDefault();
-        let target_machine, machine_merge_1, machine_merge_2, machineState_1, machineState_2;
+        let target_machine, machine_merge_1, machine_merge_2 // , machineState_1, machineState_2;
         machine_merge_1 = Session.get('machine_merge_1') // result_1.bayArray[0].machineNr)
         machine_merge_2 = Session.get('machine_merge_2')  // result_2.bayArray[0].machineNr)
-        machineState_1 = Session.get('machineState_1')  // result_1.machineReady);
-        machineState_2 = Session.get('machineState_2')  // result_2.machineReady);
+       // machineState_1 = Session.get('machineState_1')  // result_1.machineReady);
+       // machineState_2 = Session.get('machineState_2')  // result_2.machineReady);
         target_machine = Session.get('target-machine')
         console.log(target_machine, machine_merge_2)
         try {

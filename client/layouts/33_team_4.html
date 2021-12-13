@@ -90,6 +90,15 @@
                            btn-success
                            engine-2-ready-button" {{disableEngineReady_2}}>Engine Ready</button>
         </div>
+
+        <div class="merge-3-team-button">
+            <label for="bay-button"></label>
+            <button type="button" id="engine-ready-3"
+                    class="btn
+                           btn-default
+                           btn-success
+                           engine-3-ready-button" {{disableEngineReady_3}}>Engine Ready</button>
+        </div>
     </div>
 </template>
 <!--  ******************************   Team 4 Over View  **********************  -->
@@ -159,6 +168,11 @@
                 <div class="chevron"></div>
             </div>
             <div class="merging-arrow-1">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+            <div class="merging-arrow-2">
                 <div class="chevron"></div>
                 <div class="chevron"></div>
                 <div class="chevron"></div>
@@ -317,6 +331,16 @@
                       opacity: 1;
                       display: block;
                       visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
+
+              <div class="engine-merge-station-3">
+                  <div class="merge-3-text">
+                      <h4>Merge 3</h4>
+                  </div>
+                  <div class="">
+                      <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                      <canvas {{draw_merge_3}} id="merge-station-3" class="merging-canvas-correction"></canvas>
+                  </div>
+              </div>
 
           </div>
     </div>

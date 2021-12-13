@@ -2579,6 +2579,13 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -2em;
 }
 
+.merge-3-text {
+  color: #71f323;
+  left: 8em;
+  position: relative;
+  top: -2em;
+}
+
 .canvas-box-1 {
   left: 2px;
   position: relative;
@@ -2621,6 +2628,12 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .merge-2-team-button {
   left: 28em;
+  position: absolute;
+  top: -19.5em;
+}
+
+.merge-3-team-button {
+  left: 39em;
   position: absolute;
   top: -19.5em;
 }
@@ -2792,7 +2805,9 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: -9em;
   transform: rotate(-90deg);
-  left: 49em;
+  top: 4em;
+  transform: rotate(240deg);
+  left: 60em;
 }
 
 .cooling-canvas-correction {
@@ -2844,6 +2859,12 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .engine-merge-station-2 {
   left: 40em;
+  position: absolute;
+  top: 5em;
+}
+
+.engine-merge-station-3 {
+  left: 55em;
   position: absolute;
   top: 5em;
 }
@@ -3143,18 +3164,6 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: relative;
   top: 17.5em;
   transform: rotate(-90deg);
-}
-
-.canvas-test-bay-3-single {
-  left: -0.5em;
-  position: relative;
-  top: 25.5em;
-}
-
-.canvas-test-bay-4-single {
-  left: -0.5em;
-  position: relative;
-  top: 28.5em;
 }
 
 .bay-test-4-button-single {
@@ -3483,9 +3492,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .canvas-test-bay-3 {
-  left: -0.5em;
+  left: -5.5em;
   position: relative;
-  top: -8.5em;
+  top: 25.5em;
 }
 
 .test-bay-over-view {
@@ -3522,9 +3531,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .canvas-test-bay-4 {
-  left: -0.5em;
+  left: -4.5em;
   position: relative;
-  top: -8.5em;
+  top: 28.5em;
 }
 
 .scroll-down {
@@ -4460,14 +4469,14 @@ table.headerTable {
   color: #71f323;
   left: 53px;
   position: relative;
-  top: -29px;
+  top: -95px;
 }
 
 .team-engine-text-4 {
   color: #71f323;
   left: 87px;
   position: relative;
-  top: -29px;
+  top: -94px;
 }
 
 .team-cooling-box-1-text {
@@ -4498,16 +4507,30 @@ table.headerTable {
   top: 200px;
 }
 
+.merge-station-3-text {
+  color: #71f323;
+  left: 75px;
+  position: relative;
+  top: 200px;
+}
+
 .engine-canvas-3 {
   left: -1px;
   position: relative;
-  top: -116px;
+  top: -78px;
 }
 
 .engine-canvas-4 {
   left: 32px;
   position: relative;
-  top: -116px;
+  top: -75px;
+}
+
+.engine-4-merge-button {
+  left: 43em;
+  position: absolute;
+  top: 24em;
+  z-index: 1;
 }
 
 .merge-1-start-button {
@@ -4548,11 +4571,34 @@ table.headerTable {
   z-index: 2;
 }
 
+.merge-3-start-button {
+  display: block;
+  width: 50px;
+  height: 50px;
+  line-height: 80px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color: #f5f5f5;
+  text-align: left;
+  text-decoration: none;
+  background: #e73811;
+  box-shadow: 0 0 3px gray;
+  font-size: 15px;
+  left: 956px;
+  position: absolute;
+  top: 250px;
+  z-index: 2;
+}
+
 .merge-1-start-button:hover {
   background-color: #71f323;
 }
 
 .merge-2-start-button:hover {
+  background-color: #71f323;
+}
+
+.merge-3-start-button:hover {
   background-color: #71f323;
 }
 
@@ -4575,6 +4621,17 @@ table.headerTable {
   left: 714px;
   position: relative;
   top: 136px;
+  z-index: -1;
+}
+
+.engine-cooling-merge-3 {
+  width: 3px;
+  fill: none;
+  stroke: #bc171b;
+  stroke-width: 3px;
+  left: 923px;
+  position: relative;
+  top: 82px;
   z-index: -1;
 }
 

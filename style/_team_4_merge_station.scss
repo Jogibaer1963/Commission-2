@@ -34,14 +34,14 @@
   color: #71f323;
   left: 53px;
   position: relative;
-  top: -29px;
+  top: -95px;
 }
 
 .team-engine-text-4 {
   color: #71f323;
   left: 87px;
   position: relative;
-  top: -29px;
+  top: -94px;
 }
 
 .team-cooling-box-1-text {
@@ -72,17 +72,32 @@
   top: 200px;
 }
 
+.merge-station-3-text {
+  color: #71f323;
+  left: 75px;
+  position: relative;
+  top: 200px;
+}
+
+
 
 .engine-canvas-3 {
   left: -1px;
   position: relative;
-  top: -116px;
+  top: -78px;
 }
 
 .engine-canvas-4 {
   left: 32px;
   position: relative;
-  top: -116px;
+  top: -75px;
+}
+
+.engine-4-merge-button {
+  left: 43em;
+  position: absolute;
+  top: 24em;
+  z-index: 1;
 }
 
 @mixin team-start-stop-button {
@@ -116,11 +131,23 @@
   z-index: 2;
 }
 
+.merge-3-start-button {
+  @include team-start-stop-button;
+  left: 956px;
+  position: absolute;
+  top: 250px;
+  z-index: 2;
+}
+
 .merge-1-start-button:hover {
   background-color: #71f323;
 }
 
 .merge-2-start-button:hover {
+  background-color: #71f323;
+}
+
+.merge-3-start-button:hover {
   background-color: #71f323;
 }
 
@@ -137,6 +164,14 @@
   left: 714px;
   position: relative;
   top: 136px;
+  z-index: -1;
+}
+
+.engine-cooling-merge-3 {
+  @include simple-line;
+  left: 923px;
+  position: relative;
+  top: 82px;
   z-index: -1;
 }
 

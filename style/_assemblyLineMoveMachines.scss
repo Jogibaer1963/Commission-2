@@ -1441,6 +1441,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -2em;
 }
 
+.merge-3-text {
+  color: $color-machine-reservoir;
+  left: 8em;
+  position: relative;
+  top: -2em;
+}
+
 .canvas-box-1 {
   left: 2px;
   position: relative;
@@ -1483,6 +1490,12 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .merge-2-team-button {
   left: 28em;
+  position: absolute;
+  top: -19.5em;
+}
+
+.merge-3-team-button {
+  left: 39em;
   position: absolute;
   top: -19.5em;
 }
@@ -1665,7 +1678,9 @@ $station-text-color: #03ff84;
 
 .merging-arrow-2 {
   @include cooling-param-1;
-  left: 49em;
+  top: 4em;
+  transform: rotate(240deg);
+  left: 60em;
 }
 
 // ****************************  Cooling Box and Merging ****************************
@@ -1724,6 +1739,12 @@ $station-text-color: #03ff84;
 
 .engine-merge-station-2 {
   left: 40em;
+  position: absolute;
+  top: 5em;
+}
+
+.engine-merge-station-3 {
+  left: 55em;
   position: absolute;
   top: 5em;
 }
@@ -2049,18 +2070,6 @@ $station-text-color: #03ff84;
   position: relative;
   top: 17.5em;
   transform: rotate(-90deg);
-}
-
-.canvas-test-bay-3-single {
-  left: -0.5em;
-  position: relative;
-  top: 25.5em;
-}
-
-.canvas-test-bay-4-single {
-  left: -0.5em;
-  position: relative;
-  top: 28.5em;
 }
 
 .bay-test-4-button-single {
@@ -2394,9 +2403,9 @@ $station-text-color: #03ff84;
 }
 
 .canvas-test-bay-3 {
-  left: -0.5em;
+  left: -5.5em;
   position: relative;
-  top: -8.5em;
+  top: 25.5em;
 }
 
 //  ***********  Test Bay 4  ************************
@@ -2433,9 +2442,9 @@ $station-text-color: #03ff84;
 }
 
 .canvas-test-bay-4 {
-  left: -0.5em;
+  left: -4.5em;
   position: relative;
-  top: -8.5em;
+  top: 28.5em;
 }
 
 // ************** inside Test Bay  ******************
