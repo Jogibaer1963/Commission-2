@@ -2787,6 +2787,13 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 56em;
 }
 
+.cooling-arrow-3 {
+  position: absolute;
+  top: -20em;
+  transform: rotate(180deg);
+  left: 71em;
+}
+
 .merging-arrow-1 {
   position: absolute;
   top: 4em;

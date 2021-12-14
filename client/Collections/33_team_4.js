@@ -131,13 +131,13 @@ Template.team_4_move_buttons.events({
 
     'click .engine-4-move': (e) => {
         e.preventDefault();
-        let oldCanvasId, newCanvasId, result_1, result_2
+        let oldCanvasId, newCanvasId, result_1, result_2, result_3
         oldCanvasId = 'engine-station-4'
         // checking which merging station is open
         result_1 = activeAssembly.findOne({_id: "merge-station-1"}, {fields: {bayArray: 1}});
         result_2 = activeAssembly.findOne({_id: "merge-station-2"}, {fields: {bayArray: 1}});
-     //   console.log(result_1.bayArray.length, result_2.bayArray.length)
-        if (result_1.bayArray.length === 1 && result_2.bayArray.length === 1) {
+        result_3 = activeAssembly.findOne({_id: "merge-station-3"}, {fields: {bayArray: 1}});
+        if (result_1.bayArray.length === 1 && result_2.bayArray.length === 1 && result_3.bayArray.length === 1) {
             // Machine is Station 1 and 2 detected triggers windows alert
 
         } else if (result_1.bayArray.length === 0) {
@@ -146,8 +146,10 @@ Template.team_4_move_buttons.events({
         } else if (result_2.bayArray.length === 0) {
             // No Machine in Station 2
             newCanvasId = 'merge-station-2'
+        } else if (result_3.bayArray.length === 0) {
+            // No Machine in Station 3
+            newCanvasId = 'merge-station-3'
         }
-     //   console.log(oldCanvasId, newCanvasId)
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
@@ -159,6 +161,11 @@ Template.team_4_move_buttons.events({
     'click .engine-2-ready-button': (e) => {
         e.preventDefault();
         Meteor.call('engineReady', 2)
+    },
+
+    'click .engine-3-ready-button': (e) => {
+        e.preventDefault();
+        Meteor.call('engineReady', 6)
     }
 
 })
@@ -186,15 +193,27 @@ Template.team_4_over_view.helpers({
         }
     },
 
+    pulsingThree: () => {
+        let status = Session.get('timerStartStop-3');
+        if (status === 1 || status === 0) {
+            return 'hidden';
+        } else if (status === 2) {
+            return 'display';
+        }
+    },
+
     engineReady: () => {
-        let result_1, result_2;
+        let result_1, result_2, result_3;
             result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
                 {fields: {machineReady: 1, bayAssemblyStatus: 1}})
             result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
                 {fields: {machineReady: 1, bayAssemblyStatus: 1}})
+            result_3 = activeAssembly.findOne({_id: 'merge-station-3'},
+                 {fields: {machineReady: 1, bayAssemblyStatus: 1}})
         Session.set('timerStartStop-1', result_1.bayAssemblyStatus);
-        Session.set('timerStartStop-2', result_2.bayAssemblyStatus)
-       if (result_1.machineReady === true || result_2.machineReady === true) {
+        Session.set('timerStartStop-2', result_2.bayAssemblyStatus);
+        Session.set('timerStartStop-3', result_3.bayAssemblyStatus)
+       if (result_1.machineReady === true || result_2.machineReady === true || result_3.machineReady === true) {
            return 'display';
        } else  {
             return 'hidden';

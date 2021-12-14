@@ -280,11 +280,17 @@ if(Meteor.isServer){
             } else if (bay === 2) {
                 activeAssembly.update({_id: 'merge-station-2'},
                     {$set: {machineReady: true}})
-            } else if (bay === 3) {
+            } else if (bay === 2) {
+                activeAssembly.update({_id: 'merge-station-3'},
+                    {$set: {machineReady: true}})
+            } else if (bay === 6) {
                 activeAssembly.update({_id: 'merge-station-1'},
                     {$set: {machineReady: false, bayAssemblyStatus: 0}})
             } else if (bay === 4) {
                 activeAssembly.update({_id: 'merge-station-2'},
+                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
+            } else if (bay === 5) {
+                activeAssembly.update({_id: 'merge-station-3'},
                     {$set: {machineReady: false, bayAssemblyStatus: 0}})
             }
     },

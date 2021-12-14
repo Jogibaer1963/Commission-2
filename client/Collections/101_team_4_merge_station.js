@@ -9,12 +9,27 @@ Template.team_4_merge_station.onRendered(function() {
 Template.team_4_merge_station.helpers({
 
     logged_user_team_4: () => {
+        try {
         return Meteor.user().username;
+        } catch (e) {}
     },
-
 
     disableButtonMergeOne: () => {
         let status = Session.get('timerStartStop-1');
+        if (status === 1) {
+            return 'disabled';
+        }
+    },
+
+    disableButtonMergeTwo: () => {
+        let status = Session.get('timerStartStop-2');
+        if (status === 1) {
+            return 'disabled';
+        }
+    },
+
+    disableButtonMergeThree: () => {
+        let status = Session.get('timerStartStop-3');
         if (status === 1) {
             return 'disabled';
         }
@@ -41,30 +56,9 @@ Template.team_4_merge_station.helpers({
         }
     },
 
-    pulsingOne: () => {
-        let status = Session.get('timerStartStop-1');
-        if (status === 1) {
-            return 'hidden';
-        } else if (status === 2) {
-            return 'display';
-        } else if (status === 0) {
-            return 'hidden';
-        }
-    },
 
-    disableButtonMergeTwo: () => {
-        let status = Session.get('timerStartStop-2');
-        if (status === 1) {
-            return 'disabled';
-        }
-    },
 
-    disableButtonMergeThree: () => {
-        let status = Session.get('timerStartStop-3');
-        if (status === 1) {
-            return 'disabled';
-        }
-    },
+
 
     callTimerMergeTwo: () => {
         let result;
@@ -94,7 +88,6 @@ Template.team_4_merge_station.helpers({
         try {
             result = activeAssembly.findOne({_id: 'merge-station-3'},
                 {fields: {bayAssemblyStatus: 1}});
-
             if (result.bayAssemblyStatus === 0) {
                 // not touched
                 Session.set('timerStartStop-3', 0)
@@ -109,6 +102,17 @@ Template.team_4_merge_station.helpers({
                 return 'background-color: #71f323'
             }
         } catch (err) {
+        }
+    },
+
+    pulsingOne: () => {
+        let status = Session.get('timerStartStop-1');
+        if (status === 1) {
+            return 'hidden';
+        } else if (status === 2) {
+            return 'display';
+        } else if (status === 0) {
+            return 'hidden';
         }
     },
 
