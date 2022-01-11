@@ -53,9 +53,9 @@ Template.team_4_move_buttons.helpers({
              //  Merging is finished Engine is ready to go
             }
         } catch (e) {}
-
-
     },
+
+
 
     disableEngineReady_2: () => {
         try {
@@ -72,6 +72,8 @@ Template.team_4_move_buttons.helpers({
             }
         } catch (e) {}
    },
+
+
 
     disableEngineReady_3: () => {
         try {
@@ -90,6 +92,8 @@ Template.team_4_move_buttons.helpers({
     }
 
 })
+
+
 
 
 Template.team_4_move_buttons.events({
@@ -153,8 +157,11 @@ Template.team_4_move_buttons.events({
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
+    // Engine Ready enables Team 1 Button to move Engine-cooling to Bay 4
+
     'click .engine-1-ready-button': (e) => {
         e.preventDefault();
+        // arg = 1 engine 1 is ready
         Meteor.call('engineReady', 1)
     },
 
@@ -219,6 +226,10 @@ Template.team_4_over_view.helpers({
             return 'hidden';
         }
     },
+
+
+
+
 
 
     coolingBoxReservoir: () => {

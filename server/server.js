@@ -154,6 +154,8 @@ if(Meteor.isServer){
                 });
             activeAssembly.update({_id : canvasId},
                 {$pull: {bayArray: {machineId: machineId}}})
+           userActions.update({_id: "bay_19_last_machine"}, {$set: {lastMachine: machineId}})
+            
         },
         
         'clearMergeCanvas': () => {
@@ -271,28 +273,10 @@ if(Meteor.isServer){
 
         },
 
-        'engineReady': (bayReady) => {
-            // 1 = engine 1 merge station, 2 = merge 2 station
-            let bay = parseInt(bayReady)
-            if (bay === 1) {
-                activeAssembly.update({_id: 'merge-station-1'},
-                    {$set: {machineReady: true}})
-            } else if (bay === 2) {
-                activeAssembly.update({_id: 'merge-station-2'},
-                    {$set: {machineReady: true}})
-            } else if (bay === 2) {
-                activeAssembly.update({_id: 'merge-station-3'},
-                    {$set: {machineReady: true}})
-            } else if (bay === 6) {
-                activeAssembly.update({_id: 'merge-station-1'},
-                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
-            } else if (bay === 4) {
-                activeAssembly.update({_id: 'merge-station-2'},
-                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
-            } else if (bay === 5) {
-                activeAssembly.update({_id: 'merge-station-3'},
-                    {$set: {machineReady: false, bayAssemblyStatus: 0}})
-            }
+        'engineReady': (merge_bay, target_machine) => {
+            // set merge stations to new status for machineReady and bayAssemblyStatus
+            // after engine is moved
+            activeAssembly.update({_id: merge_bay}, {$set: {machineReady: false, bayAssemblyStatus: 0}})
     },
 
 
@@ -361,21 +345,17 @@ if(Meteor.isServer){
             // find Machine with active Engine List : true (not touched bt Engines)
             // then cut the CSV File above this Machine and cut machines without sequence number
 
-            firstMachine = machineCommTable.find({activeEngineList: true},
-                {fields: {_id : 1, machineId: 1, counter: 1, timeLine: 1 }}).fetch();
+            let findBay19Machine = userActions.findOne({_id: "bay_19_last_machine"});
 
+            firstMachine = machineCommTable.findOne({_id: findBay19Machine.lastMachine},
+                {fields: {_id : 1, machineId: 1, counter: 1, activeInBay: 1}})
 
-             lastSortedKey = firstMachine.sort(function (a, b) {
-                return a.counter - b.counter;
-            })
-            let machineFound = lastSortedKey[0].machineId;
-            let counterStart = lastSortedKey[0].counter;
-            console.log('first ', machineFound)
-         //   let startSequence = lastSortedKey[0].timeLine.sequence;
-         //  console.log(counterStart, lastSortedKey[0])
+            let machineFound = firstMachine.machineId;
+            let counterStart = firstMachine.counter;
 
  // *****************************************************************************************************************
             // processing CSV File starts here.
+
             arr = contents.split(/[\n\r]/g);
             i = 0;
             arr.forEach((element) => {
@@ -384,7 +364,7 @@ if(Meteor.isServer){
                     }
                     i++
                 })
-           let copyOfNewElement = []
+          let copyOfNewElement = []
            newElement = [];
            arr.forEach((element) => {
                    // *********************  important Step  *********************************
@@ -398,7 +378,8 @@ if(Meteor.isServer){
                    }
                })
 
-          //  console.log(newElement)
+         // console.log(newElement)
+            //  cutting machine list from top to machine which has left lin (userActions.find machineId)
            for (let k = 0; k <= newElement.length; k++) {
              let machineList = newElement[k].substring(0,8);
              let returnValue = machineFound.localeCompare(machineList);
@@ -411,7 +392,7 @@ if(Meteor.isServer){
          //  console.log('newest Array ', copyOfNewElement)
 
            let sequencedMachines = [];
-           // cut file size from top to first unpicked machine to last machine with sequence number
+           // only machines with a sequence number should be left
             copyOfNewElement.forEach((element) => {
                 let sequence = element.split(',');
 
@@ -419,8 +400,9 @@ if(Meteor.isServer){
                     sequencedMachines.push(element)
                 }
             });
+        //    console.log(sequencedMachines)
+            // build timeline for new machines to insert and existing machines to update
 
-            // build time line for new machines to insert and existing machines to update
            sequencedMachines.forEach((element) => {
                 let sequence = element.split(',');
                 inLineDate = moment(new Date(sequence[6])).format('YYYY-MM-DD');
@@ -529,6 +511,8 @@ if(Meteor.isServer){
                         counterStart  ++ ;
                             }
             })
+
+
 
         },
 

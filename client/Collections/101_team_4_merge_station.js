@@ -11,7 +11,9 @@ Template.team_4_merge_station.helpers({
     logged_user_team_4: () => {
         try {
         return Meteor.user().username;
-        } catch (e) {}
+        } catch (e) {
+            alert("No User is logged in")
+        }
     },
 
     disableButtonMergeOne: () => {
@@ -184,8 +186,13 @@ Template.team_4_merge_station.events({
 
     'click .merge-1-start-button': (e) => {
         e.preventDefault();
+        let userId;
         let timerStartStop = Session.get('timerStartStop-1')
-        let userId = Meteor.user().username;
+        try {
+            userId = Meteor.user().username;
+        } catch (e) {
+            alert("No User is logged in")
+        }
         if (timerStartStop === 0) {
             // not touched but ready to merge
             Meteor.call('timerStart', 'merge-station-1',timerStartStop, userId)

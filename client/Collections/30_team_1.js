@@ -1,3 +1,5 @@
+import {Session} from "meteor/session";
+
 Meteor.subscribe('activeAssembly')
 
 import { invokeMachineTest } from '../../lib/99_functionCollector.js';
@@ -151,7 +153,40 @@ Template.team_1_over_view.helpers({
     draw_bay4: () => {
         let canvasId = "machine_field_bay_4";
         invokeDrawMachineInBay(canvasId)
-    }
+    },
+
+    first_engine: () => {
+        try {
+            let result = activeAssembly.findOne({_id: "merge-station-1"},
+                {fields: {bayArray: 1, bayAssemblyStatus: 1}})
+            if (result.bayAssemblyStatus === 1) {
+                Session.set("merge_1", result.bayArray[0].machineNr)
+                return result.bayArray[0].machineNr
+            }
+        } catch(err) {}
+    },
+
+    second_engine: () => {
+        try {
+            let result = activeAssembly.findOne({_id: "merge-station-2"},
+                {fields: {bayArray: 1, bayAssemblyStatus: 1}})
+            if (result.bayAssemblyStatus === 1) {
+                Session.set("merge_2", result.bayArray[0].machineNr)
+                return result.bayArray[0].machineNr
+            }
+        } catch(err) {}
+    },
+
+    third_engine: () => {
+        try {
+            let result = activeAssembly.findOne({_id: "merge-station-3"},
+                {fields: {bayArray: 1, bayAssemblyStatus: 1}})
+            if (result.bayAssemblyStatus === 1) {
+                Session.set("merge_3", result.bayArray[0].machineNr)
+                return result.bayArray[0].machineNr
+            }
+        } catch(err) {}
+    },
 
 })
 
@@ -227,62 +262,28 @@ Template.team_1_over_view.events({
 Template.team_1_move_buttons.helpers({
 
     disable_Bay_4_MoveButton: () => {
-        let  result, target_machine, result_1, result_2, result_3,
-            bay_Status_1, bay_status_2, bay_status_3, disable_Status;
-
         try {
-            result = activeAssembly.findOne({_id: 'machine_field_bay_4'}, {fields: {bayArray: 1 }});
-            target_machine = result.bayArray[0].machineNr;
-            Session.set('target-machine', target_machine)
-
+            let result_1, result_2, result_3, result_target;
             result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
-                {fields: {bayAssemblyStatus: 1, bayArray: 1}});
+                {fields: {machineReady: 1, bayAssemblyStatus: 1}})
             result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
-                {fields: {bayAssemblyStatus: 1, bayArray: 1}});
+                {fields: {machineReady: 1, bayAssemblyStatus: 1}})
             result_3 = activeAssembly.findOne({_id: 'merge-station-3'},
-                {fields: {bayAssemblyStatus: 1, bayArray: 1}});
-        } catch (e) {}
-/*
-        try {
-                target_machine = result.bayArray[0].machineNr
-                machine_merge_1 = result_1.bayArray[0].machineNr
-                machine_merge_2 = result_2.bayArray[0].machineNr
-                machine_merge_3 = result_3.bayArray[0].machineNr
-        } catch(e) {}
+                {fields: {machineReady: 1, bayAssemblyStatus: 1}})
 
- */
+            if (result_1.machineReady === true || result_2.machineReady === true || result_3.machineReady === true) {
+                return document.getElementById(
+                    'engine-1-move-button').removeAttribute(
+                    "disabled");
+            } else  {
+                return  document.getElementById(
+                    'engine-1-move-button').setAttribute(
+                    "disabled","disabled");
+            }
+        } catch(err) {}
+    },
 
-        try {
-            bay_Status_1 = result_1.bayAssemblyStatus
-            bay_status_2 = result_2.bayAssemblyStatus
-            bay_status_3 = result_3.bayAssemblyStatus
-        } catch(e) {}
 
-        try {
-            Session.set('machine_merge_1', result_1.bayArray[0].machineNr)
-            Session.set('machine_merge_2', result_2.bayArray[0].machineNr)
-            Session.set('machine_merge_3', result_3.bayArray[0].machineNr)
-
-            Session.set('machineState_1', result_1.bayAssemblyStatus);
-            Session.set('machineState_2', result_2.bayAssemblyStatus);
-            Session.set('machineState_3', result_3.bayAssemblyStatus);
-        } catch (e) {}
-
-            console.log(bay_Status_1, bay_status_2, bay_status_3, )
-           // bay Status 0 = nothing done, 2 = assembly in progress, 1 assembly finished
-           if (bay_Status_1 === 0 || bay_Status_1 === 2 || bay_status_2 === 0 ||
-               bay_status_2 === 2 || bay_status_3 === 0 || bay_status_3 === 2) {
-               disable_Status = 1 // button is disabled
-           }
-           if (bay_Status_1 === 1 || bay_status_2 === 1 || bay_status_3 === 1) {
-               disable_Status = 0 // button is active
-           }
-           if (disable_Status === 1) {
-               return document.getElementById('engine-1-move-button').setAttribute("disabled","disabled");
-           } else if (disable_Status === 0) {
-               return  document.getElementById('engine-1-move-button').removeAttribute("disabled");
-           }
-    }
 
 })
 
@@ -327,34 +328,37 @@ Template.team_1_move_buttons.events({
 
     'click .bay-4-engine-1-move-button': (e) => {
         e.preventDefault();
-        let target_machine, machine_merge_1, machine_merge_2, machine_merge_3 // , machineState_1, machineState_2;
-        machine_merge_1 = Session.get('machine_merge_1') // result_1.bayArray[0].machineNr)
-        machine_merge_2 = Session.get('machine_merge_2')  // result_2.bayArray[0].machineNr)
-        machine_merge_3 = Session.get('machine_merge_3')
-       // machineState_1 = Session.get('machineState_1')  // result_1.machineReady);
-       // machineState_2 = Session.get('machineState_2')  // result_2.machineReady);
-        target_machine = Session.get('target-machine')
-        console.log(target_machine, machine_merge_3)
-        try {
-            if (machine_merge_1 === target_machine) {
-                // matching Machine in merge Station 1
-                let oldCanvasId = 'merge-station-1' // Last Bay
-                invokeMoveFromLastBay(oldCanvasId)
-                Meteor.call('engineReady', 3)  // set machineReady in activeAssembly Docu to false
-            } else if (machine_merge_2 === target_machine) {
-                // matching Machine in merge Station 2
-                let oldCanvasId = 'merge-station-2' // Last Bay
-                invokeMoveFromLastBay(oldCanvasId)
-                Meteor.call('engineReady', 4)  // set machineReady in activeAssembly Docu to false
-            } else if (machine_merge_3 === target_machine) {
-                // matching Machine in merge Station 2
-                let oldCanvasId = 'merge-station-3' // Last Bay
-                invokeMoveFromLastBay(oldCanvasId)
-                Meteor.call('engineReady', 5)  // set machineReady in activeAssembly Docu to false
-            } else {
-                alert('Machine in Bay 4 does not match Machine in Merge Station')
-            }
-        } catch (e) {}
+        let target_machine_1, target_machine_2, machine_merge_1, machine_merge_2, machine_merge_3, result ;
+        machine_merge_1 = Session.get("merge_1");
+        machine_merge_2 = Session.get("merge_2");
+        machine_merge_3 = Session.get("merge_3");
+        result = activeAssembly.findOne({_id: 'machine_field_bay_4'},
+            {fields: {bayArray: 1}});
+        if (result.bayArray.length === 1) {
+            target_machine_1 = result.bayArray[0].machineNr; // 1 Machine in Bay 4 = target_machine_1
+                if (target_machine_1 === machine_merge_1) {
+                    let oldCanvasId = 'merge-station-1' // Last Bay
+                    invokeMoveFromLastBay(oldCanvasId)
+                 //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    Meteor.call('engineReady', "merge-station-1", target_machine_1)
+                } else if (target_machine_1 === machine_merge_2) {
+                    let oldCanvasId = 'merge-station-2' // Last Bay
+               //     console.log(oldCanvasId)
+                  invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-2", target_machine_1)
+                } else if (target_machine_1 === machine_merge_3) {
+                    let oldCanvasId = 'merge-station-3' // Last Bay
+             //       console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-3", target_machine_1)
+                } else {
+                    alert('Machine in Bay 4 does not match Machine in Merge Station')
+                }
+        } else if (result.bayArray.length === 2) {
+            target_machine_1 = result.bayArray[0].machineNr;
+            target_machine_2 = result.bayArray[1].machineNr;
+        }
+
     },
 
      // Threshing & Front Axle List to assembly Bay

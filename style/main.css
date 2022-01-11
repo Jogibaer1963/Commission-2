@@ -1126,8 +1126,8 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .in-line-time {
-  max-width: 70px;
-  min-width: 70px;
+  max-width: 900px;
+  min-width: 90px;
   color: #db9315;
   font-weight: bolder;
 }
@@ -1824,6 +1824,16 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: relative;
   top: -882px;
   transform: rotate(270deg);
+}
+
+.show-engine {
+  left: 668px;
+  position: absolute;
+  top: 432px;
+  color: #c7d56a;
+  width: 201px;
+  font-weight: bolder;
+  font-size: 50px;
 }
 
 .bay-3-north-start-stop-button {

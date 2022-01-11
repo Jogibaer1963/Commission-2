@@ -52,7 +52,7 @@ Template.timeStudies.helpers({
                         minutes = calcTime(element_2.bayDateLeavingUnix, element_2.bayDateLandingUnix);
                     }
                     if (minutes < 0) {
-                        console.log(machineNr, bayId)
+                       // console.log(machineNr, bayId)
                     }
                     machineResult = {
                         bay: bayId,

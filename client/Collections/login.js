@@ -13,7 +13,7 @@
                      userVar === 'Team 3' || userVar === 'Team 1' ||
                      userVar === 'Team 5' || userVar === 'Test Bay')   {
                      FlowRouter.go('/assemblyLine');
-                 } else if (userVar === 'Team-4-Merge') {
+                 } else if (userVar === 'mike') {
                      FlowRouter.go('team_4_merge_station')
                  } else {
                      if(Meteor.userId()){
