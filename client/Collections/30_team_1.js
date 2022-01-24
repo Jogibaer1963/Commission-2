@@ -15,6 +15,8 @@ Session.set('twoMachines', false)
 
 Template.team_1_over_view.helpers({
 
+    // **********************************   inLineDate = Bay 2 Landing date / time
+
     machineReservoir: () => {
         let result = machineCommTable.find({activeAssemblyLineList : true},
             {fields: {
@@ -334,6 +336,7 @@ Template.team_1_move_buttons.events({
         machine_merge_3 = Session.get("merge_3");
         result = activeAssembly.findOne({_id: 'machine_field_bay_4'},
             {fields: {bayArray: 1}});
+        //console.log( result)
         if (result.bayArray.length === 1) {
             target_machine_1 = result.bayArray[0].machineNr; // 1 Machine in Bay 4 = target_machine_1
                 if (target_machine_1 === machine_merge_1) {
@@ -357,6 +360,7 @@ Template.team_1_move_buttons.events({
         } else if (result.bayArray.length === 2) {
             target_machine_1 = result.bayArray[0].machineNr;
             target_machine_2 = result.bayArray[1].machineNr;
+            console.log(target_machine_1, target_machine_2)
         }
 
     },

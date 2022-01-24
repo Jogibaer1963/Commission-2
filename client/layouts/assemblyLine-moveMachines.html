@@ -1,7 +1,6 @@
 <template name="assemblyLine">
     {{#if currentUser}}
         {{#if isInRole 'admin'}}
-
             <div class="navigation-buttons">
                 {{> admin_navi_buttons}}
             </div>
@@ -13,7 +12,6 @@
                 {{> team_4_over_view}}
                 {{> team_4_move_buttons }}
             </div>
-
             <div class="admin-view-team-2">
                 {{> team_2_over_view }}
                 {{> team_2_move_buttons }}
@@ -57,12 +55,36 @@
 
         {{/if}}
    {{else}}
-       {{> login}}
+     <!--  {{> login}}  -->
+        <div class="team-1-over-view">
+            {{> team_1_over_view }}
+            {{> unauthorized_box }}
+        </div>
+        <div class="team-4-over-view">
+            {{> team_4_over_view}}
+        </div>
+        <div class="admin-view-team-2">
+            {{> team_2_over_view }}
+        </div>
+        <div class="admin-view-team-3">
+            {{> team_3_over_view }}
+        </div>
+        <div class="test-bay-over-view">
+            {{> test_bay_over_view }}
+        </div>
+        <div class="team-5">
+            {{> team_5_over_view }}
+        </div>
     {{/if}}
 </template>
 
 <template name="unauthorized_box">
-    <div></div>
+    <div class="unauthorized-machine-res"></div>
+    <div class="unauthorized-rear-axle"></div>
+    <div class="unauthorized-front-axle"></div>
+    <div class="unauthorized-threshing-house"></div>
+    <div class="unauthorized-cooling-box"></div>
+    <div class="unauthorized-engine"></div>
 </template>
 
 <template name="burstSunTimerTeam_1">

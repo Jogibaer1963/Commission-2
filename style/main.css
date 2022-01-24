@@ -1070,6 +1070,72 @@ table.supply-multi-table td, table.supply-multi-table th {
   width: 40px;
 }
 
+.unauthorized-machine-res {
+  background: #0000FFFF;
+  height: 14em;
+  left: 26px;
+  opacity: 0.1;
+  position: absolute;
+  top: 121px;
+  width: 252px;
+  z-index: 1;
+}
+
+.unauthorized-rear-axle {
+  background: #0000FFFF;
+  height: 8em;
+  left: -191px;
+  opacity: 0.1;
+  position: absolute;
+  top: 510px;
+  width: 252px;
+  z-index: 1;
+}
+
+.unauthorized-front-axle {
+  background: #0000FFFF;
+  height: 8em;
+  left: -120px;
+  opacity: 0.1;
+  position: absolute;
+  top: 734px;
+  width: 252px;
+  z-index: 1;
+}
+
+.unauthorized-threshing-house {
+  background: #0000FFFF;
+  height: 8em;
+  left: 596px;
+  opacity: 0.1;
+  position: absolute;
+  top: 734px;
+  width: 252px;
+  z-index: 1;
+}
+
+.unauthorized-cooling-box {
+  background: #0000FFFF;
+  height: 11em;
+  left: 116px;
+  opacity: 0.1;
+  position: absolute;
+  top: 1086px;
+  width: 269px;
+  z-index: 5;
+}
+
+.unauthorized-engine {
+  background: #0000FFFF;
+  height: 19em;
+  left: 116px;
+  opacity: 0.1;
+  position: absolute;
+  top: 1333px;
+  width: 269px;
+  z-index: 5;
+}
+
 .diagrams {
   left: 67em;
   position: relative;
