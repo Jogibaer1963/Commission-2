@@ -13,7 +13,15 @@ Template.admin_navi_buttons.events({
         e.preventDefault();
         Meteor.logout();
         //Meteor.call('logOut', userName)
+
     },
+
+    'click .specFunc': (e) => {
+        e.preventDefault();
+        console.log('working')
+        Meteor.call('specialFunction')
+    },
+
 
 })
 

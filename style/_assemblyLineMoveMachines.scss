@@ -602,11 +602,11 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-2-merge-text {
-  color: $color-machine-reservoir;
+  color: #71f323;
   font-weight: bolder;
-  left: 266px;
+  left: 268px;
   position: relative;
-  top: -2295px;
+  top: -2318px;
   width: 150px;
 }
 
@@ -631,7 +631,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   padding: 5px;
   transform: rotate(23deg);
 }
-
 
 .bay-2-start-arrow {
   left: -6px;
@@ -670,6 +669,15 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
       padding: 5px;
       transform: rotate(0deg);
     }
+}
+
+.time-goal-bay-2 {
+  left: 736px;
+  position: absolute;
+  top: -24px;
+  color: #71f323;
+  font-weight: bolder;
+  width: 300px;
 }
 
 .bay-3-north-start-arrow {
@@ -2682,7 +2690,6 @@ $station-text-color: #03ff84;
   width: 110px;
 }
 
-
 .team-5-template {
   left: 156em;
   position: absolute;
@@ -2748,14 +2755,6 @@ $station-text-color: #03ff84;
   height: 30px;
   pointer-events: all;
 }
-
-
-//  --------------------------  Bay 2  -----------------------------
-
-
-
-// -----------------------------   Assembly Line ------------------------------------
-
 
 .team2-bay5 {
   left: 72em;

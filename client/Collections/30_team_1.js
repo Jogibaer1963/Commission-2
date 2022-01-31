@@ -190,6 +190,29 @@ Template.team_1_over_view.helpers({
         } catch(err) {}
     },
 
+    goal_bay_2: () => {
+        let today = new Date().toISOString().slice(0, 10);
+        let todayTime = new Date().toISOString().slice(14, 19)
+        let machineNr, timeLine, dateTime, landingDate, landingTime;
+        try {
+        let result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
+        machineNr = result.bayArray[0].machineNr;
+        timeLine = machineCommTable.findOne({machineId: machineNr},
+                                                    {fields: {timeLine: 1}})
+         landingDate = timeLine.timeLine.inLine;
+         landingTime = timeLine.timeLine.inLine_time;
+         console.log(today, todayTime)
+        } catch (e) {
+
+        }
+    },
+
+    goal_result: () => {
+
+
+
+    }
+
 })
 
 

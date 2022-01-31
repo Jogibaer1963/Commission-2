@@ -1659,9 +1659,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-2-merge-text {
   color: #71f323;
   font-weight: bolder;
-  left: 266px;
+  left: 268px;
   position: relative;
-  top: -2295px;
+  top: -2318px;
   width: 150px;
 }
 
@@ -1734,6 +1734,15 @@ table.supply-multi-table td, table.supply-multi-table th {
   display: inline-block;
   padding: 5px;
   transform: rotate(0deg);
+}
+
+.time-goal-bay-2 {
+  left: 736px;
+  position: absolute;
+  top: -24px;
+  color: #71f323;
+  font-weight: bolder;
+  width: 300px;
 }
 
 .bay-3-north-start-arrow {
@@ -4854,6 +4863,40 @@ table.headerTable {
     transform: none;
   }
 }
+.single-tech-nav-box {
+  left: 317px;
+  position: absolute;
+  top: 9px;
+}
+
+.single-result {
+  left: 100px;
+  position: absolute;
+  top: 100px;
+}
+
+.tech-table {
+  left: 100px;
+  position: absolute;
+  top: 150px;
+}
+
+.result-table {
+  left: 320px;
+  position: absolute;
+  top: 150px;
+}
+
+.bay {
+  width: 130px;
+}
+
+.tech-graph {
+  left: 1360px;
+  position: absolute;
+  top: 150px;
+}
+
 .insideNavBar {
   margin-top: 25px;
 }

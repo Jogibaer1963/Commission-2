@@ -52,6 +52,10 @@ if(Meteor.isServer){
             return scheduleConfig.find();
         })
 
+        Meteor.publish('assemblyTech', function() {
+            return assemblyTech.find();
+        })
+
     });
 
 
@@ -59,14 +63,33 @@ if(Meteor.isServer){
 /*
         'specialFunction': () => {
          console.log('function started');
-         let result = assemblyLineBay.findOne({ "_id" : "front_axle"})
-           for (counter = 282; counter )
-
+         let workDone = [];
+         let buildObject = {}
+         let result = machineCommTable.find({inLineDate : {$gt: '2021-08-01'} } ,
+             {fields: {machineId: 1, bayReady: 1}}).fetch();
+         result.forEach((element) => {
+             if (element.bayReady !== undefined) {
+                 element.bayReady.forEach((element2) => {
+                     if(element2.assemblyTech === 'mike') {
+                         buildObject = {
+                             machineId: element.machineId,
+                             station : element2._id,
+                             bayLandingUnix: element2.bayDateLandingUnix,
+                             bayLeaving: element2.bayDateLeavingUnix,
+                             bayStart: element2.bayStart,
+                             bayStop: element2.bayStop,
+                             assemblyTech: element2.assemblyTech
+                         }
+                         workDone.push(buildObject)
+                     }
+                 })
+             }
+             assemblyTech.update({_id: 'mike'}, {$set: {workDone: workDone}} )
+         })
            console.log('Function finished');
         },
 
-*/
-
+ */
 
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
@@ -186,6 +209,7 @@ if(Meteor.isServer){
                             }})
                     activeAssembly.update({_id: canvasId},
                         {$set: {bayAssemblyStatus: 2}}, {upsert: true})
+           //         assemblyTech.update({_id: userId}, {$set: {}} )
                 } else if (timerStartStop === 2) {
                     // merging is finished
                     machineCommTable.update({machineId: machine, 'bayReady._id': canvasId},

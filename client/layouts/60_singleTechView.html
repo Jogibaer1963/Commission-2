@@ -1,0 +1,77 @@
+<template name="singleAssemblyTech">
+    {{#if isInRole 'admin'}}
+        <div id="logo">
+            <img src="claas_logo.png" />
+        </div>
+        <div class="single-tech-nav-box">
+            <label for="button_1"></label>
+            <button type="button" class="btn btn-default btn-success assemblyLine" id="button_1" >Assembly Line</button>
+            <label for="button_6"></label>
+            <button type="button" class="btn btn-default btn-danger jumpBack" id="button_6">Back to Admin Dashboard</button>
+            <label for="button_9"></label>
+            <button type="button" class="btn btn-default btn-info btn-back" id="button_9">Back to Over View</button>
+        </div>
+            {{>techResults}}
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+
+<template name="techResults">
+    <div class="tech-table">
+        <table class="blueTable">
+            <thead>
+            <tr>
+                <th class="bay">Tech</th>
+            </tr>
+            </thead>
+            <tbody class="table-time-study-height">
+            {{#each techTable}}
+                <tr class="pickedTech {{selected}}">
+                    <td class="bay">{{_id}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="single-result">
+        <h3>Assembly Tech {{workDone.assemblyTech}} did so far {{workDone.unitsDone}} units</h3>
+    </div>
+
+    <div class="result-table">
+        <table class="blueTable">
+            <thead>
+            <tr>
+                <th class="bay">Bay</th>
+                <th class="machine-number">Machine Nr</th>
+                <th class="machine-in-bay">Machine reaches Bay</th>
+                <th class="machine-spent-time">Minutes spent</th>
+                <th class="machine-left-bay">Machine left Bay</th>
+                <th class="machine-in-bay">Start Work</th>
+                <th class="machine-spent-time">Duration in min</th>
+                <th class="machine-left-bay">End Work</th>
+            </tr>
+            </thead>
+            <tbody class="table-time-study-height">
+            {{#each resultTable}}
+                <tr>
+                    <td class="bay">{{station}}</td>
+                    <td class="machine-number">{{machineId}}</td>
+                    <td class="machine-in-bay">{{bayLandingDate}}</td>
+                    <td class="machine-spent-time">{{timeSpent}}</td>
+                    <td class="machine-left-bay">{{bayLeavingDate}}</td>
+                    <td class="machine-in-bay">{{bayStart}}</td>
+                    <td class="machine-spent-time">{{workTime}}</td>
+                    <td class="machine-left-bay">{{bayStop}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tech-graph">
+        <div  id="chart_tech">{{techChart}}</div>
+    </div>
+</template>

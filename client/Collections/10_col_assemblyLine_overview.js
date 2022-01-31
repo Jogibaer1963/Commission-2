@@ -1,6 +1,7 @@
 import { calcTime } from '../../lib/99_functionCollector.js';
 Meteor.subscribe('assemblyLineBay');
-Meteor.subscribe('scheduleConfig')
+Meteor.subscribe('scheduleConfig');
+Meteor.subscribe('assemblyTech')
 
 
 Template.assemblyLineOverView.helpers({
@@ -15,10 +16,14 @@ Template.assemblyLineOverView.events({
         FlowRouter.go('/assemblyLine')
     },
 
-
     'click .jumpBack': (e) => {
         e.preventDefault();
         FlowRouter.go('/admin')
+    },
+
+    'click .singleView': (e) => {
+        e.preventDefault();
+        FlowRouter.go('/singleAssemblyTech')
     }
 
 })
