@@ -22,7 +22,7 @@
     </div>
     <div class="commissionTablet">
         <div class="commissionInitials input-group input-group-lg">
-           <h3 class="machineTablet">Tablet User</h3>
+           <h3 class="machineTablet">User :</h3>
             <h3 class="tabletUser">{{currentUser.username}}</h3>
         </div>
            <div class="arrowDown">
@@ -108,4 +108,144 @@
       </div>
     </div>
  </html>
+</template>
+
+
+
+<!--  ***************************************   Corn Head Section  *************************  -->
+
+
+
+<template name="cornHead">
+    {{#if isInRole 'admin'}}
+            {{> addCornHead}}
+    {{/if}}
+    {{#if currentUser}}
+        <div class="tabletCommissioning">
+            {{> pickingCornHead}}
+        </div>
+    {{else}}
+        {{> login}}
+    {{/if}}
+</template>
+
+<template name="pickingCornHead">
+    <html lang="">
+    <style>
+        body{
+            background-color:black;
+        }
+    </style>
+    <div class="commissionHeadTab">
+        <nav>
+            <a  class="btn btn-default btn-info btn-group-lg" href="/"><strong>Back to Overview</strong></a>
+        </nav>
+    </div>
+    <div class="commissionTablet">
+        <div class="commissionInitials input-group input-group-lg">
+            <h3 class="machineTablet">User :</h3>
+            <h3 class="tabletUser">{{currentUser.username}}</h3>
+        </div>
+        <div class="arrowDown">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="chooseMachineTable">
+            <div class="">
+                <table class="blueTable pdiMachineField">
+                    <thead>
+                    <tr>
+                        <th class="pdiMachineField "><strong>Corn Heads</strong></th>
+                        <th class="pdiShipField "><strong>Date in Line</strong></th>
+                    </tr>
+                    </thead>
+                    <tbody class="bodyHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}" >
+                    {{#each cornPickingList}}
+                        <tr class="pickedCornHead {{selectedHead}}">
+                            <td class="pdiMachineField machineTablet" >{{newHeadId}}</td>
+                            <td class="pdiShipField machineTablet" >{{inLineDate}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="corn-arrow">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+        </div>
+        <div class="corn-head-finished">
+            <table class="blueTable supply-table">
+                <thead>
+                <tr>
+                    <th class="userLastLogin"><strong>Corn Head</strong></th>
+                    <th class="userLastLogin"><strong>Finish Date</strong></th>
+                </tr>
+                </thead>
+                <tbody class="supplyTableHeight {{inActive_1}} {{inActive_2}} {{inActive_3}}">
+                {{#with supplyAreaShow}}
+                    {{#each supplyAreas}}
+                        <tr class="supplyAreas {{selectedArea}}">
+                            <td class="supplyAreaField machineTablet {{getCommStatus supplyStatus}}"
+                                style="background-color: {{getCommStatus supplyStatus}}">{{_id}}</td>
+                            <td class="supplyAreaField machineTablet" style="pointer-events: none">{{pickerStart}}</td>
+                        </tr>
+                    {{/each}}
+                {{/with}}
+                </tbody>
+            </table>
+        </div>
+        <div class="corn-head-buttons">
+            <div class="corn-head-header">
+                <h1>Corn Head Serial Nr:</h1> <h1 class="machine-id-header">{{selectedSupplyMachine}}</h1>
+            </div>
+            <div class="supplyButtonField" >
+                <button type="button" class="btn btn-lg btn-success CornHeadStart
+                                            {{inActive_1}} {{inActive_2}} {{inActive_3}} {{inActive_9}}">Start</button>
+                <button class="btn btn-lg btn-primary commPause
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Pause</button>
+                <button class="btn btn-lg btn-primary commResume
+                                            {{inActive_0}} {{inActive_1}} {{inActive_3}} {{inActive_4}} ">Resume</button>
+                <button class="btn btn-lg btn-success commFinished
+                                            {{inActive_0}} {{inActive_2}} {{inActive_4}} ">Finished</button>
+            </div>
+            <div class="commission-cancel">
+                <label for="commission-cancel"></label>
+                <button type="button" class="btn btn-danger cancelForm">Cancel Commissioning</button>
+            </div>
+        </div>
+    </div>
+    </html>
+</template>
+
+<template name="addCornHead">
+    <div class="corn-head-admin">
+        <h2>Admin Section</h2>
+    </div>
+    <div class="add-corn-head">
+        <h3>Add a single Corn Head</h3>
+    </div>
+
+    <div class="input-single-corn-head">
+        <form class="submit-single-corn-head">
+            <label for="singleCornHead" style="color: #5aec11;">Machine Number</label>
+            <br>
+            <input type="number" id="singleCornHead" name="singleCornHead" placeholder="Single Corn Head Machine">
+            <label for="singleCornHeadDate"></label>
+            <br><br>
+            <input type="date" id="singleCornHeadDate" name="singleCornHeadDate">
+            <div class="submit-button-single-corn-head">
+                <button type="submit" class="btn btn-primary btn-submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div class="add-multi-corn-heads">
+        <h3>Upload Corn Head List (CSV File)</h3>
+    </div>
+
 </template>

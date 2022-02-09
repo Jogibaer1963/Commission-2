@@ -126,7 +126,12 @@ Template.tabletEntry.events({
             Session.set('selectedArea', '');
             FlowRouter.go('commission');
             Session.set('supplyChosen', 0);
-        }
+        },
+
+    'click .buttonToCornHead': (e) => {
+            e.preventDefault();
+            FlowRouter.go('cornHead');
+    }
 
 });
 

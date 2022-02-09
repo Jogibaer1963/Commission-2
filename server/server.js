@@ -56,11 +56,15 @@ if(Meteor.isServer){
             return assemblyTech.find();
         })
 
+        Meteor.publish('pickingNewHead', function() {
+            return pickingNewHead.find();
+        })
+
     });
 
 
     Meteor.methods({
-/*
+
         'specialFunction': () => {
          console.log('function started');
          let workDone = [];
@@ -89,7 +93,7 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
 
- */
+
 
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
@@ -353,6 +357,22 @@ if(Meteor.isServer){
                 }})
         },
 //  ************************************************************************************************************************
+
+        //  **************************    Corn Heads start here    **********************************
+
+        'addSingleCornHead': (cornHead, dateInLine) => {
+            let newHeadId = cornHead;
+            let inLine = dateInLine;
+            let pickingStatus = 0;
+            console.log(newHeadId, inLine, pickingStatus)
+            pickingNewHead.insert({newHeadId: newHeadId,
+                                        inLineDate: inLine,
+                                        pickingStatus: pickingStatus})
+
+
+
+        },
+
         //--------------  Update Machine List with in Line and off Line Date  --------------
 
         'updateMachineInLine': (contents) => {

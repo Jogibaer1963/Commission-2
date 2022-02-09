@@ -147,6 +147,65 @@ table.supply-table {
   top: 13em;
 }
 
+.corn-head-finished {
+  left: 66em;
+  position: absolute;
+  top: 0;
+}
+
+.corn-head-buttons {
+  left: 48px;
+  position: absolute;
+  top: -71px;
+}
+
+.corn-head-header {
+  left: 223px;
+  position: relative;
+  top: 53px;
+  width: 400px;
+  color: #5aec11;
+}
+
+.corn-arrow {
+  left: 100px;
+  position: relative;
+  top: 54px;
+ transform: rotate(270deg);
+}
+
+.add-corn-head {
+  left: 107px;
+  position: absolute;
+  top: 839px;
+  color: #5aec11;
+}
+
+.corn-head-admin {
+  left: 290px;
+  position: absolute;
+  top: 768px;
+  color: #9c11ec;
+}
+
+.add-multi-corn-heads {
+  left: 407px;
+  position: absolute;
+  top: 839px;
+  color: #5aec11;
+}
+
+.input-single-corn-head {
+  left: 100px;
+  position: absolute;
+  top: 915px;
+}
+
+.submit-button-single-corn-head {
+  left: 100px;
+  position: absolute;
+  top: 140px;
+}
 
 $comm-black: #000;
 

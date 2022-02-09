@@ -1,4 +1,5 @@
 Meteor.subscribe("pickersAtWork");
+Meteor.subscribe("pickingNewHead");
 
 Template.commTablet.helpers ({
 
@@ -88,7 +89,6 @@ Template.commTablet.events ({
         Meteor.call('startPicking', pickedMachineId,
                     pickedSupplyAreaId, status, userStart,
                     );
-
     },
 
     'click .commFinished': function(e) {
@@ -230,3 +230,64 @@ Handlebars.registerHelper('inActive_9', () => {
         return 'in-active-button'
     }
 });
+
+// ********************************  Corn Head Section  ***************************************
+
+
+Template.pickingCornHead.helpers({
+    
+    cornPickingList: () => {
+       return pickingNewHead.find({pickingStatus: 0}).fetch()
+    },
+
+    'selectedHead': function (e) {
+            const commMachine = this._id;
+            const selectedMachine = Session.get('selectedCornHead');
+            if (selectedMachine === commMachine) {
+                Session.set('CornHead', selectedMachine);
+                return "selectedMachine";
+            }
+    }
+    
+})
+
+Template.pickingCornHead.events({
+
+    'click .pickedCornHead': function(e) {
+        e.preventDefault();
+        const pickedCornHead = this._id;
+        // Session.set('inActiveState', 5);
+        Session.set('selectedCornHead', pickedCornHead);
+    },
+
+    'click .cornHeadStart': function(e) {
+        e.preventDefault();
+        const userStart = Meteor.user().username;
+        let status = 2;
+        let pickedMachineId = Session.get('selectedMachine');
+        let pickedSupplyAreaId = Session.get('selectedArea');
+        Session.set('inActiveState', 1);
+     //   Meteor.call('startPicking', pickedMachineId,
+      //      pickedSupplyAreaId, status, userStart,
+      //  );
+    },
+
+
+})
+
+Template.addCornHead.helpers({
+
+})
+
+Template.addCornHead.events({
+
+    'submit .submit-single-corn-head': function (e) {
+        e.preventDefault();
+        let cornHead = e.target.singleCornHead.value;
+        let dateInLine = e.target.singleCornHeadDate.value;
+        Meteor.call('addSingleCornHead', cornHead, dateInLine)
+        e.target.singleCornHead.value = '';
+        e.target.singleCornHeadDate.value = '';
+    }
+
+})
