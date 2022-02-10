@@ -354,7 +354,7 @@ table.supply-table {
   left: 223px;
   position: relative;
   top: 53px;
-  width: 400px;
+  width: 530px;
   color: #5aec11;
 }
 
@@ -1245,7 +1245,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .machine-reservoir {
   color: #71f323;
-  left: 0;
+  left: -62px;
   position: absolute;
   top: 2em;
 }
@@ -1420,6 +1420,13 @@ table.supply-multi-table td, table.supply-multi-table th {
   transform: rotate(270deg);
 }
 
+.arrows-2-list-fcb {
+  left: 225px;
+  position: absolute;
+  top: 153px;
+  transform: rotate(270deg);
+}
+
 .fcb-1-canvas {
   left: -30px;
   position: relative;
@@ -1444,7 +1451,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .arrow-button-fcb-2 {
-  top: -603px;
+  top: -498px;
   position: relative;
   left: 69px;
   transform: rotate(90deg);
@@ -1582,7 +1589,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .fcb-2-button {
   left: 228px;
   position: relative;
-  top: -483px;
+  top: -429px;
   z-index: 1;
 }
 
@@ -1602,7 +1609,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay2-fcb-merge-threshing {
   left: 31em;
   position: relative;
-  top: -18em;
+  top: -19em;
 }
 
 .rear-axle-reservoir {
@@ -1647,7 +1654,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-1-rear-axle-fcb-merge {
   left: 41px;
   position: relative;
-  top: -1017px;
+  top: -1031px;
 }
 
 .rear-axle-merge-canvas {
@@ -1700,13 +1707,13 @@ table.supply-multi-table td, table.supply-multi-table th {
 .team-1-front-threshing-merge {
   left: 259px;
   position: relative;
-  top: -1770px;
+  top: -1778px;
 }
 
 .team-1-front-threshing-fcb-merge {
   left: 319px;
   position: relative;
-  top: -1983px;
+  top: -2002px;
 }
 
 .front-threshing-fcb-merge {
@@ -1778,8 +1785,8 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .bay-2-move-button {
   left: 70px;
-  position: relative;
-  top: -711px;
+  position: absolute;
+  top: -77px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -1789,7 +1796,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .bay-2-move-arrow {
   left: 57px;
   position: relative;
-  top: -709px;
+  top: -541px;
 }
 .bay-2-move-arrow .arrow-to-target-bay {
   left: 85px;
@@ -1849,14 +1856,14 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-3-move-arrow {
-  left: 195px;
-  position: relative;
-  top: -819px;
+  left: 226px;
+  position: absolute;
+  top: -64px;
 }
 .bay-3-move-arrow .arrow-to-target-bay {
-  top: 0;
+  top: 28px;
   position: relative;
-  left: 85px;
+  left: 71px;
   border: solid #ec0d0d;
   border-width: 0 3px 3px 0;
   display: inline-block;
@@ -1901,9 +1908,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .front-threshing-move-button {
-  left: 21px;
-  position: relative;
-  top: -1036px;
+  left: 27px;
+  position: absolute;
+  top: 172px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2095,8 +2102,8 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .bay-3-move-button {
   left: 15em;
-  position: relative;
-  top: -820px;
+  position: absolute;
+  top: -76px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2104,13 +2111,29 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-4-move-button {
-  left: 351px;
-  position: relative;
-  top: -929px;
+  left: 348px;
+  position: absolute;
+  top: -76px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
   z-index: 2;
+}
+
+.bay-4-move-arrow {
+  left: 362px;
+  position: absolute;
+  top: -64px;
+}
+.bay-4-move-arrow .arrow-to-target-bay {
+  top: 28px;
+  position: relative;
+  left: 71px;
+  border: solid #ec0d0d;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(0deg);
 }
 
 .sub-components-lines-team-1 {
@@ -2155,7 +2178,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: -194px;
   position: relative;
-  top: -182px;
+  top: -137px;
 }
 
 .rear-axle-move-arrow-2 {
@@ -2165,7 +2188,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: -147px;
   position: relative;
-  top: -310px;
+  top: -270px;
 }
 .rear-axle-move-arrow-2 .basic-arrow-rear-axle {
   top: 23px;
@@ -2195,7 +2218,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: -118px;
   position: relative;
-  top: -143px;
+  top: -55px;
 }
 
 .front-axle-move-arrow-2 {
@@ -2205,7 +2228,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: -7px;
   position: relative;
-  top: -284px;
+  top: -200px;
   transform: rotate(180deg);
 }
 .front-axle-move-arrow-2 .basic-arrow-front-axle {
@@ -2220,9 +2243,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .rear-axle-move-button {
-  left: -210px;
-  position: relative;
-  top: -910px;
+  left: -199px;
+  position: absolute;
+  top: 125px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2230,9 +2253,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .front-axle-move-button {
-  left: -199px;
-  position: relative;
-  top: -701px;
+  left: -127px;
+  position: absolute;
+  top: 333px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2260,8 +2283,8 @@ table.supply-multi-table td, table.supply-multi-table th {
 
 .threshing-move-button {
   left: 137px;
-  position: relative;
-  top: -813px;
+  position: absolute;
+  top: 326px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2308,7 +2331,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: 187px;
   position: relative;
-  top: -325px;
+  top: -193px;
 }
 
 .threshing-move-arrow-2 {
@@ -2318,7 +2341,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: 107px;
   position: relative;
-  top: -492px;
+  top: -368px;
   transform: rotate(74deg);
 }
 
@@ -2340,7 +2363,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   stroke-width: 3px;
   left: 37px;
   position: relative;
-  top: -667px;
+  top: -490px;
   z-index: -1;
 }
 
@@ -2349,9 +2372,9 @@ table.supply-multi-table td, table.supply-multi-table th {
   fill: none;
   stroke: #bc171b;
   stroke-width: 3px;
-  left: 84px;
+  left: 85px;
   position: relative;
-  top: -861px;
+  top: -693px;
   z-index: -1;
 }
 

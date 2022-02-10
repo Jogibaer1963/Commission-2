@@ -113,7 +113,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .machine-reservoir {
   color: $color-machine-reservoir;
-  left: 0;
+  left: -62px;
   position: absolute;
   top: 2em;
  // width: 300px;
@@ -313,6 +313,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   transform: rotate(270deg);
 }
 
+.arrows-2-list-fcb {
+  left: 225px;
+  position: absolute;
+  top: 153px;
+  transform: rotate(270deg);
+}
+
 .fcb-1-canvas {
   left: -30px;
   position: relative;
@@ -339,7 +346,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .arrow-button-fcb-2 {
-  top: -603px;
+  top: -498px;
   position: relative;
   left: 69px;
   transform: rotate(90deg);
@@ -458,7 +465,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .fcb-2-button {
   left: 228px;
   position: relative;
-  top: -483px;
+  top: -429px;
   z-index: 1;
 }
 
@@ -479,7 +486,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay2-fcb-merge-threshing {
   left: 31em;
   position: relative;
-  top: -18em;
+  top: -19em;
 }
 
 // ****************  Steering Axle  ****************************
@@ -526,7 +533,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .team-1-rear-axle-fcb-merge {
   left: 41px;
   position: relative;
-  top: -1017px;
+  top: -1031px;
 }
 
 .rear-axle-merge-canvas {
@@ -579,13 +586,13 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .team-1-front-threshing-merge {
   left: 259px;
   position: relative;
-  top: -1770px;
+  top: -1778px;
 }
 
 .team-1-front-threshing-fcb-merge {
   left: 319px;
   position: relative;
-  top: -1983px;
+  top: -2002px;
 }
 
 .front-threshing-fcb-merge {
@@ -646,8 +653,8 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .bay-2-move-button {
   left: 70px;
-  position: relative;
-  top: -711px;
+  position: absolute;
+  top: -77px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -657,7 +664,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-2-move-arrow{
   left: 57px;
   position: relative;
-  top: -709px;
+  top: -541px;
 
     .arrow-to-target-bay {
       left: 85px;
@@ -721,14 +728,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 .bay-3-move-arrow{
-  left: 195px;
-  position: relative;
-  top: -819px;
+  left: 226px;
+  position: absolute;
+  top: -64px;
 
   .arrow-to-target-bay {
-    top: 0;
+    top: 28px;
     position: relative;
-    left: 85px;
+    left: 71px;
     border: solid #ec0d0d;
     border-width: 0 3px 3px 0;
     display: inline-block;
@@ -766,9 +773,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 .front-threshing-move-button {
-  left: 21px;
-  position: relative;
-  top: -1036px;
+  left: 27px;
+  position: absolute;
+  top: 172px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -942,8 +949,8 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .bay-3-move-button {
   left: 15em;
-  position: relative;
-  top: -820px;
+  position: absolute;
+  top: -76px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -951,13 +958,30 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-4-move-button {
-  left: 351px;
-  position: relative;
-  top: -929px;
+  left: 348px;
+  position: absolute;
+  top: -76px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
   z-index: 2;
+}
+
+.bay-4-move-arrow{
+  left: 362px;
+  position: absolute;
+  top: -64px;
+
+  .arrow-to-target-bay {
+    top: 28px;
+    position: relative;
+    left: 71px;
+    border: solid #ec0d0d;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(0deg);
+  }
 }
 
 .sub-components-lines-team-1 {
@@ -992,14 +1016,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   @include simple-line;
   left: -194px;
   position: relative;
-  top: -182px;
+  top: -137px;
 }
 
 .rear-axle-move-arrow-2 {
   @include simple-line;
   left: -147px;
   position: relative;
-  top: -310px;
+  top: -270px;
 
   .basic-arrow-rear-axle {
     top: 23px;
@@ -1025,14 +1049,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   @include simple-line;
   left: -118px;
   position: relative;
-  top: -143px;
+  top: -55px;
 }
 
 .front-axle-move-arrow-2 {
   @include simple-line;
   left: -7px;
   position: relative;
-  top: -284px;
+  top: -200px;
   transform: rotate(180deg);
 
   .basic-arrow-front-axle {
@@ -1053,9 +1077,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 .rear-axle-move-button {
-  left: -210px;
-  position: relative;
-  top: -910px;
+  left: -199px;
+  position: absolute;
+  top: 125px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -1064,9 +1088,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 
 .front-axle-move-button {
-  left: -199px;
-  position: relative;
-  top: -701px;
+  left: -127px;
+  position: absolute;
+  top: 333px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -1083,8 +1107,8 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 
 .threshing-move-button {
   left: 137px;
-  position: relative;
-  top: -813px;
+  position: absolute;
+  top: 326px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -1114,14 +1138,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   @include simple-line;
   left: 187px;
   position: relative;
-  top: -325px;
+  top: -193px;
 }
 
 .threshing-move-arrow-2 {
   @include simple-line;
   left: 107px;
   position: relative;
-  top: -492px;
+  top: -368px;
   transform: rotate(74deg);
 }
 
@@ -1137,15 +1161,15 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   @include simple-line;
   left: 37px;
   position: relative;
-  top: -667px;
+  top: -490px;
   z-index: -1;
 }
 
 .front-threshing-fcb-move-arrow-2 {
   @include simple-line;
-  left: 84px;
+  left: 85px;
   position: relative;
-  top: -861px;
+  top: -693px;
   z-index: -1;
 }
 
