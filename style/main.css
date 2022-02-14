@@ -338,6 +338,19 @@ table.supply-table {
   top: 13em;
 }
 
+.corn-head {
+  max-width: 100px;
+  min-width: 100px;
+  color: #5aec11;
+  align-content: center;
+}
+
+.date-field {
+  max-width: 200px;
+  min-width: 200px;
+  color: #5aec11;
+}
+
 .corn-head-finished {
   left: 66em;
   position: absolute;
@@ -345,13 +358,13 @@ table.supply-table {
 }
 
 .corn-head-buttons {
-  left: 48px;
+  left: 148px;
   position: absolute;
   top: -71px;
 }
 
 .corn-head-header {
-  left: 223px;
+  left: 123px;
   position: relative;
   top: 53px;
   width: 530px;
@@ -363,6 +376,12 @@ table.supply-table {
   position: relative;
   top: 54px;
   transform: rotate(270deg);
+}
+
+.corn-head-button-field {
+  left: 128px;
+  position: absolute;
+  top: 302px;
 }
 
 .add-corn-head {

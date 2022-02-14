@@ -169,7 +169,7 @@ Template.dailyResult.helpers({
         let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
         try {
             uniqueSupplyAreas.forEach((element) => {
-                let i = 1;
+                let i = 0 ;
                 let duration = 0;
                 arraySummery.forEach((element2) => {
                     if (element === element2.supplyArea) {
@@ -180,6 +180,7 @@ Template.dailyResult.helpers({
                 });
                 counter.push(i);
                 durationGraph.push(parseInt((duration / i).toFixed()));
+
             });
         } catch (e) {
          //   console.log(e)

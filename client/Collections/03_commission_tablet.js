@@ -154,13 +154,25 @@ Template.commTablet.events ({
 
 });
 
+// Commission idle inActiveState = 0
 
 Handlebars.registerHelper('inActive_0', () => {
     let inActiveState = Session.get('inActiveState');
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 0 ', inActiveState);
+   // console.log('inActive 0 ', inActiveState);
+    if(inActiveState === 0) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_0', () => {
+    let inActiveState = Session.get('cornInActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    // console.log('inActive 0 ', inActiveState);
     if(inActiveState === 0) {
         return 'in-active-button'
     }
@@ -173,7 +185,18 @@ Handlebars.registerHelper('inActive_1', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 1 ', inActiveState);
+   // console.log('inActive 1 ', inActiveState);
+    if(inActiveState === 1) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_1', () => {
+    let inActiveState = Session.get('cornInActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+    // console.log('inActive 1 ', inActiveState);
     if(inActiveState === 1) {
         return 'in-active-button'
     }
@@ -186,7 +209,18 @@ Handlebars.registerHelper('inActive_2', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-   console.log('inActive 2 ', inActiveState);
+  // console.log('inActive 2 ', inActiveState);
+    if(inActiveState === 2) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_2', () => {
+    let inActiveState = Session.get('cornInActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+  //  console.log('inActive 2 ', inActiveState);
     if(inActiveState === 2) {
         return 'in-active-button'
     }
@@ -199,7 +233,18 @@ Handlebars.registerHelper('inActive_3', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 3 ', inActiveState);
+  //  console.log('inActive 3 ', inActiveState);
+    if(inActiveState === 3) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_3', () => {
+    let inActiveState = Session.get('cornInActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+  //  console.log('inActive 3 ', inActiveState);
     if(inActiveState === 3) {
         return 'in-active-button'
     }
@@ -212,7 +257,18 @@ Handlebars.registerHelper('inActive_4', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-     console.log('inActive 4 ', inActiveState);
+   //  console.log('inActive 4 ', inActiveState);
+    if(inActiveState === 4) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_4', () => {
+    let inActiveState = Session.get('cornInActiveState');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+  //  console.log('inActive 4 ', inActiveState);
     if(inActiveState === 4) {
         return 'in-active-button'
     }
@@ -225,32 +281,48 @@ Handlebars.registerHelper('inActive_9', () => {
     if (typeof inActiveState === 'undefined') {
         inActiveState = 0;
     }
-    console.log('inActive 9 ', inActiveState);
+  //  console.log('inActive 9 ', inActiveState);
+    if(inActiveState !== 9) {
+        return 'in-active-button'
+    }
+});
+
+Handlebars.registerHelper('cornInActive_9', () => {
+    let inActiveState = Session.get('cornHeadChosen');
+    if (typeof inActiveState === 'undefined') {
+        inActiveState = 0;
+    }
+   // console.log('cornInActive 9 ', inActiveState);
     if(inActiveState !== 9) {
         return 'in-active-button'
     }
 });
 
 // ********************************  Corn Head Section  ***************************************
-Session.set('selectedCornHead', 0);
+
 
 Template.pickingCornHead.helpers({
-    
+
     cornPickingList: () => {
         return  pickingNewHead.find({pickingStatus: 0}).fetch()
     },
 
-    selectedCornHead: () => {
-        const supply = Session.get('selectedCornId');
-        if(supply) {
-            Session.set('supplyChosen', 9);
-        }
-        return supply;
+    finishedCornHead: () => {
+       let result =  pickingNewHead.find({pickingStatus: 1}).fetch()
+        return result.sort((a, b) => a.inLineDate < b.inLineDate ? 1 : -1)
     },
 
-    'selectedHead': function (e) {
+    cornHeadChosen: () => {
+        const cornHead = Session.get('cornHeadSerial');
+        if(cornHead) {
+            Session.set('cornHeadChosen', 9);
+        }
+        return cornHead;
+    },
+
+    'selectedCornHead': function (e) {
             const commMachine = this._id;
-            const selectedMachine = Session.get('selectedCornHead');
+            const selectedMachine = Session.get('cornHeadId');
             if (selectedMachine === commMachine) {
                 Session.set('CornHead', selectedMachine);
                 return "selectedMachine";
@@ -263,24 +335,79 @@ Template.pickingCornHead.events({
 
     'click .pickedCornHead': function(e) {
         e.preventDefault();
-        const pickedCornHead = this._id;
-        const cornHeadId = this.newHeadId;
-        console.log(pickedCornHead, cornHeadId)
-        // Session.set('inActiveState', 5);
-        Session.set('selectedCornHead', pickedCornHead);
-        Session.set('selectedCornId', cornHeadId)
+        const cornHeadId = this._id;
+        const cornHeadSerial = this.newHeadId;
+        Session.set('cornHeadId', cornHeadId)
+        Session.set('cornHeadSerial', cornHeadSerial);
+        Session.set('cornHeadChosen', 9);
     },
 
     'click .cornHeadStart': function(e) {
         e.preventDefault();
+        let cornHeadId, cornHeadSerial, supplyArea,status;
         const userStart = Meteor.user().username;
-        let status = 2;
-        let pickedMachineId = Session.get('selectedCornHead');
-        Session.set('inActiveState', 1);
-        console.log( pickedMachineId, status, userStart)
-     //   Meteor.call('startPicking', pickedMachineId,
-      //      pickedSupplyAreaId, status, userStart,
-      //  );
+        cornHeadId = Session.get('cornHeadId')
+        cornHeadSerial = Session.get('cornHeadSerial')
+        supplyArea = 'L2MHDL10';
+        status = 2;
+        Session.set('cornInActiveState', 1);
+        Meteor.call('startPicking', cornHeadSerial ,supplyArea, status, userStart)
+    },
+
+    'click .cornHeadFinished': function(e) {
+        e.preventDefault();
+        const userFinished = Meteor.user().username;
+        let status = 1;
+        let cornHeadSerial = Session.get('cornHeadSerial');
+        let pickedSupplyAreaId = 'L2MHDL10';
+        Session.set('cornInActiveState', 4);
+        Session.set('cornHeadChosen', 0);
+        Meteor.call('finishedPicking', cornHeadSerial, pickedSupplyAreaId,
+                                        status, userFinished, function (err, response) {
+                if (err) {
+                    //     console.log(err)
+                } else {
+                    // console.log('save finished', response)
+                }
+            });
+    },
+
+    'click .cornCancelForm': function(e) {
+        e.preventDefault();
+        //    console.log(Session.get('inActiveState'))
+        const userCanceled = Meteor.user().username;
+        let status = 0;
+        let pickedMachineId = Session.get('selectedMachine');
+        Session.set('cornInActiveState', 4);
+        Session.set('selectedArea', '');
+        /*
+        Meteor.call('canceledPicking', pickedMachineId, pickedSupplyAreaId,
+            status, userCanceled);
+
+         */
+    },
+
+    'click .cornCommPause': function(e) {
+        e.preventDefault();
+        const user = Meteor.user().username;
+        let cornHeadSerial = Session.get('cornHeadSerial');
+        let pickingStatus = 3;
+        let pickedSupplyAreaId = 'L2MHDL10';
+        Session.set('cornInActiveState', 2);
+        Meteor.call('pausePickingStart', cornHeadSerial, pickedSupplyAreaId,
+            pickingStatus, user);
+    },
+
+    'click .cornCommResume': function(e) {
+        e.preventDefault();
+        const user = Meteor.user().username;
+        let cornHeadSerial = Session.get('cornHeadSerial');
+        let pickingStatus = 2;
+        let pickedSupplyAreaId = 'L2MHDL10';
+        Session.set('cornInActiveState',3);
+        Meteor.call('pausePickingEnd', cornHeadSerial, pickedSupplyAreaId,
+            pickingStatus, user);
+
     },
 
 

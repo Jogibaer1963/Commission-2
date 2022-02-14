@@ -667,87 +667,123 @@ if(Meteor.isServer){
 
 
         'startPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
-            let commStat = machineCommTable.findOne({_id: pickedMachineId}, {fields: {commissionStatus : 1}});
-            let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
-            let pickingStart = Date.now();
-            pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
-                    pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
-        //    console.log(commStat.commissionStatus)
-            if (commStat.commissionStatus !== 0 ) {
-                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                    {$set: {
-                            "supplyAreas.$.supplyStatus": status,
-                            "supplyAreas.$.pickerStart": user,
-                            "supplyAreas.$.pickingStart": pickingStart,
-                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
-            } else {
-                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                    {$set: {
-                             commissionStatus : 1,
-                            "supplyAreas.$.supplyStatus": status,
-                            "supplyAreas.$.pickerStart": user,
-                            "supplyAreas.$.pickingStart": pickingStart,
-                            "supplyAreas.$.pickingDateAndTime": dateStartNow}});
-            }
+            if (pickedSupplyAreaId === 'L2MHDL10') {
+                let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
+                let pickingStart = Date.now();
+                pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
+                        pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
+                pickingNewHead.update({newHeadId: pickedMachineId},
+                    {$set: {supplyStatus: status,
+                                     pickerStart: user,
+                                     pickingStart: pickingStart,
+                                     pickingDateAndTime: dateStartNow}})
 
-            let findPicker = pickers.find().fetch();
-            let result = findPicker.find(picker => picker._id === user);
-            if(typeof result === 'undefined') {
-                pickers.insert({_id: user, active: 1});
+            } else {
+                let commStat = machineCommTable.findOne({_id: pickedMachineId},
+                    {fields: {commissionStatus : 1}});
+                let dateStartNow = moment().format('MMMM Do YYYY, h:mm:ss a' );
+                let pickingStart = Date.now();
+                pickersAtWork.upsert({_id: user}, {$set: {machineNr: pickedMachineId,
+                        pickerSupplyArea: pickedSupplyAreaId, inActive: 1}});
+            //    console.log(commStat.commissionStatus)
+                if (commStat.commissionStatus !== 0 ) {
+                    machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                        {$set: {
+                                "supplyAreas.$.supplyStatus": status,
+                                "supplyAreas.$.pickerStart": user,
+                                "supplyAreas.$.pickingStart": pickingStart,
+                                "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+                } else {
+                    machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                        {$set: {
+                                 commissionStatus : 1,
+                                "supplyAreas.$.supplyStatus": status,
+                                "supplyAreas.$.pickerStart": user,
+                                "supplyAreas.$.pickingStart": pickingStart,
+                                "supplyAreas.$.pickingDateAndTime": dateStartNow}});
+                }
+
+                let findPicker = pickers.find().fetch();
+                let result = findPicker.find(picker => picker._id === user);
+                if(typeof result === 'undefined') {
+                    pickers.insert({_id: user, active: 1});
+                }
             }
         },
 
         'finishedPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
-            let pickingString = pickingToDay();
-            /*
-            let checkDoubleEntry = pickers.find({_id: user});
-            */
-           // console.log(pickingString);
-            let dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a');
-            let pickingTime = moment().format('M D')
-            let pickingEndTime = Date.now();
+            let result, pickingEndTime, dateEndNow, pickingString, pickingTime;
+            pickingString = pickingToDay();
+            dateEndNow = moment().format('MMMM Do YYYY, h:mm:ss a');
+            pickingTime = moment().format('M D')
+            pickingEndTime = Date.now();
             pickersAtWork.remove({_id: user});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                {
-                    $set: {
-                        "supplyAreas.$.supplyStatus": status,
-                        "supplyAreas.$.pickerFinished": user,
-                        "supplyAreas.$.pickerEnd": pickingEndTime,
-                        "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
-                        "supplyAreas.$.pickingTime": pickingTime
-                    }
-                },
-            );
-            machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
-
-            const result = machineCommTable.findOne({_id: pickedMachineId});
-
-            let machineId = result.machineId;
-            let pickersArea = result.supplyAreas,
-                pickersResult = pickersArea.find((e) => {
-                    return e._id === pickedSupplyAreaId;
-                });
-            let pauseStart = pickersResult.pickingPauseStart;
-            let pauseEnd = pickersResult.pickingPauseEnd;
-            if (!pauseEnd) {
-                pauseStart = 1;
-                pauseEnd = 1;
+            if (pickedSupplyAreaId === 'L2MHDL10') {
+                result = pickingNewHead.findOne({newHeadId: pickedMachineId})
+                let pickingStart = result.pickingStart
+                let pauseStart = result.pickingPauseStart;
+                let pauseEnd = result.pickingPauseEnd;
+                if (!pauseEnd) {
+                    pauseStart = 1;
+                    pauseEnd = 1;
+                }
+                let pickingDuration = (pickingEndTime - pickingStart) - (pauseEnd - pauseStart);
+                let duration = parseInt(pickingDuration);
+                let pickingObj =  {
+                    machine: pickedMachineId,
+                    supplyArea: 'L2MHDL10',
+                    pickingTime: pickingEndTime,  // Unix Time Stamp picking finished
+                    duration: duration,
+                    date: dateEndNow,
+                    multi: false
+                };
+                pickers.update({_id: user, }, {$addToSet: {[pickingString]: pickingObj}});
+                pickingNewHead.update({newHeadId: pickedMachineId}, {$set: {pickingStatus: 1,
+                                                                                            pickingTime: pickingEndTime,
+                                                                                            duration: duration,
+                                                                                            date: dateEndNow,
+                    }})
+                return 'success';
+            } else {
+                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                    {
+                        $set: {
+                            "supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickerFinished": user,
+                            "supplyAreas.$.pickerEnd": pickingEndTime,
+                            "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
+                            "supplyAreas.$.pickingTime": pickingTime
+                        }
+                    },
+                );
+                machineCommTable.update({_id: pickedMachineId}, {$inc: {commissionStatus: 1}});
+                const result = machineCommTable.findOne({_id: pickedMachineId});
+                let machineId = result.machineId;
+                let pickersArea = result.supplyAreas,
+                    pickersResult = pickersArea.find((e) => {
+                        return e._id === pickedSupplyAreaId;
+                    });
+                let pauseStart = pickersResult.pickingPauseStart;
+                let pauseEnd = pickersResult.pickingPauseEnd;
+                if (!pauseEnd) {
+                    pauseStart = 1;
+                    pauseEnd = 1;
+                }
+                let pickingDuration = (pickersResult.pickerEnd - pickersResult.pickingStart) -
+                    (pauseEnd - pauseStart);
+                let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
+                let duration = parseInt(pickingDuration);
+                let pickingObj =  {
+                    machine: machineId,
+                    supplyArea: pickedSupplyAreaId,
+                    pickingTime: pickingEndTime,
+                    duration: duration,
+                    date: pickingDateAndTime,
+                    multi: false
+                };
+                pickers.update({_id: user, }, {$addToSet: {[pickingString]: pickingObj}});
+                return 'success';
             }
-            let pickingDuration = (pickersResult.pickerEnd - pickersResult.pickingStart) -
-                (pauseEnd - pauseStart);
-            let pickingDateAndTime = pickersResult.pickingEndDateAndTime;
-            let duration = parseInt(pickingDuration);
-
-            let pickingObj =  {
-                machine: machineId,
-                supplyArea: pickedSupplyAreaId,
-                pickingTime: pickingEndTime,
-                duration: duration,
-                date: pickingDateAndTime,
-                multi: false
-            };
-            pickers.update({_id: user, }, {$addToSet: {[pickingString]: pickingObj}});
-            return 'success';
         },
 
         'canceledPicking': function (pickedMachineId, pickedSupplyAreaId, status, user) {
@@ -794,19 +830,33 @@ if(Meteor.isServer){
 
         'pausePickingStart': function (pickedMachineId, pickedSupplyAreaId, status, user) {
             let pickingPauseStart = Date.now();
-             pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
-             machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreas.$.supplyStatus": status,
-                                        "supplyAreas.$.pickingPauseStart": pickingPauseStart }})
-
+            if (pickedSupplyAreaId === 'L2MHDL10') {
+                pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
+                pickingNewHead.update({newHeadId: pickedMachineId},
+                    {$set: {supplyStatus: status,
+                                     pickingPauseStart: pickingPauseStart}})
+            } else {
+                pickersAtWork.upsert({_id: user}, {$set: {inActive: 2}});
+                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {"supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickingPauseStart": pickingPauseStart }})
+            }
         },
 
         'pausePickingEnd': function (pickedMachineId, pickedSupplyAreaId, status, user) {
             let pickingPauseEnd = Date.now();
-            pickersAtWork.upsert({_id: user}, {$set: {inActive: 3}});
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                                    {$set: {"supplyAreas.$.supplyStatus": status,
-                                            "supplyAreas.$.pickingPauseEnd": pickingPauseEnd}})
+            if (pickedSupplyAreaId === 'L2MHDL10') {
+                pickersAtWork.upsert({_id: user}, {$set: {inActive: 3}});
+                pickingNewHead.update({newHeadId: pickedMachineId},
+                    {$set: {supplyStatus: status,
+                            pickingPauseEnd: pickingPauseEnd}})
+            } else {
+                pickersAtWork.upsert({_id: user}, {$set: {inActive: 3}});
+                machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                    {$set: {"supplyAreas.$.supplyStatus": status,
+                            "supplyAreas.$.pickingPauseEnd": pickingPauseEnd}})
+            }
+
 
         },
 
