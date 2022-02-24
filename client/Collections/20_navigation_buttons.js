@@ -23,6 +23,8 @@ Template.admin_navi_buttons.events({
     },
 
 
+
+
 })
 
 Template.navigation_buttons.events({

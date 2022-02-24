@@ -47,7 +47,8 @@ Template.machine_picking_list.helpers({
                                                 inLineDate: 1,
                                                 supplyAreas: 1,
                                                 commissionStatus: 1,
-                                                commissionList: 1
+                                                commissionList: 1,
+                                                timeLine: 1
                                                 }}).fetch();
 
         result.forEach((element) => {
@@ -61,6 +62,7 @@ Template.machine_picking_list.helpers({
                } else {
                }
            }
+         //  console.log(element)
            machineResult.push(element);
         });
         machineResult.forEach((element) => {

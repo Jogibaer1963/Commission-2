@@ -57,6 +57,7 @@
    {{else}}
      <!--  {{> login}}  -->
         <div class="team-1-over-view">
+            {{> loginView }}
             {{> team_1_over_view }}
             {{> unauthorized_box }}
         </div>
@@ -76,6 +77,12 @@
             {{> team_5_over_view }}
         </div>
     {{/if}}
+</template>
+
+<template name="loginView">
+    <div class="login-view">
+        <button class="btn btn-default btn-danger loginView">Login</button>
+    </div>
 </template>
 
 <template name="unauthorized_box">

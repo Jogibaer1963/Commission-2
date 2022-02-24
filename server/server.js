@@ -304,8 +304,16 @@ if(Meteor.isServer){
         'engineReady': (merge_bay, target_machine) => {
             // set merge stations to new status for machineReady and bayAssemblyStatus
             // after engine is moved
-            activeAssembly.update({_id: merge_bay}, {$set: {machineReady: false, bayAssemblyStatus: 0}})
+            activeAssembly.update({_id: merge_bay},
+                {$set: {machineReady: false, bayAssemblyStatus: 0}});
+            activeAssembly.update({_id: "machine_field_bay_4"},
+                {$set: {engineMounted: true}})
     },
+
+        'resetEngineMounted': () => {
+            activeAssembly.update({_id: "machine_field_bay_4"},
+                {$set: {engineMounted: false}})
+        },
 
 
 

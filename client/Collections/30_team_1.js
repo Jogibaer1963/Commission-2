@@ -191,17 +191,19 @@ Template.team_1_over_view.helpers({
     },
 
     goal_bay_2: () => {
-        let today = new Date().toISOString().slice(0, 10);
-        let todayTime = new Date().toISOString().slice(14, 19)
-        let machineNr, timeLine, dateTime, landingDate, landingTime;
+        let machineNr, timeLine, plannedLeavingUnix, leavingDateTime, leavingTime, landingUnix, differenceTime;
         try {
         let result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
         machineNr = result.bayArray[0].machineNr;
+        landingUnix = result.bayArray[0].bayDateLandingUnix
         timeLine = machineCommTable.findOne({machineId: machineNr},
                                                     {fields: {timeLine: 1}})
-         landingDate = timeLine.timeLine.inLine;
-         landingTime = timeLine.timeLine.inLine_time;
-         console.log(today, todayTime)
+         leavingTime = timeLine.timeLine.inLine_time;
+         leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+         plannedLeavingUnix = parseInt((new Date(leavingDateTime).getTime()).toFixed(0))
+         differenceTime = ((landingUnix - plannedLeavingUnix) / 60000).toFixed(0);
+         //console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
+         return differenceTime;
         } catch (e) {
 
         }
@@ -348,7 +350,14 @@ Template.team_1_move_buttons.events({
         e.preventDefault();
         let oldCanvasId = 'machine_field_bay_4'
         let newCanvasId = "machine_field_bay_5";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
+        let result = activeAssembly.findOne({_id: "machine_field_bay_4"}, {fields: {engineMounted: 1}})
+        if (result.engineMounted === false ) {
+            Bert.alert('Do not move Machine without Engine is mounted ! ', 'danger', 'growl-top-left')
+        }else {
+            invokeMoveMachine(oldCanvasId, newCanvasId)
+            Meteor.call('resetEngineMounted');
+        }
+     //
     },
 
     'click .bay-4-engine-1-move-button': (e) => {
@@ -378,12 +387,11 @@ Template.team_1_move_buttons.events({
                     invokeMoveFromLastBay(oldCanvasId)
                     Meteor.call('engineReady', "merge-station-3", target_machine_1)
                 } else {
-                    alert('Machine in Bay 4 does not match Machine in Merge Station')
+                    Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
                 }
         } else if (result.bayArray.length === 2) {
             target_machine_1 = result.bayArray[0].machineNr;
             target_machine_2 = result.bayArray[1].machineNr;
-            console.log(target_machine_1, target_machine_2)
         }
 
     },

@@ -9,12 +9,24 @@ function set_theme(current_theme) {
     return $('.body').addClass(themes[current_theme]);
 }
 
+
+
 Template.assemblyLine.helpers({
   test: () => {
 
   }
 
 })
+
+Template.loginView.events({
+
+    'click .loginView': (e) => {
+        e.preventDefault();
+        FlowRouter.go('/login')
+    }
+
+})
+
 
 //-------------------------------------------------------------------------------------
 

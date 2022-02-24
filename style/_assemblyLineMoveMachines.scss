@@ -4,10 +4,17 @@ $text-color-engine-stations: #71f323;
 $text-color-tact-time: #bc171b;
 $background-admin-field: rgba(17, 9, 117, 0.46);
 
+.login-view {
+  left: -100px;
+  position: absolute;
+  top: -100px;
+  z-index: 2;
+}
+
 .unauthorized-machine-res {
   background: #0000FFFF;
   height: 14em;
-  left: 26px;
+  left: -36px;
   opacity: 0.1;
   position: absolute;
   top: 121px;

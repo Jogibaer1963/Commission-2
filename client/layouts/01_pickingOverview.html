@@ -88,7 +88,8 @@
                     {{#each supplyList}}
                         <th class="rotate-45"><div><span>{{_id}}</span></div></th>
                     {{/each}}
-                    <th class=""></th>
+                    <th class="">Machine</th>
+                    <th class="pdiMachineField"><strong>Sequence</strong></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,6 +107,7 @@
                                         white-space: nowrap">{{pickingTime}}</td>
                         {{/each}}
                         <td class="commMachineField">{{machineId}}</td>
+                        <td class="commMachineField">{{timeLine.sequence}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
