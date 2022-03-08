@@ -231,8 +231,8 @@ if(Meteor.isServer){
         },
 
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean) => {
-         //  console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
-            let bayArray = [];
+        //    console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
+            let machineInfo;
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
 
@@ -264,50 +264,72 @@ if(Meteor.isServer){
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
 
    // write machine info into next bay
-
-                let  machineInfo = {
-                    machineId : machineId,
-                    machineNr : machineNr,
-                    bayDateLanding : movingTime,
-                    bayDateLandingUnix : todayUnix,
+                if (nextBayId === 'machine_field_bay_4') {
+                    // only for bay 4 engine mount
+                    machineInfo = {
+                        machineId: machineId,
+                        machineNr: machineNr,
+                        bayDateLanding: movingTime,
+                        bayDateLandingUnix: todayUnix,
+                        engineMounted: false
+                    }
+                } else {
+                    // all others Bay
+                        machineInfo = {
+                        machineId : machineId,
+                        machineNr : machineNr,
+                        bayDateLanding : movingTime,
+                        bayDateLandingUnix : todayUnix,
+                        }
                 }
-                bayArray.push(machineInfo)
+            //    bayArray.push(machineInfo)
                 activeAssembly.update({_id : nextBayId},
                                       {$push: {bayArray: machineInfo}})
 
 
             } else if (boolean === false) {   // only 1 Machine in present Bay
-                let  machineInfo = {
-                    machineId : machineId,
-                    machineNr : machineNr,
-                    bayDateLanding : movingTime,
-                    bayDateLandingUnix : todayUnix,
+                if (nextBayId === 'machine_field_bay_4') {
+                    machineInfo = {
+                        machineId: machineId,
+                        machineNr: machineNr,
+                        bayDateLanding: movingTime,
+                        bayDateLandingUnix: todayUnix,
+                        engineMounted: false
+                    }
+                } else {
+                    machineInfo = {
+                        machineId : machineId,
+                        machineNr : machineNr,
+                        bayDateLanding : movingTime,
+                        bayDateLandingUnix : todayUnix,
+                    }
                 }
-                bayArray.push(machineInfo)
                 let result = activeAssembly.findOne({_id: thisBay});
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
                 activeAssembly.update({_id : thisBay},
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
-                let bayInfo = {
-                    machineNr : machineNr,
-                    bayDateLeaving : movingTime,
-                    bayDateLeavingUnix : todayUnix
-                }
-              //  activeAssembly.update({_id: "empty_bay_counter"},
-               //     {$push: {[thisBay] : bayInfo}})
                 activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
             }
-
 
         },
 
         'engineReady': (merge_bay, target_machine) => {
             // set merge stations to new status for machineReady and bayAssemblyStatus
             // after engine is moved
-            activeAssembly.update({_id: merge_bay},
-                {$set: {machineReady: false, bayAssemblyStatus: 0}});
-            activeAssembly.update({_id: "machine_field_bay_4"},
-                {$set: {engineMounted: true}})
+                activeAssembly.update({_id: merge_bay},
+                    {$set: {machineReady: false, bayAssemblyStatus: 0}});
+                activeAssembly.update({_id: "machine_field_bay_4", "bayArray.machineNr": target_machine},
+                    {$set: {'bayArray.$.engineMounted' : true}})
+
+
+            /*
+            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
+                {
+                    $set: {
+                        "supplyAreas.$.supplyStatus": status,
+
+             */
+
     },
 
         'resetEngineMounted': () => {

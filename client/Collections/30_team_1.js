@@ -202,7 +202,7 @@ Template.team_1_over_view.helpers({
          leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
          plannedLeavingUnix = parseInt((new Date(leavingDateTime).getTime()).toFixed(0))
          differenceTime = ((landingUnix - plannedLeavingUnix) / 60000).toFixed(0);
-         //console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
+         console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
          return differenceTime;
         } catch (e) {
 
@@ -344,6 +344,7 @@ Template.team_1_move_buttons.events({
         let oldCanvasId = 'machine_field_bay_3'
         let newCanvasId = "machine_field_bay_4";
         invokeMoveMachine(oldCanvasId, newCanvasId)
+       // console.log('outside of function')
     },
 
     'click .bay-4-move-button': (e) => {
@@ -355,14 +356,15 @@ Template.team_1_move_buttons.events({
             Bert.alert('Do not move Machine without Engine is mounted ! ', 'danger', 'growl-top-left')
         }else {
             invokeMoveMachine(oldCanvasId, newCanvasId)
-            Meteor.call('resetEngineMounted');
+          //  Meteor.call('resetEngineMounted');
         }
      //
     },
 
     'click .bay-4-engine-1-move-button': (e) => {
         e.preventDefault();
-        let target_machine_1, target_machine_2, machine_merge_1, machine_merge_2, machine_merge_3, result ;
+        let target_machine_1, target_machine_2, machine_merge_1, machine_merge_2, 
+            machine_merge_3, result, engine_mounted_1, engine_mounted_2;
         machine_merge_1 = Session.get("merge_1");
         machine_merge_2 = Session.get("merge_2");
         machine_merge_3 = Session.get("merge_3");
@@ -390,8 +392,86 @@ Template.team_1_move_buttons.events({
                     Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
                 }
         } else if (result.bayArray.length === 2) {
+         //   console.log('2 machines detected')
+         //   console.log(result)
             target_machine_1 = result.bayArray[0].machineNr;
+            engine_mounted_1 = result.bayArray[0].engineMounted;
             target_machine_2 = result.bayArray[1].machineNr;
+            engine_mounted_2 = result.bayArray[1].engineMounted;
+          //  console.log(target_machine_1, target_machine_2, engine_mounted_1, engine_mounted_2)
+            if (engine_mounted_1 === false && engine_mounted_2 === false) {
+                if (target_machine_1 === machine_merge_1) {
+                    let oldCanvasId = 'merge-station-1' // Last Bay
+                    invokeMoveFromLastBay(oldCanvasId)
+                    //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    Meteor.call('engineReady', "merge-station-1", target_machine_1)
+                } else if (target_machine_1 === machine_merge_2) {
+                    let oldCanvasId = 'merge-station-2' // Last Bay
+                    //     console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-2", target_machine_1)
+                } else if (target_machine_1 === machine_merge_3) {
+                    let oldCanvasId = 'merge-station-3' // Last Bay
+                    //       console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-3", target_machine_1)
+                } else if (target_machine_2 === machine_merge_1) {
+                    let oldCanvasId = 'merge-station-1' // Last Bay
+                    invokeMoveFromLastBay(oldCanvasId)
+                    //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    Meteor.call('engineReady', "merge-station-1", target_machine_2)
+                } else if (target_machine_2 === machine_merge_2) {
+                    let oldCanvasId = 'merge-station-2' // Last Bay
+                    //     console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-2", target_machine_2)
+                } else if (target_machine_2 === machine_merge_3) {
+                    let oldCanvasId = 'merge-station-3' // Last Bay
+                    //       console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-3", target_machine_2)
+                } else {
+                    Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
+                }
+            } else if (engine_mounted_2 === false && engine_mounted_1 === true) {
+                if (target_machine_2 === machine_merge_1) {
+                    let oldCanvasId = 'merge-station-1' // Last Bay
+                    invokeMoveFromLastBay(oldCanvasId)
+                    //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    Meteor.call('engineReady', "merge-station-1", target_machine_2)
+                } else if (target_machine_2 === machine_merge_2) {
+                    let oldCanvasId = 'merge-station-2' // Last Bay
+                    //     console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-2", target_machine_2)
+                } else if (target_machine_2 === machine_merge_3) {
+                    let oldCanvasId = 'merge-station-3' // Last Bay
+                    //       console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-3", target_machine_2)
+                } else {
+                    Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
+                }
+            } else if (engine_mounted_1 === false && engine_mounted_2 === true) {
+                if (target_machine_1 === machine_merge_1) {
+                    let oldCanvasId = 'merge-station-1' // Last Bay
+                    invokeMoveFromLastBay(oldCanvasId)
+                    //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    Meteor.call('engineReady', "merge-station-1", target_machine_1)
+                } else if (target_machine_1 === machine_merge_2) {
+                    let oldCanvasId = 'merge-station-2' // Last Bay
+                    //     console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-2", target_machine_1)
+                } else if (target_machine_1 === machine_merge_3) {
+                    let oldCanvasId = 'merge-station-3' // Last Bay
+                    //       console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
+                    Meteor.call('engineReady', "merge-station-3", target_machine_1)
+                } else {
+                    Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
+                }
+            }
         }
 
     },

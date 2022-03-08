@@ -210,6 +210,7 @@ Template.team_4_over_view.helpers({
     },
 
     engineReady: () => {
+        try {
         let result_1, result_2, result_3;
             result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
                 {fields: {machineReady: 1, bayAssemblyStatus: 1}})
@@ -225,6 +226,7 @@ Template.team_4_over_view.helpers({
        } else  {
             return 'hidden';
         }
+        } catch (e) {}
     },
 
 

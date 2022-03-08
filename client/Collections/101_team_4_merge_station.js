@@ -67,7 +67,6 @@ Template.team_4_merge_station.helpers({
         try {
                 result = activeAssembly.findOne({_id: 'merge-station-2'},
                     {fields: {bayAssemblyStatus: 1}});
-
             if (result.bayAssemblyStatus === 0) {
                 // not touched
                 Session.set('timerStartStop-2', 0)
