@@ -1500,6 +1500,10 @@ table.supply-multi-table td, table.supply-multi-table th {
   z-index: 1;
 }
 
+.time-date {
+  font-size: large;
+}
+
 .fcb-body-height {
   height: 175px;
   width: 267px;
@@ -5010,6 +5014,32 @@ table.headerTable {
   left: 1360px;
   position: absolute;
   top: 150px;
+}
+
+.team-1-start {
+  left: 30px;
+  position: absolute;
+  top: 160px;
+}
+
+.team-1-end {
+  left: 180px;
+  position: absolute;
+  top: 160px;
+}
+
+.time-frame {
+  margin: 1px;
+}
+
+.shift-start-header {
+  left: 50px;
+  position: relative;
+}
+
+.shift-end-header {
+  left: 20px;
+  position: relative;
 }
 
 .insideNavBar {

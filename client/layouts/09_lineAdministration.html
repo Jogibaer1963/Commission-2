@@ -1,9 +1,37 @@
+
+
 <template name="lineAdministration">
     <div>
-        <form class="bay-2-hours">
-            <label for="bay_2">Bay 2</label>
-            <input type="number" name="bay_2_work_hour">
-            <button type="submit">Button</button>
+        <h2>Line Definitions</h2>
+    </div>
+    <div>
+        <h3>Team 1 Working Hours</h3>
+
+        <form class="team-1-hours">
+            <div class="team-1-start">
+                <h4 class="shift-start-header">Shift Start</h4>
+                <label for="bay_2_start">Bay 2</label>
+                <input type="time" id="bay_2_start" name="bay_2_work_start">
+                <br>
+                <label for="bay_3_start">Bay 3</label>
+                <input type="time" id="bay_3_start" name="bay_3_work_start">
+                <br>
+                <label for="bay_4_start">Bay 4</label>
+                <input type="time" id="bay_4_start" name="bay_4_work_start">
+            </div>
+            <div class="team-1-end">
+                <h4 class="shift-end-header">Shift End</h4>
+                <label for="bay_2_end"></label>
+                <input type="time" class="time-frame" id="bay_2_end" name="bay_2_work_end">
+                <br>
+                <label for="bay_3_end"></label>
+                <input type="time" class="time-frame" id="bay_3_end" name="bay_3_work_end">
+                <br>
+                <label for="bay_4_end"></label>
+                <input type="time" class="time-frame" id="bay_4_end" name="bay_4_work_end">
+                <button type="submit" class="btn btn-default btn-success">Submit</button>
+            </div>
+
         </form>
     </div>
 </template>

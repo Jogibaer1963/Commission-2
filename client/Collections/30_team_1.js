@@ -202,20 +202,31 @@ Template.team_1_over_view.helpers({
          leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
          plannedLeavingUnix = parseInt((new Date(leavingDateTime).getTime()).toFixed(0))
          differenceTime = ((landingUnix - plannedLeavingUnix) / 60000).toFixed(0);
-         console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
+       //  console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
          return differenceTime;
         } catch (e) {
 
         }
     },
 
-    goal_result: () => {
+
+
+
+
+    showTime: () => {
+        let dateVar, unixTime;
+       setInterval(function () {
+           dateVar = new Date();
+           unixTime = Date.now()
+           document.getElementById("clock").innerHTML = dateVar.toLocaleTimeString('en-GB');
+       }, 1000)
 
 
 
     }
 
 })
+
 
 
 Template.team_1_over_view.events({
@@ -349,16 +360,25 @@ Template.team_1_move_buttons.events({
 
     'click .bay-4-move-button': (e) => {
         e.preventDefault();
+        let engine_mounted_1;
         let oldCanvasId = 'machine_field_bay_4'
         let newCanvasId = "machine_field_bay_5";
-        let result = activeAssembly.findOne({_id: "machine_field_bay_4"}, {fields: {engineMounted: 1}})
-        if (result.engineMounted === false ) {
-            Bert.alert('Do not move Machine without Engine is mounted ! ', 'danger', 'growl-top-left')
-        }else {
-            invokeMoveMachine(oldCanvasId, newCanvasId)
-          //  Meteor.call('resetEngineMounted');
+        let result = activeAssembly.findOne({_id: "machine_field_bay_4"})
+        if (result.bayArray.length === 2) {
+            if (result.bayArray[0].engineMounted === true) {
+                invokeMoveMachine(oldCanvasId, newCanvasId)
+            } else if (result.bayArray[0].engineMounted === false) {
+                Bert.alert('Do not move Machine without Engine is mounted ! ', 'danger', 'growl-top-left')
+            }
+        } else if (result.bayArray.length === 1) {
+            engine_mounted_1 = result.bayArray[0].engineMounted;
+            if (engine_mounted_1 === false ) {
+                Bert.alert('Do not move Machine without Engine is mounted ! ', 'danger', 'growl-top-left')
+                } else {
+                    invokeMoveMachine(oldCanvasId, newCanvasId)
+                   }
         }
-     //
+
     },
 
     'click .bay-4-engine-1-move-button': (e) => {
@@ -373,24 +393,29 @@ Template.team_1_move_buttons.events({
         //console.log( result)
         if (result.bayArray.length === 1) {
             target_machine_1 = result.bayArray[0].machineNr; // 1 Machine in Bay 4 = target_machine_1
+            console.log(engine_mounted_1, target_machine_1)
+            if (engine_mounted_1 === true) {
                 if (target_machine_1 === machine_merge_1) {
                     let oldCanvasId = 'merge-station-1' // Last Bay
                     invokeMoveFromLastBay(oldCanvasId)
-                 //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
+                    //   console.log(oldCanvasId, target_machine_1, machine_merge_1)
                     Meteor.call('engineReady', "merge-station-1", target_machine_1)
                 } else if (target_machine_1 === machine_merge_2) {
                     let oldCanvasId = 'merge-station-2' // Last Bay
-               //     console.log(oldCanvasId)
-                  invokeMoveFromLastBay(oldCanvasId)
+                    //     console.log(oldCanvasId)
+                    invokeMoveFromLastBay(oldCanvasId)
                     Meteor.call('engineReady', "merge-station-2", target_machine_1)
                 } else if (target_machine_1 === machine_merge_3) {
                     let oldCanvasId = 'merge-station-3' // Last Bay
-             //       console.log(oldCanvasId)
+                    //       console.log(oldCanvasId)
                     invokeMoveFromLastBay(oldCanvasId)
                     Meteor.call('engineReady', "merge-station-3", target_machine_1)
                 } else {
                     Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
                 }
+            } else {
+                Bert.alert('Engine not mounted !!', 'danger', 'growl-top-left')
+            }
         } else if (result.bayArray.length === 2) {
          //   console.log('2 machines detected')
          //   console.log(result)
@@ -473,6 +498,8 @@ Template.team_1_move_buttons.events({
                 }
             }
         }
+
+
 
     },
 

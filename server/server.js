@@ -163,6 +163,10 @@ if(Meteor.isServer){
             activeAssembly.update({_id: 'team-1'}, {$set: {'tactTimeLeft' : percent }})
         },
 
+        'shift_team_1':(bay_2_start, bay_3_start, bay_4_start, bay_2_end, bay_3_end, bay_4_end) => {
+
+        },
+
         'tactTime': (tact_time) => {
           //  console.log(tact_time)
         },
