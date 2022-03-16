@@ -191,43 +191,125 @@ Template.team_1_over_view.helpers({
     },
 
     goal_bay_2: () => {
-        let machineNr, timeLine, plannedLeavingUnix, leavingDateTime, leavingTime, landingUnix, differenceTime;
-        try {
-        let result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
-        machineNr = result.bayArray[0].machineNr;
-        landingUnix = result.bayArray[0].bayDateLandingUnix
-        timeLine = machineCommTable.findOne({machineId: machineNr},
-                                                    {fields: {timeLine: 1}})
-         leavingTime = timeLine.timeLine.inLine_time;
-         leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
-         plannedLeavingUnix = parseInt((new Date(leavingDateTime).getTime()).toFixed(0))
-         differenceTime = ((landingUnix - plannedLeavingUnix) / 60000).toFixed(0);
-       //  console.log(leavingDateTime, landingUnix, plannedLeavingUnix, differenceTime)
-         return differenceTime;
-        } catch (e) {
-
-        }
+       return  setInterval(myTimerBay2, 1000)
     },
 
+    goal_bay_3: () => {
+        return  setInterval(myTimerBay3, 1000)
+    },
 
-
-
-
-    showTime: () => {
-        let dateVar, unixTime;
-       setInterval(function () {
-           dateVar = new Date();
-           unixTime = Date.now()
-           document.getElementById("clock").innerHTML = dateVar.toLocaleTimeString('en-GB');
-       }, 1000)
-
-
-
-    }
+    goal_bay_4: () => {
+        return  setInterval(myTimerBay4, 1000)
+    },
 
 })
 
 
+function myTimerBay2() {
+    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
+        h, m, s, hDisplay, mDisplay, sDisplay;
+    try {
+        result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
+        machineNr = result.bayArray[0].machineNr;
+        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
+        leavingTime = timeLine.timeLine.inLine_time;
+        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
+            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
+        h = Math.floor(moveTime / 3600);
+        m = Math.floor(moveTime % 3600 / 60);
+        s = Math.floor(moveTime % 3600 % 60);
+        if (h > 0 ) {
+            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        } else if (h < 0) {
+            m = Math.abs(m);
+            s = Math.abs(s);
+            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        }
+        if (h > 0 ) {
+            document.getElementById('realTimerBay2').innerHTML =
+                'Bay 2 should move in : ' + hDisplay + mDisplay + sDisplay;
+        } else if (h < 0) {
+            document.getElementById('realTimerBay2').innerHTML =
+                'Bay 2 is behind : ' + hDisplay + mDisplay + sDisplay;
+        }
+
+    } catch(err) {}
+}
+
+function myTimerBay3() {
+    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
+        h, m, s, hDisplay, mDisplay, sDisplay;
+    try {
+        result = activeAssembly.findOne({_id: "machine_field_bay_3"});
+        machineNr = result.bayArray[0].machineNr;
+        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
+        leavingTime = timeLine.timeLine.inLine_time;
+        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
+            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
+        h = Math.floor(moveTime / 3600);
+        m = Math.floor(moveTime % 3600 / 60);
+        s = Math.floor(moveTime % 3600 % 60);
+        if (h > 0 ) {
+            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        } else if (h < 0) {
+            m = Math.abs(m);
+            s = Math.abs(s);
+            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        }
+        if (h > 0 ) {
+            document.getElementById('realTimerBay3').innerHTML =
+                'Bay 3 should move in : ' + hDisplay + mDisplay + sDisplay;
+        } else if (h < 0) {
+            document.getElementById('realTimerBay3').innerHTML =
+                'Bay 3 is behind : ' + hDisplay + mDisplay + sDisplay;
+        }
+    } catch(err) {}
+}
+
+function myTimerBay4() {
+    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
+        h, m, s, hDisplay, mDisplay, sDisplay;
+    try {
+        result = activeAssembly.findOne({_id: "machine_field_bay_4"});
+        machineNr = result.bayArray[0].machineNr;
+        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
+        leavingTime = timeLine.timeLine.inLine_time;
+        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
+            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
+        h = Math.floor(moveTime / 3600);
+        m = Math.floor(moveTime % 3600 / 60);
+        s = Math.floor(moveTime % 3600 % 60);
+        if (h > 0 ) {
+            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        } else if (h < 0) {
+            m = Math.abs(m);
+            s = Math.abs(s);
+            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
+            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+        }
+        if (h > 0 ) {
+            document.getElementById('realTimerBay4').innerHTML =
+                'Bay 4 should move in : ' + hDisplay + mDisplay + sDisplay;
+        } else if (h < 0) {
+            document.getElementById('realTimerBay4').innerHTML =
+                'Bay 4 is behind : ' + hDisplay + mDisplay + sDisplay;
+        }
+    } catch(err) {}
+}
 
 Template.team_1_over_view.events({
 
@@ -348,6 +430,11 @@ Template.team_1_move_buttons.events({
         invokeMoveMachine(oldCanvasId, newCanvasId)
         // clear rear Axle merge and FCB-threshing merge canvas
         Meteor.call('clearMergeCanvas')
+        /*
+        let result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"}, {fields: {bayArray:1}});
+        Session.set('machine-bay-2-nr', result.bayArray[0].machineNr) ;
+
+         */
     },
 
     'click .bay-3-move-button': (e) => {
@@ -393,8 +480,9 @@ Template.team_1_move_buttons.events({
         //console.log( result)
         if (result.bayArray.length === 1) {
             target_machine_1 = result.bayArray[0].machineNr; // 1 Machine in Bay 4 = target_machine_1
-            console.log(engine_mounted_1, target_machine_1)
-            if (engine_mounted_1 === true) {
+            engine_mounted_1 = result.bayArray[0].engineMounted;
+           // console.log(engine_mounted_1, target_machine_1)
+            if (engine_mounted_1 === false) {
                 if (target_machine_1 === machine_merge_1) {
                     let oldCanvasId = 'merge-station-1' // Last Bay
                     invokeMoveFromLastBay(oldCanvasId)
@@ -411,10 +499,10 @@ Template.team_1_move_buttons.events({
                     invokeMoveFromLastBay(oldCanvasId)
                     Meteor.call('engineReady', "merge-station-3", target_machine_1)
                 } else {
-                    Bert.alert('Machine in Bay 4 does not match Machine in Merge Station', 'danger', 'growl-top-left')
+                    Bert.alert('Machine in Bay 4 does not match with any ready engines', 'danger', 'growl-top-left')
                 }
             } else {
-                Bert.alert('Engine not mounted !!', 'danger', 'growl-top-left')
+                Bert.alert('Engine already mounted !!', 'danger', 'growl-top-left')
             }
         } else if (result.bayArray.length === 2) {
          //   console.log('2 machines detected')
