@@ -1439,6 +1439,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -5em;
 }
 
+/*
 .arrows-list-fcb {
   left: 272px;
   position: absolute;
@@ -1446,6 +1447,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   transform: rotate(270deg);
 }
 
+ */
 .arrows-2-list-fcb {
   left: 225px;
   position: absolute;
@@ -1460,9 +1462,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .arrow-button-fcb-1 {
-  left: 67px;
+  left: 17px;
   position: relative;
-  top: -329px;
+  top: -324px;
   transform: rotate(90deg);
 }
 .arrow-button-fcb-1 .arrow-fcb-1 {
@@ -1479,7 +1481,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 .arrow-button-fcb-2 {
   top: -498px;
   position: relative;
-  left: 69px;
+  left: 18px;
   transform: rotate(90deg);
 }
 .arrow-button-fcb-2 .arrow-fcb-2 {
@@ -1555,7 +1557,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .fcb-station-1 {
-  left: 31em;
+  left: 26.4em;
   position: relative;
   top: -3.5em;
 }
@@ -1564,7 +1566,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
-  left: 229px;
+  left: 181px;
   position: relative;
   top: -256px;
 }
@@ -1584,7 +1586,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .fcb-station-2 {
-  left: 31em;
+  left: 26em;
   position: relative;
   top: -13em;
 }
@@ -1617,7 +1619,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .fcb-2-button {
-  left: 228px;
+  left: 181px;
   position: relative;
   top: -429px;
   z-index: 1;
@@ -1814,9 +1816,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-2-move-button {
-  left: 70px;
+  left: 78px;
   position: absolute;
-  top: -77px;
+  top: -101px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -1846,6 +1848,24 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #71f323;
   font-weight: bolder;
   width: 550px;
+}
+
+.bay-2-moving-time {
+  left: -360px;
+  position: absolute;
+  top: 275px;
+}
+
+.bay-3-moving-time {
+  left: -211px;
+  position: absolute;
+  top: 275px;
+}
+
+.bay-4-moving-time {
+  left: -77px;
+  position: absolute;
+  top: 275px;
 }
 
 .bay-3-north-start-arrow {
@@ -2131,9 +2151,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-3-move-button {
-  left: 15em;
+  left: 17em;
   position: absolute;
-  top: -76px;
+  top: -102px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -2141,9 +2161,9 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .bay-4-move-button {
-  left: 348px;
+  left: 358px;
   position: absolute;
-  top: -76px;
+  top: -102px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;

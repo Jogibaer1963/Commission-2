@@ -207,7 +207,7 @@ Template.team_1_over_view.helpers({
 
 function myTimerBay2() {
     let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, hDisplay, mDisplay, sDisplay;
+        h, m, s, trueMovingTime;
     try {
         result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
         machineNr = result.bayArray[0].machineNr;
@@ -219,94 +219,129 @@ function myTimerBay2() {
         h = Math.floor(moveTime / 3600);
         m = Math.floor(moveTime % 3600 / 60);
         s = Math.floor(moveTime % 3600 % 60);
-        if (h > 0 ) {
-            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
-        } else if (h < 0) {
+        if (h >= 0) {
+            if (h < 10) {
+                h = '0' + h;
+            }
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
+        }
+        if (h < 0) {
             m = Math.abs(m);
             s = Math.abs(s);
-            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
         }
-        if (h > 0 ) {
+        if (h >= 0 ) {
             document.getElementById('realTimerBay2').innerHTML =
-                'Bay 2 should move in : ' + hDisplay + mDisplay + sDisplay;
+                trueMovingTime;
         } else if (h < 0) {
             document.getElementById('realTimerBay2').innerHTML =
-                'Bay 2 is behind : ' + hDisplay + mDisplay + sDisplay;
+                trueMovingTime;
         }
-
     } catch(err) {}
 }
 
 function myTimerBay3() {
     let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, hDisplay, mDisplay, sDisplay;
+        h, m, s, trueMovingTime;
     try {
         result = activeAssembly.findOne({_id: "machine_field_bay_3"});
         machineNr = result.bayArray[0].machineNr;
         timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.inLine_time;
-        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+        leavingTime = timeLine.timeLine.bay_3_time;
+        leavingDateTime = timeLine.timeLine.bay3 + ' ' + leavingTime;
         moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
             (Date.now() / 1000).toFixed(0)) ).toFixed(0);
         h = Math.floor(moveTime / 3600);
         m = Math.floor(moveTime % 3600 / 60);
         s = Math.floor(moveTime % 3600 % 60);
-        if (h > 0 ) {
-            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
-        } else if (h < 0) {
+        if (h >= 0 ) {
+            if (h < 10) {
+                h = '0' + h;
+            }
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
+        }
+        if (h < 0) {
             m = Math.abs(m);
             s = Math.abs(s);
-            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
         }
-        if (h > 0 ) {
+        if (h >= 0 ) {
             document.getElementById('realTimerBay3').innerHTML =
-                'Bay 3 should move in : ' + hDisplay + mDisplay + sDisplay;
+                trueMovingTime;
         } else if (h < 0) {
             document.getElementById('realTimerBay3').innerHTML =
-                'Bay 3 is behind : ' + hDisplay + mDisplay + sDisplay;
+                trueMovingTime;
         }
     } catch(err) {}
 }
 
 function myTimerBay4() {
     let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, hDisplay, mDisplay, sDisplay;
+        h, m, s, trueMovingTime;
     try {
         result = activeAssembly.findOne({_id: "machine_field_bay_4"});
         machineNr = result.bayArray[0].machineNr;
         timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.inLine_time;
-        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
+        leavingTime = timeLine.timeLine.bay_4_time;
+        leavingDateTime = timeLine.timeLine.bay4 + ' ' + leavingTime;
         moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
             (Date.now() / 1000).toFixed(0)) ).toFixed(0);
         h = Math.floor(moveTime / 3600);
         m = Math.floor(moveTime % 3600 / 60);
         s = Math.floor(moveTime % 3600 % 60);
-        if (h > 0 ) {
-            hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
-        } else if (h < 0) {
+        if (h >= 0 ) {
+            if (h < 10) {
+                h = '0' + h;
+            }
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
+        }
+        if (h < 0) {
             m = Math.abs(m);
             s = Math.abs(s);
-            hDisplay = h < 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-            mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes, ") : "";
-            sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
         }
-        if (h > 0 ) {
+        if (h >= 0 ) {
             document.getElementById('realTimerBay4').innerHTML =
-                'Bay 4 should move in : ' + hDisplay + mDisplay + sDisplay;
+                trueMovingTime;
         } else if (h < 0) {
             document.getElementById('realTimerBay4').innerHTML =
-                'Bay 4 is behind : ' + hDisplay + mDisplay + sDisplay;
+                 h + ':' + m + ':' + s;
         }
     } catch(err) {}
 }
