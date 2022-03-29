@@ -39,7 +39,6 @@ Template.machine_picking_list.helpers({
 
     machineList: () => {
         let machineResult = [];
-        let testArray = [];
         let result = machineCommTable.find({active: true},
                             {fields: {
                                                 counter: 1,

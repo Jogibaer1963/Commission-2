@@ -545,6 +545,12 @@ table.supply-table {
   top: 20em;
 }
 
+.comm-tablet-machine-skip {
+  left: 1.5em;
+  position: absolute;
+  top: 38em;
+}
+
 .pdiShipField {
   max-width: 92px;
   min-width: 92px;
@@ -562,13 +568,13 @@ table.supply-table {
 }
 
 .header-completed {
-  left: 138em;
+  left: 141em;
   position: absolute;
   top: 21em;
 }
 
 .inactive-machine-table {
-  left: 137em;
+  left: 141em;
   position: absolute;
   top: 26em;
 }
@@ -588,7 +594,7 @@ table.supply-table {
 }
 
 .machineCommissionTable {
-  left: 10em;
+  left: 16em;
   position: absolute;
   top: 26em;
 }

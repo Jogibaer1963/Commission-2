@@ -191,7 +191,7 @@ Template.team_1_over_view.helpers({
     },
 
     goal_bay_2: () => {
-       return  setInterval(myTimerBay2, 1000)
+       return setInterval(myTimerBay2, 1000)
     },
 
     goal_bay_3: () => {
@@ -216,10 +216,10 @@ function myTimerBay2() {
         leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
         moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
             (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        h = Math.floor(moveTime / 3600);
-        m = Math.floor(moveTime % 3600 / 60);
-        s = Math.floor(moveTime % 3600 % 60);
-        if (h >= 0) {
+        if (moveTime >= 0) {
+            h = Math.floor(moveTime / 3600);
+            m = Math.floor(moveTime % 3600 / 60);
+            s = Math.floor(moveTime % 3600 % 60);
             if (h < 10) {
                 h = '0' + h;
             }
@@ -230,22 +230,23 @@ function myTimerBay2() {
                 s = '0' + s
             }
             trueMovingTime = h + ':' + m + ':' + s
+            document.getElementById('realTimerBay2').innerHTML = trueMovingTime;
         }
-        if (h < 0) {
-            m = Math.abs(m);
-            s = Math.abs(s);
+        if (moveTime < 0) {
+           let negativeMoveTime = Math.abs(moveTime)
+            h = Math.floor(negativeMoveTime / 3600);
+            m = Math.floor(negativeMoveTime % 3600 / 60);
+            s = Math.floor(negativeMoveTime % 3600 % 60);
+            if (h < 10) {
+                h = '0' + h;
+            }
             if (m < 10) {
                 m = '0' + m;
             }
             if (s < 10) {
                 s = '0' + s
             }
-            trueMovingTime = h + ':' + m + ':' + s
-        }
-        if (h >= 0 ) {
-            document.getElementById('realTimerBay2').innerHTML =
-                trueMovingTime;
-        } else if (h < 0) {
+            trueMovingTime = '-' + h + ':' + m + ':' + s
             document.getElementById('realTimerBay2').innerHTML =
                 trueMovingTime;
         }
@@ -263,10 +264,10 @@ function myTimerBay3() {
         leavingDateTime = timeLine.timeLine.bay3 + ' ' + leavingTime;
         moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
             (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        h = Math.floor(moveTime / 3600);
-        m = Math.floor(moveTime % 3600 / 60);
-        s = Math.floor(moveTime % 3600 % 60);
-        if (h >= 0 ) {
+        if (moveTime >= 0) {
+            h = Math.floor(moveTime / 3600);
+            m = Math.floor(moveTime % 3600 / 60);
+            s = Math.floor(moveTime % 3600 % 60);
             if (h < 10) {
                 h = '0' + h;
             }
@@ -277,22 +278,24 @@ function myTimerBay3() {
                 s = '0' + s
             }
             trueMovingTime = h + ':' + m + ':' + s
+            document.getElementById('realTimerBay3').innerHTML =
+                trueMovingTime;
         }
-        if (h < 0) {
-            m = Math.abs(m);
-            s = Math.abs(s);
+        if (moveTime < 0) {
+            let negativeMoveTime = Math.abs(moveTime)
+            h = Math.floor(negativeMoveTime / 3600);
+            m = Math.floor(negativeMoveTime % 3600 / 60);
+            s = Math.floor(negativeMoveTime % 3600 % 60);
+            if (h < 10) {
+                h = '0' + h;
+            }
             if (m < 10) {
                 m = '0' + m;
             }
             if (s < 10) {
                 s = '0' + s
             }
-            trueMovingTime = h + ':' + m + ':' + s
-        }
-        if (h >= 0 ) {
-            document.getElementById('realTimerBay3').innerHTML =
-                trueMovingTime;
-        } else if (h < 0) {
+            trueMovingTime = '-' + h + ':' + m + ':' + s
             document.getElementById('realTimerBay3').innerHTML =
                 trueMovingTime;
         }
@@ -310,10 +313,10 @@ function myTimerBay4() {
         leavingDateTime = timeLine.timeLine.bay4 + ' ' + leavingTime;
         moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
             (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        h = Math.floor(moveTime / 3600);
-        m = Math.floor(moveTime % 3600 / 60);
-        s = Math.floor(moveTime % 3600 % 60);
-        if (h >= 0 ) {
+        if (moveTime >= 0) {
+            h = Math.floor(moveTime / 3600);
+            m = Math.floor(moveTime % 3600 / 60);
+            s = Math.floor(moveTime % 3600 % 60);
             if (h < 10) {
                 h = '0' + h;
             }
@@ -324,24 +327,26 @@ function myTimerBay4() {
                 s = '0' + s
             }
             trueMovingTime = h + ':' + m + ':' + s
+            document.getElementById('realTimerBay4').innerHTML =
+                trueMovingTime;
         }
-        if (h < 0) {
-            m = Math.abs(m);
-            s = Math.abs(s);
+        if (moveTime < 0) {
+            let negativeMoveTime = Math.abs(moveTime)
+            h = Math.floor(negativeMoveTime / 3600);
+            m = Math.floor(negativeMoveTime % 3600 / 60);
+            s = Math.floor(negativeMoveTime % 3600 % 60);
+            if (h < 10) {
+                h = '0' + h;
+            }
             if (m < 10) {
                 m = '0' + m;
             }
             if (s < 10) {
                 s = '0' + s
             }
-            trueMovingTime = h + ':' + m + ':' + s
-        }
-        if (h >= 0 ) {
+            trueMovingTime = '-' + h + ':' + m + ':' + s
             document.getElementById('realTimerBay4').innerHTML =
                 trueMovingTime;
-        } else if (h < 0) {
-            document.getElementById('realTimerBay4').innerHTML =
-                 h + ':' + m + ':' + s;
         }
     } catch(err) {}
 }

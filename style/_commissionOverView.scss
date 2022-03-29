@@ -28,6 +28,13 @@
   top: 20em;
 }
 
+.comm-tablet-machine-skip {
+  left: 1.5em;
+  position: absolute;
+  top: 38em;
+}
+
+
 .pdiShipField {
   max-width: 92px;
   min-width: 92px;
@@ -45,13 +52,13 @@
 }
 
 .header-completed {
-  left: 138em;
+  left: 141em;
   position: absolute;
   top: 21em;
 }
 
 .inactive-machine-table {
-  left: 137em;
+  left: 141em;
   position: absolute;
   top: 26em;
 }
@@ -71,7 +78,7 @@
 }
 
 .machineCommissionTable {
-  left: 10em;
+  left: 16em;
   position: absolute;
   top: 26em;
 }
@@ -128,9 +135,6 @@ table.commOverView {
 }
 
 //---------------------------- rotated table head ----------------------------------
-
-
-
 
 .table-header-rotated th.row-header{
   width: 53px;

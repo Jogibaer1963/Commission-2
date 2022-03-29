@@ -64,13 +64,16 @@
     </div>
 </template>
 
-
 <template name="machine_picking_list">
     {{#if isInRole 'admin'}}
-            <div class="comm-tablet-machine-list">
-                <button type="button" class="btn btn-danger
-                btn-primary buttonComplete">Mark Machine as complete</button>
-            </div>
+        <div class="comm-tablet-machine-list">
+            <button type="button" class="btn btn-danger
+            btn-primary buttonComplete">Mark Machine as complete</button>
+        </div>
+        <div class="comm-tablet-machine-skip">
+            <button type="button" class="btn btn-danger
+                btn-primary buttonSkip" disabled>Skip Machine / Supply Area</button>
+        </div>
         {{/if}}
     <div>
         <label for="list-printed"></label>
