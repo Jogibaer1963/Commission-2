@@ -88,10 +88,33 @@ Template.machine_picking_list.helpers({
 
 Template.machine_picking_list.events({
 
+    'click .activate-skip-mode': (e) => {
+        e.preventDefault();
+        Meteor.call('activate_skip_mode', true)
+    },
+
+    'click .de-activate-skip-mode': (e) => {
+        e.preventDefault();
+        Meteor.call('activate_skip_mode', false)
+    },
+
     'click .commissionMachine': function (e) {
-            e.preventDefault();
-            let selectedMachine = this.machineId;
-            Session.set('selectedMachine', selectedMachine);
+        e.preventDefault();
+        let supplyArea = Session.get('supplyArea')
+        if (supplyArea === undefined || supplyArea === '') {
+            supplyArea = 'empty';
+        }
+        let selectedMachine = this.machineId;
+        console.log(selectedMachine, supplyArea)
+        Session.set('selectedMachine', selectedMachine);
+        Meteor.call('skipSupplyAreas', selectedMachine, supplyArea)
+        Session.set('supplyArea', '')
+    },
+
+    'click .supplyId': function (e) {
+        e.preventDefault();
+        const supplyArea = this._id;
+        Session.set('supplyArea', supplyArea)
     },
 
     'click .inactiveMachine': function (e) {

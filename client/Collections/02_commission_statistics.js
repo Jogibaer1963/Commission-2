@@ -377,7 +377,7 @@ Template.dailyResult.helpers({
             })
             //console.log(teamToday);
             /* Selecting TODAY from all saved picking events */
-            /* Counting and building average from todays picking event */
+            /* Counting and building average from today picking event */
             teamToday.forEach((element) => {
                 supplyResult.push(element.supplyArea);
                 let duration = (element.duration / 60000).toFixed(0);
@@ -520,7 +520,7 @@ function daylieResult(loggedUser) {
             }
         })
 
-        /* Counting and building average from todays picking event */
+        /* Counting and building average from today picking event */
         resultOfTheDay.forEach((element) => {
             supplyResult.push(element.supplyArea);
             let duration = (element.duration / 60000).toFixed(0);

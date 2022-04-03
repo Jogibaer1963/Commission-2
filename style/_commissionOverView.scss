@@ -28,10 +28,16 @@
   top: 20em;
 }
 
-.comm-tablet-machine-skip {
+.activate-skip-mode {
   left: 1.5em;
   position: absolute;
   top: 38em;
+}
+
+.de-activate-skip-mode {
+  left: 1.5em;
+  position: absolute;
+  top: 42em;
 }
 
 
@@ -61,14 +67,6 @@
   left: 141em;
   position: absolute;
   top: 26em;
-}
-
-.commHead {
-  position: relative;
-  left: 20em;
-  font-weight: bolder;
-  font-size: x-large;
-  margin-bottom: 5em;
 }
 
 .list-print-button {
@@ -110,11 +108,6 @@ table.commOverView {
   top: 20em;
 }
 
-.alarmHead {
-  position: absolute;
-  top: -4em;
-}
-
 .load-production-schedule {
   position: absolute;
   top: 11em;
@@ -126,12 +119,6 @@ table.commOverView {
   left: 10em;
   position: absolute;
   top: 85em;
-}
-
-//--------------------------- table head down wards --------------------------------
-
-.tableSizeDate {
-  width: 8em;
 }
 
 //---------------------------- rotated table head ----------------------------------

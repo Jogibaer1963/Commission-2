@@ -34,10 +34,6 @@ $tablet-user: #D0E4F5;
   margin-left: 1em;
 }
 
-.pickedMachineField {
-  width: 2em;
-}
-
 .pickedMachine {
   z-index: 3;
 }
@@ -57,13 +53,11 @@ table.supply-table {
   position: absolute;
   top: 20em;
   width: 22em;
-
 }
 
 .supplyTableHeight {
   height: 45em;
 }
-
 
 .commissionInitials {
   position: relative;
@@ -82,32 +76,6 @@ table.supply-table {
   left: 25em;
   position: absolute;
   top: 30em;
-
-}
-
-.commStart {
-  float: left;
-}
-
-.commPause {
-  left: 10em;
-  position: absolute;
-
-}
-
-.commResume {
-  float: left;
-  left: 10em;
-  position: absolute;
-  top: 5em;
-
-}
-
-.commFinished {
-  left: -.2em;
-  position: absolute;
-  top: 5em;
-
 }
 
 .commission-cancel {
@@ -122,19 +90,11 @@ table.supply-table {
   width: 21em;
 }
 
-
 .machine-id-header {
   font-size: 50px;
   left: 4em;
   position: absolute;
   top: -.1em;
-}
-
-.supplyIdHeader {
-  font-size: 50px;
-  position: absolute;
-  top: 2em;
-
 }
 
 .text-supply {
@@ -145,6 +105,28 @@ table.supply-table {
   left: 43em;
   position: absolute;
   top: 13em;
+}
+
+.commStart {
+  float: left;
+}
+
+.commPause {
+  left: 10em;
+  position: absolute;
+}
+
+.commResume {
+  float: left;
+  left: 10em;
+  position: absolute;
+  top: 5em;
+}
+
+.commFinished {
+  left: -.2em;
+  position: absolute;
+  top: 5em;
 }
 
 .corn-head {
@@ -228,20 +210,11 @@ table.supply-table {
 
 $comm-black: #000;
 
-.comm-in-process {
-  animation: glowing 1500ms infinite;
-  color: $comm-black;
-  opacity: .4;
-  pointer-events: none;
-
-}
-
 @keyframes glowing {
   0% { background-color: #AA3939; box-shadow: 0 0 3px  #aa5939; }
   50% { background-color: #FFB232; box-shadow: 0 0 10px #FFB232; }
   100% { background-color: #ffe800; box-shadow: 0 0 3px #FFE800; }
 }
-
 
 //---------------------------  Arrow Down ----------------------*/
 

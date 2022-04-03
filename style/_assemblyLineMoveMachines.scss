@@ -83,11 +83,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 19em;
 }
 
-.lop-nav {
-  left: 30em;
-  position: absolute;
-}
-
 .nav-bar {
   left: 20em;
   position: absolute;
@@ -190,22 +185,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 2;
 }
 
-.unauthorized-box {
-  left: 3em;
-  position: relative;
-  top: -32em;
-  width: 206px;
-  height: 1019px;
-}
-
-.unauthorized-cover-team-4 {
-  left: 3em;
-  position: relative;
-  top: -12em;
-  width: 206px;
-  height: 568px;
-}
-
 .view-cover-box {
   background: #0000FFFF;
   height: 22em;
@@ -243,50 +222,10 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 20em;
 }
 
-.bay-5-button {
-  @include move-buttons;
-  left: 30em;
-}
-
 .bay-5-move-button {
   position: relative;
   top: -20px;
 }
-
-.bay-6-button {
-  @include move-buttons;
-  left: 40em;
-}
-
-.bay-7-button {
-  @include move-buttons;
-  left: 50em;
-}
-
-.bay-8-button {
-  @include move-buttons;
-  left: 60em;
-}
-
-.bay-9-button {
-  @include move-buttons;
-  left: 70em;
-}
-
-.bay-10-button {
-  @include move-buttons;
-  left: 80em;
-}
-
-.test-bay-move-buttons {
-  left: 90em;
-  position: absolute;
-  top: -2em;
-}
-
-
-
-
 
 //  ****************** Test Bay 3 & 4 Text boxes  **************************
 
@@ -415,15 +354,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 1;
 }
 
-.fcb-1-start-button {
-  @include start-stop-button
-}
-
-.fcb-1-start-button:hover {
-  background: #5aec11;
-}
-
-
 .fcb-station-1 {  // canvas field
   left: 26.4em;
   position: relative;
@@ -439,14 +369,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -256px;
 }
 
-.fcb-1-start-stop-button {   // fcb start stop button
-  left: 155px;
-  position: relative;
-  top: -483px;
-  width: 1px;
-  z-index: 1;
-}
-
 .fcb-2-canvas {
   left: -28px;
   position: relative;
@@ -457,22 +379,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 26em;
   position: relative;
   top: -13em;
-}
-
-.fcb-2-start-stop-button {
-  left: 158px;
-  position: relative;
-  top: -505px;
-  width: 1px;
-  z-index: 1;
-}
-
-.fcb-2-start-button {
-  @include start-stop-button
-}
-
-.fcb-2-start-button:hover {
-  background: #5aec11;
 }
 
 .fcb-2-button {
@@ -630,40 +536,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   width: 150px;
 }
 
-.bay-2-start-stop-button {
-  left: -28px;
-  position: relative;
-  top: -656px;
-  z-index: 1;
-}
-
-.bay-2-start-button {
-  @include start-stop-button
-}
-
-.basic-arrow-bay-2 {
-  top: 39px;
-  position: relative;
-  left: 21px;
-  border: solid #ec0d0d;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 5px;
-  transform: rotate(23deg);
-}
-
-.bay-2-start-arrow {
-  left: -6px;
-  position: relative;
-  top: -690px;
-  width: 1px;
-  height: 1px;
-}
-
-.bay-2-start-button:hover {
-  background: #5aec11;
-}
-
 .bay-2-move-button {
   left: 78px;
   position: absolute;
@@ -717,46 +589,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   position: absolute;
   top: 275px;
 }
-
-.bay-3-north-start-arrow {
-  left: 181px;
-  position: relative;
-  top: -820px;
-  width: 1px;
-  height: 1px;
-}
-
-.basic-arrow-bay-3-north {
-  top: 39px;
-  position: relative;
-  left: 21px;
-  border: solid #ec0d0d;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 5px;
-  transform: rotate(23deg);
-}
-
-.bay-3-south-start-arrow {
-  left: 198px;
-  position: relative;
-  top: -853px;
-  width: 1px;
-  height: 1px;
-
-    .basic-arrow-bay-3-south {
-      top: 17px;
-      position: relative;
-      left: 15px;
-      border: solid #ec0d0d;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      padding: 5px;
-      transform: rotate(205deg);
-    }
-}
-
-
 
 .bay-3-move-arrow{
   left: 226px;
@@ -851,12 +683,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   transform: rotate(270deg);
 }
 
-.team-1-arrows {
-  left: 25.1em;
-  position: relative;
-  top: -540px;
-}
-
 .team1-bay4 {
   left: 564px;
   position: relative;
@@ -880,94 +706,10 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   font-size: 50px;
 }
 
-.bay-3-north-start-stop-button {
-  left: 155px;
-  position: relative;
-  top: -784px;
-  z-index: 1;
-}
-
-.bay-3-south-start-stop-button {
-  left: 209px;
-  position: relative;
-  top: -781px;
-  z-index: 1;
-}
-
-.bay-3-start-button:hover {
-  background: #5aec11;
-}
-
-
-.bay-3-start-button {
-  @include start-stop-button
-}
-
 .bay-4-canvas {
   left:-5px;
   position: relative;
   top: 1px;
-}
-
-.bay-4-north-start-stop-button {
-  left: 21em;
-  position: relative;
-  top: -979px;
-  z-index: 1;
-}
-
-.bay-4-north-start-arrow {
-  left: 320px;
-  position: relative;
-  top: -1014px;
-  width: 1px;
-  height: 1px;
-}
-
-.basic-arrow-bay-4 {
-  top: 39px;
-  position: relative;
-  left: 21px;
-  border: solid #ec0d0d;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 5px;
-  transform: rotate(23deg);
-}
-
-.bay-4-south-start-stop-button {
-  left: 352px;
-  position: relative;
-  top: -917px;
-  z-index: 1;
-}
-
-.bay-4-start-button:hover {
-  background: #5aec11;
-}
-
-.bay-4-south-start-arrow {
-  left: 341px;
-  position: relative;
-  top: -990px;
-  width: 1px;
-  height: 1px;
-
-  .basic-arrow-bay-4-south {
-    top: 17px;
-    position: relative;
-    left: 15px;
-    border: solid #ec0d0d;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 5px;
-    transform: rotate(205deg);
-  }
-}
-
-
-.bay-4-start-button {
-  @include start-stop-button
 }
 
 .bay-4-text {
@@ -1021,26 +763,11 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 295px;
 }
 
-.rear-axle-start-button {
- left: -210px;
-  position: relative;
-  top: -750px;
-  @include start-stop-button;
-  z-index: 1;
-}
-
 @mixin simple-line {
   width: 3px;
   fill: none;
   stroke: #bc171b;
   stroke-width: 3px;
-}
-
-.rear-axle-start-arrow {
-  @include simple-line;
-  left: -194px;
-  position: relative;
-  top: -67px;
 }
 
 .rear-axle-move-arrow-1 {
@@ -1055,25 +782,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: -147px;
   position: relative;
   top: -270px;
-
-  .basic-arrow-rear-axle {
-    top: 23px;
-    position: relative;
-    left: 57px;
-    border: solid #ec0d0d;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6px;
-    transform: rotate(270deg);
-  }
-
-}
-
-.front-axle-start-arrow {
-  @include simple-line;
-  left: -120px;
-  position: relative;
-  top: -8px;
 }
 
 .front-axle-move-arrow-1 {
@@ -1089,23 +797,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   position: relative;
   top: -200px;
   transform: rotate(180deg);
-
-  .basic-arrow-front-axle {
-    top: 23px;
-    position: relative;
-    left: 59px;
-    border: solid #ec0d0d;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 6px;
-    transform: rotate(270deg);
-  }
-
 }
-
-
-
-
 
 .rear-axle-move-button {
   left: -199px;
@@ -1126,14 +818,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   font-weight: bold;
   color: #d104e0;
   z-index: 2;
-}
-
-.front-axle-start-button {
-  left: -136px;
-  position: relative;
-  top: -600px;
-  @include start-stop-button;
-  z-index: 1;
 }
 
 .threshing-move-button {
@@ -1180,14 +864,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   transform: rotate(74deg);
 }
 
-.front-threshing-fcb-start-arrow {
-  @include simple-line;
-  left: 37px;
-  position: relative;
-  top: -523px;
-  z-index: -1;
-}
-
 .front-threshing-fcb-move-arrow-1 {
   @include simple-line;
   left: 37px;
@@ -1215,37 +891,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 5em;
   position: absolute;
   top: 8em;
-}
-
-
-.bay-14-button {
-  @include move-buttons;
-  left: 110em;
-}
-
-.bay-15-button {
-  @include move-buttons;
-  left: 120em;
-}
-
-.bay-16-button {
-  @include move-buttons;
-  left: 130em;
-}
-
-.bay-17-button {
-  @include move-buttons;
-  left: 140em;
-}
-
-.bay-18-button {
-  @include move-buttons;
-  left: 150em;
-}
-
-.bay-19-button {
-  @include move-buttons;
-  left: 160em;
 }
 
 .machine-field {
@@ -1279,26 +924,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 15.5em;
   transform: rotate(-90deg);
 }
-
-.assembly-line-bay-10-arrow {
-  display: flex;
-  top: 24.5em;
-  transform: rotate(-45deg);
-}
-
-
-.test-bay-4-arrow {
-  display: flex;
-  top: 24.5em;
-  transform: rotate(-45deg);
-}
-
-.bay-arrows {
-  left: 8em;
-  position: absolute;
-  top: 4em;
-}
-
 
 .team-2-position {
   left: -39em;
@@ -1411,13 +1036,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 1;
 }
 
-.bay-4-engine-2-button {
-  left: 439px;
-  position: absolute;
-  top: 900px;
-  z-index: 1;
-}
-
 //   *************
 
 .team-3-template-2-over-view {
@@ -1442,20 +1060,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 46em;
   position: absolute;
   top: 21em;
-}
-
-.team-2-1-arrows {
-  position: absolute;
-  top: 24.8em;
-  transform: rotate(-90deg);
-  left: 13em;
-}
-
-.team-2-2-arrows {
-  position: absolute;
-  top: 24.8em;
-  transform: rotate(-90deg);
-  left: 27em;
 }
 
 .template-team-2 {
@@ -1846,18 +1450,6 @@ $station-text-color: #03ff84;
   top: 6em;
 }
 
-.my-canvas {
-  left: -1em;
-  position: relative;
-  top: 2em;
-}
-
-.my-canvas-2 {
-  left: -1em;
-  position: relative;
-  top: 2em;
-}
-
 .my-canvas-3 {
   position: relative;
   top: 28px;
@@ -1921,16 +1513,6 @@ $station-text-color: #03ff84;
   height: 20px;
   background: #000909;
   transform: rotate(225deg);
-}
-
-.indicator_2 {
-  top: -38em;
-  left: 66em;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  background: #000909;
-  transform: rotate(200deg);
 }
 
 .indicator span
@@ -2011,30 +1593,6 @@ $station-text-color: #03ff84;
   top: 1px;
 }
 
-.test-bay-view-team-3 {
-  left: -77em;
-  position: absolute;
-  top: 2em;
-}
-
-.test-bay-view-test-bay {
-  left: 11em;
-  position: absolute;
-  top: 1em;
-}
-
-.test-bay-view-team-5 {
-  left: -77em;
-  position: absolute;
-  top: 2.3em;
-}
-
-.test-bay-main-view {
-  left: 89em;
-  position: relative;
-  top: -18em;
-}
-
 .test-bay-head {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
@@ -2059,33 +1617,6 @@ $station-text-color: #03ff84;
 
 //  ***************************  Test Bay Container  ************************
  //   *****  Single View classes
-.bay-9-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: -1em;
-  position: relative;
-  top: -11em;
-}
-
-.bay-10-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: 8em;
-  position: relative;
-  top: -25em;
-}
-
-.canvas-class-bay-9 {
-  left: -2em;
-  position: relative;
-  top: -8.5em;
-}
-
-.canvas-class-bay-10 {
-  left: 7em;
-  position: relative;
-  top: -22.3em;
-}
 
 .test-bay-single-view {
   left: 37em;
@@ -2245,12 +1776,6 @@ $station-text-color: #03ff84;
   z-index: 1;
 }
 
-.bay-9-10-container {
-  left: 3em;
-  position: absolute;
-  top: 21em;
-}
-
 .team3-bay8 {
   left: 1226px;
   position: relative;
@@ -2287,12 +1812,6 @@ $station-text-color: #03ff84;
   top: 1px;
 }
 
-.team3-bay10-single {
-  left: 14em;
-  position: relative;
-  top: -19.4em;
-}
-
 .team-3-arrow-package {
   left: 106px;
   position: absolute;
@@ -2318,28 +1837,6 @@ $station-text-color: #03ff84;
   top: 17.5em;
 }
 
-.bay-14-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: 1em;
-  position: relative;
-  top: -2em;
-}
-
-.bay-15-text {
-  color: #71f323;
-  font-weight: bolder;
-  left: 12em;
-  position: relative;
-  top: -15.8em;
-}
-
-.canvas-class-bay-15 {
-  left: 11em;
-  position: relative;
-  top: -13.8em;
-}
-
 .test-bay-2-14-arrows-single {
   left: -6em;
   position: relative;
@@ -2347,40 +1844,7 @@ $station-text-color: #03ff84;
   transform: rotate(-90deg);
 }
 
-.team5-bay-14-single {
-  top: 28em;
-  position: relative;
-}
-
-.team5-bay-15-single {
-  top: 8.7em;
-  position: relative;
-  left: 14em;
-}
-
-
-//**********************************************************************************
-.test-bay-container {
-  left: 163em;
-  position: absolute;
-  top: 5.6em;
-}
-
 //***********************     Front of Test Bay  Arrows 2x -> Button -> Canvas
-
-.front-test-bay {
-  left: -12em;
-  position: relative;
-  top: 23em;
-  z-index: 1;
-}
-
-.front-test-bay-arrow {
-  left: -16em;
-  position: relative;
-  top: -8em;
-  transform: rotate(-135deg);
-}
 
 .team3-front-test-bay {
   left: -26em;
@@ -2397,127 +1861,10 @@ $station-text-color: #03ff84;
   top: 4em;
 }
 
-.bay-test-1-button {
-  left: 1em;
-  position: relative;
-  top: 7em;
-  z-index: 1;
-}
-
-.test-bay-1-text {
-  @include test-bay-text-boxes;
-  top: 8em;
-}
-
-.canvas-test-bay-1 {
-  position: relative;
-  top: -7em;
-}
-
-.test-bay-1-2-arrows {
-  left: -6em;
-  position: relative;
-  top: -14em;
-  transform: rotate(-90deg);
-}
-//                   ****  test bay button from bay 1 to bay 3
-.test-bay-1-3-button {
-  left: -14em;
-  opacity: 0;
-  position: relative;
-  top: -7em;
-  transform: rotate(90deg);
-  z-index: 1;
-}
-
-.test-bay-1-to-3-arrows {
-  left: -27em;
-  top: -28em;
-  transform: rotate(180deg);
-  z-index: -1;
-}
-
-// ********************** Test Bay from 1 to 4 **********************
-
-.test-bay-1-4-button {
-  left: -18em;
-  opacity: 0;
-  position: relative;
-  top: -23em;
-  transform: rotate(137deg);
-  z-index: 1;
-}
-
-.test-bay-1-to-4-arrows {
-  left: -14em;
-  top: -52em;
-  transform: rotate(240deg);
-  z-index: -1;
-}
-//  *************************    Test Bay 2      ****************************
-
-.team-test-bay-2 {
-  left: 15em;
-  position: relative;
-  top: -40em;
-}
-
-.test-bay-2-text {
-  @include test-bay-text-boxes;
-  top: 5em;
-}
-
-.bay-test-2-button {
-  left: .5em;
-  position: relative;
-  top: 4em;
-  z-index: 1;
-}
-
 .canvas-test-bay-2 {
   left: -51px;
   position: relative;
   top: -102px;
-}
-
-.test-bay-2-14-arrows {
-  left: -7em;
-  position: relative;
-  top: -17em;
-  transform: rotate(-90deg);
-}
-
-.test-bay-2-4-button {
-  left: 7em;
-  opacity: 0;
-  position: relative;
-  top: -53.5em;
-  transform: rotate(90deg);
-  z-index: 1;
-}
-
-.test-bay-2-4-arrows {
-  left: -7em;
-  top: -75em;
-  transform: rotate(180deg);
-  z-index: -1;
-  }
-
-.test-bay-2-to-3-arrows {
-  left: -6em;
-  top: -84em;
-  transform: rotate(120deg);
-  z-index: -1;
-}
-
-.test-bay-2-3-button {
-  width: 40px;
-  left: 11em;
-  opacity: 0;
-  position: relative;
-  top: -80em;
-  transform: rotate(45deg);
-  z-index: 1;
 }
 
 // ****************   Test Bay 3  *************************
@@ -2527,19 +1874,6 @@ $station-text-color: #03ff84;
   position: relative;
   top: -108em;
   z-index: -1;
-}
-
-.bay-test-3-button {
-  left: 0.5em;
-  position: relative;
-  top: -4.5em;
-}
-
-.test-bay-3-4-arrows {
-  left: -7em;
-  position: relative;
-  top: -15.5em;
-  transform: rotate(-90deg);
 }
 
 .test-bay-3-text {
@@ -2566,19 +1900,6 @@ $station-text-color: #03ff84;
   position: relative;
   top: -130.5em;
   z-index: -1;
-}
-
-.bay-test-4-button {
-  left: 0.5em;
-  position: relative;
-  top: -4.5em;
-}
-
-.test-bay-4-14-arrows {
-  left: 4em;
-  position: relative;
-  top: -11.5em;
-  transform: rotate(-45deg);
 }
 
 .test-bay-4-text {
@@ -2691,12 +2012,6 @@ $station-text-color: #03ff84;
 
 //   *********************************** Team 5 Move Buttons  *********************
 
-.test-bay-team-5-view {
-  left: -77em;
-  position: absolute;
-  top: -3em;
-}
-
 .test-bay-view {
   left: -83em;
   position: absolute;
@@ -2707,18 +2022,6 @@ $station-text-color: #03ff84;
   left: -115em;
   position: absolute;
   top: -9em;
-}
-
-.team-5-test-bay-view {
-  left: -20em;
-  position: absolute;
-  top: 2em;
-}
-
-.team-5-over-view {
-  left: -108em;
-  position: absolute;
-  top: 3.5em;
 }
 
 .chevron-box-team-4 {
@@ -2734,15 +2037,6 @@ $station-text-color: #03ff84;
   position: absolute;
   width: 110px;
   top: 14em;
-}
-
-.team-5-overView-header {
-  color: #c80b0b;
-  font-family: "Times New Roman", Times, serif;
-  left: 226em;
-  position: absolute;
-  top: 14em;
-  width: 110px;
 }
 
 .team-5-template {
@@ -2791,13 +2085,6 @@ $station-text-color: #03ff84;
   left: 50em;
   position: absolute;
   top: -1.5em;
-}
-
-.bay-19-back-button {
-  left: 159em;
-  position: absolute;
-  top: 10em;
-
 }
 
 .move-back:hover {
@@ -2888,12 +2175,6 @@ $transition: all 1.5s;
   top: 1em;
 }
 
-.team-container-test-bay {
-  left: -125em;
-  position: absolute;
-  top: 1em;
-}
-
 .chevron-test-bay {
   left: -1.3em;
   position: absolute;
@@ -2969,18 +2250,6 @@ $transition: all 1.5s;
 
   .sun-team-1 {
     position: absolute;
-
-
-    .sun-spot-team-1 {
-      animation: pulse 4s linear infinite;
-      border-radius: 100px;
-      position: absolute;
-      transform: scale(1, .5);
-
-      &.pulse {
-        animation: white-pulse 4s linear infinite;
-        }
-      }
   }
 }
 
@@ -2995,82 +2264,6 @@ $transition: all 1.5s;
   top: 6em;
 }
 
-.team-2-overView-header {
-  color: #c80b0b;
-  font-family: "Times New Roman", Times, serif;
-  left: 86em;
-  position: absolute;
-  top: 4em;
-}
 
-
-.team-2-sun-burst-container {
-  left: -4em;
-  position: relative;
-  top: 6em;
-}
-
-.clock-container-team-2 {
-  left: -50em;
-  position: relative;
-  top: 40em;
-
-  .clock-team-2 {
-    position: relative;
-    top: -16em;
-
-    .title {
-      display: none;
-    }
-
-    .time-team-2 {
-      color: $begin-horizon;
-      position: relative;
-      text-align: center;
-      text-shadow: $text-ilumination;
-      transition: $transition;
-
-      span {
-        font-family: 'Josefin Sans', sans-serif;
-        font-size: xxx-large;
-      }
-    }
-  }
-}
-
-.sunset-container-team-2 {
-  bottom: auto;
-  left: 25em;
-  position: relative;
-  top: 25em;
-  width: 350px;
-
-  .horizon-team-2 {
-    background: -webkit-linear-gradient(left, $begin-horizon 0%, $end-horizon 100%);
-    box-shadow: $box-shadow 0 0 5px;
-    height: 2px;
-    position: relative;
-    top: -1px;
-  }
-
-  .sun-team-2 {
-    height: 50px;
-    left: -100px;
-    position: absolute;
-    top: -25px;
-    width: 200px;
-
-    .sun-spot-team-2 {
-      animation: pulse 4s linear infinite;
-      border-radius: 100px;
-      position: absolute;
-      transform: scale(1, .5);
-
-      &.pulse {
-        animation: white-pulse 4s linear infinite;
-      }
-    }
-  }
-}
 
 //----------------------------------------------------------------

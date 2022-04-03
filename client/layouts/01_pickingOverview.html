@@ -70,9 +70,13 @@
             <button type="button" class="btn btn-danger
             btn-primary buttonComplete">Mark Machine as complete</button>
         </div>
-        <div class="comm-tablet-machine-skip">
+        <div class="activate-skip-mode">
             <button type="button" class="btn btn-danger
-                btn-primary buttonSkip" disabled>Skip Machine / Supply Area</button>
+                btn-primary buttonSkip">Activate Skip Mode</button>
+        </div>
+        <div class="de-activate-skip-mode">
+            <button type="button" class="btn btn-success
+                btn-primary buttonSkip">De-activate Skip Mode</button>
         </div>
         {{/if}}
     <div>
@@ -102,7 +106,7 @@
                             style="background-color:{{getListStatus commissionList}}">{{machineId}}</td>
                         <td class="pdiShipField">{{inLineDate}}</td>
                         {{#each supplyAreas}}
-                            <td class="{{getStatusColor supplyStatus}}"
+                            <td class="supplyId {{getStatusColor supplyStatus}}"
                                 style="background-color:{{getStatusColor supplyStatus}};
                                         font-size: 14px;
                                         font-weight: bolder;

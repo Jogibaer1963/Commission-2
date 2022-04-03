@@ -22,10 +22,6 @@
 @import 'lineAdministration';
 
 
-.insideNavBar {
-  margin-top: 25px;
-}
-
 .topNav {
   left: 40em;
   margin-top: 25px;
@@ -50,26 +46,8 @@
   background-color: #978f93;
 }
 
-.selectedBackgroundGreen {
-  background-color: green;
-}
-
-.individualNavigation {
-  font-size: 16px;
-}
-
 .navigation {
   margin-left: 25px;
-}
-
-.marginMain {
-  margin-left: 25px;
-}
-
-.mainLayout {
-  color: $comm-black;
-  left: 560px;
-  position: relative;
 }
 
 //  Inactive Buttons
@@ -80,11 +58,6 @@ $comm-status: #252525;
   background-color: $comm-status;
   opacity: .5;
   pointer-events: none;
-}
-
-.activeButton {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .inActive {

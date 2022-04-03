@@ -161,11 +161,6 @@ $eraseUser: 50px;
   min-width: $loggedIn;
 }
 
-.partsOnOrder {
-  max-width: $partsOnOrder;
-  min-width: $partsOnOrder;
-}
-
 .userLogOut {
   max-width: $logOut;
   min-width: $logOut;
@@ -178,18 +173,6 @@ $eraseUser: 50px;
   text-align: center;
 }
 
-.shippingMachines {
-  height: 100px;
-}
-
-// end Admin Table
-
-.tablePdiOverview {
-  position: absolute;
-  top: 300px;
-}
-
-
 .pdiMachineField {
   max-width: $pdiOverviewMachine;
   min-width: $pdiOverviewMachine;
@@ -200,33 +183,8 @@ $eraseUser: 50px;
   min-width: $shipDate;
 }
 
-.pdiDestination {
-  max-width: $pdiDestination;
-  min-width: $pdiDestination;
-}
-
-.pdiTransporter {
-  max-width: $pdiTransporter;
-  min-width: $pdiTransporter;
-}
-
-.pdiTruckOnOrder {
-  max-width: $pdiTruckOnOrder;
-  min-width: $pdiTruckOnOrder;
-}
-
-.pdiTruckDate {
-  min-width: $pdiTruckDate;
-  max-width: $pdiTruckDate;
-}
-
 .truckDateCorrection {
   min-width: 6.8em;
-}
-
-.pdiKitList {
-  max-width: $pdiKitList;
-  min-width: $pdiKitList;
 }
 
 .pdiComments {
@@ -234,64 +192,9 @@ $eraseUser: 50px;
   min-width: $pdiComments;
 }
 
-.pdiKitField {
-  max-width: $pdiKitField;
-  min-width: $pdiKitField;
-}
-
-.pdiTireField {
-  max-width: $pdiKitField;
-  min-width: $pdiKitField;
-}
-
-.pdiPDIField {
-  max-width: $pdiPDIField;
-  min-width: $pdiPDIField;
-}
-
-.pdiRepField {
-  max-width: $pdiRepField;
-  min-width: $pdiRepField;
-}
-
-.pdiVariantDescription {
-  max-width: $pdiVariantsDescription;
-  min-width: $pdiVariantsDescription;
-}
-
-.pdiWashField {
-  max-width: $pdiWashField;
-  min-width: $pdiWashField;
-}
-
 .pdiShipField {
   max-width: $pdiShipField;
   min-width: $pdiShipField;
-}
-
-.pdiLocation {
-  max-width: $pdiLocation;
-  min-width: $pdiLocation;
-}
-
-.pdiConfig {
-  max-width: $config;
-  min-width: $config;
-}
-
-.pdiTrailer {
-  max-width: $pdiTrailer;
-  min-width: $pdiTrailer;
-}
-
-.headerKit {
-  max-width: $headerKit;
-  min-width: $headerKit;
-}
-
-.pdiUser {
-  max-width: $pdiUser;
-  min-width: $pdiUser;
 }
 
 table.headerTable {
@@ -301,16 +204,6 @@ table.headerTable {
 .headerId {
   max-width: $headerId;
   min-width: $headerId;
-}
-
-.headerShipDate {
-  max-width: $shipDate;
-  min-width: $shipDate;
-}
-
-.headerStatus {
-  max-width: $headerStatus;
-  min-width: $headerStatus;
 }
 
 .headerPos {

@@ -26,7 +26,7 @@
             <a>|</a>
             <a class="btn btn-default btn-danger" href="/lineAdministration">Assembly Line Definitions</a>
             <a>|</a>
-            <button type="button" class="btn btn-default btn-warning special-function" href="">Special Function</button>
+            <button type="button" class="btn btn-default btn-warning special-function">Special Function</button>
         </nav>
     </div>
 
@@ -44,7 +44,7 @@
                            max="2100"
                            maxlength="4"
                            size=4
-                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                            required
                     >
 
@@ -57,7 +57,7 @@
                            max="12"
                            maxlength="2"
                            size="2"
-                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                            required
                     >
 
@@ -70,7 +70,7 @@
                            max="31"
                            maxlength="2"
                            size="2"
-                           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                           oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                            required
                     >
                     <button type="submit" class="btn btn-success btn-default" disabled>Submit new Fiscal Year</button>
@@ -242,7 +242,7 @@
         <form class="submit-admin">
             <button type="button" class="btn btn-danger">Send</button>
         </form>
-        <table class="blueTable tableAdminPos"  cellpadding="10">
+        <table class="blueTable tableAdminPos">
             <thead>
             <tr>
                 <th class="adminUserId"><strong>User id</strong></th>

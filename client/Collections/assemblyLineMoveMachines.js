@@ -140,7 +140,7 @@ function build_sun_spots_team_1 (count) {
             size = relative_size + '%';
             sun.append(`<div class=\"${div_class}\" 
                                                style=\"width:${relative_size + 30}%; 
-                                               height:${size}; 
+                                             
                                                top:${(100 - relative_size) / 2}%;
                                                left:${((100 - relative_size) / 2) + (10 - left_offset)}%;
                                                 \"></div>`);

@@ -69,7 +69,7 @@ supplyList: () => {
             })
             //console.log(teamToday);
             /* Selecting TODAY from all saved picking events */
-            /* Counting and building average from todays picking event */
+            /* Counting and building average from today's picking event */
             teamToday.forEach((element) => {
                 supplyResult.push(element.supplyArea);
                 let duration = (element.duration / 60000).toFixed(0);
