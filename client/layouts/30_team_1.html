@@ -66,14 +66,7 @@
                            btn-success
                            bay-2-move-button">Move</button>
 
-        <div class="bay-2-move-arrow">
-            <div class="arrow-to-target-bay"></div>
-            <svg height="20" width="80">
-                <polyline points="10,20 25,5 65,5 80,20"
-                          style="fill: none; stroke: red; stroke-width: 3px">
-                </polyline>
-            </svg>
-        </div>
+
 
             <label for="bay-3-move"></label>
             <button type="button" id="bay-3-move"
@@ -81,7 +74,7 @@
                            btn-default
                            btn-success
                            bay-3-move-button">Move</button>
-
+<!--
         <div class="bay-3-move-arrow">
             <div class="arrow-to-target-bay"></div>
             <svg height="20" width="80">
@@ -90,6 +83,7 @@
                 </polyline>
             </svg>
         </div>
+        -->
 
             <label for="bay-4-move"></label>
             <button type="button" id="bay-4-move"
@@ -97,7 +91,7 @@
                            btn-default
                            btn-success
                            bay-4-move-button">Move</button>
-
+<!--
         <div class="bay-4-move-arrow">
             <div class="arrow-to-target-bay"></div>
             <svg height="20" width="80">
@@ -106,6 +100,7 @@
                 </polyline>
             </svg>
         </div>
+        -->
 
         <div class="bay-4-engine-1-button">
             <label for="engine-1-move-button"></label>
@@ -287,6 +282,16 @@
                                                class="bay-2-canvas"></canvas>
             </div>
         </div>
+<!--
+    <div class="bay-2-move-arrow">
+        <div class="arrow-to-target-bay"></div>
+        <svg height="20" width="120">
+            <polyline points="10,20 25,5 90,5 105,20"
+                      style="fill: none; stroke: red; stroke-width: 3px">
+            </polyline>
+        </svg>
+    </div>
+    -->
 
         <div class="team1-bay3">
             <div class="bay-3-text">
@@ -461,7 +466,7 @@
     </div>
 
     <div class="bay-2-merge-text">
-      <h4>Bay 2 Merge</h4>
+      <h4>Bay 2</h4>
     </div>
 
     <div class="front-threshing-merge-text">
@@ -470,14 +475,21 @@
     </div>
 
     <div class="time-goal-bay-2">
+        <div class="bay-2-unit-result">
+            <p>{{units_bay_2}}</p>
+        </div>
         <div class="bay-2-moving-time">
             <p id="realTimerBay2" style="font-size: 20px;">{{goal_bay_2}}</p>
         </div>
-
+        <div class="bay-3-unit-result">
+            <p>{{units_bay_3}}</p>
+        </div>v
         <div class="bay-3-moving-time">
             <p id="realTimerBay3" style="font-size: 20px;">{{goal_bay_3}}</p>
         </div>
-
+        <div class="bay-4-unit-result">
+            <p>{{units_bay_4}}</p>
+        </div>
         <div class="bay-4-moving-time">
             <p id="realTimerBay4" style="font-size: 20px;">{{goal_bay_4}}</p>
         </div>

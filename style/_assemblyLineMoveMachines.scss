@@ -537,9 +537,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-2-move-button {
-  left: 78px;
+  left: -19px;
   position: absolute;
-  top: -101px;
+  top: 68px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -547,14 +547,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-2-move-arrow{
-  left: 57px;
-  position: relative;
-  top: -541px;
+  left: 356px;
+  position: absolute;
+  top: 261px;
 
     .arrow-to-target-bay {
-      left: 85px;
+      left: 92px;
       position: relative;
-      top: 0;
+      top: 23px;
       border: solid #ec0d0d;
       border-width: 0 3px 3px 0;
       display: inline-block;
@@ -567,25 +567,49 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 736px;
   position: absolute;
   top: -24px;
-  color: #71f323;
   font-weight: bolder;
   width: 550px;
+  color: #be0707;
+}
+
+.bay-2-unit-result {
+  left: -455px;
+  position: absolute;
+  top: 302px;
+  font-weight: bold;
+  font-size: large;
 }
 
 .bay-2-moving-time {
-  left: -360px;
+  left: -469px;
   position: absolute;
-  top: 275px;
+  top: 276px;
+}
+
+.bay-3-unit-result {
+  left: -279px;
+  position: absolute;
+  top: 302px;
+  font-weight: bold;
+  font-size: large;
 }
 
 .bay-3-moving-time {
-  left: -211px;
+  left: -279px;
   position: absolute;
   top: 275px;
 }
 
+.bay-4-unit-result {
+  left: -139px;
+  position: absolute;
+  top: 302px;
+  font-weight: bold;
+  font-size: large;
+}
+
 .bay-4-moving-time {
-  left: -77px;
+  left: -139px;
   position: absolute;
   top: 275px;
 }
@@ -713,17 +737,16 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-4-text {
-  left: 5em;
+  left: 65px;
   position: relative;
-  top: -40px;
+  top: -30px;
   color: #71f323;
 }
 
-
 .bay-3-move-button {
-  left: 17em;
+  left: 178px;
   position: absolute;
-  top: -102px;
+  top: 61px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;
@@ -731,9 +754,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-4-move-button {
-  left: 358px;
+  left: 323px;
   position: absolute;
-  top: -102px;
+  top: 61px;
   background-color: #1e3131;
   font-weight: bold;
   color: #d104e0;

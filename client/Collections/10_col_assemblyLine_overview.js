@@ -40,8 +40,23 @@ Template.timeStudies.helpers({
     timeMachineMoved: () => {
         let result, firstStage, comingIn, goingOut, machineResult, machineNr,
             minutes, bayId, position;
+        let todayDate =  new(Date)
+        let dayOffset = new Date(todayDate.setDate(todayDate.getDate() - 1))
+        console.log(dayOffset)
+        let year = dayOffset.getFullYear()
+        let month = dayOffset.getMonth()
+        let day = dayOffset.getDate()
+        if ( day <= '10') {
+            day = '0' + day;
+        }
+        if (month <= '10') {
+            month = '0' + month;
+        }
+        let mongoDate = year + '-' +  month + '-' + day
+        console.log(mongoDate)
         let machineArray = [];
-        result = machineCommTable.find({activeAssemblyLineList : false, inLineDate : {$gt: "2021-10-04"}}).fetch()
+        result = machineCommTable.find({activeAssemblyLineList : false, inLineDate :
+                {$gt: mongoDate}}).fetch()
         result.forEach((element) => {
             firstStage = element.bayReady;
             firstStage.forEach((element_2) => {

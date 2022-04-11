@@ -194,13 +194,107 @@ Template.team_1_over_view.helpers({
        return setInterval(myTimerBay2, 1000)
     },
 
+    units_bay_2: () => {
+        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
+        machineId, counterId, counterInBay, bayLeaving, diffTime;
+        dateToDay = Date.now();
+        machineFinder = activeAssembly.findOne({_id: "machine_field_fcb_threshing"})
+        machineId = machineFinder.bayArray[0].machineId
+        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
+        counterId = counterInBay.counter
+        bayLeaving = Date.parse(counterInBay.timeLine.inLine + ' ' + counterInBay.timeLine.inLine_time)
+        diffTime = bayLeaving - dateToDay
+        unitCount = 0;
+        if (diffTime < 0) {
+            for (let i = 0; i <= 10; i++) {
+                counterId ++
+                unitCount ++
+                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
+                newDateLeaving = Date.parse(newDate.timeLine.inLine + ' ' + newDate.timeLine.inLine_time)
+                newDiffTime = dateToDay - newDateLeaving
+                result = '-' + ' ' + unitCount + ' Units'
+                if (newDiffTime <= 0) {
+                    return result
+                }
+            }
+        } else if (diffTime > 0) {
+            return 'Units ahead'
+        } else if (diffTime === 0) {
+            return 'in Time'
+        }
+
+    },
+
     goal_bay_3: () => {
         return  setInterval(myTimerBay3, 1000)
+    },
+
+    units_bay_3: () => {
+        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
+            machineId, counterId, counterInBay, bayLeaving, diffTime;
+        dateToDay = Date.now();
+        machineFinder = activeAssembly.findOne({_id: "machine_field_bay_3"})
+        machineId = machineFinder.bayArray[0].machineId
+        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
+        counterId = counterInBay.counter
+        bayLeaving = Date.parse(counterInBay.timeLine.bay3 + ' ' + counterInBay.timeLine.bay_3_time)
+        diffTime = bayLeaving - dateToDay
+        unitCount = 0;
+        if (diffTime < 0) {
+            for (let i = 0; i <= 10; i++) {
+                counterId ++
+                unitCount ++
+                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
+                newDateLeaving = Date.parse(newDate.timeLine.bay3 + ' ' +newDate.timeLine.bay_3_time)
+                newDiffTime = dateToDay - newDateLeaving
+                result = '-' + ' ' + unitCount + ' Units'
+                if (newDiffTime <= 0) {
+                    return result
+                }
+            }
+        } else if (diffTime > 0) {
+            return 'Units ahead'
+        } else if (diffTime === 0) {
+            return 'in Time'
+        }
+
     },
 
     goal_bay_4: () => {
         return  setInterval(myTimerBay4, 1000)
     },
+
+    units_bay_4: () => {
+        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
+            machineId, counterId, counterInBay, bayLeaving, diffTime;
+        dateToDay = Date.now();
+        machineFinder = activeAssembly.findOne({_id: "machine_field_bay_4"})
+        machineId = machineFinder.bayArray[0].machineId
+        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
+        counterId = counterInBay.counter
+        bayLeaving = Date.parse(counterInBay.timeLine.bay4 + ' ' + counterInBay.timeLine.bay_4_time)
+        diffTime = bayLeaving - dateToDay
+        unitCount = 0;
+        if (diffTime < 0) {
+            for (let i = 0; i <= 10; i++) {
+                counterId ++
+                unitCount ++
+                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
+                newDateLeaving = Date.parse(newDate.timeLine.bay4 + ' ' +newDate.timeLine.bay_4_time)
+                newDiffTime = dateToDay - newDateLeaving
+                result = '-' + ' ' + unitCount + ' Units'
+                if (newDiffTime <= 0) {
+                    return result
+                }
+            }
+        } else if (diffTime > 0) {
+            return 'Units ahead'
+        } else if (diffTime === 0) {
+            return 'in Time'
+        }
+
+    },
+
 
 })
 
