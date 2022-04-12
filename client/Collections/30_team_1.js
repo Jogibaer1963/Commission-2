@@ -794,3 +794,19 @@ Template.team_1_move_buttons.onRendered(function() {
     } catch (e) {}
 
 })
+
+Template.date_time_shift.helpers({
+
+   todayDate: () => {
+
+   },
+
+    todayTime: () => {
+
+    },
+
+    todayShift: () => {
+
+    }
+
+})

@@ -16,7 +16,15 @@
                 </div>
             {{/if }}
     {{else}}
-        {{> login}}
+        <div class="team-1-over-view">
+            {{> team_1_over_view }}
+        </div>
+        <div class="team-4-over-view">
+            {{> team_4_over_view}}
+        </div>
+        <div class="admin-view-team-2">
+            {{> team_2_over_view }}
+        </div>
     {{/if}}
 </template>
 
@@ -282,19 +290,9 @@
                                                class="bay-2-canvas"></canvas>
             </div>
         </div>
-<!--
-    <div class="bay-2-move-arrow">
-        <div class="arrow-to-target-bay"></div>
-        <svg height="20" width="120">
-            <polyline points="10,20 25,5 90,5 105,20"
-                      style="fill: none; stroke: red; stroke-width: 3px">
-            </polyline>
-        </svg>
-    </div>
-    -->
 
         <div class="team1-bay3">
-            <div class="bay-3-text">
+            <div class="bay-3-header">
                 <h4>Bay 3</h4>
             </div>
             <div>
@@ -483,7 +481,7 @@
         </div>
         <div class="bay-3-unit-result">
             <p>{{units_bay_3}}</p>
-        </div>v
+        </div>
         <div class="bay-3-moving-time">
             <p id="realTimerBay3" style="font-size: 20px;">{{goal_bay_3}}</p>
         </div>
@@ -499,4 +497,17 @@
 
 </div>
  </html>
+</template>
+
+
+<template name="date_time_shift">
+    <div>
+        <h1>{{todayDate}}</h1>
+    </div>
+    <div>
+        <h3>{{todayTime}}</h3>
+    </div>
+    <div>
+        <h3>{{todayShift}}</h3>
+    </div>
 </template>

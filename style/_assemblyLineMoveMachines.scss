@@ -530,9 +530,9 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-2-merge-text {
   color: #71f323;
   font-weight: bolder;
-  left: 268px;
+  left: 301px;
   position: relative;
-  top: -2318px;
+  top: -2440px;
   width: 150px;
 }
 
@@ -573,7 +573,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-2-unit-result {
-  left: -455px;
+  left: -441px;
   position: absolute;
   top: 302px;
   font-weight: bold;
@@ -587,7 +587,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-3-unit-result {
-  left: -279px;
+  left: -254px;
   position: absolute;
   top: 302px;
   font-weight: bold;
@@ -601,7 +601,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .bay-4-unit-result {
-  left: -139px;
+  left: -111px;
   position: absolute;
   top: 302px;
   font-weight: bold;
@@ -682,7 +682,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 .bay-3-canvas {
   left: -28px;
   position: relative;
-  top: 2px;
+  top: 4px;
 }
 
 .bay-3-text {
@@ -691,6 +691,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   left: 5em;
   position: relative;
   top: -38px;
+}
+
+.bay-3-header {
+  color: $text-color-engine-stations;
+  font-weight: bolder;
+  left: 5em;
+  position: relative;
+  top: -26px;
 }
 
 .arrows-team-1-bay-2 {
