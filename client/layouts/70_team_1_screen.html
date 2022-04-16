@@ -1,0 +1,98 @@
+<template name="team_1_screen">
+    <div class="team-1-over-view">
+        {{> team_1_screen_view }}
+        {{> date_time_shift}}
+    </div>
+</template>
+
+<template name="team_1_screen_view">
+
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>Team 1</title>
+    </head>
+
+    <style>body{
+        background-color:black;
+    }</style>
+    <div class="team-1-template">
+            <h1 class="team-1-screen-header">Team 1 </h1>
+			
+        <p class="fcb-station-1-screen">
+            <canvas {{draw_fcb_station_1}} id="fcb_station_1"
+            class="fcb-1-canvas"></canvas>
+        </p>
+
+        <h4 class="fcb-1-text-screen">FCB 1</h4>
+
+        <p  class="fcb-station-2-screen">
+            <canvas {{draw_fcb_station_2}} id="fcb_station_2"
+            class="fcb-2-canvas" ></canvas>
+        </p>
+
+        <h4 class="fcb-2-text-screen">FCB 2</h4>
+
+        <p class="bay2-fcb-merge-screen">
+                <canvas {{draw_fcb_threshing_team_1}} id="machine_field_fcb_threshing"
+                class="bay-2-canvas"></canvas>
+        </p>
+
+        <div class="arrows-bay-2-3">
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+        </div>
+
+        <h4  class="bay-2-screen">Bay 2</h4>
+
+        <p  class="bay-2-unit-screen">{{units_bay_2}}</p>
+
+        <h4 class="bay-3-screen">Bay 3</h4>
+
+        <p class="bay-3-canvas-screen">
+            <canvas {{draw_bay3}} id="machine_field_bay_3" class="bay-3-canvas"></canvas>
+        </p>
+
+        <p class="bay-3-unit-screen">{{units_bay_3}}</p>
+
+        <div class="arrows-bay-3-4">
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+        </div>
+
+         <h4 class="bay-4-screen">Bay 4</h4>
+
+        <p class="bay-4-canvas-screen">
+            <canvas {{draw_bay4}} id="machine_field_bay_4"
+            class="bay-4-canvas"></canvas>
+        </p>
+
+         <p  class="bay-4-unit-screen">{{units_bay_4}}</p>
+
+        <div class="arrows-team-1-bay-4">
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+            <p class="chevron"></p>
+        </div>
+
+        <ul class="show-engine-screen">
+            <li>Engine Ready for : {{first_engine}}</li>
+            <li>Engine Ready for : {{second_engine}}</li>
+            <li>Engine Ready for : {{third_engine}}</li>
+        </ul>
+
+        <div id="clock">
+            <p id="date" class="date-clock">{{ date }}</p>
+            <p id="time" class="time-clock">{{ time }}</p>
+            <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 9h</h3>
+            <h3 class="shift-end-team-1">Shift End: 03:30 PM</h3>
+            <h3 class="shift-end-team-1-metric">Shift End: 15:30 PM</h3>
+        </div>
+
+
+
+    </div>
+</html>
+</template>

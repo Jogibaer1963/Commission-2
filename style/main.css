@@ -3978,6 +3978,190 @@ table.headerTable {
   position: relative;
 }
 
+.team-1-screen-header {
+  left: 59px;
+  position: absolute;
+  top: -145px;
+  font-family: "Times New Roman", Times, serif;
+  color: red;
+  width: 110px;
+}
+
+.fcb-station-1-screen {
+  left: -237px;
+  position: absolute;
+  top: -16px;
+}
+
+.fcb-1-text-screen {
+  left: -124px;
+  position: absolute;
+  top: -65px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.fcb-station-2-screen {
+  left: -240px;
+  position: absolute;
+  top: 29px;
+}
+
+.fcb-2-text-screen {
+  left: -124px;
+  position: absolute;
+  top: -16px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.bay2-fcb-merge-screen {
+  left: -185px;
+  position: absolute;
+  top: 110px;
+}
+
+.arrows-bay-2-3 {
+  left: -134px;
+  position: absolute;
+  top: 111px;
+  transform: rotate(270deg);
+}
+
+.bay-2-screen {
+  left: -198px;
+  position: absolute;
+  top: 27px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-2-unit-screen {
+  left: -214px;
+  position: absolute;
+  top: 60px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.bay-3-screen {
+  left: -51px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-3-canvas-screen {
+  left: -96px;
+  position: absolute;
+  top: 68px;
+}
+
+.bay-3-unit-screen {
+  left: -79px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-bay-3-4 {
+  left: 7px;
+  position: absolute;
+  top: 113px;
+  transform: rotate(270deg);
+}
+
+.bay-4-screen {
+  left: 89px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-4-canvas-screen {
+  left: 21px;
+  position: absolute;
+  top: 72px;
+}
+
+.bay-4-unit-screen {
+  left: 64px;
+  position: absolute;
+  top: 63px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.show-engine-screen {
+  left: 2px;
+  position: absolute;
+  top: 166px;
+  color: #ef9728;
+  font-weight: bold;
+  font-size: 21px;
+  width: 330px;
+}
+
+.shift-team-1 {
+  left: 175px;
+  position: absolute;
+  top: -25px;
+  width: 190px;
+  color: #09ec86;
+}
+
+.shift-end-team-1 {
+  left: 173px;
+  position: absolute;
+  top: 3px;
+  width: 264px;
+  color: #09ec86;
+}
+
+.shift-end-team-1-metric {
+  left: 173px;
+  position: absolute;
+  top: 32px;
+  width: 264px;
+  color: #33a4ca;
+}
+
+#clock {
+  font-family: "Share Tech Mono", monospace;
+  color: #a8dcdc;
+  text-shadow: 0 0 20px #56707b, 0 0 20px rgba(10, 175, 230, 0);
+}
+
+.date-clock {
+  position: absolute;
+  left: 40px;
+  top: -87px;
+  width: 651px;
+  font-size: 18px;
+}
+
+.time-clock {
+  position: absolute;
+  left: -33px;
+  top: -81px;
+  width: 651px;
+  font-size: 67px;
+}
+
 .topNav {
   left: 40em;
   margin-top: 25px;

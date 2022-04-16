@@ -10,6 +10,8 @@ import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
+import { unitCounter } from "../../lib/99_functionCollector.js";
+import {diff} from "mongodb/lib/core/topologies/shared";
 
 Session.set('twoMachines', false)
 
@@ -189,164 +191,36 @@ Template.team_1_over_view.helpers({
             }
         } catch(err) {}
     },
-
+/*
     goal_bay_2: () => {
        return setInterval(myTimerBay2, 1000)
     },
 
+ */
+
     units_bay_2: () => {
-        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
-        machineId, counterId, counterInBay, bayLeaving, diffTime;
-        dateToDay = Date.now();
-        machineFinder = activeAssembly.findOne({_id: "machine_field_fcb_threshing"})
-        machineId = machineFinder.bayArray[0].machineId
-        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
-        counterId = counterInBay.counter
-        bayLeaving = Date.parse(counterInBay.timeLine.inLine + ' ' + counterInBay.timeLine.inLine_time)
-        diffTime = bayLeaving - dateToDay
-        unitCount = 0;
-        if (diffTime < 0) {
-            for (let i = 0; i <= 10; i++) {
-                counterId ++
-                unitCount ++
-                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
-                newDateLeaving = Date.parse(newDate.timeLine.inLine + ' ' + newDate.timeLine.inLine_time)
-                newDiffTime = dateToDay - newDateLeaving
-                result = '-' + ' ' + unitCount + ' Units'
-                if (newDiffTime <= 0) {
-                    return result
-                }
-            }
-        } else if (diffTime > 0) {
-            return 'Units ahead'
-        } else if (diffTime === 0) {
-            return 'in Time'
-        }
-
+        return unitCounter("machine_field_fcb_threshing")
     },
-
+/*
     goal_bay_3: () => {
         return  setInterval(myTimerBay3, 1000)
     },
 
+ */
+
     units_bay_3: () => {
-        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
-            machineId, counterId, counterInBay, bayLeaving, diffTime;
-        dateToDay = Date.now();
-        machineFinder = activeAssembly.findOne({_id: "machine_field_bay_3"})
-        machineId = machineFinder.bayArray[0].machineId
-        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
-        counterId = counterInBay.counter
-        bayLeaving = Date.parse(counterInBay.timeLine.bay3 + ' ' + counterInBay.timeLine.bay_3_time)
-        diffTime = bayLeaving - dateToDay
-        unitCount = 0;
-        if (diffTime < 0) {
-            for (let i = 0; i <= 10; i++) {
-                counterId ++
-                unitCount ++
-                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
-                newDateLeaving = Date.parse(newDate.timeLine.bay3 + ' ' +newDate.timeLine.bay_3_time)
-                newDiffTime = dateToDay - newDateLeaving
-                result = '-' + ' ' + unitCount + ' Units'
-                if (newDiffTime <= 0) {
-                    return result
-                }
-            }
-        } else if (diffTime > 0) {
-            return 'Units ahead'
-        } else if (diffTime === 0) {
-            return 'in Time'
-        }
-
-    },
-
-    goal_bay_4: () => {
-        return  setInterval(myTimerBay4, 1000)
+        return unitCounter("machine_field_bay_3")
     },
 
     units_bay_4: () => {
-        let newDate, newDateLeaving, newDiffTime, unitCount, result, dateToDay, machineFinder,
-            machineId, counterId, counterInBay, bayLeaving, diffTime;
-        dateToDay = Date.now();
-        machineFinder = activeAssembly.findOne({_id: "machine_field_bay_4"})
-        machineId = machineFinder.bayArray[0].machineId
-        counterInBay = machineCommTable.findOne({_id: machineId}, {fields: {counter: 1, timeLine: 1}})
-        counterId = counterInBay.counter
-        bayLeaving = Date.parse(counterInBay.timeLine.bay4 + ' ' + counterInBay.timeLine.bay_4_time)
-        diffTime = bayLeaving - dateToDay
-        unitCount = 0;
-        if (diffTime < 0) {
-            for (let i = 0; i <= 10; i++) {
-                counterId ++
-                unitCount ++
-                newDate = machineCommTable.findOne({counter: counterId}, {fields: {timeLine: 1}})
-                newDateLeaving = Date.parse(newDate.timeLine.bay4 + ' ' +newDate.timeLine.bay_4_time)
-                newDiffTime = dateToDay - newDateLeaving
-                result = '-' + ' ' + unitCount + ' Units'
-                if (newDiffTime <= 0) {
-                    return result
-                }
-            }
-        } else if (diffTime > 0) {
-            return 'Units ahead'
-        } else if (diffTime === 0) {
-            return 'in Time'
-        }
-
+        return unitCounter("machine_field_bay_4")
     },
 
 
 })
 
 
-function myTimerBay2() {
-    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, trueMovingTime;
-    try {
-        result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"});
-        machineNr = result.bayArray[0].machineNr;
-        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.inLine_time;
-        leavingDateTime = timeLine.timeLine.inLine + ' ' + leavingTime;
-        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
-            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        if (moveTime >= 0) {
-            h = Math.floor(moveTime / 3600);
-            m = Math.floor(moveTime % 3600 / 60);
-            s = Math.floor(moveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = h + ':' + m + ':' + s
-            document.getElementById('realTimerBay2').innerHTML = trueMovingTime;
-        }
-        if (moveTime < 0) {
-           let negativeMoveTime = Math.abs(moveTime)
-            h = Math.floor(negativeMoveTime / 3600);
-            m = Math.floor(negativeMoveTime % 3600 / 60);
-            s = Math.floor(negativeMoveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = '-' + h + ':' + m + ':' + s
-            document.getElementById('realTimerBay2').innerHTML =
-                trueMovingTime;
-        }
-    } catch(err) {}
-}
-
+/*
 function myTimerBay3() {
     let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
         h, m, s, trueMovingTime;
@@ -396,54 +270,8 @@ function myTimerBay3() {
     } catch(err) {}
 }
 
-function myTimerBay4() {
-    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, trueMovingTime;
-    try {
-        result = activeAssembly.findOne({_id: "machine_field_bay_4"});
-        machineNr = result.bayArray[0].machineNr;
-        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.bay_4_time;
-        leavingDateTime = timeLine.timeLine.bay4 + ' ' + leavingTime;
-        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
-            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        if (moveTime >= 0) {
-            h = Math.floor(moveTime / 3600);
-            m = Math.floor(moveTime % 3600 / 60);
-            s = Math.floor(moveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = h + ':' + m + ':' + s
-            document.getElementById('realTimerBay4').innerHTML =
-                trueMovingTime;
-        }
-        if (moveTime < 0) {
-            let negativeMoveTime = Math.abs(moveTime)
-            h = Math.floor(negativeMoveTime / 3600);
-            m = Math.floor(negativeMoveTime % 3600 / 60);
-            s = Math.floor(negativeMoveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = '-' + h + ':' + m + ':' + s
-            document.getElementById('realTimerBay4').innerHTML =
-                trueMovingTime;
-        }
-    } catch(err) {}
-}
+ */
+
 
 Template.team_1_over_view.events({
 
