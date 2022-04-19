@@ -11,7 +11,7 @@ import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
 import { unitCounter } from "../../lib/99_functionCollector.js";
-import {diff} from "mongodb/lib/core/topologies/shared";
+
 
 Session.set('twoMachines', false)
 
@@ -191,22 +191,10 @@ Template.team_1_over_view.helpers({
             }
         } catch(err) {}
     },
-/*
-    goal_bay_2: () => {
-       return setInterval(myTimerBay2, 1000)
-    },
-
- */
 
     units_bay_2: () => {
         return unitCounter("machine_field_fcb_threshing")
     },
-/*
-    goal_bay_3: () => {
-        return  setInterval(myTimerBay3, 1000)
-    },
-
- */
 
     units_bay_3: () => {
         return unitCounter("machine_field_bay_3")
@@ -216,61 +204,7 @@ Template.team_1_over_view.helpers({
         return unitCounter("machine_field_bay_4")
     },
 
-
 })
-
-
-/*
-function myTimerBay3() {
-    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, trueMovingTime;
-    try {
-        result = activeAssembly.findOne({_id: "machine_field_bay_3"});
-        machineNr = result.bayArray[0].machineNr;
-        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.bay_3_time;
-        leavingDateTime = timeLine.timeLine.bay3 + ' ' + leavingTime;
-        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
-            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        if (moveTime >= 0) {
-            h = Math.floor(moveTime / 3600);
-            m = Math.floor(moveTime % 3600 / 60);
-            s = Math.floor(moveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = h + ':' + m + ':' + s
-            document.getElementById('realTimerBay3').innerHTML =
-                trueMovingTime;
-        }
-        if (moveTime < 0) {
-            let negativeMoveTime = Math.abs(moveTime)
-            h = Math.floor(negativeMoveTime / 3600);
-            m = Math.floor(negativeMoveTime % 3600 / 60);
-            s = Math.floor(negativeMoveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = '-' + h + ':' + m + ':' + s
-            document.getElementById('realTimerBay3').innerHTML =
-                trueMovingTime;
-        }
-    } catch(err) {}
-}
-
- */
 
 
 Template.team_1_over_view.events({
@@ -392,11 +326,6 @@ Template.team_1_move_buttons.events({
         invokeMoveMachine(oldCanvasId, newCanvasId)
         // clear rear Axle merge and FCB-threshing merge canvas
         Meteor.call('clearMergeCanvas')
-        /*
-        let result = activeAssembly.findOne({_id: "machine_field_fcb_threshing"}, {fields: {bayArray:1}});
-        Session.set('machine-bay-2-nr', result.bayArray[0].machineNr) ;
-
-         */
     },
 
     'click .bay-3-move-button': (e) => {
@@ -571,7 +500,6 @@ Template.team_1_move_buttons.events({
         let mergeCanvas = 'front_threshing_merge';
         // check if front-threshing merge bay is empty or if the same machine number is already in
         checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
-        // invokeMoveMachine(oldCanvasId, newCanvasId);
     },
 
     // *****************  Merge Canvas  Bay 2  *****************************************

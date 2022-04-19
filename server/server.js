@@ -99,7 +99,8 @@ if(Meteor.isServer){
         },
 
         'activate_skip_mode': (booleanValue) => {
-            userActions.update({_id: "active-skip-mode"}, {$set: {active: booleanValue}})
+            userActions.update({_id: "active-skip-mode"},
+                {$set: {active: booleanValue}})
         },
 
 

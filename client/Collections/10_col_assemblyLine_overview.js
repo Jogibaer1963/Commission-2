@@ -42,7 +42,7 @@ Template.timeStudies.helpers({
             minutes, bayId, position;
         let todayDate =  new(Date)
         let dayOffset = new Date(todayDate.setDate(todayDate.getDate() - 1))
-        console.log(dayOffset)
+       // console.log(dayOffset)
         let year = dayOffset.getFullYear()
         let month = dayOffset.getMonth()
         let day = dayOffset.getDate()
@@ -53,7 +53,7 @@ Template.timeStudies.helpers({
             month = '0' + month;
         }
         let mongoDate = year + '-' +  month + '-' + day
-        console.log(mongoDate)
+     //   console.log(mongoDate)
         let machineArray = [];
         result = machineCommTable.find({activeAssemblyLineList : false, inLineDate :
                 {$gt: mongoDate}}).fetch()

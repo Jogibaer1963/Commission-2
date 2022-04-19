@@ -9,16 +9,6 @@ Template.team_3_over_view.helpers({
 
     //  ***************    Move Machine from List to the FCB merging Station  *************
 
-    draw_bay6: () => {
-        let canvasId = "machine_field_bay_6";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_bay7: () => {
-        let canvasId = "machine_field_bay_7";
-        invokeDrawMachineInBay(canvasId)
-    },
-
     draw_bay8: () => {
         let canvasId = "machine_field_bay_8";
         invokeDrawMachineInBay(canvasId)
@@ -35,25 +25,6 @@ Template.team_3_over_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
-    draw_test_bay_1: () => {
-        let canvasId = "machine_field_test_bay_1";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_2: () => {
-        let canvasId = "machine_field_test_bay_2";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_3: () => {
-        let canvasId = "machine_field_test_bay_3";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_test_bay_4: () => {
-        let canvasId = "machine_field_test_bay_4";
-        invokeDrawMachineInBay(canvasId)
-    },
 
 })
 

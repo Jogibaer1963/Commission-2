@@ -7,6 +7,12 @@
     width: 110px;
 }
 
+.canvas-boxes {
+    left: -8px;
+    position: absolute;
+    top: -38px;
+}
+
 .fcb-station-1-screen {
     left: -237px;
     position: absolute;
@@ -40,13 +46,13 @@ left: -240px;
 .bay2-fcb-merge-screen {
     left: -185px;
     position: absolute;
-    top: 110px;
+    top: 137px;
 }
 
 .arrows-bay-2-3 {
     left: -134px;
     position: absolute;
-    top: 111px;
+    top: 137px;
     transform: rotate(270deg);
 }
 
@@ -59,10 +65,19 @@ left: -240px;
     width: 50px;
 }
 
+.bay-2-time-screen {
+    left: -222px;
+    position: absolute;
+    top: 61px;
+    color: red;
+    font-weight: bold;
+    font-size: 19px;
+}
+
 .bay-2-unit-screen {
     left: -214px;
     position: absolute;
-    top: 60px;
+    top: 84px;
     color: red;
     font-weight: bold;
     font-size: 19px;
@@ -81,13 +96,22 @@ left: -240px;
 .bay-3-canvas-screen {
     left: -96px;
     position: absolute;
-    top: 68px;
+    top: 93px;
+}
+
+.bay-3-time-screen {
+    left: -79px;
+    position: absolute;
+    top: 61px;
+    color: red;
+    font-weight: bold;
+    font-size: 19px;
 }
 
 .bay-3-unit-screen {
     left: -79px;
     position: absolute;
-    top: 61px;
+    top: 83px;
     color: red;
     font-weight: bold;
     font-size: 19px;
@@ -97,7 +121,7 @@ left: -240px;
 .arrows-bay-3-4 {
      left: 7px;
     position: absolute;
-    top: 113px;
+    top: 136px;
     transform: rotate(270deg);
 }
 
@@ -113,23 +137,32 @@ left: -240px;
 .bay-4-canvas-screen {
 left: 21px;
     position: absolute;
-    top: 72px;
+    top: 95px;
 }
 
 .bay-4-unit-screen {
     left: 64px;
     position: absolute;
-    top: 63px;
+    top: 82px;
     color: red;
     font-weight: bold;
     font-size: 19px;
     width: 90px;
 }
 
-.show-engine-screen {
-    left: 2px;
+.bay-4-time-screen {
+    left: 65px;
     position: absolute;
-    top: 166px;
+    top: 61px;
+    color: red;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.show-engine-screen {
+    left: 148px;
+    position: absolute;
+    top: 164px;
     color: #ef9728;
     font-weight: bold;
     font-size: 21px;
@@ -185,3 +218,22 @@ left: 21px;
     font-size: 67px;
 }
 
+// **********************  tact time and cycle time ***********************************
+
+.tact-time-header-screen {
+    left: -231px;
+    position: absolute;
+    top: 151px;
+    color: #03ff84;
+    font-size: 19px;
+    width: 350px;
+}
+
+.cycle-time-header-screen {
+    left: -231px;
+    position: absolute;
+    top: 200px;
+    color: #03ff84;
+    font-size: 19px;
+    width: 350px;
+}

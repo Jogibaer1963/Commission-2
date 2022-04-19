@@ -86,11 +86,19 @@ Template.machine_picking_list.helpers({
     }
 });
 
+Session.set('skipModeActive',0)
+
 Template.machine_picking_list.events({
 
     'click .activate-skip-mode': (e) => {
         e.preventDefault();
-        Meteor.call('activate_skip_mode', true)
+        if (Session.get('skipModeActive') === 0) {
+            Session.set('skipModeActive', 1)
+            Meteor.call('activate_skip_mode', true)
+        } else if (Session.get('skipModeActive') === 1) {
+            Session.set('skipModeActive', 0)
+            Meteor.call('activate_skip_mode', false)
+        }
     },
 
     'click .de-activate-skip-mode': (e) => {

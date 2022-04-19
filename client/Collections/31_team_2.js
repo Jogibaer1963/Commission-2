@@ -1,11 +1,9 @@
 Meteor.subscribe('activeAssembly')
 
-import { invokeMachineTest } from '../../lib/99_functionCollector.js';
-import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
+
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
-import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
-import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
+
 
 Session.set('twoMachines', false)
 
@@ -13,15 +11,6 @@ Template.team_2_over_view.helpers({
 
     //  ***************    Move Machine from List to the FCB merging Station  *************
 
-    draw_bay3: () => {
-        let canvasId = "machine_field_bay_3";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_bay4: () => {
-        let canvasId = "machine_field_bay_4";
-        invokeDrawMachineInBay(canvasId)
-    },
 
     draw_bay5: () => {
         let canvasId = "machine_field_bay_5";
@@ -39,15 +28,6 @@ Template.team_2_over_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
-    draw_bay8: () => {
-        let canvasId = "machine_field_bay_8";
-        invokeDrawMachineInBay(canvasId)
-    },
-
-    draw_bay9: () => {
-        let canvasId = "machine_field_bay_9";
-        invokeDrawMachineInBay(canvasId)
-    }
 
 })
 

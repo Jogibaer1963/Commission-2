@@ -89,26 +89,106 @@ Template.team_1_screen_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
+
+    time_bay_2: () => {
+        // Tact time = 330 min per Machine.
+        // cycle time = true time from start to finish / move machine until move machine again.
+        setInterval(timeCounterBay2, 1000);
+    },
+
     units_bay_2: () => {
         return unitCounter("machine_field_fcb_threshing")
+    },
+
+    time_bay_3: () => {
+        // Tact time = 330 min per Machine.
+        // cycle time = true time from start to finish / move machine until move machine again.
+        setInterval(timeCounterBay3, 1000);
     },
 
     units_bay_3: () => {
         return unitCounter("machine_field_bay_3")
     },
 
+    time_bay_4: () => {
+        // Tact time = 330 min per Machine.
+        // cycle time = true time from start to finish / move machine until move machine again.
+        setInterval(timeCounterBay4, 1000);
+    },
+
     units_bay_4: () => {
         return unitCounter("machine_field_bay_4")
     },
+
 
     date:() => {
         setInterval(updateTime, 1000);
     }
 
-
-
-
 })
+
+function timeCounterBay2() {
+    timeCounter("machine_field_fcb_threshing", "realTimerBay2")
+}
+
+
+function timeCounterBay3() {
+    timeCounter("machine_field_bay_3", "realTimerBay3")
+}
+
+function timeCounterBay4() {
+    timeCounter("machine_field_bay_4", "realTimerBay4")
+}
+
+
+function timeCounter(bayId, timerId) {
+    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
+        h, m, s, trueMovingTime;
+    try {
+        result = activeAssembly.findOne({_id: bayId});
+        machineNr = result.bayArray[0].machineNr;
+        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
+        leavingTime = timeLine.timeLine.bay_4_time;
+        leavingDateTime = timeLine.timeLine.bay4 + ' ' + leavingTime;
+        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
+            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
+        if (moveTime >= 0) {
+            h = Math.floor(moveTime / 3600);
+            m = Math.floor(moveTime % 3600 / 60);
+            s = Math.floor(moveTime % 3600 % 60);
+            if (h < 10) {
+                h = '0' + h;
+            }
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = h + ':' + m + ':' + s
+            document.getElementById(timerId).innerHTML =
+                trueMovingTime;
+        }
+        if (moveTime < 0) {
+            let negativeMoveTime = Math.abs(moveTime)
+            h = Math.floor(negativeMoveTime / 3600);
+            m = Math.floor(negativeMoveTime % 3600 / 60);
+            s = Math.floor(negativeMoveTime % 3600 % 60);
+            if (h < 10) {
+                h = '0' + h;
+            }
+            if (m < 10) {
+                m = '0' + m;
+            }
+            if (s < 10) {
+                s = '0' + s
+            }
+            trueMovingTime = '-' + h + ':' + m + ':' + s
+            document.getElementById(timerId).innerHTML =
+                trueMovingTime;
+        }
+    } catch(err) {}
+}
 
 
 function zeroPadding(num, digit) {   let zero = '';
