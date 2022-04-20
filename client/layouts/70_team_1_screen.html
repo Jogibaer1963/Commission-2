@@ -1,8 +1,8 @@
 <template name="team_1_screen">
-    <div class="team-1-over-view">
+
         {{> team_1_screen_view }}
 
-    </div>
+
 </template>
 
 <template name="team_1_screen_view">
@@ -16,71 +16,72 @@
         <style>body{
             background-color:black;
         }</style>
-        <div class="team-1-template">
-                <h1 class="team-1-screen-header">Team 1 </h1>
+<body>
+        <div class="team-screen-template">
+                <h1 class="team-screen-header">Team 1 </h1>
 
-      <div class="canvas-boxes">
-            <p class="fcb-station-1-screen">
-                <canvas {{draw_fcb_station_1}} id="fcb_station_1"
-                class="fcb-1-canvas"></canvas>
-            </p>
+           <div class="canvas-boxes">
+                <p class="fcb-station-1-screen">
+                    <canvas {{draw_fcb_station_1}} id="fcb_station_1"
+                    class="fcb-1-canvas"></canvas>
+                </p>
 
-            <h4 class="fcb-1-text-screen">FCB 1</h4>
+                <h4 class="fcb-1-text-screen">FCB 1</h4>
 
-            <p  class="fcb-station-2-screen">
-                <canvas {{draw_fcb_station_2}} id="fcb_station_2"
-                class="fcb-2-canvas" ></canvas>
-            </p>
+                <p  class="fcb-station-2-screen">
+                    <canvas {{draw_fcb_station_2}} id="fcb_station_2"
+                    class="fcb-2-canvas" ></canvas>
+                </p>
 
-            <h4 class="fcb-2-text-screen">FCB 2</h4>
+                <h4 class="fcb-2-text-screen">FCB 2</h4>
 
-            <p class="bay2-fcb-merge-screen">
-                    <canvas {{draw_fcb_threshing_team_1}} id="machine_field_fcb_threshing"
-                    class="bay-2-canvas"></canvas>
-            </p>
+                <p class="bay2-fcb-merge-screen">
+                        <canvas {{draw_fcb_threshing_team_1}} id="machine_field_fcb_threshing"
+                        class="bay-2-canvas"></canvas>
+                </p>
 
-            <div class="arrows-bay-2-3">
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-            </div>
+                <div class="arrows-bay-2-3">
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                </div>
 
-            <h4  class="bay-2-screen">Bay 2</h4>
+                <h4  class="bay-2-screen">Bay 2</h4>
 
-            <p class="bay-2-time-screen" id="realTimerBay2">{{time_bay_2}}</p>
-            <p  class="bay-2-unit-screen">{{units_bay_2}}</p>
+                <p class="bay-2-time-screen" id="realTimerBay2">{{time_bay_2}}</p>
+                <p  class="bay-2-unit-screen">{{units_bay_2}}</p>
 
-            <h4 class="bay-3-screen">Bay 3</h4>
+                <h4 class="bay-3-screen">Bay 3</h4>
 
-            <p class="bay-3-canvas-screen">
-                <canvas {{draw_bay3}} id="machine_field_bay_3" class="bay-3-canvas"></canvas>
-            </p>
+                <p class="bay-3-canvas-screen">
+                    <canvas {{draw_bay3}} id="machine_field_bay_3" class="bay-3-canvas"></canvas>
+                </p>
 
-            <p class="bay-3-time-screen" id="realTimerBay3">{{time_bay_3}}</p>
-            <p class="bay-3-unit-screen">{{units_bay_3}}</p>
+                <p class="bay-3-time-screen" id="realTimerBay3">{{time_bay_3}}</p>
+                <p class="bay-3-unit-screen">{{units_bay_3}}</p>
 
-            <div class="arrows-bay-3-4">
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-            </div>
+                <div class="arrows-bay-3-4">
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                </div>
 
-             <h4 class="bay-4-screen">Bay 4</h4>
+                 <h4 class="bay-4-screen">Bay 4</h4>
 
-            <p class="bay-4-canvas-screen">
-                <canvas {{draw_bay4}} id="machine_field_bay_4"
-                class="bay-4-canvas"></canvas>
-            </p>
+                <p class="bay-4-canvas-screen">
+                    <canvas {{draw_bay4}} id="machine_field_bay_4"
+                    class="bay-4-canvas"></canvas>
+                </p>
 
-            <p class="bay-4-time-screen" id="realTimerBay4">{{time_bay_4}}</p>
-             <p class="bay-4-unit-screen">{{units_bay_4}}</p>
+                <p class="bay-4-time-screen" id="realTimerBay4">{{time_bay_4}}</p>
+                 <p class="bay-4-unit-screen">{{units_bay_4}}</p>
 
 
-            <div class="arrows-team-1-bay-4">
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-                <p class="chevron"></p>
-            </div>
+                <div class="arrows-team-1-bay-4">
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                </div>
 
          </div>
 
@@ -95,11 +96,11 @@
                 <p id="time" class="time-clock">{{ time }}</p>
                 <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 10h</h3>
                 <h3 class="shift-end-team-1">Shift End: 04:30 PM</h3>
-                <h3 class="shift-end-team-1-metric">Shift End: 16:30 PM</h3>
             </div>
 
-            <p class="tact-time-header-screen">Tact Time: 210 min per Machine</p>
+            <p class="tact-time-header-screen">Takt Time: 210 min per Machine</p>
             <p class="cycle-time-header-screen">Cycle Time : </p>
         </div>
+</body>
     </html>
 </template>

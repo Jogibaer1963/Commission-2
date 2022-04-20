@@ -3978,7 +3978,14 @@ table.headerTable {
   position: relative;
 }
 
-.team-1-screen-header {
+.team-screen-template {
+  left: 247px;
+  position: absolute;
+  top: 129px;
+  z-index: 1;
+}
+
+.team-screen-header {
   left: 59px;
   position: absolute;
   top: -145px;
@@ -4152,7 +4159,7 @@ table.headerTable {
 .shift-team-1 {
   left: 175px;
   position: absolute;
-  top: -25px;
+  top: -22px;
   width: 190px;
   color: #09ec86;
 }
@@ -4211,6 +4218,130 @@ table.headerTable {
   color: #03ff84;
   font-size: 19px;
   width: 350px;
+}
+
+.bay-5-screen {
+  left: -152px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-5-canvas-screen {
+  left: -229px;
+  position: absolute;
+  top: 97px;
+}
+
+.bay-5-time-screen {
+  left: -183px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.bay-5-unit-screen {
+  left: -177px;
+  position: absolute;
+  top: 84px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-bay-5-6 {
+  left: -93px;
+  position: absolute;
+  top: 136px;
+  transform: rotate(270deg);
+}
+
+.bay-6-screen {
+  left: -16px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-6-time-screen {
+  left: -42px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.bay-6-unit-screen {
+  left: -34px;
+  position: absolute;
+  top: 84px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.bay-6-canvas-screen {
+  left: -85px;
+  position: absolute;
+  top: 97px;
+}
+
+.arrows-bay-6-7 {
+  left: 49px;
+  position: absolute;
+  top: 136px;
+  transform: rotate(270deg);
+}
+
+.bay-7-screen {
+  left: 140px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 50px;
+}
+
+.bay-7-time-screen {
+  left: 108px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.bay-7-unit-screen {
+  left: 113px;
+  position: absolute;
+  top: 84px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.bay-7-canvas-screen {
+  left: 59px;
+  position: absolute;
+  top: 97px;
+}
+
+.team-2-shift {
+  left: 253px;
+  position: absolute;
+  top: 135px;
+  width: 220px;
+  color: #09ec86;
 }
 
 .topNav {

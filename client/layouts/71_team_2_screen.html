@@ -1,0 +1,82 @@
+<template name="team_2_screen">
+        {{> team_2_screen_view }}
+</template>
+
+
+<template name="team_2_screen_view">
+ <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Team 2</title>
+    </head>
+
+    <style>body{
+        background-color:black;
+    }</style>
+
+    <body>
+    <div class="team-screen-template">  <!-- css class defined in team 1 css -->
+        <h1 class="team-screen-header">Team 2 </h1>
+
+        <div class="canvas-boxes">
+
+            <h4  class="bay-5-screen">Bay 5</h4>
+
+            <p class="bay-5-canvas-screen">
+                <canvas {{draw_bay5}} id="machine_field_bay_5"></canvas>
+            </p>
+
+            <p class="bay-5-time-screen" id="realTimerBay2">{{time_bay_5}}</p>
+            <p  class="bay-5-unit-screen">{{units_bay_5}}</p>
+
+            <div class="arrows-bay-5-6">
+                <p class="chevron"></p>
+                <p class="chevron"></p>
+                <p class="chevron"></p>
+            </div>
+
+            <h4 class="bay-6-screen">Bay 6</h4>
+
+            <p class="bay-6-canvas-screen">
+                <canvas {{draw_bay6}} id="machine_field_bay_6"></canvas>
+            </p>
+
+            <p class="bay-6-time-screen" id="realTimerBay3">{{time_bay_6}}</p>
+            <p class="bay-6-unit-screen">{{units_bay_6}}</p>
+
+            <div class="arrows-bay-6-7">
+                <p class="chevron"></p>
+                <p class="chevron"></p>
+                <p class="chevron"></p>
+            </div>
+
+            <h4 class="bay-7-screen">Bay 7</h4>
+
+            <p class="bay-7-canvas-screen">
+                <canvas {{draw_bay7}} id="machine_field_bay_7"></canvas>
+            </p>
+
+            <p class="bay-7-time-screen" id="realTimerBay4">{{time_bay_7}}</p>
+            <p class="bay-7-unit-screen">{{units_bay_7}}</p>
+
+        </div>
+
+        <div id="clock">
+            <p id="date" class="date-clock">{{ date }}</p>
+            <p id="time" class="time-clock">{{ time }}</p>
+        </div>
+
+        <div class="team-2-shift">
+            <h3>Shift &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 10h</h3>
+            <h3>Shift End: 04:30 PM</h3>
+        </div>
+
+        <p class="tact-time-header-screen">Takt Time: 210 min per Machine</p>
+        <p class="cycle-time-header-screen">Cycle Time : </p>
+
+    </div>
+    </body>
+ </html>
+
+
+</template>

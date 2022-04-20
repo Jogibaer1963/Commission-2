@@ -1,4 +1,11 @@
-.team-1-screen-header {
+.team-screen-template {
+    left: 247px;
+    position: absolute;
+    top: 129px;
+    z-index: 1;
+}
+
+.team-screen-header {
     left: 59px;
     position: absolute;
     top: -145px;
@@ -174,7 +181,7 @@ left: 21px;
 .shift-team-1 {
     left: 175px;
     position: absolute;
-    top: -25px;
+    top: -22px;
     width: 190px;
     color: #09ec86;
 }

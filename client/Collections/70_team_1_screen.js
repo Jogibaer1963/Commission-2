@@ -7,6 +7,8 @@ import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 
 import { unitCounter } from "../../lib/99_functionCollector.js";
+import { updateTime } from "../../lib/99_functionCollector.js";
+import { timeCounter } from "../../lib/99_functionCollector.js";
 
 Session.set('twoMachines', false)
 
@@ -141,68 +143,5 @@ function timeCounterBay4() {
 }
 
 
-function timeCounter(bayId, timerId) {
-    let result, machineNr, timeLine, leavingTime, leavingDateTime, moveTime,
-        h, m, s, trueMovingTime;
-    try {
-        result = activeAssembly.findOne({_id: bayId});
-        machineNr = result.bayArray[0].machineNr;
-        timeLine = machineCommTable.findOne({machineId: machineNr},{fields: {timeLine: 1}})
-        leavingTime = timeLine.timeLine.bay_4_time;
-        leavingDateTime = timeLine.timeLine.bay4 + ' ' + leavingTime;
-        moveTime =  ((parseInt(((new Date(leavingDateTime).getTime()) / 1000).toFixed(0)) -
-            (Date.now() / 1000).toFixed(0)) ).toFixed(0);
-        if (moveTime >= 0) {
-            h = Math.floor(moveTime / 3600);
-            m = Math.floor(moveTime % 3600 / 60);
-            s = Math.floor(moveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = h + ':' + m + ':' + s
-            document.getElementById(timerId).innerHTML =
-                trueMovingTime;
-        }
-        if (moveTime < 0) {
-            let negativeMoveTime = Math.abs(moveTime)
-            h = Math.floor(negativeMoveTime / 3600);
-            m = Math.floor(negativeMoveTime % 3600 / 60);
-            s = Math.floor(negativeMoveTime % 3600 % 60);
-            if (h < 10) {
-                h = '0' + h;
-            }
-            if (m < 10) {
-                m = '0' + m;
-            }
-            if (s < 10) {
-                s = '0' + s
-            }
-            trueMovingTime = '-' + h + ':' + m + ':' + s
-            document.getElementById(timerId).innerHTML =
-                trueMovingTime;
-        }
-    } catch(err) {}
-}
 
 
-function zeroPadding(num, digit) {   let zero = '';
-    for(let i = 0; i < digit; i++) {
-        zero += '0';
-    }
-    return (zero + num).slice(-digit);
-}
-
-function updateTime() {
-    let week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    let cd = new Date();
-    document.getElementById('time').innerHTML = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2)
-        + ':' + zeroPadding(cd.getSeconds(), 2);
-    document.getElementById('date').innerHTML = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth()+1, 2)
-        + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
-}
