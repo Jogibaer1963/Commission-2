@@ -93,15 +93,12 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
 
+        /*
         'skipSupplyAreas': (selectedMachine, supplyArea) => {
-          console.log(selectedMachine, supplyArea)
+          console.log('skip Mode', selectedMachine, supplyArea)
 
         },
-
-        'activate_skip_mode': (booleanValue) => {
-            userActions.update({_id: "active-skip-mode"},
-                {$set: {active: booleanValue}})
-        },
+        */
 
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
