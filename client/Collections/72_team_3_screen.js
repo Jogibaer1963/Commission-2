@@ -13,51 +13,51 @@ import { timeCounter } from "../../lib/99_functionCollector.js";
 Session.set('twoMachines', false)
 
 
-Template.team_2_screen_view.helpers({
+Template.team_3_screen_view.helpers({
 
 
-    time_bay_5: () => {
+    time_bay_8: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay5, 1000);
+        setInterval(timeCounterBay8, 1000);
     },
 
-    units_bay_5: () => {
-        return unitCounter("machine_field_bay_5")
+    units_bay_8: () => {
+        return unitCounter("machine_field_bay_8")
     },
 
-    draw_bay5: () => {
-        let canvasId = "machine_field_bay_5";
+    draw_bay8: () => {
+        let canvasId = "machine_field_bay_8";
         invokeDrawMachineInBay(canvasId)
     },
 
-    time_bay_6: () => {
+    time_bay_9: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay6, 1000);
+        setInterval(timeCounterBay9, 1000);
     },
 
-    units_bay_6: () => {
-        return unitCounter("machine_field_bay_6")
+    units_bay_9: () => {
+        return unitCounter("machine_field_bay_9")
     },
 
-    draw_bay6: () => {
-        let canvasId = "machine_field_bay_6";
+    draw_bay9: () => {
+        let canvasId = "machine_field_bay_9";
         invokeDrawMachineInBay(canvasId)
     },
 
-    time_bay_7: () => {
+    time_bay_10: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay7, 1000);
+        setInterval(timeCounterBay10, 1000);
     },
 
-    units_bay_7: () => {
-        return unitCounter("machine_field_bay_7")
+    units_bay_10: () => {
+        return unitCounter("machine_field_bay_10")
     },
 
-    draw_bay7: () => {
-        let canvasId = "machine_field_bay_7";
+    draw_bay10: () => {
+        let canvasId = "machine_field_bay_10";
         invokeDrawMachineInBay(canvasId)
     },
 
@@ -69,15 +69,15 @@ Template.team_2_screen_view.helpers({
 
 });
 
-function timeCounterBay5() {
-    timeCounter("machine_field_bay_5", "realTimerBay5")
+function timeCounterBay8() {
+    timeCounter("machine_field_bay_8", "realTimerBay8")
 }
 
 
-function timeCounterBay6() {
-    timeCounter("machine_field_bay_6", "realTimerBay6")
+function timeCounterBay9() {
+    timeCounter("machine_field_bay_9", "realTimerBay9")
 }
 
-function timeCounterBay7() {
-    timeCounter("machine_field_bay_7", "realTimerBay7")
+function timeCounterBay10() {
+    timeCounter("machine_field_bay_10", "realTimerBay10")
 }

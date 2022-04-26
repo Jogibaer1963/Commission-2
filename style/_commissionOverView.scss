@@ -75,6 +75,41 @@
   top: 447px;
 }
 
+
+.skip-mod-1 {
+  left: 14px;
+  position: absolute;
+  top: 510px;
+  font-weight: bolder;
+  font-size: 17px;
+  color: #bf00ff;
+  animation: blinker-1 2s infinite;
+}
+
+@keyframes blinker-1 {
+  0% {
+    color: #001F3F;
+  }
+  50% {
+    color: #dfef00;
+  }
+  100% {
+    color: #FF4136;
+  }
+}
+
+
+.skip-mod-2 {
+  left: 9px;
+  position: absolute;
+  top: 570px;
+  font-weight: bolder;
+  font-size: small;
+  color: red;
+  animation: blinker-1 3s linear infinite;
+}
+
+
 .machineCommissionTable {
   left: 16em;
   position: absolute;

@@ -70,10 +70,19 @@
             <button type="button" class="btn btn-danger
             btn-primary buttonComplete">Mark Machine as complete</button>
         </div>
+    <div class="skip-mod-1">
+        <p>{{skipMode.part1}}</p>
+    </div>
+
         <div class="activate-skip-mode">
             <button type="button" class="btn btn-danger
-                btn-primary buttonSkip" disabled="disabled">Skip Mode</button>
+                btn-primary buttonSkip">Skip Mode</button>
         </div>
+
+        <div class="skip-mod-2">
+            <p>{{skipMode.part2}}</p>
+        </div>
+
         {{/if}}
     <div>
         <label for="list-printed"></label>

@@ -1,10 +1,12 @@
-<template name="team_2_screen">
-        {{> team_2_screen_view }}
+<template name="team_3_screen">
+    {{> team_3_screen_view }}
 </template>
 
 
-<template name="team_2_screen_view">
- <html lang="en">
+
+<template name="team_3_screen_view">
+
+    <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Team 2</title>
@@ -16,18 +18,18 @@
 
     <body>
     <div class="team-screen-template">  <!-- css class defined in team 1 css -->
-        <h1 class="team-screen-header">Team 2 </h1>
+        <h1 class="team-screen-header">Team 3 </h1>
 
         <div class="canvas-boxes">
 
-            <h4  class="bay-5-screen">Bay 5</h4>
+            <h4  class="bay-5-screen">Bay 8</h4>
 
             <p class="bay-5-canvas-screen">
-                <canvas {{draw_bay5}} id="machine_field_bay_5"></canvas>
+                <canvas {{draw_bay8}} id="machine_field_bay_8"></canvas>
             </p>
 
-            <p class="bay-5-time-screen" id="realTimerBay5">{{time_bay_5}}</p>
-            <p  class="bay-5-unit-screen">{{units_bay_5}}</p>
+            <p class="bay-5-time-screen" id="realTimerBay8">{{time_bay_8}}</p>
+            <p  class="bay-5-unit-screen">{{units_bay_8}}</p>
 
             <div class="arrows-bay-5-6">
                 <p class="chevron"></p>
@@ -35,14 +37,14 @@
                 <p class="chevron"></p>
             </div>
 
-            <h4 class="bay-6-screen">Bay 6</h4>
+            <h4 class="bay-6-screen">Bay 9</h4>
 
             <p class="bay-6-canvas-screen">
-                <canvas {{draw_bay6}} id="machine_field_bay_6"></canvas>
+                <canvas {{draw_bay9}} id="machine_field_bay_9"></canvas>
             </p>
 
-            <p class="bay-6-time-screen" id="realTimerBay6">{{time_bay_6}}</p>
-            <p class="bay-6-unit-screen">{{units_bay_6}}</p>
+            <p class="bay-6-time-screen" id="realTimerBay9">{{time_bay_9}}</p>
+            <p class="bay-6-unit-screen">{{units_bay_9}}</p>
 
             <div class="arrows-bay-6-7">
                 <p class="chevron"></p>
@@ -50,14 +52,14 @@
                 <p class="chevron"></p>
             </div>
 
-            <h4 class="bay-7-screen">Bay 7</h4>
+            <h4 class="bay-7-screen">Bay 10</h4>
 
             <p class="bay-7-canvas-screen">
-                <canvas {{draw_bay7}} id="machine_field_bay_7"></canvas>
+                <canvas {{draw_bay10}} id="machine_field_bay_10"></canvas>
             </p>
 
-            <p class="bay-7-time-screen" id="realTimerBay7">{{time_bay_7}}</p>
-            <p class="bay-7-unit-screen">{{units_bay_7}}</p>
+            <p class="bay-7-time-screen" id="realTimerBay10">{{time_bay_10}}</p>
+            <p class="bay-7-unit-screen">{{units_bay_10}}</p>
 
         </div>
 
@@ -76,7 +78,9 @@
 
     </div>
     </body>
- </html>
+    </html>
+
+
 
 
 </template>

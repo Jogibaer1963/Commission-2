@@ -85,7 +85,16 @@ Template.machine_picking_list.helpers({
             Session.set('commMachine', selectedMachine);
             return "selectedMachine";
         }
+    },
+
+    skipMode: () => {
+        let skipMode = Session.get('skipModeActive')
+        if (skipMode === 1) {
+            // skip Mode active
+            return {part1: '!! Attention !!', part2: 'Skip Mod is Active'}
+        }
     }
+
 });
 
 Session.set('skipModeActive',0)
@@ -96,26 +105,32 @@ Template.machine_picking_list.events({
         e.preventDefault();
         if (Session.get('skipModeActive') === 0) {
             Session.set('skipModeActive', 1)
-            console.log('skip Mode active')
-            Meteor.call('skipMachineSupply', true)
+          //  console.log('skip Mode active')
         } else if (Session.get('skipModeActive') === 1) {
             Session.set('skipModeActive', 0)
-            console.log('skip mode inactive')
-           // Meteor.call('activate_skip_mode', false)
+           // console.log('skip mode inactive')
         }
     },
 
     'click .commissionMachine': function (e) {
         e.preventDefault();
+        let skipMode = Session.get('skipModeActive')
         let supplyArea = Session.get('supplyArea')
         if (supplyArea === undefined || supplyArea === '') {
-            supplyArea = 'empty';
+            supplyArea = 0;
         }
         let selectedMachine = this.machineId;
-        console.log(selectedMachine, supplyArea)
+      //  console.log(selectedMachine, supplyArea, 'SkipMode :', skipMode)
         Session.set('selectedMachine', selectedMachine);
-        Meteor.call('skipSupplyAreas', selectedMachine, supplyArea)
+        if (skipMode === 1) {
+            // skip Mode Active
+            Meteor.call('skipSupplyAreas', selectedMachine, supplyArea, skipMode)
+        } else if (skipMode === 0) {
+
+        }
         Session.set('supplyArea', '')
+
+
     },
 
     'click .supplyId': function (e) {

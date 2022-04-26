@@ -93,12 +93,40 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
 
-        /*
-        'skipSupplyAreas': (selectedMachine, supplyArea) => {
-          console.log('skip Mode', selectedMachine, supplyArea)
 
+        'skipSupplyAreas': (selectedMachine, supplyArea) => {
+            if (supplyArea === 0) {
+                // No supply Area skip complete Machine
+                let result =  machineCommTable.findOne({machineId: selectedMachine}, {fields: {supplyAreas: 1}})
+                result.supplyAreas.forEach((element) => {
+                    if (element.supplyStatus === 4) {
+                        // Machine is already blocked, unblock it
+                        let supplyArea = element._id
+                        machineCommTable.update({machineId: selectedMachine, 'supplyAreas._id': supplyArea},
+                            {$set: {'supplyAreas.$.supplyStatus': 0}})
+                    } else if (element.supplyStatus === 0) {
+                        // Machine is not blocked, block it now
+                        let supplyArea = element._id
+                        machineCommTable.update({machineId: selectedMachine, 'supplyAreas._id': supplyArea},
+                            {$set: {'supplyAreas.$.supplyStatus': 4}})
+                    }
+                })
+            } else {
+                let result =  machineCommTable.findOne({machineId: selectedMachine}, {fields: {supplyAreas: 1}})
+                // check if single supply Area is already blocked, if so unblock it
+                result.supplyAreas.forEach((element) => {
+                    if (element._id === supplyArea && element.supplyStatus === 4) {
+                        machineCommTable.update({machineId: selectedMachine, 'supplyAreas._id': supplyArea},
+                            {$set: {'supplyAreas.$.supplyStatus': 0}})
+                    } else if (element._id === supplyArea && element.supplyStatus === 0) {
+                        // supply Area is not blocked, block it now
+                        machineCommTable.update({machineId: selectedMachine, 'supplyAreas._id': supplyArea},
+                            {$set: {'supplyAreas.$.supplyStatus': 4}})
+                    }
+                })
+            }
         },
-        */
+
 
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
