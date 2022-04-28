@@ -193,15 +193,15 @@ Template.team_1_over_view.helpers({
     },
 
     units_bay_2: () => {
-        return unitCounter("machine_field_fcb_threshing")
+        return unitCounter("machine_field_fcb_threshing", ["inLine", "inLine_time"])
     },
 
     units_bay_3: () => {
-        return unitCounter("machine_field_bay_3")
+        return unitCounter("machine_field_bay_3", ["bay3", "bay_3_time"])
     },
 
     units_bay_4: () => {
-        return unitCounter("machine_field_bay_4")
+        return unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
     },
 
 })
