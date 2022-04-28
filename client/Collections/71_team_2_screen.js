@@ -23,7 +23,7 @@ Template.team_2_screen_view.helpers({
     },
 
     units_bay_5: () => {
-        return unitCounter("machine_field_bay_5")
+        return unitCounter("machine_field_bay_5", ["bay5", "bay_5_time"])
     },
 
     draw_bay5: () => {
@@ -38,7 +38,7 @@ Template.team_2_screen_view.helpers({
     },
 
     units_bay_6: () => {
-        return unitCounter("machine_field_bay_6")
+        return unitCounter("machine_field_bay_6", ["bay6", "bay_6_time"])
     },
 
     draw_bay6: () => {
@@ -53,7 +53,7 @@ Template.team_2_screen_view.helpers({
     },
 
     units_bay_7: () => {
-        return unitCounter("machine_field_bay_7")
+        return unitCounter("machine_field_bay_7", ["bay7", "bay_7_time"])
     },
 
     draw_bay7: () => {
@@ -65,19 +65,16 @@ Template.team_2_screen_view.helpers({
         setInterval(updateTime, 1000);
     }
 
-
-
 });
 
 function timeCounterBay5() {
-    timeCounter("machine_field_bay_5", "realTimerBay5")
+    timeCounter( "realTimerBay5")
 }
 
-
 function timeCounterBay6() {
-    timeCounter("machine_field_bay_6", "realTimerBay6")
+    timeCounter( "realTimerBay6")
 }
 
 function timeCounterBay7() {
-    timeCounter("machine_field_bay_7", "realTimerBay7")
+    timeCounter("realTimerBay7")
 }
