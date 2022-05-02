@@ -99,7 +99,9 @@ Template.team_1_screen_view.helpers({
     },
 
     units_bay_2: () => {
-        return unitCounter("machine_field_fcb_threshing", ["inLine", "inLine_time"])
+        let unitCount = unitCounter("machine_field_fcb_threshing", ["inLine", "inLine_time"]);
+        Session.set('unitCountBay2', unitCount);
+        return unitCount;
     },
 
     time_bay_3: () => {
@@ -109,7 +111,9 @@ Template.team_1_screen_view.helpers({
     },
 
     units_bay_3: () => {
-        return unitCounter("machine_field_bay_3", ["bay3", "bay_3_time"])
+        let unitCount = unitCounter("machine_field_bay_3", ["bay3", "bay_3_time"])
+        Session.set('unitCountBay3', unitCount);
+        return unitCount
     },
 
     time_bay_4: () => {
@@ -119,7 +123,9 @@ Template.team_1_screen_view.helpers({
     },
 
     units_bay_4: () => {
-        return unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
+        let unitCount = unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
+        Session.set('unitCountBay4', unitCount);
+        return unitCount
     },
 
 
@@ -130,16 +136,19 @@ Template.team_1_screen_view.helpers({
 })
 
 function timeCounterBay2() {
-    timeCounter( 'bayId', "realTimerBay2")
+    let unitCount = Session.get('unitCountBay2')
+    timeCounter( 'machine_field_fcb_threshing', ['inLine', 'inLine_time', unitCount], "realTimerBay2")
 }
 
 
 function timeCounterBay3() {
-    timeCounter( "realTimerBay3")
+    let unitCount = Session.get('unitCountBay3')
+    timeCounter( "machine_field_bay_3", ['bay3', 'bay_3_time', unitCount], 'realTimerBay3')
 }
 
 function timeCounterBay4() {
-    timeCounter( "machine_field_bay_4", "realTimerBay4")
+    let unitCount = Session.get('unitCountBay4')
+    timeCounter( "machine_field_bay_4", ['bay4', 'bay_4_time', unitCount], "realTimerBay4")
 }
 
 

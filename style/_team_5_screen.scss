@@ -1,87 +1,24 @@
-.bay-5-screen {
-  left: -152px;
-  position: absolute;
-  top: 28px;
-  color: #e009dc;
-  font-weight: bold;
-  width: 65px;
-}
-
-.bay-5-canvas-screen {
-  left: -229px;
-  position: absolute;
-  top: 97px;
-}
-
-.bay-5-time-screen {
-  left: -183px;
-  position: absolute;
-  top: 61px;
-  color: red;
-  font-weight: bold;
-  font-size: 19px;
-}
-
-.bay-5-unit-screen {
-  left: -177px;
-  position: absolute;
-  top: 84px;
-  color: red;
-  font-weight: bold;
-  font-size: 19px;
-  width: 90px;
-}
-
-.arrows-bay-5-6 {
-  left: -93px;
-  position: absolute;
-  top: 136px;
-  transform: rotate(270deg);
-}
-
-.bay-6-screen {
-  left: -16px;
-  position: absolute;
-  top: 28px;
-  color: #e009dc;
-  font-weight: bold;
-  width: 65px;
-}
-
-.bay-6-time-screen {
+.team-5-correction {
   left: -42px;
   position: absolute;
-  top: 61px;
-  color: red;
-  font-weight: bold;
-  font-size: 19px;
+  top: -15px;
 }
 
-.bay-6-unit-screen {
-  left: -34px;
-  position: absolute;
-  top: 84px;
-  color: red;
-  font-weight: bold;
-  font-size: 19px;
-  width: 90px;
-}
-
-.bay-6-canvas-screen {
-  left: -85px;
-  position: absolute;
-  top: 97px;
-}
-
-.arrows-bay-6-7 {
-  left: 49px;
+.arrows-bay-16-17 {
+  left: 192px;
   position: absolute;
   top: 136px;
   transform: rotate(270deg);
 }
 
-.bay-7-screen {
-  left: 140px;
+.bay-17-canvas-screen {
+  left: 196px;
+  position: absolute;
+  top: 97px;
+}
+
+.bay-17-screen {
+  left: 270px;
   position: absolute;
   top: 28px;
   color: #e009dc;
@@ -89,7 +26,48 @@
   width: 100px;
 }
 
-.bay-7-time-screen {
+.bay-17-time-screen {
+  left: 250px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.bay-17-unit-screen {
+  left: 250px;
+  position: absolute;
+  top: 84px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-bay-17-18 {
+  left: 330px;
+  position: absolute;
+  top: 136px;
+  transform: rotate(270deg);
+}
+
+.bay-18-canvas-screen {
+  left: 339px;
+  position: absolute;
+  top: 97px;
+}
+
+.bay-18-screen {
+  left: 410px;
+  position: absolute;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 100px;
+}
+
+.bay-18-time-screen {
   left: 108px;
   position: absolute;
   top: 61px;
@@ -98,8 +76,8 @@
   font-size: 19px;
 }
 
-.bay-7-unit-screen {
-  left: 113px;
+.bay-18-unit-screen {
+  left: 392px;
   position: absolute;
   top: 84px;
   color: red;
@@ -108,20 +86,45 @@
   width: 90px;
 }
 
-.bay-7-canvas-screen {
-  left: 59px;
+.arrows-bay-18-19 {
+  left: 477px;
+  position: absolute;
+  top: 136px;
+  transform: rotate(270deg);
+}
+
+
+.bay-19-canvas-screen {
+  left: 490px;
   position: absolute;
   top: 97px;
 }
 
-
-.team-2-shift {
-  left: 253px;
+.bay-19-screen {
+  left: 140px;
   position: absolute;
-  top: 135px;
-  width: 220px;
-  color: #09ec86;
+  top: 28px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 100px;
 }
 
+.bay-19-time-screen {
+  left: 540px;
+  position: absolute;
+  top: 61px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
 
+.bay-19-unit-screen {
+  left: 540px;
+  position: absolute;
+  top: 84px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
 

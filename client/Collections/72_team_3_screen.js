@@ -61,6 +61,10 @@ Template.team_3_screen_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
+
+
+
+
     date:() => {
         setInterval(updateTime, 1000);
     }
