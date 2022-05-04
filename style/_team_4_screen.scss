@@ -1,0 +1,401 @@
+.canvas-boxes-team-4 {
+  left: -10px;
+  position: absolute;
+  top: -115px;
+}
+
+.engine-1-screen {
+  left: -213px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.engine-1 {
+  left: -270px;
+  position: absolute;
+  top: 195px;
+}
+
+.engine-1-time-screen {
+  left: -218px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.engine-1-unit-screen {
+  left: -222px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-engine-1-2 {
+  left: -131px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+//  **************************************   Engine 2 ***********************************
+
+.engine-2-screen {
+  left: -61px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.engine-2 {
+  left: -118px;
+  position: absolute;
+  top: 195px;
+}
+
+.engine-2-time-screen {
+  left: -68px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.engine-2-unit-screen {
+  left: -74px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-engine-2-3 {
+  left: 20px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+// **************************************  Engine 3 *******************************************
+
+.engine-3-screen {
+  left: 92px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.engine-3 {
+  left: 33px;
+  position: absolute;
+  top: 195px;
+}
+
+.engine-3-time-screen {
+  left: 86px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.engine-3-unit-screen {
+  left: 82px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-engine-3-4 {
+  left: 166px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+// ********************************* Engine 4 *********************************
+
+.engine-4-screen {
+  left: 228px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.engine-4 {
+  left: 173px;
+  position: absolute;
+  top: 195px;
+}
+
+.engine-4-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.engine-4-unit-screen {
+  left: 220px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-engine-4-merge {
+  left: 20px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+.engine-stations-1-4 {
+  left: -3px;
+  position: absolute;
+  top: 133px;
+}
+
+// ****************************  Cooling Box 1 ***************************************
+
+.cooling-1-screen {
+  left: -214px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.cooling-1 {
+  left: -270px;
+  position: absolute;
+  top: 195px;
+}
+
+.cooling-1-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.cooling-1-unit-screen {
+  left: -221px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-cooling-1-2 {
+  left: -129px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+// ******************************************** Cooling Box 2 ***************************************
+
+.cooling-2-screen {
+  left: -61px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.cooling-2 {
+  left: -118px;
+  position: absolute;
+  top: 195px;
+}
+
+.cooling-2-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.cooling-2-unit-screen {
+  left: -72px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.arrows-cooling-2-merge-1 {
+  left: -129px;
+  position: absolute;
+  top: 234px;
+  transform: rotate(270deg);
+}
+
+// **********************************  merge 1 ***************************************************
+
+.merge-1-screen {
+  left: 101px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.merge-1 {
+  left: 28px;
+  position: absolute;
+  top: 195px;
+}
+
+.merge-1-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.merge-1-unit-screen {
+  left: -72px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+ // ***************************************** Merge 2 '**********************************
+
+.merge-2-screen {
+  left: 238px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.merge-2 {
+  left: 174px;
+  position: absolute;
+  top: 195px;
+}
+
+.merge-2-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.merge-2-unit-screen {
+  left: 225px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+// ******************************************** Merge 3 *********************************
+
+.merge-3-screen {
+  left: 388px;
+  position: absolute;
+  top: 127px;
+  color: #e009dc;
+  font-weight: bold;
+  width: 90px;
+}
+
+.merge-3 {
+  left: 325px;
+  position: absolute;
+  top: 195px;
+}
+
+.merge-3-time-screen {
+  left: 222px;
+  position: absolute;
+  top: 160px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.merge-3-unit-screen {
+  left: 371px;
+  position: absolute;
+  top: 183px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.clock-team-4-correction {
+  left: -51px;
+  position: absolute;
+  top: 2px;
+}
+
+.date-clock-team-4 {
+  left: 62px;
+  position: absolute;
+  top: -97px;
+  width: 300px;
+  font-size: 30px;
+}
+
+.shift-table {
+  left: 37px;
+  position: absolute;
+  top: 318px;
+}
+
+.team-4-time-correction {
+  left: -10px;
+  position: absolute;
+  top: 163px;
+}

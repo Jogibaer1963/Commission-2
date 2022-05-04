@@ -1,0 +1,180 @@
+<template name="team_4_screen">
+    {{> team_4_screen_view }}
+</template>
+
+
+<template name="team_4_screen_view">
+
+    <html lang="en-US">
+        <head>
+            <meta charset="utf-8">
+            <title>Team 4</title>
+        </head>
+
+        <style>body{
+            background-color:black;
+        }</style>
+        <body>
+        <div class="team-screen-template">
+
+            <h1 class="team-screen-header">Team 4 </h1>
+
+            <div class="canvas-boxes-team-4">
+
+                <div class="engine-stations-1-4">
+                    <!-- ************************ Engine 1 ********************************  -->
+
+                    <h4 class="engine-1-screen">Engine 1</h4>
+
+                    <p class="engine-1">
+                        <canvas {{draw_engine_1}} id="engine-station-1"></canvas>
+                    </p>
+
+                    <p class="engine-1-time-screen" id="realTimerEngine1">{{time_engine_1}}</p>
+                    <p class="engine-1-unit-screen">{{units_engine_1}}</p>
+
+                    <div class="arrows-engine-1-2">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+
+                   <!-- ************************* Engine 2 *********************************** -->
+
+                    <h4 class="engine-2-screen">Engine 2</h4>
+
+                    <p class="engine-2">
+                        <canvas {{draw_engine_2}} id="engine-station-2"></canvas>
+                    </p>
+
+                    <p class="engine-2-time-screen" id="realTimerEngine2">{{time_engine_2}}</p>
+                    <p class="engine-2-unit-screen">{{units_engine_2}}</p>
+
+                    <div class="arrows-engine-2-3">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+
+                    <!-- ******************************  Engine 3 ******************************  -->
+
+                    <h4 class="engine-3-screen">Engine 3</h4>
+
+                    <p class="engine-3">
+                        <canvas {{draw_engine_3}} id="engine-station-3"></canvas>
+                    </p>
+
+                    <p class="engine-3-time-screen" id="realTimerEngine3">{{time_engine_3}}</p>
+                    <p class="engine-3-unit-screen">{{units_engine_3}}</p>
+
+                    <div class="arrows-engine-3-4">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+
+                <!-- *********************************  Engine 4 ******************************  -->
+
+                    <h4 class="engine-4-screen">Engine 4</h4>
+
+                    <p class="engine-4">
+                        <canvas {{draw_engine_4}} id="engine-station-4"></canvas>
+                    </p>
+
+                    <p class="engine-4-time-screen" id="realTimerEngine4">{{time_engine_4}}</p>
+                    <p class="engine-4-unit-screen">{{units_engine_4}}</p>
+
+                    <div class="arrows-engine-4-merge">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+                </div>
+            <!-- ****************************** Cooling Box 1 ************************************** -->
+
+                <h4 class="cooling-1-screen">Cooling 1</h4>
+
+                <p class="cooling-1">
+                    <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
+                </p>
+
+                <p class="cooling-1-time-screen" id="realTimerEngine3">{{time_engine_3}}</p>
+                <p class="cooling-1-unit-screen">{{units_engine_3}}</p>
+
+                <div class="arrows-cooling-1-2">
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                </div>
+
+            <!-- ******************************  Cooling Box 2 ************************************ -->
+
+                <h4 class="cooling-2-screen">Cooling 2</h4>
+
+                <p class="cooling-2">
+                    <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
+                </p>
+
+                <p class="cooling-2-time-screen" id="realTimerEngine4">{{time_engine_4}}</p>
+                <p class="cooling-2-unit-screen">{{units_engine_4}}</p>
+
+                <div class="arrows-cooling-2-merge-1">
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                    <p class="chevron"></p>
+                </div>
+
+            <!-- ********************************* Merge 1 **************************************** -->
+
+                <h4 class="merge-1-screen">Merge 1</h4>
+
+                <p class="merge-1">
+                    <canvas {{draw_merge_1}} id="merge-station-1"></canvas>
+                </p>
+
+                <p class="merge-1-time-screen" id="realTimerEngine4">{{time_merge_1}}</p>
+                <p class="merge-1-unit-screen">{{units_merge_1}}</p>
+
+
+                <!-- ********************************** Merge 2 ********************************-->
+
+                <h4 class="merge-2-screen">Merge 2</h4>
+
+                <p class="merge-2">
+                    <canvas {{draw_merge_2}} id="merge-station-2"></canvas>
+                </p>
+
+                <p class="merge-2-time-screen" id="realTimerMerge2">{{time_merge_2}}</p>
+                <p class="merge-2-unit-screen">{{units_merge_2}}</p>
+
+              <!-- *************************************  Merge 3 ************************************* -->
+
+                <h4 class="merge-3-screen">Merge 3</h4>
+
+                <p class="merge-3">
+                    <canvas {{draw_merge_3}} id="merge-station-3"></canvas>
+                </p>
+
+                <p class="merge-3-time-screen" id="realTimerMerge3">{{time_merge_3}}</p>
+                <p class="merge-3-unit-screen">{{units_merge_3}}</p>
+
+            </div>
+
+
+            <div class="clock-team-4-correction" id="clock">
+                <p id="date" class="date-clock-team-4">{{ date }}</p>
+                <p id="time" class="time-clock">{{ time }}</p>
+            </div>
+            <div class="shift-table">
+                <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 10h</h3>
+                <h3 class="shift-end-team-1">Shift End: 04:30 PM</h3>
+            </div>
+            <div class="team-4-time-correction">
+                <p class="tact-time-header-screen">Takt Time: 330 min per Machine</p>
+                <p class="cycle-time-header-screen">Cycle Time : </p>
+            </div>
+        </div>
+
+        </body>
+    </html>
+</template>

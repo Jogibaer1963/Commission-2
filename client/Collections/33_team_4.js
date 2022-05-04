@@ -180,8 +180,6 @@ Template.team_4_move_buttons.events({
 
 Template.team_4_over_view.helpers({
 
-
-
     pulsingOne: () => {
         let status = Session.get('timerStartStop-1');
         if (status === 1 || status === 0) {
