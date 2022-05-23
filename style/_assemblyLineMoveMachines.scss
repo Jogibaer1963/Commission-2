@@ -614,6 +614,14 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: 275px;
 }
 
+.bay-4-check-mark {
+  left: 111px;
+  position: absolute;
+  top: 94px;
+  color: #04fa37;
+  transform: scale(3);
+}
+
 .bay-3-move-arrow{
   left: 226px;
   position: absolute;
@@ -1489,8 +1497,8 @@ $station-text-color: #03ff84;
 
 .merging-canvas-correction {
   position: relative;
-  top: 2em;
-  left: 18px;
+  top: -8em;
+  left: 14px;
 }
 
 .cooling-station-2 {
@@ -1499,10 +1507,26 @@ $station-text-color: #03ff84;
   top: 5em;
 }
 
+
+
 .engine-merge-station-1 {
   left: 24.8em;
   position: absolute;
   top: 5em;
+}
+
+.merge-1-check-mark {
+  left: 102px;
+  position: absolute;
+  top: 150px;
+  color: rgba(190, 76, 211, 0.65);
+  transform: scale(8);
+}
+
+.cooling-engine-1 {
+  left: 14px;
+  position: relative;
+  top: 20px;
 }
 
 .engine-merge-station-2 {
@@ -1511,10 +1535,38 @@ $station-text-color: #03ff84;
   top: 5em;
 }
 
+.merge-2-check-mark {
+  left: 102px;
+  position: absolute;
+  top: 150px;
+  color: rgba(190, 76, 211, 0.65);
+  transform: scale(8);
+}
+
+.cooling-engine-2 {
+  left: 14px;
+  position: relative;
+  top: 20px;
+}
+
 .engine-merge-station-3 {
   left: 55em;
   position: absolute;
   top: 5em;
+}
+
+.merge-3-check-mark {
+  left: 102px;
+  position: absolute;
+  top: 150px;
+  color: rgba(190, 76, 211, 0.65);
+  transform: scale(8);
+}
+
+.cooling-engine-3 {
+  left: 14px;
+  position: relative;
+  top: 20px;
 }
 //  ************************************    Engine ready to move Arrows  ***********************************
 

@@ -60,6 +60,10 @@ if(Meteor.isServer){
             return pickingNewHead.find();
         })
 
+        Meteor.publish('machineReadyToGo', function() {
+            return machineReadyToGo.find();
+        })
+
     });
 
 
@@ -350,24 +354,27 @@ if(Meteor.isServer){
 
         },
 
-        'engineReady': (merge_bay, target_machine) => {
+        'engineReady': (canvasId, canvasId_2) => {
             // set merge stations to new status for machineReady and bayAssemblyStatus
             // after engine is moved
-                activeAssembly.update({_id: merge_bay},
-                    {$set: {machineReady: false, bayAssemblyStatus: 0}});
-                activeAssembly.update({_id: "machine_field_bay_4", "bayArray.machineNr": target_machine},
-                    {$set: {'bayArray.$.engineMounted' : true}})
-
-
+            activeAssembly.update({_id: canvasId},
+                {$set: {bayAssemblyStatus: 1, machineReady: true}}, {upsert: true})
+            activeAssembly.update({_id: canvasId_2},
+                {$set: {bayAssemblyStatus: 1, machineReady: true}}, {upsert: true})
             /*
-            machineCommTable.update({_id: pickedMachineId, "supplyAreas._id": pickedSupplyAreaId},
-                {
-                    $set: {
-                        "supplyAreas.$.supplyStatus": status,
+
 
              */
 
     },
+        'engineMountBay4':(canvasId, target_machine, canvasId_2) => {
+            activeAssembly.update({_id: canvasId},
+                {$set: {machineReady: false, bayAssemblyStatus: 0}});
+            activeAssembly.update({_id: canvasId_2},
+                {$set: {machineReady: false, bayAssemblyStatus: 0}});
+            activeAssembly.update({_id: "machine_field_bay_4", "bayArray.machineNr": target_machine},
+                {$set: {'bayArray.$.engineMounted' : true}})
+        },
 
         'resetEngineMounted': () => {
             activeAssembly.update({_id: "machine_field_bay_4"},

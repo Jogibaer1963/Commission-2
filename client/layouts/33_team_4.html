@@ -79,7 +79,7 @@
                     class="btn
                            btn-default
                            btn-success
-                           engine-1-ready-button" {{disableEngineReady_1}}>Engine Ready</button>
+                           engine-1-ready-button">Engine Ready</button>
         </div>
 
         <div class="merge-2-team-button">
@@ -88,7 +88,7 @@
                     class="btn
                            btn-default
                            btn-success
-                           engine-2-ready-button" {{disableEngineReady_2}}>Engine Ready</button>
+                           engine-2-ready-button">Engine Ready</button>
         </div>
 
         <div class="merge-3-team-button">
@@ -97,7 +97,7 @@
                     class="btn
                            btn-default
                            btn-success
-                           engine-3-ready-button" {{disableEngineReady_3}}>Engine Ready</button>
+                           engine-3-ready-button">Engine Ready</button>
         </div>
     </div>
 </template>
@@ -307,8 +307,11 @@
                     </div>
 
                     <div class="">
-                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_cooling_merge_1}} id="cooling-merge-1" class="cooling-engine-1"></canvas>
                         <canvas {{draw_merge_1}} id="merge-station-1" class="merging-canvas-correction"></canvas>
+                    </div>
+                    <div class="merge-1-check-mark" id="merge-1-field" {{merge_1_result}}>
+                        <p>&#10004;</p>
                     </div>
                 </div>
 
@@ -317,42 +320,24 @@
                         <h4>Merge 2</h4>
                     </div>
                     <div class="">
-                        <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                        <canvas {{draw_cooling_merge_2}} id="cooling-merge-2" class="cooling-engine-2"></canvas>
                         <canvas {{draw_merge_2}} id="merge-station-2" class="merging-canvas-correction"></canvas>
                     </div>
+                    <div class="merge-2-check-mark" id="merge-2-field" {{merge_2_result}}>
+                        <p>&#10004;</p>
+                    </div>
                 </div>
-              <div class="pulse pulse-50" style="top: 130px;
-                      left: 332px;
-                      height: 50px;
-                      width: 50px;
-                      opacity: 1;
-                      display: block;
-                      visibility: {{pulsingOne}};" data-slideiddb="2" data-id="1"></div>
-
-              <div class="pulse pulse-50" style="top: 130px;
-                      left: 485px;
-                      height: 50px;
-                      width: 50px;
-                      opacity: 1;
-                      display: block;
-                      visibility: {{pulsingTwo}};" data-slideiddb="2" data-id="1"></div>
-
-              <div class="pulse pulse-50" style="top: 129px;
-                      left: 635px;
-                      height: 50px;
-                      width: 50px;
-                      opacity: 1;
-                      display: block;
-                      visibility: {{pulsingThree}};" data-slideiddb="2" data-id="1"></div>
-
 
               <div class="engine-merge-station-3">
                   <div class="merge-3-text">
                       <h4>Merge 3</h4>
                   </div>
                   <div class="">
-                      <canvas class="my-canvas-3" id="myCanvas" width="90" height="70" style="border: 2px solid #ee0e0e"></canvas>
+                      <canvas {{draw_cooling_merge_3}} id="cooling-merge-3" class="cooling-engine-3"></canvas>
                       <canvas {{draw_merge_3}} id="merge-station-3" class="merging-canvas-correction"></canvas>
+                  </div>
+                  <div class="merge-3-check-mark" id="merge-3-field" {{merge_3_result}}>
+                      <p>&#10004;</p>
                   </div>
               </div>
 

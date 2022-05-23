@@ -167,17 +167,31 @@
   width: 90px;
 }
 
-.arrows-engine-4-merge {
-  left: 20px;
+.arrows-engine-4-merge-1 {
+  left: 230px;
   position: absolute;
-  top: 234px;
-  transform: rotate(270deg);
+  top: 132px;
+  transform: rotate(130deg);
+}
+
+.arrows-engine-4-merge-2 {
+  left: 279px;
+  position: absolute;
+  top: 149px;
+  transform: rotate(180deg);
+}
+
+.arrows-engine-4-merge-3 {
+  left: 320px;
+  position: absolute;
+  top: 149px;
+  transform: rotate(230deg);
 }
 
 .engine-stations-1-4 {
   left: -3px;
   position: absolute;
-  top: 133px;
+  top: 181px;
 }
 
 // ****************************  Cooling Box 1 ***************************************
@@ -198,7 +212,7 @@
 }
 
 .cooling-1-time-screen {
-  left: 222px;
+  left: -211px;
   position: absolute;
   top: 160px;
   color: red;
@@ -241,7 +255,7 @@
 }
 
 .cooling-2-time-screen {
-  left: 222px;
+  left:-76px;
   position: absolute;
   top: 160px;
   color: red;
@@ -260,7 +274,7 @@
 }
 
 .arrows-cooling-2-merge-1 {
-  left: -129px;
+  left: 20px;
   position: absolute;
   top: 234px;
   transform: rotate(270deg);
@@ -280,11 +294,11 @@
 .merge-1 {
   left: 28px;
   position: absolute;
-  top: 195px;
+  top: 235px;
 }
 
 .merge-1-time-screen {
-  left: 222px;
+  left: 79px;
   position: absolute;
   top: 160px;
   color: red;
@@ -293,13 +307,19 @@
 }
 
 .merge-1-unit-screen {
-  left: -72px;
+  left: 74px;
   position: absolute;
   top: 183px;
   color: red;
   font-weight: bold;
   font-size: 19px;
   width: 90px;
+}
+
+.cooling-merge-1 {
+  left: 30px;
+  position: absolute;
+  top: 195px;
 }
 
  // ***************************************** Merge 2 '**********************************
@@ -316,7 +336,7 @@
 .merge-2 {
   left: 174px;
   position: absolute;
-  top: 195px;
+  top: 235px;
 }
 
 .merge-2-time-screen {
@@ -338,6 +358,13 @@
   width: 90px;
 }
 
+.cooling-merge-2 {
+  left: 174px;
+  position: absolute;
+  top: 195px;
+}
+
+
 // ******************************************** Merge 3 *********************************
 
 .merge-3-screen {
@@ -352,11 +379,11 @@
 .merge-3 {
   left: 325px;
   position: absolute;
-  top: 195px;
+  top: 235px;
 }
 
 .merge-3-time-screen {
-  left: 222px;
+  left: 374px;
   position: absolute;
   top: 160px;
   color: red;
@@ -374,6 +401,14 @@
   width: 90px;
 }
 
+.cooling-merge-3 {
+  left: 326px;
+  position: absolute;
+  top: 195px;
+}
+
+// ***************************************************************************************
+
 .clock-team-4-correction {
   left: -51px;
   position: absolute;
@@ -389,13 +424,67 @@
 }
 
 .shift-table {
-  left: 37px;
+  left: 154px;
   position: absolute;
-  top: 318px;
+  top: 261px;
 }
 
 .team-4-time-correction {
-  left: -10px;
+  left: -7px;
   position: absolute;
   top: 163px;
+}
+
+.template-placement-team-4 {
+  left: 5px;
+  position: absolute;
+  top: 479px;
+}
+
+.over-view-screen {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 20px;
+  width: 300px;
+  color: #a8dcdc;
+  text-shadow: 0 0 20px rgb(33, 126, 164),  0 0 20px rgba(10, 175, 230, 0);
+}
+
+.takt-time-team-4-text {
+  left: 73px;
+  position: relative;
+  top: -32px;
+  font-size: 20px;
+  width: 280px;
+  color: #09ec86;
+}
+
+.team-4-over-view-correction {
+  left: -1px;
+  position: relative;
+  top: 1px;
+  width: 300px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 20px;
+  color: #a8dcdc;
+  text-shadow: 0 0 20px rgb(33, 126, 164),  0 0 20px rgba(10, 175, 230, 0);
+}
+
+.build-plan {
+  color: #04fa37
+}
+
+.build-date {
+  color: #deff03;
+}
+
+.build-shipped {
+  color: #ed9b04;
+}
+
+.to-build {
+  color: #ff7403;
+}
+
+.takt-time {
+  color: #5aec11;
 }

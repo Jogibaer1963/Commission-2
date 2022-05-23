@@ -1,5 +1,19 @@
 <template name="team_4_screen">
     {{> team_4_screen_view }}
+    <div class="template-placement-team-4">
+        {{> over_view_all_teams}}
+    </div>
+</template>
+
+<template name="over_view_all_teams">
+    <div class="team-4-over-view-correction">
+        <h4 >Takt Time:  min per Machine <span class="takt-time">{{takt_time}}</span></h4>
+        <h4>Build Plan Goal : <span class="build-plan">{{totalMachines}}</span></h4>
+        <h4 class="machines-shipped">Machines Shipped :  <span class="build-shipped">{{shippedMachines}}</span></h4>
+        <h4>Machines Build (Bay 19) : <span class="build-date">{{buildToDate.machines_build}}</span></h4>
+        <h4 class="machines-build">Machines to build : <span class="to-build">{{buildToDate.machines_to_build}}</span></h4>
+
+    </div>
 </template>
 
 
@@ -84,11 +98,24 @@
                     <p class="engine-4-time-screen" id="realTimerEngine4">{{time_engine_4}}</p>
                     <p class="engine-4-unit-screen">{{units_engine_4}}</p>
 
-                    <div class="arrows-engine-4-merge">
+                    <div class="arrows-engine-4-merge-1">
                         <p class="chevron"></p>
                         <p class="chevron"></p>
                         <p class="chevron"></p>
                     </div>
+
+                    <div class="arrows-engine-4-merge-2">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+
+                    <div class="arrows-engine-4-merge-3">
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                        <p class="chevron"></p>
+                    </div>
+
                 </div>
             <!-- ****************************** Cooling Box 1 ************************************** -->
 
@@ -98,8 +125,8 @@
                     <canvas {{draw_cooling_1}} id="cooling-station-1"></canvas>
                 </p>
 
-                <p class="cooling-1-time-screen" id="realTimerEngine3">{{time_engine_3}}</p>
-                <p class="cooling-1-unit-screen">{{units_engine_3}}</p>
+                <p class="cooling-1-time-screen" id="realTimerCooling1">{{time_cooling_1}}</p>
+                <p class="cooling-1-unit-screen">{{units_cooling_1}}</p>
 
                 <div class="arrows-cooling-1-2">
                     <p class="chevron"></p>
@@ -115,8 +142,8 @@
                     <canvas {{draw_cooling_2}} id="cooling-station-2"></canvas>
                 </p>
 
-                <p class="cooling-2-time-screen" id="realTimerEngine4">{{time_engine_4}}</p>
-                <p class="cooling-2-unit-screen">{{units_engine_4}}</p>
+                <p class="cooling-2-time-screen" id="realTimerCooling2">{{time_cooling_2}}</p>
+                <p class="cooling-2-unit-screen">{{units_cooling_2}}</p>
 
                 <div class="arrows-cooling-2-merge-1">
                     <p class="chevron"></p>
@@ -128,17 +155,25 @@
 
                 <h4 class="merge-1-screen">Merge 1</h4>
 
+                <p class="cooling-merge-1">
+                    <canvas {{draw_cooling_merge_1}} id="cooling-merge-1"></canvas>
+                </p>
+
                 <p class="merge-1">
                     <canvas {{draw_merge_1}} id="merge-station-1"></canvas>
                 </p>
 
-                <p class="merge-1-time-screen" id="realTimerEngine4">{{time_merge_1}}</p>
+                <p class="merge-1-time-screen" id="realTimerMerge1">{{time_merge_1}}</p>
                 <p class="merge-1-unit-screen">{{units_merge_1}}</p>
 
 
                 <!-- ********************************** Merge 2 ********************************-->
 
                 <h4 class="merge-2-screen">Merge 2</h4>
+
+                <p class="cooling-merge-2">
+                    <canvas {{draw_cooling_merge_2}} id="cooling-merge-2"></canvas>
+                </p>
 
                 <p class="merge-2">
                     <canvas {{draw_merge_2}} id="merge-station-2"></canvas>
@@ -150,6 +185,10 @@
               <!-- *************************************  Merge 3 ************************************* -->
 
                 <h4 class="merge-3-screen">Merge 3</h4>
+
+                <p class="cooling-merge-3">
+                    <canvas {{draw_cooling_merge_3}} id="cooling-merge-3"></canvas>
+                </p>
 
                 <p class="merge-3">
                     <canvas {{draw_merge_3}} id="merge-station-3"></canvas>
@@ -166,12 +205,11 @@
                 <p id="time" class="time-clock">{{ time }}</p>
             </div>
             <div class="shift-table">
-                <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 10h</h3>
-                <h3 class="shift-end-team-1">Shift End: 04:30 PM</h3>
+                <h3 class="shift-team-1">Shift &nbsp;      : 9h</h3>
+                <h3 class="shift-end-team-1">Shift End: 03:30 PM</h3>
             </div>
             <div class="team-4-time-correction">
-                <p class="tact-time-header-screen">Takt Time: 330 min per Machine</p>
-                <p class="cycle-time-header-screen">Cycle Time : </p>
+
             </div>
         </div>
 
