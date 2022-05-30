@@ -1,7 +1,8 @@
 <template name="team_1_screen">
-
         {{> team_1_screen_view }}
-
+<div class="overview-team-1-build">
+    {{> over_view_all_teams}}  <!-- Template located within team_4_screen -->
+</div>
 
 </template>
 
@@ -75,6 +76,9 @@
                 <p class="bay-4-time-screen" id="realTimerBay4">{{time_bay_4}}</p>
                  <p class="bay-4-unit-screen">{{units_bay_4}}</p>
 
+               <div class="bay-4-check-mark bay-4-check-correction" id="bay-4-text-area" {{bay_4_engine_mount}}>
+                   <p>&#10004;</p>
+               </div>
 
                 <div class="arrows-team-1-bay-4">
                     <p class="chevron"></p>
@@ -93,12 +97,9 @@
             <div id="clock">
                 <p id="date" class="date-clock">{{ date }}</p>
                 <p id="time" class="time-clock">{{ time }}</p>
-                <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 10h</h3>
-                <h3 class="shift-end-team-1">Shift End: 04:30 PM</h3>
+                <h3 class="shift-team-1">Shift &nbsp;&nbsp; : 9h</h3>
+                <h3 class="shift-end-team-1">Shift End: 03:30 PM</h3>
             </div>
-
-            <p class="tact-time-header-screen">Takt Time: 330 min per Machine</p>
-            <p class="cycle-time-header-screen">Cycle Time : </p>
         </div>
 </body>
     </html>

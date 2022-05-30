@@ -91,6 +91,26 @@ Template.team_1_screen_view.helpers({
         invokeDrawMachineInBay(canvasId)
     },
 
+    bay_4_engine_mount: () => {
+        let result = activeAssembly.findOne({_id: 'machine_field_bay_4'})
+        try {
+            if (result.bayArray[0] === undefined) {
+                document.getElementById('bay-4-text-area').style.display = 'none'
+            } else {
+                let bayState = result.bayArray[0].engineMounted;
+            //    console.log('inside function', bayState, result)
+                if (bayState === false || bayState === undefined) {
+                //    console.log('no engine')
+                    document.getElementById('bay-4-text-area').style.display = 'none'
+                } else if (bayState === true ) {
+               //     console.log('Engine Mounted')
+                    document.getElementById('bay-4-text-area').style.display = 'block'
+                }
+            }
+        } catch (e) {
+        }
+    },
+
 
     time_bay_2: () => {
         // Tact time = 330 min per Machine.

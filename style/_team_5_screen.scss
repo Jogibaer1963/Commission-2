@@ -4,6 +4,18 @@
   top: -15px;
 }
 
+.team-5-header-screen {
+  top: 178px;
+  position: relative;
+  left: -236px;
+}
+
+.overview-team-5-build {
+  left: 315px;
+  position: absolute;
+  top: 302px;
+}
+
 .arrows-bay-16-17 {
   left: 192px;
   position: absolute;
@@ -68,7 +80,7 @@
 }
 
 .bay-18-time-screen {
-  left: 108px;
+  left: 392px;
   position: absolute;
   top: 61px;
   color: red;
@@ -101,7 +113,7 @@
 }
 
 .bay-19-screen {
-  left: 140px;
+  left: 550px;
   position: absolute;
   top: 28px;
   color: #e009dc;
@@ -128,3 +140,10 @@
   width: 90px;
 }
 
+.team-5-shift {
+  left: -236px;
+  position: absolute;
+  top: 173px;
+  width: 220px;
+  color: #09ec86;
+}

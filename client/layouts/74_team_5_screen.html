@@ -1,5 +1,8 @@
 <template name="team_5_screen">
     {{> team_5_screen_view }}
+    <div class="overview-team-5-build">
+        {{> over_view_all_teams}}
+    </div>
 </template>
 
 
@@ -25,10 +28,10 @@
             <h4  class="bay-5-screen">Bay 14</h4>
 
             <p class="bay-5-canvas-screen">
-                <canvas {{draw_bay14}} id="machine_field_bay_8"></canvas>
+                <canvas {{draw_bay14}} id="machine_field_bay_14"></canvas>
             </p>
 
-            <p class="bay-5-time-screen" id="realTimerBay8">{{time_bay_14}}</p>
+            <p class="bay-5-time-screen" id="realTimerBay14">{{time_bay_14}}</p>
             <p  class="bay-5-unit-screen">{{units_bay_14}}</p>
 
             <div class="arrows-bay-5-6">
@@ -43,7 +46,7 @@
                 <canvas {{draw_bay15}} id="machine_field_bay_15"></canvas>
             </p>
 
-            <p class="bay-6-time-screen" id="realTimerBay9">{{time_bay_15}}</p>
+            <p class="bay-6-time-screen" id="realTimerBay15">{{time_bay_15}}</p>
             <p class="bay-6-unit-screen">{{units_bay_15}}</p>
 
             <div class="arrows-bay-6-7">
@@ -103,7 +106,7 @@
                 <canvas {{draw_bay19}} id="machine_field_bay_19"></canvas>
             </p>
 
-            <p class="bay-19-time-screen" id="realTimerBay18">{{time_bay_19}}</p>
+            <p class="bay-19-time-screen" id="realTimerBay19">{{time_bay_19}}</p>
             <p class="bay-19-unit-screen">{{units_bay_19}}</p>
 
         </div>
@@ -113,19 +116,12 @@
             <p id="time" class="time-clock">{{ time }}</p>
         </div>
 
-        <div class="team-2-shift">
-            <h3>Shift &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 10h</h3>
-            <h3>Shift End: 04:30 PM</h3>
+        <div class="team-5-shift">
+            <h3>Shift &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 9h</h3>
+            <h3>Shift End: 03:30 PM</h3>
         </div>
-
-        <p class="tact-time-header-screen">Takt Time: 210 min per Machine</p>
-        <p class="cycle-time-header-screen">Cycle Time : </p>
 
     </div>
     </body>
     </html>
-
-
-
-
 </template>

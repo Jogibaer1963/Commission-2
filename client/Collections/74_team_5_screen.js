@@ -23,11 +23,13 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_14: () => {
-        return unitCounter("machine_field_bay_14", ["bay14", "bay_14_time"])
+        let unitCount = unitCounter("machine_field_bay_14", ["bay14", "bay_14_time"])
+        Session.set('unitCountBay14', unitCount);
+        return unitCount;
     },
 
     draw_bay14: () => {
-        let canvasId = "machine_field_bay_8";
+        let canvasId = "machine_field_bay_14";
         invokeDrawMachineInBay(canvasId)
     },
 
@@ -38,7 +40,9 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_15: () => {
-        return unitCounter("machine_field_bay_15", ["bay15", "bay_15_time"])
+        let unitCount = unitCounter("machine_field_bay_15", ["bay15", "bay_15_time"])
+        Session.set('unitCountBay15', unitCount);
+        return unitCount;
     },
 
     draw_bay15: () => {
@@ -53,7 +57,9 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_16: () => {
-        return unitCounter("machine_field_bay_16", ["bay16", "bay_16_time"])
+        let unitCount = unitCounter("machine_field_bay_16", ["bay16", "bay_16_time"])
+        Session.set('unitCountBay16', unitCount);
+        return unitCount;
     },
 
     draw_bay16: () => {
@@ -68,7 +74,9 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_17: () => {
-        return unitCounter("machine_field_bay_17", ["bay17", "bay_17_time"])
+        let unitCount = unitCounter("machine_field_bay_17", ["bay17", "bay_17_time"])
+        Session.set('unitCountBay17', unitCount);
+        return unitCount;
     },
 
     draw_bay17: () => {
@@ -83,7 +91,9 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_18: () => {
-        return unitCounter("machine_field_bay_18", ["bay18", "bay_18_time"])
+       let unitCount = unitCounter("machine_field_bay_18", ["bay18", "bay_18_time"])
+        Session.set('unitCountBay18', unitCount);
+        return unitCount;
     },
 
     draw_bay18: () => {
@@ -98,7 +108,9 @@ Template.team_5_screen_view.helpers({
     },
 
     units_bay_19: () => {
-        return unitCounter("machine_field_bay_19", ["bay19", "bay_19_time"])
+        let unitCount = unitCounter("machine_field_bay_19", ["bay19Planned", "bay_19_planned_time"])
+        Session.set('unitCountBay19', unitCount)
+        return unitCount;
     },
 
     draw_bay19: () => {
@@ -117,29 +129,33 @@ Template.team_5_screen_view.helpers({
 });
 
 function timeCounterBay14() {
-    timeCounter( "realTimerBay14")
+    let unitCount = Session.get('unitCountBay14')
+    timeCounter( "machine_field_bay_14", ['bay14', 'bay_14_time', unitCount], 'realTimerBay14')
 }
 
 
 function timeCounterBay15() {
-    timeCounter( "realTimerBay15")
+    let unitCount = Session.get('unitCountBay15')
+    timeCounter( "machine_field_bay_15", ['bay15', 'bay_15_time', unitCount], 'realTimerBay15')
 }
 
 function timeCounterBay16() {
-    timeCounter(  "realTimerBay16")
+    let unitCount = Session.get('unitCountBay16')
+    timeCounter( "machine_field_bay_16", ['bay16', 'bay_16_time', unitCount], 'realTimerBay16')
 }
 
 function timeCounterBay17() {
-    timeCounter(  "realTimerBay17")
+    let unitCount = Session.get('unitCountBay17')
+    timeCounter( "machine_field_bay_17", ['bay3', 'bay_17_time', unitCount], 'realTimerBay17')
 }
-
 
 function timeCounterBay18() {
-    timeCounter(  "realTimerBay18")
+    let unitCount = Session.get('unitCountBay18')
+    timeCounter( "machine_field_bay_18", ['bay18', 'bay_18_time', unitCount], 'realTimerBay18')
 }
 
-
 function timeCounterBay19() {
-    timeCounter(  "realTimerBay19")
+    let unitCount = Session.get('unitCountBay19')
+    timeCounter( "machine_field_bay_19", ['bay19Planned', 'bay_19_planned_time', unitCount], 'realTimerBay19')
 }
 

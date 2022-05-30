@@ -5,6 +5,12 @@
     z-index: 1;
 }
 
+.overview-team-1-build {
+    left: 20px;
+    position: absolute;
+    top: 306px;
+}
+
 .team-screen-header {
     left: 59px;
     position: absolute;
@@ -166,10 +172,16 @@ left: 21px;
     font-size: 19px;
 }
 
+.bay-4-check-correction {
+    left: 137px;
+    position: relative;
+    top: 157px;
+}
+
 .show-engine-screen {
     left: 148px;
     position: absolute;
-    top: 164px;
+    top: 60px;
     color: #ef9728;
     font-weight: bold;
     font-size: 21px;
@@ -228,9 +240,9 @@ left: 21px;
 // **********************  tact time and cycle time ***********************************
 
 .tact-time-header-screen {
-    left: -231px;
+    left: -2px;
     position: absolute;
-    top: 151px;
+    top: -40px;
     color: #03ff84;
     font-size: 19px;
     width: 350px;
@@ -244,3 +256,29 @@ left: 21px;
     font-size: 19px;
     width: 350px;
 }
+
+.team-1-over-view-screen {
+    left: -1px;
+    position: relative;
+    top: 1px;
+    width: 300px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px;
+    color: #a8dcdc;
+    text-shadow: 0 0 20px rgb(33, 126, 164),  0 0 20px rgba(10, 175, 230, 0);
+}
+
+.machines-shipped {
+    left: 350px;
+    position: absolute;
+    top: -8px;
+    width: 240px;
+}
+
+.machines-build {
+    left: 350px;
+    position: absolute;
+    top: 21px;
+    width: 240px;
+}
+

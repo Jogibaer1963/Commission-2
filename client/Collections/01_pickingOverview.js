@@ -120,22 +120,21 @@ Template.machine_picking_list.events({
             supplyArea = 0;
         }
         let selectedMachine = this.machineId;
-      //  console.log(selectedMachine, supplyArea, 'SkipMode :', skipMode)
+        // console.log(selectedMachine, supplyArea, 'SkipMode :', skipMode)
         Session.set('selectedMachine', selectedMachine);
         if (skipMode === 1) {
             // skip Mode Active
             Meteor.call('skipSupplyAreas', selectedMachine, supplyArea, skipMode)
         } else if (skipMode === 0) {
-
+            Meteor.call('reDo_picking', selectedMachine, supplyArea)
         }
         Session.set('supplyArea', '')
-
-
     },
 
     'click .supplyId': function (e) {
         e.preventDefault();
         const supplyArea = this._id;
+        // console.log(supplyArea)
         Session.set('supplyArea', supplyArea)
     },
 

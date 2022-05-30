@@ -131,7 +131,17 @@ if(Meteor.isServer){
             }
         },
 
-
+        'reDo_picking':(selectedMachine, supplyArea) => {
+            machineCommTable.update({machineId: selectedMachine, 'supplyAreas._id': supplyArea},
+                {$set: {'supplyAreas.$.supplyStatus': 0,
+                                    'supplyAreas.$.pickingTime': '',
+                                    'supplyAreas.$.pickerStart': '',
+                                    'supplyAreas.$.pickingDateAndTime': '',
+                                    'supplyAreas.$.pickingStart': '',
+                                    'supplyAreas.$.pickerEnd' : '',
+                                    'supplyAreas.$.pickerFinished': '',
+                                    'supplyAreas.$.pickingEndDateAndTime': ''}})
+        },
 
         'insertNewCostCenter': (newCostCenter, supplyPosition, team, orderNumber) => {
             let intSupplyPos = parseInt(supplyPosition);
