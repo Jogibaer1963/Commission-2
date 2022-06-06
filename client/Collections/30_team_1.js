@@ -412,7 +412,7 @@ Template.team_1_move_buttons.events({
                     let oldCanvasId_2 = 'cooling-merge-3'// Last Bay
                     invokeMoveFromLastBay(oldCanvasId)
                     invokeMoveFromLastBay(oldCanvasId_2)
-                    Meteor.call('engineReady', "merge-station-3", target_machine_1, "cooling-merge-3")
+                    Meteor.call('engineMountBay4', "merge-station-3", target_machine_1, "cooling-merge-3")
                 } else {
                     Bert.alert('Machine in Bay 4 does not match with any ready engines', 'danger', 'growl-top-left')
                 }

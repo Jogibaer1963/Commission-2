@@ -5,7 +5,6 @@ Meteor.subscribe('activeAssembly')
 
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 
-
 import { unitCounter } from "../../lib/99_functionCollector.js";
 import { updateTime } from "../../lib/99_functionCollector.js";
 import { timeCounter } from "../../lib/99_functionCollector.js";
