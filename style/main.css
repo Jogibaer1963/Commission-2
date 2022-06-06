@@ -5162,6 +5162,46 @@ table.headerTable {
   top: -194px;
 }
 
+.testBay-1-time-screen {
+  left: 4px;
+  position: absolute;
+  top: 77px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.testBay-1-unit-screen {
+  left: 4px;
+  position: absolute;
+  top: 100px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.testBay-2-time-screen {
+  left: -2px;
+  position: absolute;
+  top: -26px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
+.testBay-2-unit-screen {
+  left: -2px;
+  position: absolute;
+  top: -3px;
+  color: red;
+  font-weight: bold;
+  font-size: 19px;
+  width: 90px;
+}
+
 .topNav {
   left: 40em;
   margin-top: 25px;

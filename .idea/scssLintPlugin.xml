@@ -3,5 +3,6 @@
   <component name="ScssLintProjectComponent">
     <option name="scssLintExecutable" value="C:\ProgramData\chocolatey\bin\sass.exe" />
     <option name="treatAllIssuesAsWarnings" value="true" />
+    <option name="pluginEnabled" value="true" />
   </component>
 </project>

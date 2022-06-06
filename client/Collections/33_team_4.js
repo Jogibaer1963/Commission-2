@@ -181,7 +181,6 @@ Template.team_4_move_buttons.events({
 
 })
 
-
 Template.team_4_over_view.helpers({
 
     merge_1_result: () => {
@@ -189,7 +188,7 @@ Template.team_4_over_view.helpers({
         try {
             engine_1 = activeAssembly.findOne({_id: "merge-station-1"}, {fields: {machineReady: 1}})
             cooling_1 = activeAssembly.findOne({_id: "cooling-merge-1"}, {fields: {machineReady: 1}})
-            //   console.log('merge 1 ', engine_1.machineReady, cooling_1.machineReady)
+           //    console.log('merge 1 ', engine_1.machineReady, cooling_1.machineReady)
             if (engine_1.machineReady !== true || cooling_1.machineReady !== true) {
                 document.getElementById('merge-1-field').style.display = 'none'
             } else if (engine_1.machineReady === true && cooling_1.machineReady === true) {
@@ -205,7 +204,7 @@ Template.team_4_over_view.helpers({
         try {
             engine_2 = activeAssembly.findOne({_id: "merge-station-2"}, {fields: {machineReady: 1}})
             cooling_2 = activeAssembly.findOne({_id: "cooling-merge-2"}, {fields: {machineReady: 1}})
-            // console.log('merge 2 ', engine_2.machineReady, cooling_2.machineReady)
+          //  console.log('merge 2 ', engine_2.machineReady, cooling_2.machineReady)
             if (engine_2.machineReady !== true || cooling_2.machineReady !== true) {
                 document.getElementById('merge-2-field').style.display = 'none'
             } else if (engine_2.machineReady === true && cooling_2.machineReady === true) {
@@ -217,20 +216,22 @@ Template.team_4_over_view.helpers({
     },
 
     merge_3_result: () => {
-        let engine_3, cooling_3;
-        document.getElementById('merge-3-field').style.display = 'none'
-        try {
-            engine_3 = activeAssembly.findOne({_id: "merge-station-3"}, {fields: {machineReady: 1}})
-            cooling_3 = activeAssembly.findOne({_id: "cooling-merge-3"}, {fields: {machineReady: 1}})
-            console.log('merge 3 ', engine_3.machineReady, cooling_3.machineReady)
-            if ( engine_3.machineReady === false || cooling_3.machineReady === false) {
+            document.addEventListener('DOMContentLoaded', function(event) {
                 document.getElementById('merge-3-field').style.display = 'none'
-            } else if (engine_3.machineReady === true && cooling_3.machineReady === true) {
-                document.getElementById('merge-3-field').style.display = 'block'
-            }else {
-                document.getElementById('merge-3-field').style.display = 'none'
-            }
-        } catch (e) { }
+            })
+            let engine_3, cooling_3;
+            try {
+                engine_3 = activeAssembly.findOne({_id: "merge-station-3"}, {fields: {machineReady: 1}})
+                cooling_3 = activeAssembly.findOne({_id: "cooling-merge-3"}, {fields: {machineReady: 1}})
+               // console.log('merge 3 ', engine_3.machineReady, cooling_3.machineReady)
+                if ( engine_3.machineReady === false || cooling_3.machineReady === false) {
+                    document.getElementById('merge-3-field').style.display = 'none'
+                } else if (engine_3.machineReady === true && cooling_3.machineReady === true) {
+                    document.getElementById('merge-3-field').style.display = 'block'
+                }else {
+                    document.getElementById('merge-3-field').style.display = 'none'
+                }
+            } catch (e) { }
     },
 
     coolingBoxReservoir: () => {

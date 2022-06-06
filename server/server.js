@@ -371,12 +371,8 @@ if(Meteor.isServer){
                 {$set: {bayAssemblyStatus: 1, machineReady: true}}, {upsert: true})
             activeAssembly.update({_id: canvasId_2},
                 {$set: {bayAssemblyStatus: 1, machineReady: true}}, {upsert: true})
-            /*
-
-
-             */
-
     },
+
         'engineMountBay4':(canvasId, target_machine, canvasId_2) => {
             activeAssembly.update({_id: canvasId},
                 {$set: {machineReady: false, bayAssemblyStatus: 0}});
@@ -1405,7 +1401,6 @@ if(Meteor.isServer){
                 }
             } catch (e) {
             }
-           // console.log(arraySummary);
             let mergedArray = [].concat.apply([], arraySummary);
             let oneArray = [];
             let objectResult = {};
@@ -1421,7 +1416,6 @@ if(Meteor.isServer){
                    }
             });
             oneArray.sort((a,b) => a.pickingTime - b.pickingTime);
-
             return oneArray;
         },
 
