@@ -1679,10 +1679,10 @@ $station-text-color: #03ff84;
 .test-bay-head {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
-  left: 43em;
+  left: 2em;
   width: 130px;
   position: absolute;
-  top: 7em;
+  top: -137px;
 }
 
 @mixin test-bay-text-boxes {
@@ -1708,9 +1708,9 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-single-view-buttons {
-  left: 37em;
+  left: 143px;
   position: absolute;
-  top: 7em;
+  top: -103px;
 }
 
 .bay-test-1-button-single {
@@ -1721,13 +1721,18 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-1-text-single {
-  @include test-bay-text-boxes;
-  top: 13em;
+  color: #5aec11;
+  font-weight: bold;
+  left: 25px;
+  position: absolute;
+  top: 200px;
+  width: 50px;
 }
 
 .canvas-test-bay-1-single {
   left: -41px;
-  position: relative;
+  position: absolute;
+  top: 112px;
 }
 
 .test-bay-1-3-button-single {
@@ -1740,15 +1745,17 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-1-to-3-arrows-single {
-  left: -27em;
-  top: -20em;
+  left: 37px;
+  position: absolute;
+  top: 119px;
   transform: rotate(180deg);
   z-index: -1;
 }
 
 .test-bay-1-to-4-arrows-single {
-  left: -14em;
-  top: -41em;
+  left: 68px;
+  position: absolute;
+  top: 123px;
   transform: rotate(240deg);
   z-index: -1;
 }
@@ -1780,9 +1787,9 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-1-2-arrows-single {
-  left: -6em;
-  position: relative;
-  top: -8em;
+  left: 94px;
+  position: absolute;
+  top: 153px;
   transform: rotate(-90deg);
 }
 
@@ -1800,20 +1807,26 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-2-text-single {
-  @include test-bay-text-boxes;
-  top: 3em;
+  color: #5aec11;
+  font-weight: bold;
+  left: 164px;
+  position: absolute;
+  top: 200px;
+  width: 50px;
 }
 
 .test-bay-2-4-arrows-single {
-  left: -7em;
-  top: -58em;
+  left: 235px;
+  position: absolute;
+  top: 122px;
   transform: rotate(180deg);
   z-index: -1;
 }
 
 .test-bay-2-to-3-arrows-single {
-  left: -8em;
-  top: -57em;
+  left: 171px;
+  position: absolute;
+  top: 110px;
   transform: rotate(135deg);
   z-index: -1;
 }
@@ -1825,9 +1838,10 @@ $station-text-color: #03ff84;
   z-index: 1;
 }
 
-.test-bay-3-4-arrows-single {left: -7em;
-  position: relative;
-  top: 17.5em;
+.test-bay-3-4-arrows-single {
+  left: 93px;
+  position: absolute;
+  top: 57px;
   transform: rotate(-90deg);
 }
 
@@ -1839,17 +1853,17 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-4-14-arrows-single {
-  left: 4em;
-  position: relative;
-  top: 25.5em;
+  left: 245px;
+  position: absolute;
+  top: 63px;
   transform: rotate(-45deg);
 }
 
 .front-test-bay-arrow-single {
-  left: -8em;
-  position: relative;
-  top: -9em;
-  transform: rotate(-135deg);
+  left: -47px;
+  position: absolute;
+  top: 143px;
+  transform: rotate(-68deg);
 }
 
 .front-test-bay-single-button {
@@ -1909,9 +1923,10 @@ $station-text-color: #03ff84;
 }
 
 .canvas-front-test-bay {
-  left: 3em;
-  position: relative;
-  top: -4em;
+  left: -217px;
+  position: absolute;
+  top: 60px;
+  transform: rotate(90deg);
 }
 
 .final-assembly-single-container {
@@ -1921,9 +1936,9 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-2-14-arrows-single {
-  left: -6em;
-  position: relative;
-  top: -18em;
+  left: 241px;
+  position: absolute;
+  top: 151px;
   transform: rotate(-90deg);
 }
 
@@ -1945,9 +1960,9 @@ $station-text-color: #03ff84;
 }
 
 .canvas-test-bay-2 {
-  left: -51px;
-  position: relative;
-  top: -102px;
+  left: 102px;
+  position: absolute;
+  top: 112px;
 }
 
 // ****************   Test Bay 3  *************************
@@ -1960,22 +1975,26 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-3-text {
-  @include test-bay-text-boxes;
-  top: 20.9em;
+  color: #5aec11;
+  font-weight: bold;
+  left: 25px;
+  position: absolute;
+  top: -64px;
+  width: 60px;
 }
 
 .canvas-test-bay-3 {
-  left: -5.5em;
-  position: relative;
-  top: 25.5em;
+  left: -41px;
+  position: absolute;
+  top: 16px;
 }
 
 //  ***********  Test Bay 4  ************************
 
 .test-bay-over-view {
-  left: 1482px;
+  left: 1852px;
   position: absolute;
-  top: 217px;
+  top: 418px;
 }
 
 .team-test-bay-4 {
@@ -1986,14 +2005,18 @@ $station-text-color: #03ff84;
 }
 
 .test-bay-4-text {
-  @include test-bay-text-boxes;
-  top: 24em;
+  color: #5aec11;
+  font-weight: bold;
+  left: 172px;
+  position: absolute;
+  top: -64px;
+  width: 60px;
 }
 
 .canvas-test-bay-4 {
-  left: -4.5em;
-  position: relative;
-  top: 28.5em;
+  left: 102px;
+  position: absolute;
+  top: 17px;
 }
 
 // ************** inside Test Bay  ******************
@@ -2052,6 +2075,66 @@ $station-text-color: #03ff84;
 }
  */
 
+.chevron-red {
+  animation: move-chevron-red 3s ease-out infinite;
+  height: 0.48rem;
+  opacity: 0;
+  position: absolute;
+  transform: scale(0.5);
+  width: 2.1rem;
+}
+
+.chevron-red:first-child {
+  animation: move-chevron-red 3s ease-out 1s infinite;
+}
+
+.chevron-red:nth-child(2) {
+  animation: move-chevron-red 3s ease-out 2s infinite;
+}
+
+.chevron-red:before,
+.chevron-red:after {
+  background: #f60a0a;
+  content: "";
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 50%;
+}
+
+.chevron-red:before {
+  left: 0;
+  transform: skewY(30deg);
+}
+
+.chevron-red:after {
+  right: 0;
+  transform: skewY(-30deg);
+  width: 50%;
+}
+
+@keyframes move-chevron-red {
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(1.28rem);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(2.28rem);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(3.12rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(4.8rem) scale(0.5);
+  }
+}
+/*
 .chevrons {
   padding: 10px 0 10px 0;
   margin-left: -3px;
@@ -2062,22 +2145,24 @@ $station-text-color: #03ff84;
   align-items: center;
 }
 
-.chevron-down {
+.chevron-red {
+  padding: 10px 0 10px 0;
+  margin-left: -3px;
+  flex-direction: column;
+  align-items: center;
   margin-top: -2px;
-  position: relative;
   border: solid var(--color);
   border-width: 0 3px 3px 0;
   display: inline-block;
   width: 10px;
   height: 10px;
-  transform: rotate(45deg);
 }
 
-.chevron-down:nth-child(odd) {
+.chevron-red:nth-child(odd) {
   animation: pulse 800ms ease infinite alternate;
 }
 
-.chevron-down:nth-child(even) {
+.chevron-red:nth-child(even) {
   animation: pulse 800ms ease infinite alternate 250ms;
 }
 
@@ -2089,6 +2174,8 @@ $station-text-color: #03ff84;
     opacity:0.51;
   }
 }
+
+ */
 
 //  ****************************************************************************
 
