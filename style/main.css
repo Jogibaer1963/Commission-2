@@ -3237,7 +3237,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 
  */
 .test-bay-view {
-  left: -83em;
+  left: -97em;
   position: absolute;
   top: -8em;
 }
@@ -5177,6 +5177,17 @@ table.headerTable {
   left: 100px;
   position: absolute;
   top: 100px;
+}
+
+.text-message {
+  color: red;
+  font-size: 100px;
+  font-family: "DejaVu Serif";
+  font-weight: bolder;
+  left: 100px;
+  position: absolute;
+  top: 128px;
+  width: 400px;
 }
 
 .overview-team-test-bay-build {
