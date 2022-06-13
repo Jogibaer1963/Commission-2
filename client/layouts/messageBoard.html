@@ -1,0 +1,44 @@
+<template name="messageBoard">
+
+    <form class="order-parts">
+
+        <input type=number id="part_number" name="partNumber">
+        <label for="part_number">Part Number</label><br>
+
+
+        <input type="text" id="storage_Location" name="storageLocation">
+        <label for="storage_Location">Ware House Location</label><br>
+
+
+        <input type="text" id="delivery_location" name="location">
+        <label for="delivery_location">Delivery Location</label><br>
+<!-- issues: quality = 1, missing = 2, quantity = 3 // urgency Degree High Emergency = 10, need asap = 11, need end of day = 12                         -->
+        <div class="reason-checkbox">
+            <input type="radio" id="quality" name="reason" value="1">
+            <label for="quality">Quality</label><br>
+
+            <input type="radio" id="missing" name="reason" value="2">
+            <label for="missing">Missing</label><br>
+
+            <input type="radio" id="quantity" name="reason" value="3">
+            <label for="quantity">Quantity</label>
+        </div>
+        <div class="urgency-degree">
+            <input type="radio" id="high_emergency" name="urgency" value="10">
+            <label for="high_emergency">High Emergency</label><br>
+
+            <input type="radio" id="need_asap" name="urgency" value="11">
+            <label for="need_asap">Need ASAP</label><br>
+
+            <input type="radio" id="need_by_end_of_the_day" name="urgency" value="12">
+            <label for="need_by_end_of_the_day">Need by end of the Day</label>
+        </div>
+
+
+        <button type="submit" class="btn btn-default btn-success">Submit</button>
+    </form>
+
+
+
+
+</template>

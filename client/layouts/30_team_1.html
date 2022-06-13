@@ -5,6 +5,9 @@
                     {{> navigation_buttons}}
                 </div>
                 <div class="team-1-over-view">
+                    <div class="message-button">
+                        {{> message_board}}
+                    </div>
                     {{> team_1_over_view }}
                     {{> team_1_move_buttons }}
                 </div>
@@ -28,7 +31,19 @@
     {{/if}}
 </template>
 
+<template name="message_board">
+
+        <label for="messageButton"></label>
+        <button type="button"
+                class="btn
+                        btn-default
+                        messageButton">Message</button>
+
+</template>
+
+
 <template name="team_1_move_buttons">
+
     <div class="team-1-buttons">
             <label for="fcb-1-button"></label>
             <button type="button" id="fcb-1-button"
@@ -82,16 +97,6 @@
                            btn-default
                            btn-success
                            bay-3-move-button">Move</button>
-<!--
-        <div class="bay-3-move-arrow">
-            <div class="arrow-to-target-bay"></div>
-            <svg height="20" width="80">
-                <polyline points="10,20 25,5 65,5 80,20"
-                          style="fill: none; stroke: red; stroke-width: 3px">
-                </polyline>
-            </svg>
-        </div>
-        -->
 
             <label for="bay-4-move"></label>
             <button type="button" id="bay-4-move"
@@ -99,16 +104,6 @@
                            btn-default
                            btn-success
                            bay-4-move-button">Move</button>
-<!--
-        <div class="bay-4-move-arrow">
-            <div class="arrow-to-target-bay"></div>
-            <svg height="20" width="80">
-                <polyline points="10,20 25,5 65,5 80,20"
-                          style="fill: none; stroke: red; stroke-width: 3px">
-                </polyline>
-            </svg>
-        </div>
-        -->
 
         <div class="bay-4-engine-1-button">
             <label for="engine-1-move-button"></label>
@@ -355,14 +350,12 @@
             </tbody>
         </table>
     </div>
-
         <div class="team-1-rear-axle">
             <div class="rear-axle-arrow">
                 <div class="chevron"></div>
                 <div class="chevron"></div>
                 <div class="chevron"></div>
             </div>
-
 
             <div>
                 <canvas {{draw_rear_axle}} id="rear_axle_canvas"
@@ -491,7 +484,6 @@
 </div>
  </html>
 </template>
-
 
 <template name="date_time_shift">
     <div>

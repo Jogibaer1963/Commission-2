@@ -62,6 +62,8 @@
     <div class="comm-header">
         <button type="button" class="btn btn-success btn-primary buttonToCornHead">Corn Head Picking Zone</button>
     </div>
+    <h2 class="open-orders" id="open_orders">{{lineNeedsParts.count}} open order(s)</h2>
+    <button class="btn btn-default picking-button" id="picking_button">Parts needed in Line</button>
 </template>
 
 <template name="machine_picking_list">
@@ -91,7 +93,6 @@
     </div>
 
     <div class="machineCommissionTable">
-        <div class="">
             <table class="table table-header-rotated fixed-header">
                 <thead>
                 <tr>
@@ -124,7 +125,6 @@
                 {{/each}}
                 </tbody>
             </table>
-        </div>
     </div>
     <div class="header-completed">
         <h4>Completed Machines</h4>

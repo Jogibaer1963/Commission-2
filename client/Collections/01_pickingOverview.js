@@ -1,6 +1,7 @@
 Meteor.subscribe('supplyAreas');
 Meteor.subscribe('machineCommTable');
 Meteor.subscribe('userActions');
+Meteor.subscribe('lineOrders');
 
 
 Template.addMachine.helpers ({
@@ -159,6 +160,23 @@ Template.machine_picking_list.events({
 
 
 });
+
+Template.tabletEntry.helpers({
+
+    lineNeedsParts: () => {
+        let count = 0;
+        let result = lineOrders.find().fetch();
+        result.forEach((element) => {
+            console.log(element.team_user, element.status, element.urgency)
+            if (parseInt(element.status) === 0 ) {
+                count++
+                console.log(count)
+            }
+        })
+        return {count : count};
+    }
+
+})
 
 
 Template.tabletEntry.events({

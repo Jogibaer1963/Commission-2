@@ -57,10 +57,42 @@
   top: 138px;
 }
 
-.team-5-test-bay-screen {
-  left: 267px;
+.bay-10-test-bay-front {
+  left: -51px;
   position: absolute;
-  top: 197px;
+  top: 180px;
+  transform: rotate(-90deg);
+}
+
+.test-bay-screen-correction {
+  left: 37px;
+  position: absolute;
+  top: 126px;
+}
+
+.bay-1-unit-time-view {
+  left: 1px;
+  position: absolute;
+  top: 82px;
+}
+
+.bay-2-unit-time-view {
+  left: 150px;
+  position: absolute;
+  top: 184px;
+}
+
+.test-bay-2-bay-14 {
+  left: 426px;
+  position: absolute;
+  top: 379px;
+  transform: rotate(-90deg);
+}
+
+.team-5-test-bay-screen {
+  left: 449px;
+  position: absolute;
+  top: 299px;
 }
 
 .bay-14-15-arrows-single {

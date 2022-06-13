@@ -21,6 +21,39 @@
   position: absolute;
   top: 15em;
 }
+//   *******************   open orders  ******************************************
+#open_orders {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  background-color: #f80000;
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+}
+.open-orders {
+  left: 684px;
+  position: absolute;
+  top: 283px;
+  animation: blink 2s linear infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+//**************************************************************************************
+.picking-button {
+  left: 900px;
+  position: absolute;
+  top: 323px;
+}
 
 .comm-tablet-machine-list {
   left: 10em;

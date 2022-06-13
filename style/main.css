@@ -517,6 +517,40 @@ table.supply-table {
   top: 15em;
 }
 
+#open_orders {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  background-color: #f80000;
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.open-orders {
+  left: 684px;
+  position: absolute;
+  top: 283px;
+  animation: blink 2s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.picking-button {
+  left: 900px;
+  position: absolute;
+  top: 323px;
+}
+
 .comm-tablet-machine-list {
   left: 10em;
   position: absolute;
@@ -1242,6 +1276,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 160px;
   position: absolute;
   top: 16px;
+}
+
+.form-messanger-board {
+  left: 773px;
+  position: absolute;
+  top: -57px;
 }
 
 .machine-reservoir {
@@ -5232,10 +5272,42 @@ table.headerTable {
   top: 138px;
 }
 
-.team-5-test-bay-screen {
-  left: 267px;
+.bay-10-test-bay-front {
+  left: -51px;
   position: absolute;
-  top: 197px;
+  top: 180px;
+  transform: rotate(-90deg);
+}
+
+.test-bay-screen-correction {
+  left: 37px;
+  position: absolute;
+  top: 126px;
+}
+
+.bay-1-unit-time-view {
+  left: 1px;
+  position: absolute;
+  top: 82px;
+}
+
+.bay-2-unit-time-view {
+  left: 150px;
+  position: absolute;
+  top: 184px;
+}
+
+.test-bay-2-bay-14 {
+  left: 426px;
+  position: absolute;
+  top: 379px;
+  transform: rotate(-90deg);
+}
+
+.team-5-test-bay-screen {
+  left: 449px;
+  position: absolute;
+  top: 299px;
 }
 
 .bay-14-15-arrows-single {
@@ -5289,6 +5361,35 @@ table.headerTable {
   font-weight: bold;
   font-size: 19px;
   width: 90px;
+}
+
+.messenger-board {
+  top: -26px;
+  position: absolute;
+  left: 899px;
+}
+
+.message-button {
+  left: 996px;
+  position: absolute;
+  top: -132px;
+}
+
+.messenger-field {
+  top: 100px;
+  position: absolute;
+  left: 84px;
+  font-family: "DejaVu Serif";
+  font-weight: bolder;
+  width: 465px;
+  height: 190px;
+  background: #d6e0f5;
+}
+
+.urgency-degree {
+  left: 106px;
+  position: absolute;
+  top: 86px;
 }
 
 .topNav {

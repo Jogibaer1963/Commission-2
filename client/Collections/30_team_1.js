@@ -15,6 +15,7 @@ import { unitCounter } from "../../lib/99_functionCollector.js";
 
 Session.set('twoMachines', false)
 
+
 Template.team_1_over_view.helpers({
 
     // **********************************   inLineDate = Bay 2 Landing date / time
@@ -322,6 +323,17 @@ Template.team_1_move_buttons.helpers({
 
 
 })
+
+Template.message_board.events({
+
+    'click .messageButton':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3100/messageBoard',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+})
+
 
 Template.team_1_move_buttons.events({
 

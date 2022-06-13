@@ -64,6 +64,10 @@ if(Meteor.isServer){
             return machineReadyToGo.find();
         })
 
+        Meteor.publish('lineOrders', function() {
+            return lineOrders.find();
+        })
+
     });
 
 
@@ -97,6 +101,19 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
 
+
+        'parts_on_order': (user_order, partNumber_order, storageLocation_order, point_of_use_order,
+        reason_order, urgency_order) => {
+            // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+               lineOrders.insert({ team_user : user_order,
+                                        time_ordered  : Date.now().toString(),
+                                        part_number : partNumber_order,
+                                        storage_bin : storageLocation_order,
+                                        point_of_use : point_of_use_order,
+                                        reason : reason_order,
+                                        urgency : urgency_order,
+                                        status: 0 })
+        },
 
         'skipSupplyAreas': (selectedMachine, supplyArea) => {
             if (supplyArea === 0) {
