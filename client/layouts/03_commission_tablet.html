@@ -3,6 +3,10 @@
         <div class="tabletCommissioning">
             {{> commTablet}}
         </div>
+        <div class='tablet-order-position'>
+            {{> open_order}}
+        </div>
+
     {{else}}
         {{> login}}
     {{/if}}
@@ -105,6 +109,9 @@
                 <label for="commission-cancel"></label>
                 <button type="button" class="btn btn-danger cancelForm">Cancel Commissioning</button>
             </div>
+           <div class="tablet-view-open-order">
+
+           </div>
       </div>
     </div>
  </html>

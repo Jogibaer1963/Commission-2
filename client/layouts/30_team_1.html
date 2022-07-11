@@ -32,12 +32,70 @@
 </template>
 
 <template name="message_board">
-
+    <div class="team-1-order-button">
         <label for="messageButton"></label>
         <button type="button"
                 class="btn
                         btn-default
-                        messageButton">Message</button>
+                        messageButton">Parts Needed</button>
+    </div>
+
+
+    <table class="team-1-order-table blueTable">
+        <thead>
+        <tr>
+            <th class="order-part">Part Number</th>
+            <th class="order-storage-bin"><strong>Storage Bin</strong></th>
+            <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+            <th class="user-pick"><strong>Order processed by</strong></th>
+            <th class="pdiMachineField"><strong>Status</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each lineOrders}}
+            <tr class="selectedOrder {{selected_order}}">
+                <td class="order-part">{{part_number}}</td>
+                <td class="order-storage-bin">{{storage_bin}}</td>
+                <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="pdiMachineField {{getPickingStatus urgency}}"
+                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="user-pick">{{picked_by}}</td>
+                <td class="pdiMachineField {{getOrderStatus status}}"
+                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <table class="team-1-order-history blueTable">
+        <thead>
+        <tr>
+            <th class="order-part">Part Number</th>
+            <th class="order-storage-bin"><strong>Storage Bin</strong></th>
+            <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+            <th class="user-pick"><strong>Order processed by</strong></th>
+            <th class="pdiMachineField"><strong>Status</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each historyOrders}}
+            <tr class="selectedOrder {{selected_order}}">
+                <td class="order-part">{{part_number}}</td>
+                <td class="order-storage-bin">{{storage_bin}}</td>
+                <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="pdiMachineField {{getPickingStatus urgency}}"
+                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="user-pick">{{picked_by}}</td>
+                <td class="pdiMachineField {{getOrderStatus status}}"
+                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+
 
 </template>
 

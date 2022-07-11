@@ -18,13 +18,13 @@ Template.team_2_screen_view.helpers({
     time_bay_5: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay5, 1000);
+       // setInterval(timeCounterBay5, 1000);
     },
 
     units_bay_5: () => {
-        let unitCount = unitCounter("machine_field_bay_5", ["bay5", "bay_5_time"])
-        Session.set('unitCountBay5', unitCount)
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_5", ["bay5", "bay_5_time"])
+      //  Session.set('unitCountBay5', unitCount)
+      //  return unitCount;
     },
 
     draw_bay5: () => {
@@ -35,13 +35,13 @@ Template.team_2_screen_view.helpers({
     time_bay_6: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay6, 1000);
+      //  setInterval(timeCounterBay6, 1000);
     },
 
     units_bay_6: () => {
-        let unitCount = unitCounter("machine_field_bay_6", ["bay6", "bay_6_time"])
-        Session.set('unitCountBay6', unitCount)
-        return unitCount;
+       // let unitCount = unitCounter("machine_field_bay_6", ["bay6", "bay_6_time"])
+      //  Session.set('unitCountBay6', unitCount)
+      //  return unitCount;
     },
 
     draw_bay6: () => {
@@ -52,14 +52,13 @@ Template.team_2_screen_view.helpers({
     time_bay_7: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay7, 1000);
+      //  setInterval(timeCounterBay7, 1000);
     },
 
     units_bay_7: () => {
-        let unitCount = unitCounter("machine_field_bay_7", ["bay7", "bay_7_time"])
-        Session.set('unitCountBay7', unitCount)
-        return unitCount;
-
+       // let unitCount = unitCounter("machine_field_bay_7", ["bay7", "bay_7_time"])
+      //  Session.set('unitCountBay7', unitCount)
+      //  return unitCount;
     },
 
     draw_bay7: () => {

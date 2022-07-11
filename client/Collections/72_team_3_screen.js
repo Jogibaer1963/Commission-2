@@ -19,13 +19,13 @@ Template.team_3_screen_view.helpers({
     time_bay_8: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay8, 1000);
+      //  setInterval(timeCounterBay8, 1000);
     },
 
     units_bay_8: () => {
-        let unitCount = unitCounter("machine_field_bay_8", ["bay10", "bay_8_time"])
-        Session.set('unitCountBay8', unitCount)
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_8", ["bay10", "bay_8_time"])
+      //  Session.set('unitCountBay8', unitCount)
+      //  return unitCount;
     },
 
     draw_bay8: () => {
@@ -36,13 +36,13 @@ Template.team_3_screen_view.helpers({
     time_bay_9: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay9, 1000);
+       // setInterval(timeCounterBay9, 1000);
     },
 
     units_bay_9: () => {
-        let unitCount = unitCounter("machine_field_bay_9", ["bay9", "bay_9_time"])
-        Session.set('unitCountBay9', unitCount)
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_9", ["bay9", "bay_9_time"])
+      //  Session.set('unitCountBay9', unitCount)
+      //  return unitCount;
     },
 
     draw_bay9: () => {
@@ -53,13 +53,13 @@ Template.team_3_screen_view.helpers({
     time_bay_10: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay10, 1000);
+       // setInterval(timeCounterBay10, 1000);
     },
 
     units_bay_10: () => {
-        let unitCount = unitCounter("machine_field_bay_10", ["bay10", "bay_10_time"])
-        Session.set('unitCountBay10', unitCount)
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_10", ["bay10", "bay_10_time"])
+      //  Session.set('unitCountBay10', unitCount)
+      //  return unitCount;
     },
 
     draw_bay10: () => {

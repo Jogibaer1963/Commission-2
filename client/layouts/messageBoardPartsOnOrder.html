@@ -1,0 +1,72 @@
+<template name="partsOnOrder">
+
+    <table class="table fixed-header blueTable">
+        <thead>
+        <tr>
+            <th class="user-pick"><strong>User</strong></th>
+            <th class="part-number-pick">Part Number</th>
+            <th class="storage-bin-pick"><strong>Storage Bin</strong></th>
+            <th class="point-of-use-pick"><strong>Point of Use</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each lineOrders}}
+            <tr class="selectedOrder">
+                <td class="user-pick">{{team_user}}</td>
+                <td class="part-number-pick">{{part_number}}</td>
+                <td class="storage-bin-pick">{{storage_bin}}</td>
+                <td class="point-of-use-pick">{{point_of_use}}</td>
+                <td class="pdiMachineField {{getPickingStatus urgency}}"
+                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <h4 class="button-parts-on-order">
+        Long loading Time, sorry....
+        <button class="btn btn-default pickOrder">Pick Order</button>
+    </h4>
+
+    <div class="order-processor">
+        <h4>User : {{orderProcessor}}</h4>
+    </div>
+</template>
+
+<template name="orderPick">
+
+    <table class="table fixed-header blueTable">
+        <thead>
+        <tr>
+            <th class="user-pick"><strong>User</strong></th>
+            <th class="part-number-pick">Part Number</th>
+            <th class="storage-bin-pick"><strong>Storage Bin</strong></th>
+            <th class="point-of-use-pick"><strong>Point of Use</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+            <th class="user-pick"><strong>Picked by</strong></th>
+            <th class="pdiMachineField"><strong>Status</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each pickedOrder}}
+            <tr class="picked-Order {{picked_order}}">
+                <td class="user-pick">{{team_user}}</td>
+                <td class="part-number-pick">{{part_number}}</td>
+                <td class="storage-bin-pick">{{storage_bin}}</td>
+                <td class="point-of-use-pick">{{point_of_use}}</td>
+                <td class="pdiMachineField {{getPickingStatus urgency}}"
+                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="user-pick">{{picked_by}}</td>
+                <td class="pdiMachineField {{getOrderStatus status}}"
+                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <div class="delivery-button">
+        <button type="button" class="btn btn-default btn-success orderDelivered">Order completed</button>
+    </div>
+
+</template>

@@ -43,6 +43,17 @@ Template.commTablet.helpers ({
         return supply;
     },
 
+    lineNeedsParts: () => {
+        let count = 0;
+        let result = lineOrders.find().fetch();
+        result.forEach((element) => {
+            if (parseInt(element.status) === 0 ) {
+                count++
+            }
+        })
+        return {count : count};
+    },
+
     'selectedMachine': function(){
         const commMachine = this._id;
         const selectedMachine = Session.get('selectedMachine');
@@ -319,6 +330,8 @@ Template.pickingCornHead.helpers({
         }
         return cornHead;
     },
+
+
 
     'selectedCornHead': function (e) {
             const commMachine = this._id;

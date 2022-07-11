@@ -243,6 +243,54 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 //  *********************************  Team 1  ************************************************
+.team-1-order-button {
+  left: 18px;
+  position: absolute;
+}
+
+.team-1-order-table {
+  width: 563px;
+  height: 400px;
+  left: 200px;
+  position: absolute;
+  top: 21px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.order-user {
+  width: 100px;
+  text-align: center;
+}
+
+.order-part {
+  width: 100px;
+  text-align: center;
+}
+
+.order-storage-bin {
+  width: 100px;
+  text-align: center;
+}
+
+.order-point-of-use {
+  width: 100px;
+  text-align: center;
+}
+
+.team-1-order-history {
+  width: 563px;
+  height: 400px;
+  left: 200px;
+  position: absolute;
+  top: 435px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
+
 @mixin start-stop-button {
   display:block;
   width:30px;
@@ -257,15 +305,6 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   box-shadow: 0 0 3px gray;
   font-size:15px;
 }
-/*
-.arrows-list-fcb {
-  left: 272px;
-  position: absolute;
-  top: 153px;
-  transform: rotate(270deg);
-}
-
- */
 
 .arrows-2-list-fcb {
   left: 225px;

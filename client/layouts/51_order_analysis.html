@@ -1,0 +1,64 @@
+<template name="order_analysis">
+    {{#if currentUser}}
+        {{#if isInRole 'admin'}}
+            <div>
+               {{> adminLayout}}
+                {{> orderAnalysis}}
+            </div>
+        {{/if}}
+        {{#if isInRole  'Picker'}}
+
+        {{/if}}
+    {{else}}
+        {{> logout}}
+    {{/if}}
+</template>
+
+<template name="orderAnalysis">
+    <div id="logo">
+        <img src="claas_logo.png" />
+    </div>
+
+    <div class="order-complete-table">
+        <table class="table table-header-rotated fixed-header">
+            <thead>
+            <tr>
+                <th class="pdiMachineField"><strong>Team</strong></th>
+                <th class="pdiShipField"><strong>Order Initiated</strong></th>
+                <th class="pdiMachineField"><strong>Quantity</strong></th>
+                <th class="storageField"><strong>Storage Bin</strong></th>
+                <th class="pdiMachineField"><strong>Point of Use</strong></th>
+                <th class="pdiMachineField"><strong>Reason</strong></th>
+                <th class="pdiMachineField"><strong>Urgency</strong></th>
+                <th class="pdiMachineField"><strong>Status</strong></th>
+                <th class="pdiShipField"><strong>Picking Start</strong></th>
+                <th class="pdiShipField"><strong>Picking End</strong></th>
+                <th class="pdiMachineField"><strong>Picking process in min</strong></th>
+                <th class="pdiMachineField"><strong>Order processing in min</strong></th>
+                <th class="pdiMachineField"><strong>Picked by</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each orderList}}
+                <tr class="">
+                    <td class="pdiMachineField">{{team}}</td>
+                    <td class="pdiShipField">{{orderStart}}</td>
+                    <td class="pdiMachineField">{{quantity}}</td>
+                    <td class="storageField">{{storage}}</td>
+                    <td class="pdiMachineField">{{pou}}</td>
+                    <td class="pdiMachineField">{{reason}}</td>
+                    <td class="pdiMachineField">{{urgency}}</td>
+                    <td class="pdiMachineField">{{status}}</td>
+                    <td class="pdiShipField">{{pickingStart}}</td>
+                    <td class="pdiShipField">{{pickingFinished}}</td>
+                    <td class="pdiMachineField">{{duration}}</td>
+                    <td class="pdiMachineField">{{overAllDuration}}</td>
+                    <td class="pdiShipField">{{picker}}</td>
+
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</template>

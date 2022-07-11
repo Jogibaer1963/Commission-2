@@ -74,12 +74,12 @@ Template.machine_picking_list.helpers({
     },
 
     inactiveMachineList: () => {
-        // toDo make inLineDate as Variable
+        // load just the 50 last machines
         return machineCommTable.find({active: false},
-            {sort: {inLineDate: -1}}).fetch();
+            {sort: {counter: -1}, limit: 50}).fetch();
     },
 
-    'selectedMachine': function(){
+    'selectedMachine': function() {
         const commMachine = this.machineId;
         const selectedMachine = Session.get('selectedMachine');
         if (selectedMachine === commMachine) {
@@ -131,13 +131,15 @@ Template.machine_picking_list.events({
         }
         Session.set('supplyArea', '')
     },
-
+/*
     'click .supplyId': function (e) {
         e.preventDefault();
         const supplyArea = this._id;
-        // console.log(supplyArea)
+         console.log(supplyArea)
         Session.set('supplyArea', supplyArea)
     },
+
+ */
 
     'click .inactiveMachine': function (e) {
             e.preventDefault();
@@ -161,40 +163,85 @@ Template.machine_picking_list.events({
 
 });
 
+Session.set('openOderSession', '')
+
 Template.tabletEntry.helpers({
+
+
+
+})
+
+Template.open_order.helpers({
 
     lineNeedsParts: () => {
         let count = 0;
         let result = lineOrders.find().fetch();
-        result.forEach((element) => {
-            console.log(element.team_user, element.status, element.urgency)
-            if (parseInt(element.status) === 0 ) {
-                count++
-                console.log(count)
-            }
-        })
-        return {count : count};
+        try {
+            result.forEach((element) => {
+                if (parseInt(element.status) === 0) {
+                    count++
+                }
+            })
+            //   console.log('order count ', count)
+            let sessionOpenOrder = Session.set('openOrderSession', result)
+            return {count: count};
+        } catch (e) {
+
+        }
+
+    },
+
+    idOpenOrders: () => {
+        // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
+        try {
+            let urgencyLevel = [];
+            let openOrders = Session.get('openOrderSession');
+            openOrders.forEach((element) => {
+                if (element.status === 0) {
+                    urgencyLevel.push(element.urgency)
+                }
+            })
+            let highestUrgency = Math.min(...urgencyLevel)
+            return {urgency: highestUrgency}
+        } catch (e) {
+        }
     }
 
 })
 
+Template.open_order.events({
+
+    'click .picking-button': (e) => {
+        e.preventDefault()
+        window.open('http://localhost:3100/partsOnOrder',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+    'click .unclosed-button': (e) => {
+        e.preventDefault();
+        FlowRouter.go('order_analysis')
+    }
+
+})
+            
+
 
 Template.tabletEntry.events({
 
-        'click .buttonToTablet': (e) => {
-            e.preventDefault();
-            sessionStorage.clear();
-            Session.set('inActiveState', 0);
-            Session.set('commMachine', '');
-            Session.set('selectedArea', '');
-            FlowRouter.go('commission');
-            Session.set('supplyChosen', 0);
-        },
+    'click .buttonToTablet': (e) => {
+        e.preventDefault();
+        sessionStorage.clear();
+        Session.set('inActiveState', 0);
+        Session.set('commMachine', '');
+        Session.set('selectedArea', '');
+        FlowRouter.go('commission');
+        Session.set('supplyChosen', 0);
+    },
 
     'click .buttonToCornHead': (e) => {
             e.preventDefault();
             FlowRouter.go('cornHead');
-    }
+    },
 
 });
 

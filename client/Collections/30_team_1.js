@@ -214,15 +214,15 @@ Template.team_1_over_view.helpers({
     },
 
     units_bay_2: () => {
-        return unitCounter("machine_field_fcb_threshing", ["inLine", "inLine_time"])
+      //  return unitCounter("machine_field_fcb_threshing", ["inLine", "inLine_time"])
     },
 
     units_bay_3: () => {
-        return unitCounter("machine_field_bay_3", ["bay3", "bay_3_time"])
+       // return unitCounter("machine_field_bay_3", ["bay3", "bay_3_time"])
     },
 
     units_bay_4: () => {
-        return unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
+       // return unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
     },
 
 })
@@ -320,9 +320,25 @@ Template.team_1_move_buttons.helpers({
         } catch(err) {}
     },
 
+})
 
+Template.message_board.helpers({
+
+    lineOrders: () => {
+        let count = 0;
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: "Team 1",
+                                              status: {$in: [0, 1]}}).fetch();
+        return result.sort((a, b) => a.status - b.status)
+    },
+
+    historyOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+       return lineOrders.find({team_user : "Team 1", status: 2}).fetch();
+    },
 
 })
+
 
 Template.message_board.events({
 

@@ -11,12 +11,10 @@ table tbody {
   overflow: auto;
 }
 
-
 table.blueTable {
   border: 1px solid #a49892;
   border-collapse: collapse;
   text-align: left;
-
 }
 
 table.blueTable td, table.blueTable th {
@@ -212,3 +210,8 @@ table.headerTable {
   top: 300px;
 }
 
+.tablet-order-position {
+  left: -60px;
+  position: absolute;
+  top: 350px;
+}

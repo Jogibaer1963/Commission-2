@@ -297,3 +297,23 @@ $base: .6rem;
     transform: translateY($base * 8) scale(.5);
   }
 }
+
+.open-orders-tablet {
+  left: 248px;
+  position: absolute;
+  top: 557px;
+  width: 223px;
+  animation: blink 2s linear infinite;
+}
+
+.picking-button-tablet {
+  left: 489px;
+  position: absolute;
+  top: 597px;
+}
+
+.open-order-multi {
+  left: -248px;
+  position: absolute;
+  top: 334px;
+}

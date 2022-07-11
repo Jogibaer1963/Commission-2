@@ -72,7 +72,7 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
-
+/*
         'specialFunction': () => {
          console.log('function started');
          let workDone = [];
@@ -101,19 +101,44 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
 
+ */
 
-        'parts_on_order': (user_order, partNumber_order, storageLocation_order, point_of_use_order,
+
+        'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
         reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+            // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
+            let reason = parseInt(reason_order);
+            let urgency = parseInt(urgency_order)
                lineOrders.insert({ team_user : user_order,
                                         time_ordered  : Date.now().toString(),
                                         part_number : partNumber_order,
+                                        quantity_needed : quantityNeeded_order,
                                         storage_bin : storageLocation_order,
                                         point_of_use : point_of_use_order,
-                                        reason : reason_order,
-                                        urgency : urgency_order,
-                                        status: 0 })
+                                        reason : reason,
+                                        urgency : urgency,
+                                        status: 0,
+                                        picking_start : '',
+                                        order_completed : ''})
         },
+
+        'pickOrder': (pickOrder, picker) => {
+            // start picking process / status 3  from supply Status HandlebarsRegister.js
+            lineOrders.update({_id: pickOrder}, {$set: {status: 1,
+                                                                         picked_by: picker,
+                                                                         picking_start  : Date.now().toString()
+                                                                        }})
+        },
+
+
+        'orderDelivered': (pickOrder) => {
+            //  order picked  by Team Lead
+            lineOrders.update({_id: pickOrder}, {$set: {status: 2,
+                                                                         order_completed  : Date.now().toString()
+                                                                         }})
+        },
+
 
         'skipSupplyAreas': (selectedMachine, supplyArea) => {
             if (supplyArea === 0) {
@@ -1483,6 +1508,10 @@ if(Meteor.isServer){
             } else if(status === 3) {
                 CommissionToDoMesssage.update({_id: inProcessItem}, {$set: {toDoStatus: 1, clearDate: 're-opened'}});
             }
+        },
+
+        'loginStatus': (user) => {
+          Meteor.users.update({username: user}, {$set: {loginStatus: 1}})
         },
 
         'logOut': (userName) => {

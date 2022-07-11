@@ -27,13 +27,14 @@ Template.team_test_bay_screen_view.helpers({
     time_test_bay_1: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterTestBay1, 1000);
+       // return timeCounterTestBay1();
     },
 
     units_test_bay_1: () => {
-        let unitCount = unitCounter("machine_field_test_bay_1", ["testBay1", "testBay_1_time"])
-        Session.set('unitCountTestBay1', unitCount)
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_test_bay_1", ["testBay1", "testBay_1_time"])
+        //console.log('Unit Count html ', unitCount)
+     //   Session.set('unitCountTestBay1', unitCount)
+      //  return unitCount;
     },
 
     draw_test_bay_1: () => {
@@ -44,13 +45,13 @@ Template.team_test_bay_screen_view.helpers({
     time_test_bay_2: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterTestBay2, 1000);
+       // return timeCounterTestBay2();
     },
 
     units_test_bay_2: () => {
-        let unitCount = unitCounter("machine_field_test_bay_2", ["testBay2", "testBay_2_time"])
-        Session.set('unitCountTestBay2', unitCount)
-        return unitCount;
+       // let unitCount = unitCounter("machine_field_test_bay_2", ["testBay2", "testBay_2_time"])
+       // Session.set('unitCountTestBay2', unitCount)
+       // return unitCount;
     },
 
     draw_test_bay_2: () => {

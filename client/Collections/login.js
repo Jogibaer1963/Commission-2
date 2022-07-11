@@ -2,6 +2,7 @@
 
 
     Template.login.events({
+
         'submit form': function (event) {
             event.preventDefault();
             const userVar = event.target.loginUser.value;
@@ -13,17 +14,15 @@
                      userVar === 'Team 3' || userVar === 'Team 1' ||
                      userVar === 'Team 5' || userVar === 'Test Bay')   {
                      FlowRouter.go('/assemblyLine');
-                 } else if (userVar === 'mike') {
-                     FlowRouter.go('team_4_merge_station')
-                 } else {
-                     if(Meteor.userId()){
+                 } else if (Meteor.userId()) {
                          FlowRouter.go('/');
                      } else {
                          Bert.alert('User or Password wrong', 'danger', 'growl-top-left');
                      }
-                 }
-            });
+            })
+            Meteor.call('loginStatus', userVar, 1)
         }
+
     });
 
 

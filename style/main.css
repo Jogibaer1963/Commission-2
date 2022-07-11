@@ -493,6 +493,26 @@ table.supply-table {
     transform: translateY(4.8rem) scale(0.5);
   }
 }
+.open-orders-tablet {
+  left: 248px;
+  position: absolute;
+  top: 557px;
+  width: 223px;
+  animation: blink 2s linear infinite;
+}
+
+.picking-button-tablet {
+  left: 489px;
+  position: absolute;
+  top: 597px;
+}
+
+.open-order-multi {
+  left: -248px;
+  position: absolute;
+  top: 334px;
+}
+
 .machine-counter {
   left: 70em;
   position: absolute;
@@ -517,21 +537,44 @@ table.supply-table {
   top: 15em;
 }
 
-#open_orders {
+.order-position {
+  left: 582px;
+  position: absolute;
+  top: 267px;
+  width: 300px;
+}
+
+.open-orders-1 {
   color: #04011a;
   font-weight: bolder;
   font-family: "Yu Gothic UI Semilight";
-  background-color: #f80000;
   padding: 10px;
   text-align: center;
   line-height: 50px;
+  background-color: #d30707;
+  animation: blink 1s linear infinite;
 }
 
-.open-orders {
-  left: 684px;
-  position: absolute;
-  top: 283px;
+.open-orders-2 {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #984fc3;
   animation: blink 2s linear infinite;
+}
+
+.open-orders-3 {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #cfe50a;
+  animation: blink 2.5s linear infinite;
 }
 
 @keyframes blink {
@@ -549,6 +592,21 @@ table.supply-table {
   left: 900px;
   position: absolute;
   top: 323px;
+  background-color: #ed9b04;
+}
+
+.unclosed-button {
+  left: 1070px;
+  position: absolute;
+  top: 323px;
+  background-color: #73a3c8;
+}
+
+.history-button {
+  left: 1220px;
+  position: absolute;
+  top: 323px;
+  background-color: #03ff84;
 }
 
 .comm-tablet-machine-list {
@@ -1396,15 +1454,53 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -5em;
 }
 
-/*
-.arrows-list-fcb {
-  left: 272px;
+.team-1-order-button {
+  left: 18px;
   position: absolute;
-  top: 153px;
-  transform: rotate(270deg);
 }
 
- */
+.team-1-order-table {
+  width: 563px;
+  height: 400px;
+  left: 200px;
+  position: absolute;
+  top: 21px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.order-user {
+  width: 100px;
+  text-align: center;
+}
+
+.order-part {
+  width: 100px;
+  text-align: center;
+}
+
+.order-storage-bin {
+  width: 100px;
+  text-align: center;
+}
+
+.order-point-of-use {
+  width: 100px;
+  text-align: center;
+}
+
+.team-1-order-history {
+  width: 563px;
+  height: 400px;
+  left: 200px;
+  position: absolute;
+  top: 435px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
 .arrows-2-list-fcb {
   left: 225px;
   position: absolute;
@@ -3729,6 +3825,12 @@ table.headerTable {
   top: 300px;
 }
 
+.tablet-order-position {
+  left: -60px;
+  position: absolute;
+  top: 350px;
+}
+
 .transparent-box {
   background: linear-gradient(90deg, rgba(10, 10, 10, 0.25), #030000);
   height: 35em;
@@ -5389,7 +5491,71 @@ table.headerTable {
 .urgency-degree {
   left: 106px;
   position: absolute;
-  top: 86px;
+  top: 114px;
+}
+
+.button-parts-on-order {
+  left: 652px;
+  position: absolute;
+  top: 65px;
+}
+
+.delivery-button {
+  left: 810px;
+  position: absolute;
+  top: 65px;
+}
+
+.pickedOrder {
+  left: 100px;
+  position: absolute;
+  top: 100px;
+}
+
+.table.blueTable {
+  width: 400px;
+  height: auto;
+}
+
+.user-pick {
+  max-width: 100px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.part-number-pick {
+  max-width: 121px;
+  min-width: 115px;
+  text-align: center;
+}
+
+.storage-bin-pick {
+  max-width: 160px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.point-of-use-pick {
+  max-width: 160px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.order-processor {
+  left: 654px;
+  position: absolute;
+  top: 4px;
+}
+
+.order-complete-table {
+  left: 35px;
+  position: absolute;
+  top: 180px;
+}
+
+.storageField {
+  max-width: 100px;
+  min-width: 100px;
 }
 
 .topNav {

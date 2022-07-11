@@ -2,7 +2,6 @@
   top: -26px;
   position: absolute;
   left: 899px;
-
 }
 
 .message-button {
@@ -25,5 +24,60 @@
 .urgency-degree {
   left: 106px;
   position: absolute;
-  top: 86px;
+  top: 114px;
+}
+
+.button-parts-on-order {
+  left: 652px;
+  position: absolute;
+  top: 65px;
+}
+
+.delivery-button {
+  left: 810px;
+  position: absolute;
+  top: 65px;
+}
+
+.pickedOrder {
+  left: 100px;
+  position: absolute;
+  top: 100px;
+}
+
+// *************************   table of unpicked orders  ****************************
+
+.table.blueTable {
+  width: 400px;
+  height: auto;
+}
+
+.user-pick {
+  max-width: 100px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.part-number-pick {
+  max-width: 121px;
+  min-width: 115px;
+  text-align: center;
+}
+
+.storage-bin-pick {
+  max-width: 160px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.point-of-use-pick {
+  max-width: 160px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.order-processor {
+  left: 654px;
+  position: absolute;
+  top: 4px;
 }

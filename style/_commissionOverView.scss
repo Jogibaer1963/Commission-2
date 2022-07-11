@@ -22,21 +22,47 @@
   top: 15em;
 }
 //   *******************   open orders  ******************************************
-#open_orders {
+
+.order-position {
+  left: 582px;
+  position: absolute;
+  top: 267px;
+  width: 300px;
+}
+
+.open-orders-1 {
   color: #04011a;
   font-weight: bolder;
   font-family: "Yu Gothic UI Semilight";
-  background-color: #f80000;
   padding: 10px;
   text-align: center;
   line-height: 50px;
+  background-color: #d30707;
+  animation: blink 1s linear infinite;
 }
-.open-orders {
-  left: 684px;
-  position: absolute;
-  top: 283px;
+
+.open-orders-2 {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #984fc3;
   animation: blink 2s linear infinite;
 }
+
+.open-orders-3 {
+  color: #04011a;
+  font-weight: bolder;
+  font-family: "Yu Gothic UI Semilight";
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #cfe50a;
+  animation: blink 2.5s linear infinite;
+}
+
 @keyframes blink {
   0% {
     opacity: 0;
@@ -53,6 +79,21 @@
   left: 900px;
   position: absolute;
   top: 323px;
+  background-color: #ed9b04;
+}
+
+.unclosed-button {
+  left: 1070px;
+  position: absolute;
+  top: 323px;
+  background-color: #73a3c8;
+}
+
+.history-button {
+  left: 1220px;
+  position: absolute;
+  top: 323px;
+  background-color: #03ff84;
 }
 
 .comm-tablet-machine-list {

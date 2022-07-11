@@ -71,13 +71,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_engine_1: () => {
-        setInterval(timeCounterEngine1, 1000);
+      //  setInterval(timeCounterEngine1, 1000);
     },
 
     units_engine_1: () => {
-        let unitCount = unitCounter("engine-station-1", ["station1", "station_1_time"])
-        Session.set('unitCountEngine1', unitCount);
-        return unitCount
+     //   let unitCount = unitCounter("engine-station-1", ["station1", "station_1_time"])
+     //   Session.set('unitCountEngine1', unitCount);
+      //  return unitCount
     },
 
     //  **********************************  Engine 2 ***********************************
@@ -90,13 +90,13 @@ Template.team_4_screen_view.helpers({
     time_engine_2: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterEngine2, 1000);
+      //  setInterval(timeCounterEngine2, 1000);
     },
 
     units_engine_2: () => {
-        let unitCount = unitCounter("engine-station-2", ["station2", "station_2_time"])
-        Session.set('unitCountEngine2', unitCount);
-        return unitCount
+     //   let unitCount = unitCounter("engine-station-2", ["station2", "station_2_time"])
+      //  Session.set('unitCountEngine2', unitCount);
+      //  return unitCount
     },
 
     // ***************************************  Engine 3 *****************************
@@ -107,13 +107,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_engine_3: () => {
-        setInterval(timeCounterEngine3, 1000);
+      //  setInterval(timeCounterEngine3, 1000);
     },
 
     units_engine_3: () => {
-        let unitCount = unitCounter("engine-station-3", ["station3", "station_3_time"])
-        Session.set('unitCountEngine3', unitCount);
-        return unitCount
+      //  let unitCount = unitCounter("engine-station-3", ["station3", "station_3_time"])
+      //  Session.set('unitCountEngine3', unitCount);
+       // return unitCount
     },
 
     // ***************************************  Engine 4 ****************************************
@@ -124,13 +124,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_engine_4: () => {
-        setInterval(timeCounterEngine4, 1000);
+       // setInterval(timeCounterEngine4, 1000);
     },
 
     units_engine_4: () => {
-        let unitCount = unitCounter("engine-station-4", ["station4", "station_4_time"])
-        Session.set('unitCountEngine4', unitCount);
-        return unitCount
+     //   let unitCount = unitCounter("engine-station-4", ["station4", "station_4_time"])
+      //  Session.set('unitCountEngine4', unitCount);
+      //  return unitCount
     },
 
     // ************************************* Cooling Box 1 ****************************************
@@ -141,13 +141,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_cooling_1: () => {
-        setInterval(timeCounterCooling1, 1000);
+      //  setInterval(timeCounterCooling1, 1000);
     },
 
     units_cooling_1: () => {
-        let unitCount = unitCounter("cooling-station-1", ["station3", "station_3_time"])
-        Session.set('unitCountCooling1', unitCount);
-        return unitCount
+      //  let unitCount = unitCounter("cooling-station-1", ["station3", "station_3_time"])
+      //  Session.set('unitCountCooling1', unitCount);
+      //  return unitCount
     },
 
     draw_cooling_2: () => {
@@ -156,13 +156,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_cooling_2: () => {
-        setInterval(timeCounterCooling2, 1000);
+       // setInterval(timeCounterCooling2, 1000);
     },
 
     units_cooling_2: () => {
-        let unitCount = unitCounter("cooling-station-2", ["station4", "station_4_time"])
-        Session.set('unitCountCooling2', unitCount);
-        return unitCount
+      //  let unitCount = unitCounter("cooling-station-2", ["station4", "station_4_time"])
+      //  Session.set('unitCountCooling2', unitCount);
+      //  return unitCount
     },
 
 
@@ -173,13 +173,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_merge_1: () => {
-        setInterval(timeCounterMerge1, 1000);
+      //  setInterval(timeCounterMerge1, 1000);
     },
 
     units_merge_1: () => {
-        let unitCount = unitCounter("merge-station-1", ["mergeEngine", "mergeEngine_time"])
-        Session.set('unitCountMerge1', unitCount);
-        return unitCount
+      //  let unitCount = unitCounter("merge-station-1", ["mergeEngine", "mergeEngine_time"])
+      //  Session.set('unitCountMerge1', unitCount);
+      //  return unitCount
     },
 
     draw_cooling_merge_1: () => {
@@ -195,13 +195,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_merge_2: () => {
-        setInterval(timeCounterMerge2, 1000);
+      //  setInterval(timeCounterMerge2, 1000);
     },
 
     units_merge_2: () => {
-        let unitCount = unitCounter("merge-station-2", ["mergeEngine", "mergeEngine_time"])
-        Session.set('unitCountMerge2', unitCount);
-        return unitCount
+       // let unitCount = unitCounter("merge-station-2", ["mergeEngine", "mergeEngine_time"])
+       /// Session.set('unitCountMerge2', unitCount);
+       // return unitCount
     },
 
     draw_cooling_merge_2: () => {
@@ -216,13 +216,13 @@ Template.team_4_screen_view.helpers({
     },
 
     time_merge_3: () => {
-        setInterval(timeCounterMerge3, 1000);
+       // setInterval(timeCounterMerge3, 1000);
     },
 
     units_merge_3: () => {
-        let unitCount = unitCounter("merge-station-3", ["mergeEngine", "mergeEngine_time"])
-        Session.set('unitCountMerge3', unitCount);
-        return unitCount
+       /// let unitCount = unitCounter("merge-station-3", ["mergeEngine", "mergeEngine_time"])
+      //  Session.set('unitCountMerge3', unitCount);
+      //  return unitCount
     },
 
     draw_cooling_merge_3: () => {

@@ -19,13 +19,13 @@ Template.team_5_screen_view.helpers({
     time_bay_14: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay14, 1000);
+       // setInterval(timeCounterBay14, 1000);
     },
 
     units_bay_14: () => {
-        let unitCount = unitCounter("machine_field_bay_14", ["bay14", "bay_14_time"])
-        Session.set('unitCountBay14', unitCount);
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_14", ["bay14", "bay_14_time"])
+     //   Session.set('unitCountBay14', unitCount);
+     //   return unitCount;
     },
 
     draw_bay14: () => {
@@ -36,13 +36,13 @@ Template.team_5_screen_view.helpers({
     time_bay_15: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay15, 1000);
+      //  setInterval(timeCounterBay15, 1000);
     },
 
     units_bay_15: () => {
-        let unitCount = unitCounter("machine_field_bay_15", ["bay15", "bay_15_time"])
-        Session.set('unitCountBay15', unitCount);
-        return unitCount;
+     //   let unitCount = unitCounter("machine_field_bay_15", ["bay15", "bay_15_time"])
+     //   Session.set('unitCountBay15', unitCount);
+     //   return unitCount;
     },
 
     draw_bay15: () => {
@@ -53,13 +53,13 @@ Template.team_5_screen_view.helpers({
     time_bay_16: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay16, 1000);
+      //  setInterval(timeCounterBay16, 1000);
     },
 
     units_bay_16: () => {
-        let unitCount = unitCounter("machine_field_bay_16", ["bay16", "bay_16_time"])
-        Session.set('unitCountBay16', unitCount);
-        return unitCount;
+     //   let unitCount = unitCounter("machine_field_bay_16", ["bay16", "bay_16_time"])
+     //   Session.set('unitCountBay16', unitCount);
+     //   return unitCount;
     },
 
     draw_bay16: () => {
@@ -70,13 +70,13 @@ Template.team_5_screen_view.helpers({
     time_bay_17: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay17, 1000);
+      //  setInterval(timeCounterBay17, 1000);
     },
 
     units_bay_17: () => {
-        let unitCount = unitCounter("machine_field_bay_17", ["bay17", "bay_17_time"])
-        Session.set('unitCountBay17', unitCount);
-        return unitCount;
+      //  let unitCount = unitCounter("machine_field_bay_17", ["bay17", "bay_17_time"])
+      //  Session.set('unitCountBay17', unitCount);
+       // return unitCount;
     },
 
     draw_bay17: () => {
@@ -87,13 +87,13 @@ Template.team_5_screen_view.helpers({
     time_bay_18: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay18, 1000);
+      //  setInterval(timeCounterBay18, 1000);
     },
 
     units_bay_18: () => {
-       let unitCount = unitCounter("machine_field_bay_18", ["bay18", "bay_18_time"])
-        Session.set('unitCountBay18', unitCount);
-        return unitCount;
+     //  let unitCount = unitCounter("machine_field_bay_18", ["bay18", "bay_18_time"])
+     //   Session.set('unitCountBay18', unitCount);
+      //  return unitCount;
     },
 
     draw_bay18: () => {
@@ -104,13 +104,13 @@ Template.team_5_screen_view.helpers({
     time_bay_19: () => {
         // Tact time = 330 min per Machine.
         // cycle time = true time from start to finish / move machine until move machine again.
-        setInterval(timeCounterBay19, 1000);
+       // setInterval(timeCounterBay19, 1000);
     },
 
     units_bay_19: () => {
-        let unitCount = unitCounter("machine_field_bay_19", ["bay19Planned", "bay_19_planned_time"])
-        Session.set('unitCountBay19', unitCount)
-        return unitCount;
+     //   let unitCount = unitCounter("machine_field_bay_19", ["bay19Planned", "bay_19_planned_time"])
+      //  Session.set('unitCountBay19', unitCount)
+      //  return unitCount;
     },
 
     draw_bay19: () => {

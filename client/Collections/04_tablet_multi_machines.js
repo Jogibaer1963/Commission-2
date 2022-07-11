@@ -56,6 +56,17 @@ Template.commTablet_2.helpers ({
             }
     },
 
+    lineNeedsParts: () => {
+        let count = 0;
+        let result = lineOrders.find().fetch();
+        result.forEach((element) => {
+            if (parseInt(element.status) === 0 ) {
+                count++
+            }
+        })
+        return {count : count};
+    },
+
 
 });
 
