@@ -1,61 +1,255 @@
-Meteor.subscribe('lineOrders');
+const Highcharts = require('highcharts');
 
 
 Template.orderAnalysis.helpers({
 
         orderList:() => {
-            let orderArray = []
-            let result, orderObject, openOrder, duration, overAllDuration;
-            result = lineOrders.find().fetch();
-            result.forEach((element) => {
-                if (element.status !== 2) {
-                    openOrder = 0;
-                    duration = 0;
-                    overAllDuration = 0;
-                } else {
-                    openOrder =  transformDate(parseInt(element.order_completed)),
-                    duration = ((parseInt(element.order_completed) -
-                        parseInt(element.picking_start)) / 60000).toFixed(0)  ;
-                    overAllDuration = ((parseInt(element.order_completed) -
-                        parseInt(element.time_ordered)) / 60000).toFixed(0)
-                }
-                orderObject = {
-                    team : element.team_user,
-                    orderStart : transformDate(parseInt(element.time_ordered)),
-                    quantity : element.quantity_needed,
-                    storage : element.storage_bin,
-                    pou : element.point_of_use,
-                    reason : element.reason,
-                    urgency : element.urgency,
-                    status : element.status,
-                    pickingStart : transformDate(parseInt(element.picking_start)),
-                    pickingFinished : openOrder,
-                    duration : duration,
-                    overAllDuration :  overAllDuration,
-                    picker : element.picked_by
-                }
-                orderArray.push(orderObject)
-            })
-            return orderArray;
-        }
+           let result, dia_1;
+           Meteor.call('orderList', function(err, response) {
+               if (response) {
+                   Session.set('orderResult', response)
+               } else {
+               }
+           })
+            result = Session.get('orderResult')
+            let team_order = Session.get('team-order')
+            if (team_order === 'team-1-order') {
+                Session.set('team_table', 'Team 1')
+                Session.set('diagram-1', result[5])
+                Session.set('diagram-2', result[10])
+                return result[0]
+            } else if (team_order === 'team-2-order') {
+                Session.set('team_table', 'Team 2')
+                Session.set('diagram-1', result[6])
+                return result[1]
+            }  else if (team_order === 'team-3-order') {
+                Session.set('team_table', 'Team 3')
+                Session.set('diagram-1', result[7])
+                return result[2]
+            } else if (team_order === 'team-4-order') {
+                Session.set('team_table', 'Team 4')
+                Session.set('diagram-1', result[8])
+                return result[3]
+            } else if (team_order === 'team-5-order') {
+                Session.set('team_table', 'Team 5')
+                Session.set('diagram-1', result[9])
+                return result[4]
+            }
+
+        },
+
+    team_order: () => {
+           return Session.get('team_table')
+    },
+
+//  ********************************************   Charts   *************************************
+
+
+    partNumbers: function () {
+        // Gather data:
+        let resultArray = [];
+        let resultAmount = []
+        let result = Session.get('diagram-1')
+        resultArray = Object.keys(result)
+        resultAmount = Object.values(result)
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('part_numbers', {
+                title: {
+                    text: 'Order per Part Number'
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Amount of equal Part Numbers',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: resultArray,
+                    title: {
+                        enabled: true,
+                        text: 'Part Numbers',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Amount of equal Part Numbers',
+                        type: 'column',
+                        data: resultAmount
+                    }
+                ]
+            });
+        });
+    },
+
+    orderPerReason: function () {
+        // Gather data:
+        let resultArray = [];
+        let resultAmount = []
+        let result = Session.get('diagram-2')
+        resultArray = Object.keys(result)
+        resultAmount = Object.values(result)
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('order_reason', {
+                title: {
+                    text: 'Orders per Reason'
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: resultAmount,
+                    title: {enabled: true,
+                        text: 'Amount per Reason',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: resultArray,
+                    title: {
+                        enabled: true,
+                        text: '1 = Quality, 2 = Not on Cart, 3 = False Count',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Amount per Reason',
+                        type: 'column',
+                        data: resultAmount
+                    }
+                ]
+            });
+        });
+    },
+
+    reasonPerStorageBin: function () {
+        // Gather data:
+
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('reason_bin', {
+                title: {
+                    text: 'Reason per Storage Bin'
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Amount per Reason',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: ['CB2-06(B-1)', 'CB2-07(F-3)', 'CB2-04(E-2)'],
+                    title: {
+                        enabled: true,
+                        text: 'Storage Bins',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Amount per Quality',
+                        type: 'column',
+                        data: [4,3,2,]
+                    },
+                    {
+                        name: 'Amount per not on Cart',
+                        type: 'spline',
+                        data: [2,3,2,]
+                    },
+                    {
+                        name: 'Amount per wrong count',
+                        type: 'spline',
+                        data: [0,0,2,]
+                    }
+                ]
+            });
+        });
+    },
+
+
+
 
 })
 
-function transformDate(unixTime) {
-    let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    let orderStart, year, month, date, hours, minutes, seconds;
-    orderStart = new Date(parseInt(unixTime))
-    year = orderStart.getFullYear();
-    month = months[orderStart.getMonth()];
-    date = orderStart.getDate();
-    hours = orderStart.getHours();
-    minutes = orderStart.getMinutes();
-    seconds = orderStart.getSeconds();
-   // console.log(orderStart, date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
-    return (date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
-}
 
 Template.orderAnalysis.events({
 
+    'click #team_1': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'team-1-order')
+    },
+
+    'click #team_2': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'team-2-order')
+    },
+
+    'click #team_3': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'team-3-order')
+    },
+
+    'click #team_4': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'team-4-order')
+    },
+
+    'click #team_5': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'team-5-order')
+    },
 
 })

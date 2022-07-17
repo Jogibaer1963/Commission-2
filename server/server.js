@@ -100,45 +100,170 @@ if(Meteor.isServer){
          })
            console.log('Function finished');
         },
-
  */
 
+        'orderList': () => {
+            let [orderArray_team_1, orderArray_team_2, orderArray_team_3,
+                orderArray_team_4, orderArray_team_5] = [[], [], [], [], []]  ;
+            let [t1_dia1, t2_dia1, t3_dia1, t4_dia1, t5_dia1, t1_dia2]= [[], [], [], [], [], []];
+            let count_t1_dia1 = {};
+            let count_t2_dia1 = {}
+            let count_t3_dia1 = {};
+            let count_t4_dia1 = {};
+            let count_t5_dia1 = {};
+            let count_t1_dia2 = {}
+            let result, orderObject, openOrder, overAllDuration, pickingStart, reason;
+            result = lineOrders.find().fetch();
+            result.forEach((element) => {
+                if (element.reason === 1) {
+                    reason = 'Quality'
+                } else if (element.reason === 2) {
+                    reason = 'Not on Cart'
+                } else if (element.reason === 3) {
+                    reason = 'Miss-counting'
+                }
+                 if (element.status === 0) {
+                    pickingStart = 0;
+                    openOrder = 0;
+                    overAllDuration = 0;
+                } else if (element.status === 2) {
+                    overAllDuration = ((parseInt(element.unixTimeOrderCompleted) -
+                        parseInt(element.unixTimeOrderStart)) / 60000).toFixed(0);
+                }
+                orderObject = {
+                    team : element.team_user,
+                    orderStart : element.time_ordered,
+                    quantity : element.quantity_needed,
+                    partNumber : element.part_number,
+                    storage : element.storage_bin,
+                    pou : element.point_of_use,
+                    reason : reason,
+                    urgency : element.urgency,
+                    status : element.status,
+                    pickingFinished : element.order_completed,
+                    overAllDuration :  overAllDuration,
+                    picker : element.picked_by
+                }
+                 if (element.team_user === 'Team 1') {
+                     orderArray_team_1.push(orderObject)
+                     t1_dia1.push(element.part_number)
+                     t1_dia2.push(element.reason)
+                 } else if (element.team_user === 'Team 2') {
+                     orderArray_team_2.push(orderObject)
+                     t2_dia1.push(element.part_number)
+                 } else if (element.team_user === 'Team 3') {
+                     orderArray_team_3.push(orderObject)
+                     t3_dia1.push(element.part_number)
+                 } else if (element.team_user === 'Team 4') {
+                     orderArray_team_4.push(orderObject)
+                     t4_dia1.push(element.part_number)
+                 } else if (element.team_user === 'Team 5') {
+                     orderArray_team_5.push(orderObject)
+                     t5_dia1.push(element.part_number)
+                 }
+            })
+   //  ************************    diagram 1 Array   ********************************
+            t1_dia1.forEach(function(i) {count_t1_dia1[i] = (count_t1_dia1[i]||0) + 1;});
+            t2_dia1.forEach(function(i) {count_t2_dia1[i] = (count_t2_dia1[i]||0) + 1;});
+            t3_dia1.forEach(function(i) {count_t3_dia1[i] = (count_t3_dia1[i]||0) + 1;});
+            t4_dia1.forEach(function(i) {count_t4_dia1[i] = (count_t4_dia1[i]||0) + 1;});
+            t5_dia1.forEach(function(i) {count_t5_dia1[i] = (count_t5_dia1[i]||0) + 1;});
 
-        'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
-        reason_order, urgency_order) => {
+   //  *************************   diagram 2 Array   ********************************
+            t1_dia2.forEach(function(i) {count_t1_dia2[i] = (count_t1_dia2[i] || 0) + 1;});
+
+
+
+
+   //  ********************************  Return Array  ******************************
+
+            return [orderArray_team_1, orderArray_team_2, orderArray_team_3,
+                orderArray_team_4, orderArray_team_5, count_t1_dia1, count_t2_dia1,
+                count_t3_dia1, count_t4_dia1, count_t5_dia1, count_t1_dia2];
+
+
+        },
+
+        'success':(result, user) => {
+         //   let success = result.slice(0, 7);
+        //    console.log('result' , result)
+          serverWorker.insert({result: result, user : user})
+        },
+
+        'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order,
+                           point_of_use_order, reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered
             // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
             let reason = parseInt(reason_order);
             let urgency = parseInt(urgency_order)
-               lineOrders.insert({ team_user : user_order,
-                                        time_ordered  : Date.now().toString(),
-                                        part_number : partNumber_order,
-                                        quantity_needed : quantityNeeded_order,
-                                        storage_bin : storageLocation_order,
-                                        point_of_use : point_of_use_order,
-                                        reason : reason,
-                                        urgency : urgency,
-                                        status: 0,
-                                        picking_start : '',
-                                        order_completed : ''})
+            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let order_date, orderStart, year, month, date, hours, minutes, seconds, success, unixOrder;
+            unixOrder = Date.now()
+            orderStart = new Date()
+            year = orderStart.getFullYear();
+            month = months[orderStart.getMonth()];
+            date = orderStart.getDate();
+            hours = orderStart.getHours();
+            if (hours < 10) {
+                hours = '0' + hours
+            }
+            minutes = orderStart.getMinutes();
+            if (minutes < 10) {
+                minutes = '0' + minutes
+            }
+            seconds = orderStart.getSeconds();
+            if (seconds < 10) {
+                seconds = '0' + seconds
+            }
+         //   console.log(orderStart, date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
+            order_date = (date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
+            lineOrders.insert({ team_user : user_order,
+                                    time_ordered  : order_date,
+                                    unixTimeOrderStart : unixOrder,
+                                    part_number : partNumber_order,
+                                    quantity_needed : quantityNeeded_order,
+                                    storage_bin : storageLocation_order,
+                                    point_of_use : point_of_use_order,
+                                    reason : reason,
+                                    urgency : urgency,
+                                    status: 0,
+                                    order_completed : ''})
+            success = 'success ' + order_date;
+            return success
+
         },
 
         'pickOrder': (pickOrder, picker) => {
             // start picking process / status 3  from supply Status HandlebarsRegister.js
-            lineOrders.update({_id: pickOrder}, {$set: {status: 1,
+            let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            let order_date, orderStart, orderFinished, year, month, date, hours, minutes, seconds, unixOrderFinished;
+            orderFinished = new Date()
+            unixOrderFinished = Date.now()
+            year = orderFinished.getFullYear();
+            month = months[orderFinished.getMonth()];
+            date = orderFinished.getDate();
+            hours = orderFinished.getHours();
+            minutes = orderFinished.getMinutes();
+            seconds = orderFinished.getSeconds();
+            if (hours < 10) {
+                hours = '0' + hours
+            }
+            minutes = orderFinished.getMinutes();
+            if (minutes < 10) {
+                minutes = '0' + minutes
+            }
+            seconds = orderFinished.getSeconds();
+            if (seconds < 10) {
+                seconds = '0' + seconds
+            }
+            // console.log(orderStart, date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
+            order_date = (date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
+            lineOrders.update({_id: pickOrder}, {$set: {status: 2,
                                                                          picked_by: picker,
-                                                                         picking_start  : Date.now().toString()
+                                                                         order_completed  : order_date,
+                                                                   unixTimeOrderCompleted : unixOrderFinished
                                                                         }})
         },
-
-
-        'orderDelivered': (pickOrder) => {
-            //  order picked  by Team Lead
-            lineOrders.update({_id: pickOrder}, {$set: {status: 2,
-                                                                         order_completed  : Date.now().toString()
-                                                                         }})
-        },
-
 
         'skipSupplyAreas': (selectedMachine, supplyArea) => {
             if (supplyArea === 0) {

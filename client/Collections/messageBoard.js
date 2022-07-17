@@ -21,11 +21,18 @@ Template.messageBoard.events({
         point_of_use_order = e.target.location.value;
         reason_order = e.target.reason.value;
         urgency_order = e.target.urgency.value;
-    //    console.log(user_order, partNumber_order, storageLocation_order, point_of_use_order,
-     //       reason_order, urgency_order)
+      //  console.log(user_order, partNumber_order, storageLocation_order, point_of_use_order,
+      //      reason_order, urgency_order)
         Meteor.call('parts_on_order', user_order, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
-           reason_order, urgency_order)
+           reason_order, urgency_order, function (err, respond) {
+            if (err) {
+                   Meteor.call('success', err, user_order)
+            } else {
+                   Meteor.call('success', respond, user_order)
+            }
+        })
         window.close();
     }
 
 })
+

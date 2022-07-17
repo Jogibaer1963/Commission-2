@@ -28,13 +28,16 @@ Template.partsOnOrder.events({
         const picker = Meteor.user().username;
        // console.log(pickOrder)
         Meteor.call('pickOrder', pickOrder, picker);
-        FlowRouter.go('orderPick')
+        window.close();
+      //  FlowRouter.go('orderPick')
     },
-
+/*
     'click .pickOrder':(e) => {
        e.preventDefault() ;
         FlowRouter.go('orderPick')
     }
+
+ */
 
 })
 
@@ -42,7 +45,7 @@ Template.orderPick.helpers({
 
     pickedOrder: () => {
         const picker = Meteor.user().username;
-        return lineOrders.find({picked_by: picker, status: 1}).fetch();
+        return lineOrders.find({picked_by: picker, status: 1}, {sort: {time_ordered: 1}}).fetch();
     },
 
     'picked_order': function() {

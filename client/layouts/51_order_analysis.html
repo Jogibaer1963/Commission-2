@@ -1,17 +1,25 @@
 <template name="order_analysis">
-    {{#if currentUser}}
-        {{#if isInRole 'admin'}}
-            <div>
-               {{> adminLayout}}
-                {{> orderAnalysis}}
-            </div>
-        {{/if}}
-        {{#if isInRole  'Picker'}}
+    <html lang="en">
+        <head>
+            <title>Analysis</title>
+            <meta name="viewport" content="width=device-width">
+        </head>
+        <body>
+        {{#if currentUser}}
+            {{#if isInRole 'admin'}}
+                <div>
+                    {{> adminLayout}}
+                    {{> orderAnalysis}}
+                </div>
+            {{/if}}
+            {{#if isInRole  'Picker'}}
 
+            {{/if}}
+        {{else}}
+            {{> logout}}
         {{/if}}
-    {{else}}
-        {{> logout}}
-    {{/if}}
+        </body>
+    </html>
 </template>
 
 <template name="orderAnalysis">
@@ -19,21 +27,38 @@
         <img src="claas_logo.png" />
     </div>
 
+    <div class="order-by-team">
+        <label for="team_1"></label>
+        <button  type="button" id="team_1" class="btn btn-success">Team 1</button>
+        <label for="team_2"></label>
+        <button type="button" id="team_2" class="btn btn-success">Team 2</button>
+        <label for="team_3"></label>
+        <button type="button" id="team_3" class="btn btn-success">Team 3</button>
+        <label for="team_4"></label>
+        <button type="button" id="team_4" class="btn btn-success">Team 4</button>
+        <label for="team_5"></label>
+        <button type="button" id="team_5" class="btn btn-success">Team 5</button>
+    </div>
+
+    <div class="team-table-text">
+        <h1>Analysis for {{team_order}}</h1>
+    </div>
+
+
     <div class="order-complete-table">
         <table class="table table-header-rotated fixed-header">
             <thead>
             <tr>
                 <th class="pdiMachineField"><strong>Team</strong></th>
-                <th class="pdiShipField"><strong>Order Initiated</strong></th>
+                <th class="order-date-field"><strong>Order Initiated</strong></th>
                 <th class="pdiMachineField"><strong>Quantity</strong></th>
-                <th class="storageField"><strong>Storage Bin</strong></th>
+                <th class="storage-field"><strong>Part Number</strong></th>
+                <th class="storage-field"><strong>Storage Bin</strong></th>
                 <th class="pdiMachineField"><strong>Point of Use</strong></th>
-                <th class="pdiMachineField"><strong>Reason</strong></th>
+                <th class="order-date-field"><strong>Reason</strong></th>
                 <th class="pdiMachineField"><strong>Urgency</strong></th>
                 <th class="pdiMachineField"><strong>Status</strong></th>
-                <th class="pdiShipField"><strong>Picking Start</strong></th>
-                <th class="pdiShipField"><strong>Picking End</strong></th>
-                <th class="pdiMachineField"><strong>Picking process in min</strong></th>
+                <th class="order-date-field"><strong>Picking End</strong></th>
                 <th class="pdiMachineField"><strong>Order processing in min</strong></th>
                 <th class="pdiMachineField"><strong>Picked by</strong></th>
             </tr>
@@ -42,16 +67,15 @@
             {{#each orderList}}
                 <tr class="">
                     <td class="pdiMachineField">{{team}}</td>
-                    <td class="pdiShipField">{{orderStart}}</td>
+                    <td class="order-date-field">{{orderStart}}</td>
                     <td class="pdiMachineField">{{quantity}}</td>
-                    <td class="storageField">{{storage}}</td>
+                    <td class="storage-field">{{partNumber}}</td>
+                    <td class="storage-field">{{storage}}</td>
                     <td class="pdiMachineField">{{pou}}</td>
-                    <td class="pdiMachineField">{{reason}}</td>
+                    <td class="order-date-field">{{reason}}</td>
                     <td class="pdiMachineField">{{urgency}}</td>
                     <td class="pdiMachineField">{{status}}</td>
-                    <td class="pdiShipField">{{pickingStart}}</td>
-                    <td class="pdiShipField">{{pickingFinished}}</td>
-                    <td class="pdiMachineField">{{duration}}</td>
+                    <td class="order-date-field">{{pickingFinished}}</td>
                     <td class="pdiMachineField">{{overAllDuration}}</td>
                     <td class="pdiShipField">{{picker}}</td>
 
@@ -59,6 +83,18 @@
             {{/each}}
             </tbody>
         </table>
+    </div>
+
+    <div class="order-diagram-1">
+        <div  id="part_numbers">{{partNumbers}}</div>
+    </div>
+
+    <div class="order-diagram-2">
+        <div  id="order_reason">{{orderPerReason}}</div>
+    </div>
+
+    <div class="order-diagram-3">
+        <div  id="reason_bin">{{reasonPerStorageBin}}</div>
     </div>
 
 </template>

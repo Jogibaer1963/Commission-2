@@ -50,11 +50,13 @@
             <th class="pdiMachineField"><strong>Urgency</strong></th>
             <th class="user-pick"><strong>Order processed by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
+            <th class="order-storage-bin"><strong>Time ordered</strong></th>
+
         </tr>
         </thead>
         <tbody>
         {{#each lineOrders}}
-            <tr class="selectedOrder {{selected_order}}">
+            <tr class="">
                 <td class="order-part">{{part_number}}</td>
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
@@ -63,6 +65,7 @@
                 <td class="user-pick">{{picked_by}}</td>
                 <td class="pdiMachineField {{getOrderStatus status}}"
                     style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+                <td class="order-storage-bin">{{time_ordered}}</td>
             </tr>
         {{/each}}
         </tbody>
@@ -77,11 +80,13 @@
             <th class="pdiMachineField"><strong>Urgency</strong></th>
             <th class="user-pick"><strong>Order processed by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
+            <th class="order-storage-bin"><strong>Time ordered</strong></th>
+            <th class="order-storage-bin"><strong>Time completed</strong></th>
         </tr>
         </thead>
         <tbody>
         {{#each historyOrders}}
-            <tr class="selectedOrder {{selected_order}}">
+            <tr class="">
                 <td class="order-part">{{part_number}}</td>
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
@@ -90,6 +95,8 @@
                 <td class="user-pick">{{picked_by}}</td>
                 <td class="pdiMachineField {{getOrderStatus status}}"
                     style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+                <td class="order-storage-bin">{{time_ordered}}</td>
+                <td class="order-storage-bin">{{order_completed}}</td>
             </tr>
         {{/each}}
         </tbody>

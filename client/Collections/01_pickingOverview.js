@@ -213,7 +213,8 @@ Template.open_order.events({
 
     'click .picking-button': (e) => {
         e.preventDefault()
-        window.open('http://localhost:3100/partsOnOrder',
+      //  window.open('http://localhost:3100/partsOnOrder',
+      window.open('http://10.40.1.47:3100/partsOnOrder',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
     },
 

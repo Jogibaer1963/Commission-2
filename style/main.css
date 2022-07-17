@@ -1460,7 +1460,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .team-1-order-table {
-  width: 563px;
+  width: 667px;
   height: 400px;
   left: 200px;
   position: absolute;
@@ -5547,15 +5547,53 @@ table.headerTable {
   top: 4px;
 }
 
+.order-by-team {
+  left: 34px;
+  position: absolute;
+  top: 130px;
+}
+
+.team-table-text {
+  left: 422px;
+  position: absolute;
+  top: 222px;
+  font-weight: bolder;
+  color: #2a44d5;
+  font-family: "DejaVu Sans", "sans-serif";
+}
+
 .order-complete-table {
   left: 35px;
   position: absolute;
-  top: 180px;
+  top: 300px;
 }
 
-.storageField {
+.order-date-field {
   max-width: 100px;
   min-width: 100px;
+}
+
+.storage-field {
+  max-width: 115px;
+  min-width: 115px;
+}
+
+.order-diagram-1 {
+  left: 1200px;
+  position: absolute;
+  top: 300px;
+}
+
+.order-diagram-2 {
+  left: 1200px;
+  position: absolute;
+  top: 740px;
+}
+
+.order-diagram-3 {
+  left: 1200px;
+  position: absolute;
+  top: 1180px;
 }
 
 .topNav {
