@@ -32,21 +32,29 @@
 </template>
 
 <template name="message_board">
-    <div class="team-1-order-button">
+
+    <div class="team-1-repair-button">
+        <label for="team_1_repair_button"></label>
+        <button type="button" id="team_1_repair_button"
+                class="btn btn-success t1-rep-bt">Print PDI-repairs</button>
+    </div>
+
+    <div class="team-order-button">
         <label for="messageButton"></label>
-        <button type="button"
+        <button type="button" id="messageButton"
                 class="btn
                         btn-default
                         messageButton">Parts Needed</button>
     </div>
 
 
-    <table class="team-1-order-table blueTable">
+    <table class="team-order-table blueTable">
         <thead>
         <tr>
             <th class="order-part">Part Number</th>
             <th class="order-storage-bin"><strong>Storage Bin</strong></th>
             <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="order-point-of-use"><strong>Quantity</strong></th>
             <th class="pdiMachineField"><strong>Urgency</strong></th>
             <th class="user-pick"><strong>Order processed by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
@@ -60,6 +68,7 @@
                 <td class="order-part">{{part_number}}</td>
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="order-point-of-use">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
                 <td class="user-pick">{{picked_by}}</td>
@@ -71,12 +80,13 @@
         </tbody>
     </table>
 
-    <table class="team-1-order-history blueTable">
+    <table class="team-order-history blueTable">
         <thead>
         <tr>
             <th class="order-part">Part Number</th>
             <th class="order-storage-bin"><strong>Storage Bin</strong></th>
             <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="order-point-of-use"><strong>Quantity</strong></th>
             <th class="pdiMachineField"><strong>Urgency</strong></th>
             <th class="user-pick"><strong>Order processed by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
@@ -90,6 +100,7 @@
                 <td class="order-part">{{part_number}}</td>
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="order-point-of-use">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
                 <td class="user-pick">{{picked_by}}</td>
@@ -101,8 +112,6 @@
         {{/each}}
         </tbody>
     </table>
-
-
 
 </template>
 

@@ -10,7 +10,7 @@ import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
-import { unitCounter } from "../../lib/99_functionCollector.js";
+
 
 
 Session.set('twoMachines', false)
@@ -300,7 +300,7 @@ Template.team_1_move_buttons.helpers({
 
     disable_Bay_4_MoveButton: () => {
         try {
-            let result_1, result_2, result_3, result_target;
+            let result_1, result_2, result_3;
             result_1 = activeAssembly.findOne({_id: 'merge-station-1'},
                 {fields: {machineReady: 1, bayAssemblyStatus: 1}})
             result_2 = activeAssembly.findOne({_id: 'merge-station-2'},
@@ -325,7 +325,6 @@ Template.team_1_move_buttons.helpers({
 Template.message_board.helpers({
 
     lineOrders: () => {
-        let count = 0;
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
         let result = lineOrders.find({team_user: "Team 1",
                                               status: {$in: [0, 1]}}).fetch();
@@ -341,6 +340,13 @@ Template.message_board.helpers({
 
 
 Template.message_board.events({
+
+    'click .t1-rep-bt':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3000/pdiRepairList',
+            // window.open('http://10.40.1.47:3000/pdiRepairList',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
+    },
 
     'click .messageButton':(e) => {
         e.preventDefault()

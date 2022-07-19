@@ -5,6 +5,41 @@ import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 
 Session.set('twoMachines', false)
 
+Template.message_board_team_3.helpers({
+
+    lineOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: "Team 3",
+            status: {$in: [0, 1]}}).fetch();
+        return result.sort((a, b) => a.status - b.status)
+    },
+
+    historyOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        return lineOrders.find({team_user : "Team 3", status: 2}).fetch();
+    },
+
+})
+
+Template.message_board_team_3.events({
+
+    'click .t3-rep-bt':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3000/pdiRepairList',
+            // window.open('http://10.40.1.47:3000/pdiRepairList',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
+    },
+
+    'click .messageButton_team_3':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3100/messageBoard',
+            // window.open('http://10.40.1.47:3100/messageBoard',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+})
+
+
 Template.team_3_over_view.helpers({
 
     //  ***************    Move Machine from List to the FCB merging Station  *************

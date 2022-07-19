@@ -90,7 +90,7 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .navigation-buttons {
-  left: 36em;
+  left: 14em;
   position: absolute;
   top: 2em;
 }
@@ -243,13 +243,26 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 //  *********************************  Team 1  ************************************************
-.team-1-order-button {
+
+.team-1-repair-button {
+  left: -160px;
+  position: absolute;
+  top: 20px;
+}
+
+.team-5-repair-button {
+  left: -146px;
+  position: absolute;
+  top: 20px;
+}
+
+.team-order-button {
   left: 18px;
   position: absolute;
 }
 
-.team-1-order-table {
-  width: 667px;
+.team-order-table {
+  width: 700px;
   height: 400px;
   left: 200px;
   position: absolute;
@@ -265,21 +278,24 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .order-part {
-  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
   text-align: center;
 }
 
 .order-storage-bin {
-  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
   text-align: center;
 }
 
 .order-point-of-use {
-  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
   text-align: center;
 }
 
-.team-1-order-history {
+.team-order-history {
   width: 563px;
   height: 400px;
   left: 200px;
@@ -1164,7 +1180,34 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   top: -1.5em;
 }
 
+//  **************************  Team 2 message button  *********************
+
+
+.message-button-team-2 {
+  left: 1638px;
+  position: absolute;
+  top: 15px;
+}
+
+.team-2-repair-button {
+  left: -164px;
+  position: absolute;
+  top: 18px;
+}
+
 //  ***************************  Team 3 move buttons   ++++++++++++++++++++++
+
+.message-button-team-3 {
+  left: 1160px;
+  position: absolute;
+  top: 15px;
+}
+
+.team-3-repair-button {
+  left: -164px;
+  position: absolute;
+  top: 18px;
+}
 
 .team-3-header {
   color: #c80b0b;
@@ -1207,6 +1250,18 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 //    *********************************   Team 4 move buttons  *********************
+
+.message-button-team-4 {
+  left: 1193px;
+  position: absolute;
+  top: 1030px;
+}
+
+.team-4-repair-button {
+  left: -151px;
+  position: absolute;
+  top: 18px;
+}
 
 .template-team-4 {
   left: 25em;

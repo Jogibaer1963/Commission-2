@@ -7,7 +7,9 @@
             <th class="part-number-pick">Part Number</th>
             <th class="storage-bin-pick"><strong>Storage Bin</strong></th>
             <th class="point-of-use-pick"><strong>Point of Use</strong></th>
+            <th class="point-of-use-pick"><strong>Quantity</strong></th>
             <th class="pdiMachineField"><strong>Urgency</strong></th>
+
         </tr>
         </thead>
         <tbody>
@@ -17,6 +19,7 @@
                 <td class="part-number-pick">{{part_number}}</td>
                 <td class="storage-bin-pick">{{storage_bin}}</td>
                 <td class="point-of-use-pick">{{point_of_use}}</td>
+                <td class="point-of-use-pick">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
                      style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
             </tr>
@@ -24,12 +27,9 @@
         </tbody>
     </table>
 
-    <h4 class="button-parts-on-order">
-        Long loading Time, sorry....
-    </h4>
-
     <div class="order-processor">
         <h4>User : {{orderProcessor}}</h4>
+        <h3>Long loading Time, sorry....</h3>
     </div>
 </template>
 
@@ -42,6 +42,7 @@
             <th class="part-number-pick">Part Number</th>
             <th class="storage-bin-pick"><strong>Storage Bin</strong></th>
             <th class="point-of-use-pick"><strong>Point of Use</strong></th>
+            <th class="order-point-of-use"><strong>Quantity</strong></th>
             <th class="pdiMachineField"><strong>Urgency</strong></th>
             <th class="user-pick"><strong>Picked by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
@@ -54,6 +55,7 @@
                 <td class="part-number-pick">{{part_number}}</td>
                 <td class="storage-bin-pick">{{storage_bin}}</td>
                 <td class="point-of-use-pick">{{point_of_use}}</td>
+                <td class="order-point-of-use">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
                 <td class="user-pick">{{picked_by}}</td>

@@ -1,6 +1,6 @@
 Meteor.subscribe('activeAssembly')
 
-import {invokeMachineTest, invokeMoveFromLastBay} from '../../lib/99_functionCollector.js';
+import {invokeMachineTest} from '../../lib/99_functionCollector.js';
 import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
@@ -8,6 +8,42 @@ import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 
 Session.set('twoMachines', false)
+
+
+Template.message_board_team_4.helpers({
+
+    lineOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: "Team 4",
+            status: {$in: [0, 1]}}).fetch();
+        return result.sort((a, b) => a.status - b.status)
+    },
+
+    historyOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        return lineOrders.find({team_user : "Team 4", status: 2}).fetch();
+    },
+
+})
+
+Template.message_board_team_4.events({
+
+    'click .t4-rep-bt':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3000/pdiRepairList',
+            // window.open('http://10.40.1.47:3000/pdiRepairList',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
+    },
+
+    'click .messageButton_team_4':(e) => {
+        e.preventDefault()
+        window.open('http://localhost:3100/messageBoard',
+            // window.open('http://10.40.1.47:3100/messageBoard',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+})
+
 
 // *********************  Header Buttons  ***********************************
 
@@ -49,7 +85,7 @@ Template.team_4_move_buttons.events({
 
     'click .cooling-2-move-button': (e) => {
          e.preventDefault();
-         let  engineNr, coolingBox, coolingNr, engine_1, engine_2, engine_3, cooling_1, cooling_2, cooling_3;
+         let  coolingBox, coolingNr, engine_1, engine_2, engine_3, cooling_1, cooling_2, cooling_3;
          let oldCanvasId = 'cooling-station-2';
         // todo.. if Engine is not there choose first station 1, if already engaged station 2 if already engaged station 3
          coolingBox = activeAssembly.findOne({_id: "cooling-station-2"}, {fields: {bayArray: 1}})
@@ -216,7 +252,7 @@ Template.team_4_over_view.helpers({
     },
 
     merge_3_result: () => {
-            document.addEventListener('DOMContentLoaded', function(event) {
+            document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('merge-3-field').style.display = 'none'
             })
             let engine_3, cooling_3;

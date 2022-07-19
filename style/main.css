@@ -1313,7 +1313,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .navigation-buttons {
-  left: 36em;
+  left: 14em;
   position: absolute;
   top: 2em;
 }
@@ -1454,13 +1454,25 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -5em;
 }
 
-.team-1-order-button {
+.team-1-repair-button {
+  left: -160px;
+  position: absolute;
+  top: 20px;
+}
+
+.team-5-repair-button {
+  left: -146px;
+  position: absolute;
+  top: 20px;
+}
+
+.team-order-button {
   left: 18px;
   position: absolute;
 }
 
-.team-1-order-table {
-  width: 667px;
+.team-order-table {
+  width: 700px;
   height: 400px;
   left: 200px;
   position: absolute;
@@ -1476,21 +1488,24 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .order-part {
-  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
   text-align: center;
 }
 
 .order-storage-bin {
-  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
   text-align: center;
 }
 
 .order-point-of-use {
-  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
   text-align: center;
 }
 
-.team-1-order-history {
+.team-order-history {
   width: 563px;
   height: 400px;
   left: 200px;
@@ -2387,6 +2402,30 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: -1.5em;
 }
 
+.message-button-team-2 {
+  left: 1638px;
+  position: absolute;
+  top: 15px;
+}
+
+.team-2-repair-button {
+  left: -164px;
+  position: absolute;
+  top: 18px;
+}
+
+.message-button-team-3 {
+  left: 1160px;
+  position: absolute;
+  top: 15px;
+}
+
+.team-3-repair-button {
+  left: -164px;
+  position: absolute;
+  top: 18px;
+}
+
 .team-3-header {
   color: #c80b0b;
   font-family: "Times New Roman", Times, serif;
@@ -2425,6 +2464,18 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: 23em;
   transform: rotate(-45deg);
+}
+
+.message-button-team-4 {
+  left: 1193px;
+  position: absolute;
+  top: 1030px;
+}
+
+.team-4-repair-button {
+  left: -151px;
+  position: absolute;
+  top: 18px;
 }
 
 .template-team-4 {
@@ -5477,6 +5528,12 @@ table.headerTable {
   top: -132px;
 }
 
+.message-button-team-5 {
+  left: 1200px;
+  position: absolute;
+  top: 7px;
+}
+
 .messenger-field {
   top: 100px;
   position: absolute;
@@ -5542,7 +5599,7 @@ table.headerTable {
 }
 
 .order-processor {
-  left: 654px;
+  left: 820px;
   position: absolute;
   top: 4px;
 }
