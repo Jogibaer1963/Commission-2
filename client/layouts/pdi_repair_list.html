@@ -1,0 +1,54 @@
+<template name="pdiRepairList">
+
+<div class="team-lead-repair-toggle">
+    <label for="toggle_button_team_lead_repair"></label>
+    <button type="button" class="btn btn-success team-lead-toggle">Toggle un-finished / finished Repairs</button>
+</div>
+<div class="team-lead-repairs">
+    <table class="table blueTable fixed-header repair-table">
+        <thead>
+        <tr>
+            <th class="repair-machine-field"><strong>Machine Id</strong></th>
+            <th class="repair-issue-field"><strong>Issue</strong></th>
+            <th class="thumbnail-box">image</th>
+            <th class="repair-issue-field"><strong>Repair Comments</strong></th>
+            <th class="repair-machine-field"><strong>Rep Tech</strong></th>
+            <th class="repair-machine-field"><strong>Repair Date</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each openRepairList}}
+            <tr class="selectedTeam_1_List {{selected}}">
+                <td class="repair-machine-field">{{machine}}</td>
+                <td class="repair-issue-field">{{error}}</td>
+                <td class="thumbnail-box">
+                    <img src={{pictureLocation}}
+                         alt='noPicture.JPG'
+                    />
+                </td>
+                <td class="repair-issue-field">{{repairComment}}</td>
+                <td class="repair-machine-field">{{repairTech}}</td>
+                <td class="repair-machine-field">{{repairDateTime}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+<div class="team-lead-repair-inputs">
+    <form class="team-lead-input-comments">
+        <label for="team_lead_comment">Repair Comments (optional)</label>
+        <br>
+        <textarea rows="3" cols="25" id="team_lead_comment" name="repair_comment" placeholder="Repair Comments"></textarea>
+        <br><br>
+        <label for="team_lead_tech">Repair Tech (required)</label>
+        <br>
+        <input type="text" id="team_lead_tech" name="repair_tech" placeholder="Repair Tech" required>
+        <br><br>
+        <label for="team_lead_repair_done"></label>
+        <button type="submit" class="btn btn-success team-lead-repair-done">Repair Finished</button>
+    </form>
+
+
+</div>
+    
+</template>

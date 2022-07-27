@@ -25,9 +25,21 @@ Template.message_board_team_3.events({
 
     'click .t3-rep-bt':(e) => {
         e.preventDefault()
-        window.open('http://localhost:3000/pdiRepairList',
+        Meteor.call('give_me_team', 'Team 3', function(err, response) {
+            if (response) {
+                console.log(response)
+                Session.set('t3-result', response)
+            } else if (err) {
+                console.log(err)
+            }
+        })
+
+        window.open('http://localhost:3100/pdiRepairList',
+
             // window.open('http://10.40.1.47:3000/pdiRepairList',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
+
+
     },
 
     'click .messageButton_team_3':(e) => {

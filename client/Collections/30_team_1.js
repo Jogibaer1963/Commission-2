@@ -333,7 +333,8 @@ Template.message_board.helpers({
 
     historyOrders: () => {
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-       return lineOrders.find({team_user : "Team 1", status: 2}).fetch();
+       let result = lineOrders.find({team_user : "Team 1", status: 2}).fetch();
+       return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
 })
@@ -343,9 +344,9 @@ Template.message_board.events({
 
     'click .t1-rep-bt':(e) => {
         e.preventDefault()
-        window.open('http://localhost:3000/pdiRepairList',
-            // window.open('http://10.40.1.47:3000/pdiRepairList',
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
+
+        FlowRouter.go('pdiRepairList')
+
     },
 
     'click .messageButton':(e) => {

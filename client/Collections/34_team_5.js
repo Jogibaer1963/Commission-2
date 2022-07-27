@@ -28,6 +28,8 @@ Template.message_board_team_5.events({
 
     'click .t5-rep-bt':(e) => {
         e.preventDefault()
+
+
         window.open('http://localhost:3000/pdiRepairList',
      // window.open('http://10.40.1.47:3000/pdiRepairList',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')

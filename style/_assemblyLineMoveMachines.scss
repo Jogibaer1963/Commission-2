@@ -296,14 +296,15 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
 }
 
 .team-order-history {
-  width: 563px;
-  height: 400px;
+  width: 882px;
+  height: 474px;
   left: 200px;
   position: absolute;
   top: 435px;
+  display: block;
   color: #d6e0f5;
+  overflow: auto;
   font-weight: bolder;
-  text-align: center;
 }
 
 

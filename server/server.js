@@ -101,6 +101,42 @@ if(Meteor.isServer){
            console.log('Function finished');
         },
  */
+        'team_leads_repairs':(team ,comment, tech, id, machine) => {
+            // id = _id from repaired Issue, machine = Machine Number, team = Team
+            let serverDateTime = new Date().toLocaleString();
+            machineReadyToGo.update({machineId: machine, 'newIssues._id': id},
+                {$set: {
+                        'newIssues.$.repairTech': tech,
+                        'newIssues.$.repairComment': comment,
+                        'newIssues.$.repairDateTime': serverDateTime,
+                        'newIssues.$.repairStatus' : 1
+                    }})
+        },
+
+        'give_me_team': (team) => {
+            let returnArray = []
+            let returnObject = {}
+          let result = machineReadyToGo.find({$and: [{pdiStatus : 1, repairStatus: 0}]},
+              {fields: {machineId: 1, newIssues: 1}}).fetch();
+          result.forEach((element) => {
+              element.newIssues.forEach((element2) => {
+                  if (element2.responsible === team && element2.repairStatus === 0) {
+                    //  console.log(element.machineId, element2.responsible, element2.errorDescription)
+                      returnObject = {
+                         id : element2._id,
+                         machine : element.machineId,
+                         error : element2.errorDescription,
+                         image : element2.pictureLocation,
+                          repairComment : element2.repairComment,
+                          repairTech : element2.repairTech,
+                          repairDateTime : element2.repairDateTime
+                      }
+                      returnArray.push(returnObject)
+                  }
+              })
+          })
+            return returnArray
+        },
 
         'orderList': () => {
             let [orderArray_team_1, orderArray_team_2, orderArray_team_3,
