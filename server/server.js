@@ -75,29 +75,7 @@ if(Meteor.isServer){
 /*
         'specialFunction': () => {
          console.log('function started');
-         let workDone = [];
-         let buildObject = {}
-         let result = machineCommTable.find({inLineDate : {$gt: '2021-08-01'} } ,
-             {fields: {machineId: 1, bayReady: 1}}).fetch();
-         result.forEach((element) => {
-             if (element.bayReady !== undefined) {
-                 element.bayReady.forEach((element2) => {
-                     if(element2.assemblyTech === 'mike') {
-                         buildObject = {
-                             machineId: element.machineId,
-                             station : element2._id,
-                             bayLandingUnix: element2.bayDateLandingUnix,
-                             bayLeaving: element2.bayDateLeavingUnix,
-                             bayStart: element2.bayStart,
-                             bayStop: element2.bayStop,
-                             assemblyTech: element2.assemblyTech
-                         }
-                         workDone.push(buildObject)
-                     }
-                 })
-             }
-             assemblyTech.update({_id: 'mike'}, {$set: {workDone: workDone}} )
-         })
+
            console.log('Function finished');
         },
  */

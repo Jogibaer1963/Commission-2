@@ -34,9 +34,8 @@ Template.message_board_team_3.events({
             }
         })
 
-        window.open('http://localhost:3100/pdiRepairList',
-
-            // window.open('http://10.40.1.47:3000/pdiRepairList',
+        //window.open('http://localhost:3100/pdiRepairList',
+             window.open('http://10.40.1.47:3000/pdiRepairList',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
 
 
@@ -44,8 +43,8 @@ Template.message_board_team_3.events({
 
     'click .messageButton_team_3':(e) => {
         e.preventDefault()
-        window.open('http://localhost:3100/messageBoard',
-            // window.open('http://10.40.1.47:3100/messageBoard',
+       // window.open('http://localhost:3100/messageBoard',
+           window.open('http://10.40.1.47:3100/messageBoard',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
     },
 

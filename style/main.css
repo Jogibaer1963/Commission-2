@@ -1328,6 +1328,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 160px;
   position: absolute;
   top: 0;
+  z-index: -2;
 }
 
 .team-5 {

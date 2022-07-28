@@ -15,7 +15,7 @@
                      userVar === 'Team 5' || userVar === 'Test Bay')   {
                      FlowRouter.go('/assemblyLine');
                  } else if (Meteor.userId()) {
-                         FlowRouter.go('/');
+                         FlowRouter.go('/overview');
                      } else {
                          Bert.alert('User or Password wrong', 'danger', 'growl-top-left');
                      }
