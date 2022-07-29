@@ -129,7 +129,6 @@ Template.commTablet_2.events ({
             status, userFinished, dateEndNow, pickingEnd);
         Session.set('multiMachinesId', '');
         Session.set('selectedArea', '');
-        FlowRouter.go('/');
     },
 
 

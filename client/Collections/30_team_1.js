@@ -97,7 +97,6 @@ Template.team_1_over_view.helpers({
             } else if (result.bayArray.length === 1) {
                 // draw 1 machine in Bay
                 let machineNrInBay = result.bayArray[0].machineNr;
-
                 //Code to check ECN Status
                 let machine1 = machineCommTable.findOne({machineId : machineNrInBay}, {});
                 let machine1Status = "";
@@ -230,12 +229,16 @@ Template.team_1_over_view.helpers({
 
 Template.team_1_over_view.events({
 
+    //  **************   From List to FCB 1, include Front Axle and threshing move from list to Bays
     'click .selectedAssemblyMachine': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine = this._id;
-        let machineNr = this.machineId;
-        let canvasId = "fcb_station_1"
-        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        let selectedAssemblyMachine, machineNr, canvasId, bayStatus;
+        selectedAssemblyMachine = this._id;
+        machineNr = this.machineId;
+        canvasId = "fcb_station_1";
+        Session.set('machine_id', selectedAssemblyMachine);
+        Session.set('machineInFCB_1', machineNr);
+        bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
@@ -244,14 +247,35 @@ Template.team_1_over_view.events({
         } else {
             window.alert('2 Machines in Bay 2 are not allowed')
         }
+        canvasId = "front_axle"
+        bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeFrontAxleList');
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
+        canvasId = "threshing_house"
+        bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeThreshingList');
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
     },
 
     'click .selectedRearAxle': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine = this._id;
-        let machineNr = this.machineId;
-        let canvasId = "rear_axle_canvas"
-        let bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        let selectedAssemblyMachine, machineNr, canvasId, bayStatus;
+        selectedAssemblyMachine = this._id;
+        machineNr = this.machineId;
+        canvasId = "rear_axle_canvas"
+        bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
@@ -361,18 +385,49 @@ Template.message_board.events({
 
 Template.team_1_move_buttons.events({
 
-    'click .fcb-1-move-button': (e) => {
+    'click .fcb-1-move-button': async function(e) {
         e.preventDefault();
-        let oldCanvasId = 'fcb_station_1'
-        let newCanvasId = "fcb_station_2";
+        let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId, bayStatus, selectedAssemblyMachine
+        machineNr = Session.get('machineInFCB_1')
+        selectedAssemblyMachine = Session.get('machine_id');
+        oldCanvasId = 'fcb_station_1'
+        newCanvasId = "fcb_station_2";
         invokeMoveMachine(oldCanvasId, newCanvasId)
+        oldCanvasId = 'threshing_house';
+        newCanvasId = 'front_threshing_merge';
+        mergeCanvas = 'front_threshing_merge';
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        oldCanvasId = 'front_axle';
+        newCanvasId = 'front_threshing_merge';
+        mergeCanvas = 'front_threshing_merge';
+        // check if front-threshing merge bay is empty or if the same machine number is already in
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        canvasId = "rear_axle_canvas"
+        bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
+        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatus[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeRearAxleList');
+            invokeDrawNewMachine(machineNr, canvasId)
+        } else {
+            window.alert('2 Machines in Bay 2 are not allowed')
+        }
     },
 
     'click .fcb-2-move-button': (e) => {
         e.preventDefault();
-        let oldCanvasId = 'fcb_station_2'
-        let newCanvasId = "machine_field_fcb_threshing";
+        let oldCanvasId, newCanvasId, mergeCanvas;
+        oldCanvasId = 'fcb_station_2'
+        newCanvasId = "machine_field_fcb_threshing";
         invokeMoveMachine(oldCanvasId, newCanvasId)
+        oldCanvasId = 'front_threshing_merge';
+        newCanvasId = 'front_threshing_machine_merge';
+        mergeCanvas = 'machine_field_fcb_threshing';
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        oldCanvasId = 'rear_axle_canvas'
+        newCanvasId = "rear_axle_machine_merge";
+        mergeCanvas = 'machine_field_fcb_threshing'
+        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
     },
 
     'click .bay-2-move-button': (e) => {
