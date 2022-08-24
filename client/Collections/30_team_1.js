@@ -361,16 +361,28 @@ Template.message_board.helpers({
        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
+    markedSelectedOrder: function(e) {
+        const order = this._id;
+        const selectedOrder = Session.get('orderCanceled');
+        if (order === selectedOrder) {
+            return "markedSelectedOrder";
+        }
+    }
+
 })
 
 
 Template.message_board.events({
 
+    'click .selectedOrder': function (e) {
+      e.preventDefault()
+      let order = this._id
+      Session.set('orderCanceled', order)
+    },
+
     'click .t1-rep-bt':(e) => {
         e.preventDefault()
-
         FlowRouter.go('pdiRepairList')
-
     },
 
     'click .messageButton':(e) => {
@@ -379,6 +391,13 @@ Template.message_board.events({
         window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
     },
+
+    'click .cancelButton':(e) => {
+        e.preventDefault()
+        let orderCancel = Session.get('orderCanceled', )
+        Meteor.call('cancelOrder', orderCancel)
+    },
+
 
 })
 

@@ -213,6 +213,11 @@ if(Meteor.isServer){
           serverWorker.insert({result: result, user : user, alert: alert})
         },
 
+        'cancelOrder':(id) => {
+            lineOrders.remove({_id: id})
+        },
+
+
         'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order,
                            point_of_use_order, reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered

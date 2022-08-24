@@ -1,3 +1,5 @@
+import {Session} from "meteor/session";
+
 Meteor.subscribe('activeAssembly')
 
 
@@ -22,9 +24,24 @@ Template.message_board_team_2.helpers({
         return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
+    markedSelectedOrder: function(e) {
+        const order = this._id;
+        const selectedOrder = Session.get('orderCanceled');
+        if (order === selectedOrder) {
+            return "markedSelectedOrder";
+        }
+    }
+
 })
 
 Template.message_board_team_2.events({
+
+    'click .selectedOrder': function (e) {
+        e.preventDefault()
+        let order = this._id
+        Session.set('orderCanceled', order)
+    },
+
 /*
     'click .t2-rep-bt':(e) => {
         e.preventDefault()
@@ -40,6 +57,12 @@ Template.message_board_team_2.events({
         let newUrl = Session.get('ipAndPort') + 'messageBoard'
         window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+    'click .cancelButton':(e) => {
+        e.preventDefault()
+        let orderCancel = Session.get('orderCanceled', )
+        Meteor.call('cancelOrder', orderCancel)
     },
 
 })

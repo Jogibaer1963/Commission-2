@@ -42,7 +42,6 @@ Template.navigation_buttons.events({
     'click .btn-team': function (e) {
        e.preventDefault();
       let userId = Meteor.user()
-      console.log(userId.roles[0])
         if (userId.roles[0] === 'team_1') {
             FlowRouter.go('/team_1')
         } else if (userId.roles[0] === 'team_2') {

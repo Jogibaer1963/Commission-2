@@ -1,3 +1,5 @@
+import {Session} from "meteor/session";
+
 Meteor.subscribe('activeAssembly')
 
 import {invokeMoveFromLastBay} from '../../lib/99_functionCollector.js';
@@ -22,10 +24,25 @@ Template.message_board_team_5.helpers({
         return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
+    markedSelectedOrder: function(e) {
+        const order = this._id;
+        const selectedOrder = Session.get('orderCanceled');
+        if (order === selectedOrder) {
+            return "markedSelectedOrder";
+        }
+    }
+
 
 })
 
 Template.message_board_team_5.events({
+
+    'click .selectedOrder': function (e) {
+        e.preventDefault()
+        let order = this._id
+        Session.set('orderCanceled', order)
+    },
+
 /*
     'click .t5-rep-bt':(e) => {
         e.preventDefault()
@@ -42,6 +59,12 @@ Template.message_board_team_5.events({
         let newUrl = Session.get('ipAndPort') + 'messageBoard'
          window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+    'click .cancelButton':(e) => {
+        e.preventDefault()
+        let orderCancel = Session.get('orderCanceled', )
+        Meteor.call('cancelOrder', orderCancel)
     },
 
 })

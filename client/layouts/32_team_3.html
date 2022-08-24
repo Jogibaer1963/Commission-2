@@ -42,6 +42,14 @@
                         messageButton_team_3">Parts Needed</button>
     </div>
 
+    <div class="team-cancel-button">
+        <label for="messageButton"></label>
+        <button type="button" id="messageButton"
+                class="btn
+                        btn-danger
+                        cancelButton">Cancel Order</button>
+    </div>
+
 
     <table class="team-order-table blueTable">
         <thead>
@@ -59,7 +67,7 @@
         </thead>
         <tbody>
         {{#each lineOrders}}
-            <tr class="">
+            <tr class="selectedOrder {{markedSelectedOrder}}">
                 <td class="order-part">{{part_number}}</td>
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>

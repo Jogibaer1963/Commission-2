@@ -1476,6 +1476,12 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
 }
 
+.team-cancel-button {
+  left: 18px;
+  position: absolute;
+  top: 90px;
+}
+
 .team-order-table {
   width: 700px;
   height: 400px;
@@ -1485,6 +1491,10 @@ table.supply-multi-table td, table.supply-multi-table th {
   color: #d6e0f5;
   font-weight: bolder;
   text-align: center;
+}
+
+.markedSelectedOrder {
+  background-color: #6b18c0;
 }
 
 .order-user {
