@@ -18,27 +18,29 @@ Template.message_board_team_5.helpers({
 
     historyOrders_team_5: () => {
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-        return lineOrders.find({team_user : "Team 5", status: 2}).fetch();
+        let result = lineOrders.find({team_user : "Team 5", status: 2}, {limit: 10}).fetch();
+        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
 
 })
 
 Template.message_board_team_5.events({
-
+/*
     'click .t5-rep-bt':(e) => {
         e.preventDefault()
-
-
-      //  window.open('http://localhost:3000/pdiRepairList',
-      window.open('http://10.40.1.47:3000/pdiRepairList',
+        let ipAndPort =
+        let newUrl = Session.get('shippingApp') + 'pdiRepairList'
+       window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
     },
 
+ */
+
     'click .messageButton_team_5':(e) => {
         e.preventDefault()
-       //   window.open('http://localhost:3100/messageBoard',
-        window.open('http://10.40.1.47:3100/messageBoard',
+        let newUrl = Session.get('ipAndPort') + 'messageBoard'
+         window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
     },
 

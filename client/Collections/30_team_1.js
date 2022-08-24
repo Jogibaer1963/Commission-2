@@ -357,7 +357,7 @@ Template.message_board.helpers({
 
     historyOrders: () => {
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-       let result = lineOrders.find({team_user : "Team 1", status: 2}).fetch();
+       let result = lineOrders.find({team_user : "Team 1", status: 2}, {limit: 10}).fetch();
        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
@@ -375,8 +375,8 @@ Template.message_board.events({
 
     'click .messageButton':(e) => {
         e.preventDefault()
-      //  window.open('http://localhost:3100/messageBoard',
-        window.open('http://10.40.1.47:3100/messageBoard',
+        let newUrl = Session.get('ipAndPort') + 'messageBoard'
+        window.open(newUrl,
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
     },
 
@@ -407,8 +407,14 @@ Template.team_1_move_buttons.events({
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
         if (bayStatus[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-                machineNr, canvasId, 'activeRearAxleList');
-            invokeDrawNewMachine(machineNr, canvasId)
+                machineNr, canvasId, 'activeRearAxleList', function(err, response) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    invokeDrawNewMachine(machineNr, canvasId)
+                }
+                });
+        //    invokeDrawNewMachine(machineNr, canvasId)
         } else {
             window.alert('2 Machines in Bay 2 are not allowed')
         }

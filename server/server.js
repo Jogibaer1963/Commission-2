@@ -6,66 +6,68 @@ import {unix} from "moment";
 
 if(Meteor.isServer){
 
-    Meteor.startup( function() {
+    Meteor.startup( () => {
 
-        Meteor.publish("usersProfile", function() {
+        Meteor.publish("usersProfile", () => {
             return usersProfile.find();
         });
 
-        Meteor.publish("CommissionToDoMessage", function() {
+        Meteor.publish("CommissionToDoMessage", () => {
             return CommissionToDoMesssage.find();
         });
 
-        Meteor.publish("supplyAreas", function() {
+        Meteor.publish("supplyAreas", () => {
             return supplyAreas.find();
         });
 
-        Meteor.publish("machineCommTable", function() {
+        Meteor.publish("machineCommTable", () => {
             return machineCommTable.find();
         });
 
-        Meteor.publish("pickersAtWork", function() {
+        Meteor.publish("pickersAtWork", () => {
             return pickersAtWork.find();
         });
 
-        Meteor.publish("pickers", function() {
+        Meteor.publish("pickers", () => {
             return pickers.find();
         });
 
-        Meteor.publish("fiscalYear", function () {
+        Meteor.publish("fiscalYear", () => {
             return fiscalYear.find();
         });
 
-        Meteor.publish("activeAssembly", function () {
+        Meteor.publish("activeAssembly", () => {
             return activeAssembly.find();
         });
 
-        Meteor.publish("userActions", function () {
+        Meteor.publish("userActions", () => {
             return userActions.find();
         });
 
-        Meteor.publish('assemblySchedule', function() {
+        Meteor.publish('assemblySchedule', () => {
             return assemblySchedule.find();
         })
 
-        Meteor.publish('scheduleConfig', function() {
+        Meteor.publish('scheduleConfig', () => {
             return scheduleConfig.find();
         })
 
-        Meteor.publish('assemblyTech', function() {
+        Meteor.publish('assemblyTech', () => {
             return assemblyTech.find();
         })
 
-        Meteor.publish('pickingNewHead', function() {
+        Meteor.publish('pickingNewHead', () => {
             return pickingNewHead.find();
         })
-
-        Meteor.publish('machineReadyToGo', function() {
+/*
+        Meteor.publish('machineReadyToGo', () => {
             return machineReadyToGo.find();
         })
 
-        Meteor.publish('lineOrders', function() {
-            return lineOrders.find();
+ */
+
+        Meteor.publish('lineOrders', () => {
+            return (lineOrders.find());
         })
 
     });
@@ -75,10 +77,17 @@ if(Meteor.isServer){
 /*
         'specialFunction': () => {
          console.log('function started');
+            let closedOrders = lineOrders.find({status: 0})
+            closedOrders.forEach((element) => {
+                console.log(element)
+                lineOrders.update({_id: 'open_orders'}, {$set: {element}})
+            })
 
            console.log('Function finished');
         },
+
  */
+
         'team_leads_repairs':(team ,comment, tech, id, machine) => {
             // id = _id from repaired Issue, machine = Machine Number, team = Team
             let serverDateTime = new Date().toLocaleString();
@@ -198,10 +207,10 @@ if(Meteor.isServer){
 
         },
 
-        'success':(result, user) => {
+        'success':(result, user, alert) => {
          //   let success = result.slice(0, 7);
         //    console.log('result' , result)
-          serverWorker.insert({result: result, user : user})
+          serverWorker.insert({result: result, user : user, alert: alert})
         },
 
         'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order,
@@ -232,19 +241,26 @@ if(Meteor.isServer){
          //   console.log(orderStart, date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
             order_date = (date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
             lineOrders.insert({ team_user : user_order,
-                                    time_ordered  : order_date,
-                                    unixTimeOrderStart : unixOrder,
-                                    part_number : partNumber_order,
-                                    quantity_needed : quantityNeeded_order,
-                                    storage_bin : storageLocation_order,
-                                    point_of_use : point_of_use_order,
-                                    reason : reason,
-                                    urgency : urgency,
-                                    status: 0,
-                                    order_completed : ''})
+                time_ordered  : order_date,
+                unixTimeOrderStart : unixOrder,
+                part_number : partNumber_order,
+                quantity_needed : quantityNeeded_order,
+                storage_bin : storageLocation_order,
+                point_of_use : point_of_use_order,
+                reason : reason,
+                urgency : urgency,
+                status: 0,
+                order_completed : ''})
             success = 'success ' + order_date;
             return success
 
+        },
+
+        'findOpenOrder': (team) => {
+            console.log(team)
+           let result = lineOrders.find({status: 0, team_user: team}).fetch()
+            console.log(result)
+            return result
         },
 
         'pickOrder': (pickOrder, picker) => {
@@ -278,6 +294,8 @@ if(Meteor.isServer){
                                                                    unixTimeOrderCompleted : unixOrderFinished
                                                                         }})
         },
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         'skipSupplyAreas': (selectedMachine, supplyArea) => {
             if (supplyArea === 0) {
@@ -649,15 +667,12 @@ if(Meteor.isServer){
 
             // find Machine with active Engine List : true (not touched bt Engines)
             // then cut the CSV File above this Machine and cut machines without sequence number
-
             let findBay19Machine = userActions.findOne({_id: "bay_19_last_machine"});
-
             firstMachine = machineCommTable.findOne({_id: findBay19Machine.lastMachine},
                 {fields: {_id : 1, machineId: 1, counter: 1, activeInBay: 1}})
-
             let machineFound = firstMachine.machineId;
             let counterStart = firstMachine.counter;
-
+           // console.log('last machine', machineFound, counterStart)
  // *****************************************************************************************************************
             // processing CSV File starts here.
 
@@ -668,10 +683,10 @@ if(Meteor.isServer){
                         arr.splice(i, 1);
                     }
                     i++
-                })
-          let copyOfNewElement = []
-           newElement = [];
-           arr.forEach((element) => {
+            })
+            let copyOfNewElement = []
+            newElement = [];
+            arr.forEach((element) => {
                    // *********************  important Step  *********************************
                    // Regex search for Machine number pattern like C8900425
                    // add String into a new Array
@@ -681,31 +696,42 @@ if(Meteor.isServer){
                        newElement.push(element)
                        copyOfNewElement.push(element)
                    }
-               })
-
-         // console.log(newElement)
-            //  cutting machine list from top to machine which has left lin (userActions.find machineId)
-           for (let k = 0; k <= newElement.length; k++) {
-             let machineList = newElement[k].substring(0,8);
-             let returnValue = machineFound.localeCompare(machineList);
-            if (returnValue === 0) {
-                break;
-                } else {
-                    copyOfNewElement.shift()
-                }
+            })
+            let newCopy = copyOfNewElement.slice();
+             // console.log(newElement.length)
+             // console.log(newElement)
+             //  cutting machine list from top to machine which has left line (userActions.find machineId)
+            for (let k = 0; k < newElement.length; k++) {
+                 let machineList = newElement[k].substring(0,8);
+                 let returnValue = machineFound.localeCompare(machineList);
+                    if (returnValue === 0) {
+                        break;
+                        } else {
+                            copyOfNewElement.shift()
+                        }
             }
-         //  console.log('newest Array ', copyOfNewElement)
+            // No Machines matched the new List probably new Fiscal Year
+            let maxCount = [];
+            if (copyOfNewElement.length === 0 ){
+                copyOfNewElement = newCopy
+                let maxMachineCount = machineCommTable.find({counter: {$gt: counterStart}}, {fields: {counter: 1}}).fetch()
+                maxMachineCount.forEach((element) => {
+                    maxCount.push(element.counter)
+                })
+                newMachine = Math.max(...maxCount)
+                counterStart = newMachine
+            }
 
-           let sequencedMachines = [];
+            let sequencedMachines = [];
            // only machines with a sequence number should be left
+            newCopy = [] // free unused memory / array
             copyOfNewElement.forEach((element) => {
                 let sequence = element.split(',');
-
                 if (sequence[31] > '0') {
                     sequencedMachines.push(element)
                 }
             });
-        //    console.log(sequencedMachines)
+            // console.log(sequencedMachines)
             // build timeline for new machines to insert and existing machines to update
 
            sequencedMachines.forEach((element) => {
@@ -772,7 +798,6 @@ if(Meteor.isServer){
                     'ecnMachine': sequence[32],
                     'reserved': sequence[33]
                     }
-                  //  console.log(timeLine)
 
                     if (machineCommTable.findOne({machineId: sequence[0]}) === undefined) {
                         // found new Machine, insert timeline supply Areas and some other things
@@ -816,7 +841,6 @@ if(Meteor.isServer){
                         counterStart  ++ ;
                             }
             })
-
 
 
         },
@@ -870,7 +894,7 @@ if(Meteor.isServer){
         },
 
         'removeCommMachine': function (removeMachine) {
-            machineCommTable.remove({_id: removeMachine});
+            machineCommTable.remove({machineId: removeMachine});
         },
 
         'deactivateArea': function (area) {

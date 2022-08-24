@@ -26,12 +26,13 @@ Template.messageBoard.events({
         Meteor.call('parts_on_order', user_order, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
            reason_order, urgency_order, function (err, respond) {
             if (err) {
-                   Meteor.call('success', err, user_order)
+                   Meteor.call('success', err, user_order, 'order failed')
             } else {
-                   Meteor.call('success', respond, user_order)
+                   Meteor.call('success', respond, user_order, 'order succeed')
+                   window.close();
             }
         })
-        window.close();
+
     }
 
 })

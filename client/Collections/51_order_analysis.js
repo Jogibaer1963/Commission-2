@@ -5,12 +5,12 @@ Template.orderAnalysis.helpers({
 
         orderList:() => {
            let result, dia_1;
-           Meteor.call('orderList', function(err, response) {
-               if (response) {
-                   Session.set('orderResult', response)
-               } else {
-               }
-           })
+               Meteor.call('orderList', function(err, response) {
+                   if (response) {
+                       Session.set('orderResult', response)
+                   } else {
+                   }
+               })
             result = Session.get('orderResult')
             let team_order = Session.get('team-order')
             if (team_order === 'team-1-order') {
@@ -47,114 +47,124 @@ Template.orderAnalysis.helpers({
 
     partNumbers: function () {
         // Gather data:
-        let resultArray = [];
-        let resultAmount = []
-        let result = Session.get('diagram-1')
-        resultArray = Object.keys(result)
-        resultAmount = Object.values(result)
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('part_numbers', {
-                title: {
-                    text: 'Order per Part Number'
-                },
-                tooltip: {
-                    shared: true
-                },
-                chart: {
-                    style: {
-                        fontFamily: '\'Unica One\', sans-serif'
-                    },
-                    plotBorderColor: '#606063',
-                    height: 400,
-                    width: 700,
-                    zoomType: 'xy'
-                },
-                yAxis: {
-                    categories: [],
-                    title: {enabled: true,
-                        text: 'Amount of equal Part Numbers',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                xAxis: {
-                    categories: resultArray,
+        try {
+            let resultArray = [];
+            let resultAmount = []
+            let result = Session.get('diagram-1')
+            resultArray = Object.keys(result)
+            resultAmount = Object.values(result)
+            // Use Meteor.defer() to create chart after DOM is ready:
+            Meteor.defer(function() {
+                // Create standard Highcharts chart with options:
+                Highcharts.chart('part_numbers', {
                     title: {
-                        enabled: true,
-                        text: 'Part Numbers',
+                        text: 'Order per Part Number'
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    chart: {
                         style: {
-                            fontWeight: 'normal'
+                            fontFamily: '\'Unica One\', sans-serif'
+                        },
+                        plotBorderColor: '#606063',
+                        height: 400,
+                        width: 700,
+                        zoomType: 'xy'
+                    },
+                    yAxis: {
+                        categories: [],
+                        title: {enabled: true,
+                            text: 'Amount of equal Part Numbers',
+                            style: {
+                                fontWeight: 'normal'
+                            }
                         }
-                    }
-                },
-                series: [
-                    {
-                        name: 'Amount of equal Part Numbers',
-                        type: 'column',
-                        data: resultAmount
-                    }
-                ]
+                    },
+                    xAxis: {
+                        categories: resultArray,
+                        title: {
+                            enabled: true,
+                            text: 'Part Numbers',
+                            style: {
+                                fontWeight: 'normal'
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Amount of equal Part Numbers',
+                            type: 'column',
+                            data: resultAmount
+                        }
+                    ]
+                });
             });
-        });
+        } catch (e) {
+
+        }
+
     },
 
     orderPerReason: function () {
         // Gather data:
         let resultArray = [];
         let resultAmount = []
-        let result = Session.get('diagram-2')
-        resultArray = Object.keys(result)
-        resultAmount = Object.values(result)
-        // Use Meteor.defer() to create chart after DOM is ready:
-        Meteor.defer(function() {
-            // Create standard Highcharts chart with options:
-            Highcharts.chart('order_reason', {
-                title: {
-                    text: 'Orders per Reason'
-                },
-                tooltip: {
-                    shared: true
-                },
-                chart: {
-                    style: {
-                        fontFamily: '\'Unica One\', sans-serif'
-                    },
-                    plotBorderColor: '#606063',
-                    height: 400,
-                    width: 700,
-                    zoomType: 'xy'
-                },
-                yAxis: {
-                    categories: resultAmount,
-                    title: {enabled: true,
-                        text: 'Amount per Reason',
-                        style: {
-                            fontWeight: 'normal'
-                        }
-                    }
-                },
-                xAxis: {
-                    categories: resultArray,
+        try {
+            let result = Session.get('diagram-2')
+            resultArray = Object.keys(result)
+            resultAmount = Object.values(result)
+            // Use Meteor.defer() to create chart after DOM is ready:
+            Meteor.defer(function() {
+                // Create standard Highcharts chart with options:
+                Highcharts.chart('order_reason', {
                     title: {
-                        enabled: true,
-                        text: '1 = Quality, 2 = Not on Cart, 3 = False Count',
+                        text: '5 Teams combined Orders per Reason '
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    chart: {
                         style: {
-                            fontWeight: 'normal'
+                            fontFamily: '\'Unica One\', sans-serif'
+                        },
+                        plotBorderColor: '#606063',
+                        height: 400,
+                        width: 700,
+                        zoomType: 'xy'
+                    },
+                    yAxis: {
+                        categories: resultAmount,
+                        title: {enabled: true,
+                            text: 'Amount per Reason',
+                            style: {
+                                fontWeight: 'normal'
+                            }
                         }
-                    }
-                },
-                series: [
-                    {
-                        name: 'Amount per Reason',
-                        type: 'column',
-                        data: resultAmount
-                    }
-                ]
+                    },
+                    xAxis: {
+                        categories: ['Quality', 'Missing on Cart', 'Miss Count', 'Repair / Reconfig'],
+                        title: {
+                            enabled: true,
+                            text: 'Reason for additional Orders',
+                            style: {
+                                fontWeight: 'normal'
+                            }
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Amount per Reason',
+                            type: 'column',
+                            data: resultAmount
+                        }
+                    ]
+                });
             });
-        });
+        } catch (e) {
+
+        }
+
     },
 
     reasonPerStorageBin: function () {

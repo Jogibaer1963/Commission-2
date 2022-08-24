@@ -508,7 +508,7 @@ table.supply-table {
 }
 
 .open-order-multi {
-  left: -248px;
+  left: 176px;
   position: absolute;
   top: 334px;
 }
@@ -709,9 +709,9 @@ table.supply-table {
 }
 
 .removeMachine {
-  position: relative;
-  left: 50em;
-  top: 7.5em;
+  position: absolute;
+  left: 362px;
+  top: 281px;
 }
 
 .inLineDate {
@@ -793,6 +793,10 @@ table.commOverView {
   left: 3em;
   position: absolute;
   top: 10em;
+}
+
+table.table-pickers {
+  height: 400px;
 }
 
 .diagram-1 {
@@ -1523,6 +1527,20 @@ table.supply-multi-table td, table.supply-multi-table th {
   position: absolute;
   top: 153px;
   transform: rotate(270deg);
+}
+
+.arrows-team-1-fcb-1-2 {
+  left: 315px;
+  position: absolute;
+  top: 148px;
+  transform: rotate(360deg);
+}
+
+.arrows-team-1-fcb-2-bay {
+  left: 315px;
+  position: absolute;
+  top: 244px;
+  transform: rotate(360deg);
 }
 
 .fcb-1-canvas {
@@ -5212,7 +5230,7 @@ table.headerTable {
 }
 
 .to-build {
-  color: #ff7403;
+  color: #91de35;
 }
 
 .takt-time {
@@ -5604,6 +5622,18 @@ table.headerTable {
   left: 820px;
   position: absolute;
   top: 4px;
+}
+
+.nav-bar-order-page {
+  left: 100px;
+  position: absolute;
+  top: 25px;
+}
+
+.table-parts-on-order {
+  left: 100px;
+  position: absolute;
+  top: 100px;
 }
 
 .order-by-team {

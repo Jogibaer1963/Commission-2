@@ -23,13 +23,13 @@
 </template>
 
 <template name="message_board_team_5">
-
+<!--
     <div class="team-5-repair-button">
         <label for="team_5_repair_button"></label>
         <button type="button" id="team_5_repair_button"
                 class="btn btn-success t5-rep-bt">Print PDI-repairs</button>
     </div>
-
+-->
     <div class="team-order-button">
         <label for="messageButton_team_5"></label>
         <button type="button" id="messageButton_team_5"
@@ -91,11 +91,9 @@
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
                 <td class="order-point-of-use">{{quantity_needed}}</td>
-                <td class="pdiMachineField {{getPickingStatus urgency}}"
-                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{urgency}}</td>
                 <td class="user-pick">{{picked_by}}</td>
-                <td class="pdiMachineField {{getOrderStatus status}}"
-                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{status}}</td>
                 <td class="order-storage-bin">{{time_ordered}}</td>
                 <td class="order-storage-bin">{{order_completed}}</td>
             </tr>

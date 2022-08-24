@@ -1,4 +1,4 @@
-Meteor.subscribe('lineOrders');
+ Meteor.subscribe('lineOrders');
 
 
 
@@ -12,8 +12,7 @@ Template.partsOnOrder.helpers({
     },
 
     lineOrders: () => {
-        let count = 0;
-        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+      // status : 0 = unseen, 1 = picking in progress, 2 = delivered
         return lineOrders.find({status: 0}).fetch();
     },
 
@@ -27,17 +26,31 @@ Template.partsOnOrder.events({
         let pickOrder = this._id;
         const picker = Meteor.user().username;
        // console.log(pickOrder)
-        Meteor.call('pickOrder', pickOrder, picker);
-        window.close();
-      //  FlowRouter.go('orderPick')
+        Meteor.call('pickOrder', pickOrder, picker,
+        function (err, respond) {
+            if (err) {
+                Meteor.call('success', err, picker, 'order failed')
+            } else {
+                Meteor.call('success', respond, picker, 'order succeed')
+            }
+        } )
     },
-/*
-    'click .pickOrder':(e) => {
-       e.preventDefault() ;
-        FlowRouter.go('orderPick')
+
+    'click .overView-button': (e) => {
+        e.preventDefault()
+        FlowRouter.go('overview')
+    },
+
+    'click .singleCart-button': (e) => {
+        e.preventDefault()
+        FlowRouter.go('commission')
+    },
+
+    'click .multiCart-button': (e) => {
+        e.preventDefault()
+        FlowRouter.go('multiMachines')
     }
 
- */
 
 })
 
@@ -58,6 +71,8 @@ Template.orderPick.helpers({
 
 })
 
+
+
 Template.orderPick.events({
 
     'click .picked-Order': function (e) {
@@ -77,3 +92,4 @@ Template.orderPick.events({
 
 
 })
+

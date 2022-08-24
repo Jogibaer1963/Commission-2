@@ -1,3 +1,4 @@
+/*
 Meteor.subscribe('activeAssembly')
 
 Template.timeUpdater.helpers({
@@ -26,3 +27,5 @@ Template.assemblyTimer.helpers({
     }
 
 })
+
+ */

@@ -1,14 +1,12 @@
 <template name="commission">
-    {{#if currentUser}}
+
         <div class="tabletCommissioning">
             {{> commTablet}}
         </div>
         <div class='tablet-order-position'>
             {{> open_order}}
         </div>
-    {{else}}
-        {{> login}}
-    {{/if}}
+
 </template>
 
 <template name="commTablet">
@@ -19,9 +17,7 @@
           }
     </style>
     <div class="commissionHeadTab">
-        <nav>
-            <a  class="btn btn-default btn-info btn-group-lg" href="/overview"><strong>Back to Overview</strong></a>
-        </nav>
+            <button type="button"  class="btn btn-default btn-info back-to-overview"><strong>Back to Overview</strong></button>
     </div>
     <div class="commissionTablet">
         <div class="commissionInitials input-group input-group-lg">

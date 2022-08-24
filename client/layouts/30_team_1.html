@@ -35,13 +35,13 @@
 </template>
 
 <template name="message_board">
-
+<!--
     <div class="team-1-repair-button">
         <label for="team_1_repair_button"></label>
         <button type="button" id="team_1_repair_button"
                 class="btn btn-success t1-rep-bt">Print PDI-repairs</button>
     </div>
-
+-->
     <div class="team-order-button">
         <label for="messageButton"></label>
         <button type="button" id="messageButton"
@@ -104,11 +104,9 @@
                 <td class="order-storage-bin">{{storage_bin}}</td>
                 <td class="order-point-of-use">{{point_of_use}}</td>
                 <td class="order-point-of-use">{{quantity_needed}}</td>
-                <td class="pdiMachineField {{getPickingStatus urgency}}"
-                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{urgency}}</td>
                 <td class="user-pick">{{picked_by}}</td>
-                <td class="pdiMachineField {{getOrderStatus status}}"
-                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{status}}</td>
                 <td class="order-storage-bin">{{time_ordered}}</td>
                 <td class="order-storage-bin">{{order_completed}}</td>
             </tr>
@@ -148,6 +146,7 @@
                        btn-success
                        fcb-2-move-button">Go -> Merge</button>
         </div>
+
 
         <div class="arrow-button-fcb-2">
             <div class="arrow-fcb-2"></div>
@@ -343,11 +342,23 @@
         </div>
     </div>
 
+    <div class="arrows-team-1-fcb-1-2">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
+
     <div class="fcb-station-2">
         <div>
             <canvas {{draw_fcb_station_2}} id="fcb_station_2"
                                                   class="fcb-2-canvas" ></canvas>
         </div>
+    </div>
+
+    <div class="arrows-team-1-fcb-2-bay">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <div class="chevron"></div>
     </div>
 
         <div class="arrows-team-1-bay-2">

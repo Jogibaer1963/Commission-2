@@ -161,6 +161,11 @@ Template.commTablet.events ({
     'click .toggle-supply': (e) => {
         e.preventDefault();
         FlowRouter.go('/multiMachines');
+    },
+
+    'click .back-to-overview': (e) => {
+        e.preventDefault()
+        FlowRouter.go('/overview')
     }
 
 });

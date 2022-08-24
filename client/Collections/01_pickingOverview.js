@@ -213,9 +213,13 @@ Template.open_order.events({
 
     'click .picking-button': (e) => {
         e.preventDefault()
-     //   window.open('http://localhost:3100/partsOnOrder',
-      window.open('http://10.40.1.47:3100/partsOnOrder',
+        FlowRouter.go('partsOnOrder')
+        /*
+        window.open('http://localhost:3100/partsOnOrder',
+      // window.open('http://10.40.1.47:3100/partsOnOrder',
             '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+
+         */
     },
 
     'click .unclosed-button': (e) => {
@@ -272,7 +276,13 @@ Template.addMachine.events ({
     'click .removeMachine': function (e) {
         e.preventDefault();
         const removableMachine = Session.get('selectedMachine');
-        Meteor.call('removeCommMachine', removableMachine);
+        console.log(removableMachine)
+        if (confirm("Are you sure with deleting Machine " + removableMachine + " ?")) {
+            // it is confirmed to delete this Machine
+            Meteor.call('removeCommMachine', removableMachine);
+        } else {
+            // close window and do nothing
+        }
     },
 
     'click .comm-statistics': (e) => {

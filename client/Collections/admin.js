@@ -239,6 +239,7 @@ Template.adminView.events({
 
     'click .special-function': (e) => {
         e.preventDefault();
+        console.log('special Function')
         Meteor.call('specialFunction');
     },
 

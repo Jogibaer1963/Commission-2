@@ -76,6 +76,11 @@ Session.set('selectedArea', '');
 
 Template.commTablet_2.events ({
 
+    'click .back-to-single-cart': (e) => {
+        e.preventDefault()
+        FlowRouter.go('commission')
+    },
+
     'click .supplyAreas': function(e) {
         e.preventDefault();
         const pickedSupplyArea = this._id;
@@ -169,7 +174,6 @@ Template.commTablet_2.events ({
             Meteor.call('canceledMultiPicking', userCanceled,
                                pickedMachineId, pickedSupplyAreaId);
         }
-        FlowRouter.go("/");
     },
 
 

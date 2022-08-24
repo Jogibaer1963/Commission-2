@@ -1,6 +1,12 @@
 <template name="partsOnOrder">
+    <div class="nav-bar-order-page">
+        <button type="button" class="btn btn-default btn-success overView-button">Picking overview</button>
+        <button type="button" class="btn btn-default btn-success singleCart-button">Pinking Single Cart</button>
+        <button type="button" class="btn btn-default btn-success multiCart-button">Picking Multiple Carts</button>
+    </div>
 
-    <table class="table fixed-header blueTable">
+
+    <table class="table fixed-header blueTable table-parts-on-order">
         <thead>
         <tr>
             <th class="user-pick"><strong>User</strong></th>
@@ -21,16 +27,13 @@
                 <td class="point-of-use-pick">{{point_of_use}}</td>
                 <td class="point-of-use-pick">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
-                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                     style="background-color: {{getPickingStatus urgency}}; font-size: 14px">{{urgency}}</td>
             </tr>
         {{/each}}
         </tbody>
     </table>
 
-    <div class="order-processor">
-        <h4>User : {{orderProcessor}}</h4>
-        <h3>Long loading Time, sorry....</h3>
-    </div>
+        <h4 class="order-processor">User : {{orderProcessor}}</h4>
 </template>
 
 <template name="orderPick">
@@ -67,3 +70,4 @@
     </table>
 
 </template>
+

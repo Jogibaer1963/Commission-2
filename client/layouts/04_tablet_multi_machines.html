@@ -1,14 +1,12 @@
 <template name="multiMachines">
-    {{#if currentUser}}
+
         <div class="tabletCommissioning">
             {{> commTablet_2}}
         </div>
         <div class="open-order-multi">
             {{> open_order}}
         </div>
-    {{else}}
-        {{> login}}
-    {{/if}}
+
 </template>
 
 <template name="commTablet_2">
@@ -20,7 +18,7 @@
     <div class="commissionHeadTab">
         <div class="commissionHeadTab">
             <nav>
-                <a  class="btn btn-default btn-info btn-lg" href="/commission"><strong>Back</strong></a>
+                <button type="button" class="btn btn-default btn-info btn-lg back-to-single-cart"><strong>Back to single Cart</strong></button>
             </nav>
         </div>
     </div>

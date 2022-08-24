@@ -22,34 +22,42 @@
 </template>
 
 <template name="addMachine">
-    <div id="logo">
-        <img src="claas_logo.png" />
-    </div>
-    <div  style="position: relative; top: 10em; left:41em;">
-        <h3><strong>{{alarmMachine}}</strong></h3>
-    </div>
-    <form class="newCommMachine"  style="position: relative; top: 10em; left:41em;">
-        <label for="newMachine" >Adding Machine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date in Line</label>
-        <br>
-        <input type="text" name="newMachine" id="newMachine" placeholder="Machine Number" required>
-        <label for="newDate" class="inLineDate" ></label>
-        <input type="date" name="newDate" id="newDate" required>
-        <br><br>
-        <button class="btn btn-success" type="submit">Submit</button>
-    </form>
-    <button class="btn btn-danger removeMachine" type="button">Delete</button>
-    <div class="load-production-schedule">
-        <form class="fileContainer">
-            <h4 style="font-weight: bolder">It is recommending not to upload during working hours</h4>
-            <h4 style="font-weight: bolder">Load Production Schedule. Must Convert Excel to CSV first !!</h4>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Picking</title>
+   </head>
+   <body>
+        <div id="logo">
+            <img src="claas_logo.png"  alt=""/>
+        </div>
+        <div  style="position: relative; top: 10em; left:41em;">
+            <h3><strong>{{alarmMachine}}</strong></h3>
+        </div>
+        <form class="newCommMachine"  style="position: relative; top: 10em; left:41em;">
+            <label for="newMachine" >Adding Machine&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date in Line</label>
             <br>
-            <input class="loadProductionSchedule" type="file" id="files" name="files[] " >
+            <input type="text" name="newMachine" id="newMachine" placeholder="Machine Number" required>
+            <label for="newDate" class="inLineDate" ></label>
+            <input type="date" name="newDate" id="newDate" required>
+            <br><br>
+            <button class="btn btn-success" type="submit">Submit</button>
         </form>
-    </div>
-    <div class="machine-counter">
-        <h4>Machines Updated : {{updatedMachines}} / New Machines inserted : {{newMachines}}</h4>
-    </div>
+        <button class="btn btn-danger removeMachine" type="button">Delete marked Machine</button>
+        <div class="load-production-schedule">
+            <form class="fileContainer">
+                <h4 style="font-weight: bolder">It is recommended not to upload during working hours</h4>
+                <h4 style="font-weight: bolder">Load Production Schedule. Must Convert Excel to CSV first !!</h4>
+                <br>
+                <input class="loadProductionSchedule" type="file" id="files" name="files[] " >
+            </form>
+        </div>
+        <div class="machine-counter">
+            <h4>Machines Updated : {{updatedMachines}} / New Machines inserted : {{newMachines}}</h4>
+        </div>
+   </body>
+ </html>
 </template>
 
 <!-- ************************    Open Orders   ****************************** -->
