@@ -14,7 +14,7 @@
     "install": "^0.11.2",
     "less": "^2.7.3",
     "meteor-node-stubs": "^0.3.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongodb": "^3.5.4",
     "npm": "^6.14.6",
     "qm-fs-readtxtfile": "^0.1.1",
