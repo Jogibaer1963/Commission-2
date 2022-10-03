@@ -97,12 +97,17 @@
             <tbody>
         {{#each activePickers}}
             <tr class="{{selected}}">
-                <td class="pickers-width font-style">{{_id}}</td>
+                <td class="pickers-width font-style {{getStatusLogin active}}"
+                    style="background-color: {{getStatusLogin active}}">{{_id}}</td>
                 <td>
-                    <button type="button" value="{{_id}}" class="btn btn-success picker-active" disabled>Active</button>
+                    <button type="button" value="{{_id}}" class="btn
+                                                                 btn-success
+                                                                 picker-active">Active</button>
                 </td>
                 <td>
-                    <button type="button" value="{{_id}}"  class="btn btn-danger picker-in-active" disabled>In-Active</button>
+                    <button type="button" value="{{_id}}"  class="btn
+                                                                  btn-danger
+                                                                  picker-in-active">In-Active</button>
                 </td>
             </tr>
         {{/each}}

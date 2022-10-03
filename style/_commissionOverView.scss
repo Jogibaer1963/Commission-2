@@ -124,7 +124,7 @@
   display: block;
   height: 50em;
   overflow: auto;
-  width: 100%;
+  width: max-content;
 }
 
 .fixed-header thead tr {
@@ -132,13 +132,13 @@
 }
 
 .header-completed {
-  left: 141em;
+  left: 146em;
   position: absolute;
   top: 21em;
 }
 
 .inactive-machine-table {
-  left: 141em;
+  left: 146em;
   position: absolute;
   top: 26em;
 }

@@ -16,15 +16,15 @@
 }
 
 .add-fiscal-year {
-  left: 70em;
+  left: 99em;
   position: absolute;
   top: 19em;
 }
 
 .fiscal-year-admin {
   position: relative;
-  top: 20em;
-  left: 70em;
+  top: 18em;
+  left: 99em;
 }
 
 .font-style {
@@ -33,9 +33,9 @@
 }
 
 .active-inactive-pickers {
-  left: 70em;
+  left: 71em;
   position: relative;
-  top: 30em;
+  top: 1em;
 }
 
 .pickers-id {
@@ -636,7 +636,7 @@ table.supply-table {
   display: block;
   height: 50em;
   overflow: auto;
-  width: 100%;
+  width: max-content;
 }
 
 .fixed-header thead tr {
@@ -644,13 +644,13 @@ table.supply-table {
 }
 
 .header-completed {
-  left: 141em;
+  left: 146em;
   position: absolute;
   top: 21em;
 }
 
 .inactive-machine-table {
-  left: 141em;
+  left: 146em;
   position: absolute;
   top: 26em;
 }
@@ -795,8 +795,14 @@ table.commOverView {
   top: 10em;
 }
 
+.table-pickers {
+  overflow: auto;
+  height: 330px;
+}
+
 table.table-pickers {
-  height: 400px;
+  overflow: auto;
+  height: 331px;
 }
 
 .diagram-1 {
@@ -932,7 +938,7 @@ table.table-pickers {
 }
 
 .pickers-overview {
-  left: 5em;
+  left: 4em;
   position: absolute;
   top: 15em;
 }

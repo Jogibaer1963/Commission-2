@@ -143,7 +143,7 @@ Template.adminView.helpers({
     },
 
     activePickers: () => {
-        return pickers.find({}, {fields: {_id: 1}}).fetch();
+        return pickers.find({}, {fields: {_id: 1, active: 1}}).fetch();
     }
 
 

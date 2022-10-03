@@ -59,12 +59,12 @@ if(Meteor.isServer){
         Meteor.publish('pickingNewHead', () => {
             return pickingNewHead.find();
         })
-/*
+
         Meteor.publish('machineReadyToGo', () => {
-            return machineReadyToGo.find();
+          return machineReadyToGo.find();
         })
 
- */
+
 
         Meteor.publish('lineOrders', () => {
             return (lineOrders.find());
@@ -1307,7 +1307,6 @@ if(Meteor.isServer){
                         pickingTime: timeNow,
                         duration: duration,
                         date: pickingDateAndTime,
-
                         multi: true};
                      pickers.update({_id: user}, {$addToSet: {[pickingString]: resultObj}});
                 });

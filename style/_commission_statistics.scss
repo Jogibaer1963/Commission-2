@@ -8,8 +8,14 @@ $table-head: #1cbdee;
   top: 10em;
 }
 
+.table-pickers {
+  overflow: auto;
+  height: 330px;
+}
+
 table.table-pickers {
-  height: 400px;
+  overflow: auto;
+  height: 331px;
 }
 
 .diagram-1 {
@@ -145,7 +151,7 @@ table.table-pickers {
 }
 
 .pickers-overview {
-  left: 5em;
+  left: 4em;
   position: absolute;
   top: 15em;
 }
