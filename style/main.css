@@ -208,7 +208,7 @@ table.toDoListTable {
 }
 
 .commissionHeadTab {
-  left: 3em;
+  left: 1em;
   position: absolute;
   top: 1em;
 }
@@ -279,8 +279,9 @@ table.supply-table {
 }
 
 .tabletHeader {
-  left: -7em;
+  left: -19em;
   position: absolute;
+  top: -55px;
   width: 21em;
 }
 
@@ -508,9 +509,9 @@ table.supply-table {
 }
 
 .open-order-multi {
-  left: 176px;
+  left: -188px;
   position: absolute;
-  top: 334px;
+  top: -141px;
 }
 
 .machine-counter {
@@ -3913,9 +3914,9 @@ table.headerTable {
 }
 
 .tablet-order-position {
-  left: -60px;
+  left: -330px;
   position: absolute;
-  top: 350px;
+  top: -157px;
 }
 
 .transparent-box {

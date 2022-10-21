@@ -2,12 +2,12 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import {invokeMachineTest} from '../../lib/99_functionCollector.js';
+import {invokeDrawTwoMachines, invokeMachineTest} from '../../lib/99_functionCollector.js';
 import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
-import { invokeDrawNewMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
+invokeDrawTwoMachines
 
 Session.set('twoMachines', false)
 
@@ -345,61 +345,89 @@ Template.team_4_over_view.helpers({
 
     draw_engine_2: () => {
         let canvasId = "engine-station-2";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_engine_3: () => {
         let canvasId = "engine-station-3";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_engine_4: () => {
         let canvasId = "engine-station-4";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_cooling_1: () => {
         let canvasId = "cooling-station-1";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_cooling_2: () => {
         let canvasId = "cooling-station-2";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_merge_1: () => {
         let canvasId = "merge-station-1";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_cooling_merge_1: () => {
         let canvasId = "cooling-merge-1";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_merge_2: () => {
         let canvasId = "merge-station-2";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_cooling_merge_2: () => {
         let canvasId = "cooling-merge-2";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_merge_3: () => {
         let canvasId = "merge-station-3";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_cooling_merge_3: () => {
         let canvasId = "cooling-merge-3";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
 
 })
+
+function drawMachineInBay(canvasId) {
+    try {
+        let result = activeAssembly.findOne({_id : canvasId});
+        let canvas = document.getElementById(canvasId);
+        let ctx = canvas.getContext("2d");
+        if (result.bayArray.length === 0) {
+            // draw empty field in Bay
+            //  ctx.clearRect(0, 0, canvas.width, canvas.height) // clear any canvas in Bay
+            ctx.strokeStyle = "#ee0e0e";
+            ctx.lineWidth = "2"
+            ctx.strokeRect(45, 15, 90, 30);
+        } else if (result.bayArray.length === 1) {
+            // draw 1 machine in Bay
+            let machineNrInBay = result.bayArray[0].machineNr
+            let ecnCheck= result.bayArray[0].ecnMachine;
+        //    console.log('machine detected ', ecnCheck, result, result.bayArray[0])
+            invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
+        } else if (result.bayArray.length === 2) {
+            let firstMachine = result.bayArray[0].machineNr
+            let secondMachine = result.bayArray[1].machineNr
+            let ecnCheckOne = result.bayArray[0].ecnMachine;
+            let ecnCheckTwo = result.bayArray[1].ecnMachine;
+            invokeDrawTwoMachines(firstMachine, secondMachine, ecnCheckOne, ecnCheckTwo, canvasId)
+        }
+    } catch (e) {}
+
+}
 
 Template.team_4_over_view.events({
 
@@ -438,3 +466,24 @@ Template.team_4_over_view.events({
 
 
 })
+
+
+function invokeDrawNewMachine(machineNr, canvasId) {
+    Meteor.defer(function() {
+        //  console.log('Draw Machine in next Bay', machineNr, canvasId)
+        let canvas = document.getElementById(canvasId);
+        let ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        if (machineNr && canvasId) {
+            ctx.fillStyle = '#37db1a'
+            ctx.strokeStyle = "#3ee021";
+            ctx.lineWidth = "2"
+            ctx.strokeRect(0, 15, 90, 30)
+            ctx.font = "bold 15px Arial"
+            ctx.fillText(machineNr, 55, 35)
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    })
+}

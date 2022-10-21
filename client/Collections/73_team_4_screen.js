@@ -43,12 +43,11 @@ Template.over_view_all_teams.helpers({
     },
 
     buildToDate: () => {
-        let result = machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",
-                                                    bayStatus: 1,
-                                                    }}, inLineDate: {$gt: "2022-09-01"} }).fetch()
+        let result = machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",bayStatus: 1}},
+         inLineDate: {$gt: "2022-09-01"}}, {fields: {machineId: 1}}).fetch()
         let totalMachines = Session.get('total-machines');
-        console.log("result ", result)
-        let machinesBuild = result.length - 1
+        //console.log("result ", result)
+        let machinesBuild = result.length
         let machinesToBuild = totalMachines - machinesBuild
         return {
             machines_to_build: machinesToBuild,
@@ -57,7 +56,8 @@ Template.over_view_all_teams.helpers({
     },
 
     shippedMachines:() => {
-        let result =  machineReadyToGo.find( {shipStatus: 1, inLineDate: {$gt: "2022-10-01"}}, {fields: {shipStatus: 1}}).fetch().length;
+        let result =  machineReadyToGo.find( {shipStatus: 1, inLineDate: {$gt: "2022-10-01"}},
+            {fields: {shipStatus: 1}}).fetch().length;
         Session.set('shipped-machines', result)
         console.log(result)
         return result

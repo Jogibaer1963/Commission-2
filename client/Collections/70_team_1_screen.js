@@ -2,7 +2,7 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
+import {invokeDrawTwoMachines, invokeEmptyBay} from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 
@@ -40,17 +40,17 @@ Template.team_1_screen_view.helpers({
 
     draw_fcb_station_2: () => {
         let canvasId = "fcb_station_2";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_fcb_threshing_team_1: () => {
         let canvasId = "machine_field_fcb_threshing";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     draw_bay3: () => {
         let canvasId = "machine_field_bay_3";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     first_engine: () => {
@@ -88,7 +88,7 @@ Template.team_1_screen_view.helpers({
 
     draw_bay4: () => {
         let canvasId = "machine_field_bay_4";
-        invokeDrawMachineInBay(canvasId)
+        drawMachineInBay(canvasId)
     },
 
     bay_4_engine_mount: () => {
@@ -169,6 +169,34 @@ function timeCounterBay3() {
 function timeCounterBay4() {
     let unitCount = Session.get('unitCountBay4')
     timeCounter( "machine_field_bay_4", ['bay4', 'bay_4_time', unitCount], "realTimerBay4")
+}
+
+function drawMachineInBay(canvasId) {
+    try {
+        let result = activeAssembly.findOne({_id : canvasId});
+        let canvas = document.getElementById(canvasId);
+        let ctx = canvas.getContext("2d");
+        if (result.bayArray.length === 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
+            // draw empty field in Bay
+            ctx.strokeStyle = "#ee0e0e";
+            ctx.lineWidth = "2"
+            ctx.strokeRect(45, 15, 90, 30);
+        } else if (result.bayArray.length === 1) {
+            // draw 1 machine in Bay
+            let machineNrInBay = result.bayArray[0].machineNr
+            let ecnCheck= result.bayArray[0].ecnMachine;
+            //  console.log('machine detected ', ecnCheck, result, result.bayArray[0])
+            invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
+        } else if (result.bayArray.length === 2) {
+            let firstMachine = result.bayArray[0].machineNr
+            let secondMachine = result.bayArray[1].machineNr
+            let ecnCheckOne = result.bayArray[0].ecnMachine;
+            let ecnCheckTwo = result.bayArray[1].ecnMachine;
+            console.log('2 machine detected', )
+            invokeDrawTwoMachines(firstMachine, secondMachine, ecnCheckOne, ecnCheckTwo, canvasId)
+        }
+    } catch (e) {}
 }
 
 
