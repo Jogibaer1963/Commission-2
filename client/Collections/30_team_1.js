@@ -3,14 +3,11 @@ import {Session} from "meteor/session";
 Meteor.subscribe('activeAssembly')
 
 import {invokeDrawTwoMachines, invokeMachineTest} from '../../lib/99_functionCollector.js';
-import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
-import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
-invokeDrawTwoMachines
-
+import { invokeEmptyBay} from "../../lib/99_functionCollector.js";
 
 
 Session.set('twoMachines', false)
@@ -224,7 +221,7 @@ function drawMachineInBay(canvasId) {
             let ecnCheckOne = result.bayArray[0].ecnMachine;
             let ecnCheckTwo = result.bayArray[1].ecnMachine;
             console.log('2 machine detected', )
-            invokeDrawTwoMachines(firstMachine, secondMachine, ecnCheckOne, ecnCheckTwo, canvasId)
+            invokeDrawTwoMachines(firstMachine, secondMachine, canvasId, ecnCheckOne, ecnCheckTwo)
         }
     } catch (e) {}
 }
@@ -381,8 +378,10 @@ Template.message_board.helpers({
     },
 
     historyOrders: () => {
+        let user, result;
+        user = Meteor.user().username;
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-       let result = lineOrders.find({team_user : "Team 1", status: 2}, {limit: 10}).fetch();
+       result = lineOrders.find({team_user : user, status: 2}, {}).fetch();
        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 
@@ -414,7 +413,7 @@ Template.message_board.events({
         e.preventDefault()
         let newUrl = Session.get('ipAndPort') + 'messageBoard'
         window.open(newUrl,
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=900')
     },
 
     'click .cancelButton':(e) => {
@@ -454,7 +453,7 @@ Template.team_1_move_buttons.events({
                 if (err) {
                     console.log(err)
                 } else {
-                    invokeDrawNewMachine(machineNr, canvasId)
+                    invokeEmptyBay(canvasId)
                 }
             });
         }

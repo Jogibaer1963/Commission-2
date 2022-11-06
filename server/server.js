@@ -487,7 +487,7 @@ if(Meteor.isServer){
             }
         },
 
-        'moveMachineToNextBay': (machineNr, user, thisBay, nextBayId, boolean, ecnMachine) => {
+        'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean, ecnMachine) => {
         //    console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
             let machineInfo;
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -641,9 +641,9 @@ if(Meteor.isServer){
         'moveFromRearAxleList':(machineNr) => {
             let bayArray = [];
             let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
-                {fields: {bayReady: 1, timeLine: 1}});
-            //  console.log('Bay Ready Check ', bayReadyCheck.timeLine.ecnMachine)
-            let ecnCheck = bayReadyCheck.timeLine.ecnMachine
+                {fields: {timeLine: 1}});
+        //    console.log('Bay Ready Check ',machineNr, bayReadyCheck.timeLine)
+           let ecnCheck = bayReadyCheck.timeLine.ecnMachine
            let today = moment().format('YYYY-MM-DD HH:mm:ss ');
            let todayUnix = (Date.now()).toFixed(0); // milliseconds
            machineCommTable.update({machineId: machineNr}, {$set: {activeRearAxleList: false}})
@@ -821,7 +821,9 @@ if(Meteor.isServer){
                     'productionOrder': sequence[31],
                     'sequence': sequence[32],
                     'ecnMachine': sequence[33],
-                    'reserved': sequence[34]
+                    'released': sequence[34],
+                    'printed': sequence[35],
+                    'reserved': sequence[36]
                     }
 
                     if (machineCommTable.findOne({machineId: sequence[0]}) === undefined) {
@@ -908,6 +910,10 @@ if(Meteor.isServer){
           //  console.log(e)
         }
     },
+
+        'restoreMachine': (inactiveMachine, inactiveId) => {
+          machineCommTable.update({_id: inactiveId}, {$set: {active: true}})
+        },
 
         'commission_list_printed':(selectedMachine) => {
           machineCommTable.update({machineId: selectedMachine},

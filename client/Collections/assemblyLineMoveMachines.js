@@ -1,3 +1,5 @@
+import {Session} from "meteor/session";
+
 Meteor.subscribe('activeAssembly')
 
 
@@ -27,9 +29,66 @@ Template.loginView.events({
 
 })
 
+Template.message_board_admin.helpers({
 
-//-------------------------------------------------------------------------------------
+    lineOrders: () => {
+        let user = Meteor.user().username
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: user, status: {$in: [0, 1]}}).fetch();
+        return result.sort((a, b) => a.status - b.status)
+    },
 
+    historyOrders: () => {
+        let user = Meteor.user().username
+        console.log(user)
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: user, status: 2}, {limit: 20}).fetch();
+        console.log('result ', result)
+        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
+    },
+
+    markedSelectedOrder: function(e) {
+        const order = this._id;
+        const selectedOrder = Session.get('orderCanceled');
+        if (order === selectedOrder) {
+            return "markedSelectedOrder";
+        }
+    }
+
+})
+
+Template.message_board_admin.events({
+
+    'click .selectedOrder': function (e) {
+        e.preventDefault()
+        let order = this._id
+        Session.set('orderCanceled', order)
+    },
+
+    'click .t1-rep-bt':(e) => {
+        e.preventDefault()
+        FlowRouter.go('pdiRepairList')
+    },
+
+    'click .messageButton_admin':(e) => {
+        e.preventDefault()
+        let newUrl = Session.get('ipAndPort') + 'messageBoard'
+        window.open(newUrl,
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+    },
+
+    'click .cancelButton-admin':(e) => {
+        e.preventDefault()
+        let orderCancel = Session.get('orderCanceled', )
+        Meteor.call('cancelOrder', orderCancel)
+    },
+
+})
+
+
+//-------------------------------------------------------------------------------------/*
+
+/*
 Template.burstSunTimerTeam_1.helpers({
 
     tactTimeLeft: () => {
@@ -156,5 +215,5 @@ function build_sun_spots_team_1 (count) {
     return results;
 }
 //------------------------------------------------------------------------------------------
-
+*/
 

@@ -20,7 +20,7 @@ Template.message_board_team_2.helpers({
 
     historyOrders: () => {
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-        let result = lineOrders.find({team_user : "Team 2", status: 2}, {limit: 10}).fetch();
+        let result = lineOrders.find({team_user : "Team 2", status: 2}, {}).fetch();
         return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 

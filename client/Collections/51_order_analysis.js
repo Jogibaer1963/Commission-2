@@ -17,6 +17,8 @@ Template.orderAnalysis.helpers({
                 Session.set('team_table', 'Team 1')
                 Session.set('diagram-1', result[5])
                 Session.set('diagram-2', result[10])
+                result[0].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
+                console.log(result[0])
                 return result[0]
             } else if (team_order === 'team-2-order') {
                 Session.set('team_table', 'Team 2')

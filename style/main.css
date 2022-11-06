@@ -16,7 +16,7 @@
 }
 
 .add-fiscal-year {
-  left: 99em;
+  left: 70em;
   position: absolute;
   top: 19em;
 }
@@ -208,7 +208,7 @@ table.toDoListTable {
 }
 
 .commissionHeadTab {
-  left: 1em;
+  left: 3em;
   position: absolute;
   top: 1em;
 }
@@ -279,9 +279,8 @@ table.supply-table {
 }
 
 .tabletHeader {
-  left: -19em;
+  left: -7em;
   position: absolute;
-  top: -55px;
   width: 21em;
 }
 
@@ -509,9 +508,9 @@ table.supply-table {
 }
 
 .open-order-multi {
-  left: -188px;
+  left: 176px;
   position: absolute;
-  top: -141px;
+  top: 334px;
 }
 
 .machine-counter {
@@ -966,7 +965,7 @@ table.table-pickers {
 }
 
 .selected-time {
-  background-color: #ff470f;
+  background-color: hsl(14deg, 100%, 53%);
 }
 
 .edit-time {
@@ -1246,7 +1245,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-machine-res {
-  background: #0000FFFF;
+  background: blue;
   height: 14em;
   left: -36px;
   opacity: 0.1;
@@ -1257,7 +1256,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-rear-axle {
-  background: #0000FFFF;
+  background: blue;
   height: 8em;
   left: -191px;
   opacity: 0.1;
@@ -1268,7 +1267,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-front-axle {
-  background: #0000FFFF;
+  background: blue;
   height: 8em;
   left: -120px;
   opacity: 0.1;
@@ -1279,7 +1278,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-threshing-house {
-  background: #0000FFFF;
+  background: blue;
   height: 8em;
   left: 596px;
   opacity: 0.1;
@@ -1290,7 +1289,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-cooling-box {
-  background: #0000FFFF;
+  background: blue;
   height: 11em;
   left: 116px;
   opacity: 0.1;
@@ -1301,7 +1300,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .unauthorized-engine {
-  background: #0000FFFF;
+  background: blue;
   height: 19em;
   left: 116px;
   opacity: 0.1;
@@ -1309,6 +1308,40 @@ table.supply-multi-table td, table.supply-multi-table th {
   top: 1333px;
   width: 269px;
   z-index: 5;
+}
+
+.message-button-admin {
+  left: 863px;
+  position: absolute;
+  top: 9px;
+}
+
+.team-order-admin-table {
+  width: 700px;
+  height: 256px;
+  left: 200px;
+  position: absolute;
+  top: 21px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.order-table {
+  height: 100px;
+  overflow: scroll;
+}
+
+.team-order-admin-history {
+  width: 882px;
+  height: 257px;
+  left: 1009px;
+  position: absolute;
+  top: 20px;
+  display: block;
+  color: #d6e0f5;
+  overflow: auto;
+  font-weight: bolder;
 }
 
 .diagrams {
@@ -1388,7 +1421,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .rectangle-2 {
-  background: #0000FFFF;
+  background: blue;
   height: 22em;
   left: 55.5em;
   opacity: 0.1;
@@ -1399,7 +1432,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .rectangle-engines-1 {
-  background: #0000FFFF;
+  background: blue;
   height: 22em;
   left: 6.5em;
   opacity: 0.1;
@@ -1410,7 +1443,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .rectangle-cooling-1 {
-  background: #0000FFFF;
+  background: blue;
   height: 12em;
   left: 7.5em;
   opacity: 0.1;
@@ -1421,7 +1454,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .view-cover-box {
-  background: #0000FFFF;
+  background: blue;
   height: 22em;
   opacity: 0.1;
   position: relative;
@@ -1632,7 +1665,7 @@ table.supply-multi-table td, table.supply-multi-table th {
 }
 
 .rectangle {
-  background: #0000FFFF;
+  background: blue;
   height: 14em;
   left: 0;
   opacity: 0.1;
@@ -3914,9 +3947,9 @@ table.headerTable {
 }
 
 .tablet-order-position {
-  left: -330px;
+  left: -60px;
   position: absolute;
-  top: -157px;
+  top: 350px;
 }
 
 .transparent-box {
@@ -4584,7 +4617,7 @@ table.headerTable {
 #clock {
   font-family: "Share Tech Mono", monospace;
   color: #a8dcdc;
-  text-shadow: 0 0 20px #56707b, 0 0 20px rgba(10, 175, 230, 0);
+  text-shadow: 0 0 20px rgb(86, 112, 123), 0 0 20px rgba(10, 175, 230, 0);
 }
 
 .date-clock {
@@ -4629,7 +4662,7 @@ table.headerTable {
   font-family: "Share Tech Mono", monospace;
   font-size: 20px;
   color: #a8dcdc;
-  text-shadow: 0 0 20px #217ea4, 0 0 20px rgba(10, 175, 230, 0);
+  text-shadow: 0 0 20px rgb(33, 126, 164), 0 0 20px rgba(10, 175, 230, 0);
 }
 
 .machines-shipped {
@@ -5211,7 +5244,7 @@ table.headerTable {
   font-size: 20px;
   width: 300px;
   color: #a8dcdc;
-  text-shadow: 0 0 20px #217ea4, 0 0 20px rgba(10, 175, 230, 0);
+  text-shadow: 0 0 20px rgb(33, 126, 164), 0 0 20px rgba(10, 175, 230, 0);
 }
 
 .takt-time-team-4-text {
@@ -5231,7 +5264,7 @@ table.headerTable {
   font-family: "Share Tech Mono", monospace;
   font-size: 20px;
   color: #a8dcdc;
-  text-shadow: 0 0 20px #217ea4, 0 0 20px rgba(10, 175, 230, 0);
+  text-shadow: 0 0 20px rgb(33, 126, 164), 0 0 20px rgba(10, 175, 230, 0);
 }
 
 .build-plan {
@@ -5565,6 +5598,12 @@ table.headerTable {
   top: -132px;
 }
 
+.dropdown-location {
+  left: 163px;
+  position: absolute;
+  top: 97px;
+}
+
 .message-button-team-5 {
   left: 1200px;
   position: absolute;
@@ -5671,7 +5710,7 @@ table.headerTable {
 .order-complete-table {
   left: 35px;
   position: absolute;
-  top: 300px;
+  top: 700px;
 }
 
 .order-date-field {
@@ -5685,7 +5724,7 @@ table.headerTable {
 }
 
 .order-diagram-1 {
-  left: 1200px;
+  left: 30px;
   position: absolute;
   top: 300px;
 }
@@ -5693,7 +5732,7 @@ table.headerTable {
 .order-diagram-2 {
   left: 1200px;
   position: absolute;
-  top: 740px;
+  top: 315px;
 }
 
 .order-diagram-3 {

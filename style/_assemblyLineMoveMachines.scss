@@ -77,6 +77,41 @@ $background-admin-field: rgba(17, 9, 117, 0.46);
   z-index: 5;
 }
 
+.message-button-admin {
+  left: 863px;
+  position: absolute;
+  top: 9px;
+}
+
+.team-order-admin-table  {
+  width: 700px;
+  height: 256px;
+  left: 200px;
+  position: absolute;
+  top: 21px;
+  color: #d6e0f5;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.order-table {
+  height: 100px;
+  overflow: scroll;
+}
+
+.team-order-admin-history  {
+  width: 882px;
+  height: 257px;
+  left: 1009px;
+  position: absolute;
+  top: 20px;
+  display: block;
+  color: #d6e0f5;
+  overflow: auto;
+  font-weight: bolder;
+}
+
+
 .diagrams {
   left: 67em;
   position: relative;

@@ -102,6 +102,13 @@ Session.set('skipModeActive',0)
 
 Template.machine_picking_list.events({
 
+    'click .selectedInactive': function (e) {
+      e.preventDefault()
+        let inactiveMachine = this.machineId
+        let inactiveId = this._id
+        Meteor.call('restoreMachine', inactiveMachine, inactiveId)
+    },
+
     'click .buttonSkip': (e) => {
         e.preventDefault();
         if (Session.get('skipModeActive') === 0) {
@@ -131,15 +138,6 @@ Template.machine_picking_list.events({
         }
         Session.set('supplyArea', '')
     },
-/*
-    'click .supplyId': function (e) {
-        e.preventDefault();
-        const supplyArea = this._id;
-         console.log(supplyArea)
-        Session.set('supplyArea', supplyArea)
-    },
-
- */
 
     'click .inactiveMachine': function (e) {
             e.preventDefault();
