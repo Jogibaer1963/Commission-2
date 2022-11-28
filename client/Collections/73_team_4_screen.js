@@ -56,7 +56,7 @@ Template.over_view_all_teams.helpers({
     },
 
     shippedMachines:() => {
-        let result =  machineReadyToGo.find( {shipStatus: 1, inLineDate: {$gt: "2022-10-01"}},
+        let result =  machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2022-09-31"}},
             {fields: {shipStatus: 1}}).fetch().length;
         Session.set('shipped-machines', result)
         console.log(result)

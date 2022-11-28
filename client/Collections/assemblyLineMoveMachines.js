@@ -40,10 +40,10 @@ Template.message_board_admin.helpers({
 
     historyOrders: () => {
         let user = Meteor.user().username
-        console.log(user)
+     //   console.log(user)
         // status : 0 = unseen, 1 = picking in progress, 2 = delivered
         let result = lineOrders.find({team_user: user, status: 2}, {limit: 20}).fetch();
-        console.log('result ', result)
+   //     console.log('result ', result)
         return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
     },
 

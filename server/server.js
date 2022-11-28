@@ -1,4 +1,5 @@
 import {Meteor} from "meteor/meteor";
+import {invokeMoveMachine} from "../lib/99_functionCollector";
 /*
 import {unix} from "moment";
 
@@ -64,8 +65,6 @@ if(Meteor.isServer){
           return machineReadyToGo.find();
         })
 
-
-
         Meteor.publish('lineOrders', () => {
             return (lineOrders.find());
         })
@@ -74,7 +73,7 @@ if(Meteor.isServer){
 
 
     Meteor.methods({
-
+/*
         'specialFunction': () => {
          console.log('function started');
            let result = machineCommTable.find().fetch()
@@ -87,6 +86,8 @@ if(Meteor.isServer){
 
            console.log('Function finished');
         },
+
+ */
 
 
         'team_leads_repairs':(team ,comment, tech, id, machine) => {
@@ -211,7 +212,7 @@ if(Meteor.isServer){
         'success':(result, user, alert) => {
          //   let success = result.slice(0, 7);
         //    console.log('result' , result)
-          serverWorker.insert({result: result, user : user, alert: alert})
+         // serverWorker.insert({result: result, user : user, alert: alert})
         },
 
         'cancelOrder':(id) => {
@@ -263,9 +264,9 @@ if(Meteor.isServer){
         },
 
         'findOpenOrder': (team) => {
-            console.log(team)
+        //    console.log(team)
            let result = lineOrders.find({status: 0, team_user: team}).fetch()
-            console.log(result)
+         //   console.log(result)
             return result
         },
 
@@ -487,13 +488,14 @@ if(Meteor.isServer){
             }
         },
 
-        'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean, ecnMachine) => {
-        //    console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
-            let machineInfo;
-            let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
-            let todayUnix = (Date.now()).toFixed(0);
+        'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean,
+                                 ecnMachine) => {
+          //  console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
+            let machineInfo, movingTime, todayUnix, machineInfo_1, machineInfo_2;
+            movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            todayUnix = (Date.now()).toFixed(0);
 
-           // ******************  move machine to next Bay ************************************************************
+           // ******************  move machine to next Bay *************************************
             machineCommTable.update({_id: machineId, 'bayReady._id': thisBay},
                 {$set: {
                         'bayReady.$.bayDateLeavingUnix': todayUnix,
@@ -512,7 +514,7 @@ if(Meteor.isServer){
                });
             // ****** check if Bay contains 2 Machines = true
 
-            let machineInfo_1 = {
+            machineInfo_1 = {
                 machineId: machineId,
                 machineNr: machineNr,
                 bayDateLanding: movingTime,
@@ -521,7 +523,7 @@ if(Meteor.isServer){
                 engineMounted: false
             }
 
-            let machineInfo_2 = {
+            machineInfo_2 = {
                 machineId : machineId,
                 machineNr : machineNr,
                 bayDateLanding : movingTime,
@@ -532,7 +534,7 @@ if(Meteor.isServer){
             if (boolean === true) {
 
    //   ******************************  2 Machines in Bay, move first machine   ************************
-
+              //  console.log('')
                 let result = activeAssembly.findOne({_id: thisBay});
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
                 activeAssembly.update({_id : thisBay},
@@ -548,19 +550,21 @@ if(Meteor.isServer){
             //    bayArray.push(machineInfo)
                 activeAssembly.update({_id : nextBayId},
                                       {$push: {bayArray: machineInfo}})
-            } else if (boolean === false) {   // only 1 Machine in present Bay
+            } else if (boolean === false) {   // only 1 or no Machine in present Bay
+            //    console.log('1 or no machine detected')
                 if (nextBayId === 'machine_field_bay_4') {
                     machineInfo = machineInfo_1
                 } else {
                     machineInfo = machineInfo_2
                 }
                 let result = activeAssembly.findOne({_id: thisBay});
+              //  console.log('result ', result)
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
                 activeAssembly.update({_id : thisBay},
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
                 activeAssembly.update({_id : nextBayId},  {$push: {bayArray: machineInfo}})
             }
-        },
+    },
 
         'engineReady': (canvasId, canvasId_2) => {
             // set merge stations to new status for machineReady and bayAssemblyStatus
@@ -591,7 +595,7 @@ if(Meteor.isServer){
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId, activeList) => {
          //   toDo: change name, implement cooling box if its first inLine
-            console.log(selectedMachine, machineNr, canvasId, activeList)
+         //   console.log(selectedMachine, machineNr, canvasId, activeList)
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
             let result, today, todayUnix;
             today = moment().format('YYYY-MM-DD HH:mm:ss ');
@@ -640,10 +644,11 @@ if(Meteor.isServer){
 
         'moveFromRearAxleList':(machineNr) => {
             let bayArray = [];
-            let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
-                {fields: {timeLine: 1}});
+          //  console.log(machineNr)
+         //   let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
+          //      {fields: {timeLine: 1}});
         //    console.log('Bay Ready Check ',machineNr, bayReadyCheck.timeLine)
-           let ecnCheck = bayReadyCheck.timeLine.ecnMachine
+         //  let ecnCheck = bayReadyCheck.timeLine.ecnMachine
            let today = moment().format('YYYY-MM-DD HH:mm:ss ');
            let todayUnix = (Date.now()).toFixed(0); // milliseconds
            machineCommTable.update({machineId: machineNr}, {$set: {activeRearAxleList: false}})
@@ -651,7 +656,7 @@ if(Meteor.isServer){
                machineNr: machineNr,
                bayDateLanding: today,
                bayDateLandingUnix: todayUnix,
-               ecnMachine: ecnCheck
+               ecnMachine: ""
            }
             bayArray.push(machineInfo)
             activeAssembly.upsert({_id : "rear_axle_canvas"}, {$set: { bayArray }})
@@ -667,7 +672,7 @@ if(Meteor.isServer){
             let newHeadId = cornHead;
             let inLine = dateInLine;
             let pickingStatus = 0;
-            console.log(newHeadId, inLine, pickingStatus)
+        //    console.log(newHeadId, inLine, pickingStatus)
             pickingNewHead.insert({newHeadId: newHeadId,
                                         inLineDate: inLine,
                                         pickingStatus: pickingStatus})

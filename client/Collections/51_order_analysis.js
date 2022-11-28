@@ -23,18 +23,22 @@ Template.orderAnalysis.helpers({
             } else if (team_order === 'team-2-order') {
                 Session.set('team_table', 'Team 2')
                 Session.set('diagram-1', result[6])
+                result[1].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
                 return result[1]
             }  else if (team_order === 'team-3-order') {
                 Session.set('team_table', 'Team 3')
                 Session.set('diagram-1', result[7])
+                result[2].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
                 return result[2]
             } else if (team_order === 'team-4-order') {
                 Session.set('team_table', 'Team 4')
                 Session.set('diagram-1', result[8])
+                result[3].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
                 return result[3]
             } else if (team_order === 'team-5-order') {
                 Session.set('team_table', 'Team 5')
                 Session.set('diagram-1', result[9])
+                result[4].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
                 return result[4]
             }
 

@@ -35,7 +35,7 @@
 .active-inactive-pickers {
   left: 71em;
   position: relative;
-  top: 1em;
+  top: 7em;
 }
 
 .pickers-id {
@@ -1437,7 +1437,7 @@ table.supply-multi-table td, table.supply-multi-table th {
   left: 6.5em;
   opacity: 0.1;
   position: relative;
-  top: 44em;
+  top: 46em;
   width: 257px;
   z-index: 2;
 }
@@ -3947,9 +3947,9 @@ table.headerTable {
 }
 
 .tablet-order-position {
-  left: -60px;
+  left: 191px;
   position: absolute;
-  top: 350px;
+  top: -235px;
 }
 
 .transparent-box {

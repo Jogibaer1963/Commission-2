@@ -36,7 +36,7 @@ Template.assemblyLineOverView.events({
 Template.timeStudies.helpers({
 
     // loading machines with activeAssemblyLineList = false (Machine left reservoir)
-
+/*
     timeMachineMoved: () => {
         let result, firstStage, comingIn, goingOut, machineResult, machineNr,
             minutes, bayId, position;
@@ -91,5 +91,7 @@ Template.timeStudies.helpers({
         //   console.log(resultArray)
         return resultArray.reverse();
     }
+
+ */
 
 });

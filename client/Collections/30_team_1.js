@@ -2,12 +2,13 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import {invokeDrawTwoMachines, invokeMachineTest} from '../../lib/99_functionCollector.js';
+import {drawMachineInBay, invokeMachineTest} from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
-import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
+// import {invokeDrawNewMachine} from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
 import { invokeEmptyBay} from "../../lib/99_functionCollector.js";
+
 
 
 Session.set('twoMachines', false)
@@ -141,6 +142,8 @@ Template.team_1_over_view.helpers({
         drawMachineInBay(canvasId)
     },
 
+
+
     bay_4_engine_mount: () => {
             let result = activeAssembly.findOne({_id: 'machine_field_bay_4'})
             try {
@@ -194,102 +197,69 @@ Template.team_1_over_view.helpers({
         } catch(err) {}
     },
 
-
 })
 
 
-function drawMachineInBay(canvasId) {
-    try {
-        let result = activeAssembly.findOne({_id : canvasId});
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        if (result.bayArray.length === 0) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
-            // draw empty field in Bay
-            ctx.strokeStyle = "#ee0e0e";
-            ctx.lineWidth = "2"
-            ctx.strokeRect(45, 15, 90, 30);
-        } else if (result.bayArray.length === 1) {
-            // draw 1 machine in Bay
-            let machineNrInBay = result.bayArray[0].machineNr
-            let ecnCheck= result.bayArray[0].ecnMachine;
-          //  console.log('machine detected ', ecnCheck, result, result.bayArray[0])
-            invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
-        } else if (result.bayArray.length === 2) {
-            let firstMachine = result.bayArray[0].machineNr
-            let secondMachine = result.bayArray[1].machineNr
-            let ecnCheckOne = result.bayArray[0].ecnMachine;
-            let ecnCheckTwo = result.bayArray[1].ecnMachine;
-            console.log('2 machine detected', )
-            invokeDrawTwoMachines(firstMachine, secondMachine, canvasId, ecnCheckOne, ecnCheckTwo)
-        }
-    } catch (e) {}
-}
 
 
-function checkMachinesInBay(canvasId) {
-    let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
-    if (result.bayArray.length === 0) {
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        // found empty bay
-        //     console.log('function bay status 0', canvasId, result)
-        ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
-        // draw empty field in Bay
-        ctx.strokeStyle = "#ee0e0e";
-        ctx.lineWidth = "2"
-        ctx.strokeRect(45, 15, 90, 30);
-        return [0];
-    } else if (result.bayArray.length === 1) {
-        // found 1  Machines in Bay
-        //    console.log('function bay status 1', canvasId, result)
-        return [1, result.bayArray]
-    } else if (result.bayArray.length === 2) {
-        //   console.log('function bay status 2', canvasId, result)
-        return [2, result.bayArray];
-    }
-}
 
 Template.team_1_over_view.events({
 
     //  **************   From List to FCB 1, include Front Axle and threshing move from list to Bays
     'click .selectedAssemblyMachine': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine, machineNr, canvasId, bayStatus;
+        let selectedAssemblyMachine, machineNr, canvasId, bayStatusFrontAxle, bayStatusThreshing;
         selectedAssemblyMachine = this._id;
         machineNr = this.machineId;
         canvasId = "fcb_station_1";
         Session.set('machine_id', selectedAssemblyMachine);
         Session.set('machineInFCB_1', machineNr);
-        bayStatus = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
-        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatus[0] === 0) {
+       // bayStatus = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
+       //  // returns 0 if bay is empty, ready to move machine into bay
+        let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
+       // console.log('Bay Status ', result)
+        if (result.bayArray.length === 0) {
+           // console.log('FCB 1 is empty')
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
                 machineNr, canvasId, 'activeAssemblyLineList');
             drawMachineInBay(canvasId)
         } else {
+            console.log('wrong place ')
             window.alert('2 Machines in Bay 2 are not allowed')
         }
+
         canvasId = "front_axle"
-        bayStatus = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
+        bayStatusFrontAxle = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatus[0] === 0) {
+        if (bayStatusFrontAxle[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
                 machineNr, canvasId, 'activeFrontAxleList');
             drawMachineInBay(canvasId)
-        } else {
-            window.alert('2 Machines in Bay 2 are not allowed')
+
         }
+        /*
+       else if (bayStatusFrontAxle !== 0) {
+          console.log('front axle List', bayStatusFrontAxle)
+          window.alert('2 Machines in Bay 2 are not allowed')
+      }
+
+           */
+
         canvasId = "threshing_house"
-        bayStatus = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
+        bayStatusThreshing = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
         //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatus[0] === 0) {
+        if (bayStatusThreshing[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
                 machineNr, canvasId, 'activeThreshingList');
             drawMachineInBay(canvasId)
-        } else {
+        }
+        /*
+        else if (bayStatusThreshing !== 0) {
+            console.log('threshing List')
             window.alert('2 Machines in Bay 2 are not allowed')
         }
+
+         */
     },
 
     'click .selectedRearAxle': async function(e) {
@@ -368,92 +338,33 @@ Template.team_1_move_buttons.helpers({
 
 })
 
-Template.message_board.helpers({
-
-    lineOrders: () => {
-        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-        let result = lineOrders.find({team_user: "Team 1",
-                                              status: {$in: [0, 1]}}).fetch();
-        return result.sort((a, b) => a.status - b.status)
-    },
-
-    historyOrders: () => {
-        let user, result;
-        user = Meteor.user().username;
-        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-       result = lineOrders.find({team_user : user, status: 2}, {}).fetch();
-       return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
-    },
-
-    markedSelectedOrder: function(e) {
-        const order = this._id;
-        const selectedOrder = Session.get('orderCanceled');
-        if (order === selectedOrder) {
-            return "markedSelectedOrder";
-        }
-    }
-
-})
-
-
-Template.message_board.events({
-
-    'click .selectedOrder': function (e) {
-      e.preventDefault()
-      let order = this._id
-      Session.set('orderCanceled', order)
-    },
-
-    'click .t1-rep-bt':(e) => {
-        e.preventDefault()
-        FlowRouter.go('pdiRepairList')
-    },
-
-    'click .messageButton':(e) => {
-        e.preventDefault()
-        let newUrl = Session.get('ipAndPort') + 'messageBoard'
-        window.open(newUrl,
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=900')
-    },
-
-    'click .cancelButton':(e) => {
-        e.preventDefault()
-        let orderCancel = Session.get('orderCanceled', )
-        Meteor.call('cancelOrder', orderCancel)
-    },
-
-
-})
-
 
 Template.team_1_move_buttons.events({
 
     'click .fcb-1-move-button': async function(e) {
         e.preventDefault();
-        let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId, selectedAssemblyMachine
+        let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId
         machineNr = Session.get('machineInFCB_1')
-        selectedAssemblyMachine = Session.get('machine_id');
         oldCanvasId = 'fcb_station_1'
         newCanvasId = "fcb_station_2";
         invokeMoveMachine(oldCanvasId, newCanvasId)
         oldCanvasId = 'threshing_house';
         newCanvasId = 'front_threshing_merge';
-        mergeCanvas = 'front_threshing_merge';
-        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+        invokeMoveMachine(oldCanvasId, newCanvasId)
         oldCanvasId = 'front_axle';
         newCanvasId = 'front_threshing_merge';
-        mergeCanvas = 'front_threshing_merge';
+        invokeMoveFromLastBay(oldCanvasId)
         // check if front-threshing merge bay is empty or if the same machine number is already in
-        checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+      //  checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
         canvasId = "rear_axle_canvas"
-      //  bayStatus = await invokeMachineTest(canvasId)  //  ********    Submit canvasId to function
         let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
         if (result.bayArray.length === 0) {
             Meteor.call('moveFromRearAxleList', machineNr, function (err, response) {
                 if (err) {
                     console.log(err)
                 } else {
-                    invokeEmptyBay(canvasId)
+                  //  console.log('Empty Bay detected')
+                   // invokeEmptyBay(canvasId)
                 }
             });
         }
@@ -743,6 +654,67 @@ Template.team_1_move_buttons.onRendered(function() {
 
 })
 
+
+
+Template.message_board.helpers({
+
+    lineOrders: () => {
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        let result = lineOrders.find({team_user: "Team 1",
+            status: {$in: [0, 1]}}).fetch();
+        return result.sort((a, b) => a.status - b.status)
+    },
+
+    historyOrders: () => {
+        let user, result;
+        user = Meteor.user().username;
+        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
+        result = lineOrders.find({team_user : user, status: 2}, {}).fetch();
+        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
+    },
+
+    markedSelectedOrder: function(e) {
+        const order = this._id;
+        const selectedOrder = Session.get('orderCanceled');
+        if (order === selectedOrder) {
+            return "markedSelectedOrder";
+        }
+    }
+
+})
+
+
+Template.message_board.events({
+
+    'click .selectedOrder': function (e) {
+        e.preventDefault()
+        let order = this._id
+        Session.set('orderCanceled', order)
+    },
+
+    'click .t1-rep-bt':(e) => {
+        e.preventDefault()
+        FlowRouter.go('pdiRepairList')
+    },
+
+    'click .messageButton':(e) => {
+        e.preventDefault()
+        let newUrl = Session.get('ipAndPort') + 'messageBoard'
+        window.open(newUrl,
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=900')
+    },
+
+    'click .cancelButton':(e) => {
+        e.preventDefault()
+        let orderCancel = Session.get('orderCanceled', )
+        Meteor.call('cancelOrder', orderCancel)
+    },
+
+
+})
+
+
+
 function invokeDrawNewMachine(machineNr, canvasId) {
     Meteor.defer(function() {
         //  console.log('Draw Machine in next Bay', machineNr, canvasId)
@@ -761,4 +733,29 @@ function invokeDrawNewMachine(machineNr, canvasId) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     })
+}
+
+
+
+function checkMachinesInBay(canvasId) {
+    let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
+    if (result.bayArray.length === 0) {
+        let canvas = document.getElementById(canvasId);
+        let ctx = canvas.getContext("2d");
+        // found empty bay
+        //     console.log('function bay status 0', canvasId, result)
+        ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
+        // draw empty field in Bay
+        ctx.strokeStyle = "#ee0e0e";
+        ctx.lineWidth = "2"
+        ctx.strokeRect(45, 15, 90, 30);
+        return [0];
+    } else if (result.bayArray.length === 1) {
+        // found 1  Machines in Bay
+        //    console.log('function bay status 1', canvasId, result)
+        return [1, result.bayArray]
+    } else if (result.bayArray.length === 2) {
+        //   console.log('function bay status 2', canvasId, result)
+        return [2, result.bayArray];
+    }
 }

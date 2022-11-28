@@ -2,7 +2,7 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import {invokeDrawOneMachine, invokeDrawTwoMachines, invokeMoveFromLastBay} from '../../lib/99_functionCollector.js';
+import {drawMachineInBay, invokeMoveFromLastBay} from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 
 Session.set('twoMachines', false)
@@ -40,17 +40,6 @@ Template.message_board_team_5.events({
         let order = this._id
         Session.set('orderCanceled', order)
     },
-
-/*
-    'click .t5-rep-bt':(e) => {
-        e.preventDefault()
-        let ipAndPort =
-        let newUrl = Session.get('shippingApp') + 'pdiRepairList'
-       window.open(newUrl,
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
-    },
-
- */
 
     'click .messageButton_team_5':(e) => {
         e.preventDefault()
@@ -106,34 +95,6 @@ Template.team_5_over_view.helpers({
     }
 
 })
-
-function drawMachineInBay(canvasId) {
-    try {
-        let result = activeAssembly.findOne({_id : canvasId});
-        let canvas = document.getElementById(canvasId);
-        let ctx = canvas.getContext("2d");
-        if (result.bayArray.length === 0) {
-            // draw empty field in Bay
-            //  ctx.clearRect(0, 0, canvas.width, canvas.height) // clear any canvas in Bay
-            ctx.strokeStyle = "#ee0e0e";
-            ctx.lineWidth = "2"
-            ctx.strokeRect(45, 15, 90, 30);
-        } else if (result.bayArray.length === 1) {
-            // draw 1 machine in Bay
-            let machineNrInBay = result.bayArray[0].machineNr
-            let ecnCheck= result.bayArray[0].ecnMachine;
-          //  console.log('machine detected ', ecnCheck, result, result.bayArray[0])
-            invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
-        } else if (result.bayArray.length === 2) {
-            let firstMachine = result.bayArray[0].machineNr
-            let secondMachine = result.bayArray[1].machineNr
-            let ecnCheckOne = result.bayArray[0].ecnMachine;
-            let ecnCheckTwo = result.bayArray[1].ecnMachine;
-            invokeDrawTwoMachines(firstMachine, secondMachine, ecnCheckOne, ecnCheckTwo, canvasId)
-        }
-    } catch (e) {}
-
-}
 
 
 Template.team_5_move_buttons.events({
