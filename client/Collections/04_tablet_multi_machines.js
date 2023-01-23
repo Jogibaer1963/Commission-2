@@ -4,17 +4,27 @@ Session.set('supplyChosen', 0);
 Template.commTablet_2.helpers ({
 
     machineCommList_2: () => {
-        let result = machineCommTable.find({active: true}).fetch();
-        return _.sortBy(result, 'counter');
+        Tracker.autorun(() => {
+            let result;
+            Meteor.subscribe('machineCommissioningTable')
+            result = machineCommTable.find().fetch();
+            // console.log('result ', result)
+            Session.set('commList', result)
+        })
+        return _.sortBy(Session.get('commList'), 'counter');
     },
 
     supplySet: () => {
-        const picker = Meteor.user().username;
-        let result = pickersAtWork.findOne({_id: picker});
-        if (typeof result === 'undefined') {
-        } else {
-            Session.set('inActiveState',result.inActive);
-            return result.supplySet;
+        try {
+            const picker = Meteor.user().username;
+            let result = pickersAtWork.findOne({_id: picker});
+            if (typeof result === 'undefined') {
+            } else {
+                Session.set('inActiveState',result.inActive);
+                return result.supplySet;
+            }
+        } catch (e) {
+
         }
     },
 
@@ -28,6 +38,7 @@ Template.commTablet_2.helpers ({
     },
 
     selectedMultiMachines: () => {
+        try {
             const picker = Meteor.user().username;
             let result = pickersAtWork.findOne({_id: picker, multi: true});
             if (typeof result === 'undefined') {
@@ -37,23 +48,32 @@ Template.commTablet_2.helpers ({
                 Session.set('multiMachinesId', machines);
                 return machines;
             }
+        } catch (e) {
+
+        }
+
     },
 
     supplyStart: () => {
+        try {
             const picker = Meteor.user().username;
             let result = pickersAtWork.findOne({_id: picker, multi: true});
             if(typeof result === 'undefined') {
                 //nothing to share
             } else {
                 let supplySetLength = result.supplySet.length;
-                    if (supplySetLength === 1) {
-                        let supply = result.supplySet[0]._id;
-                        Session.set('selectedArea', supply);
-                        return supply;
-                    } else {
-                       return Session.get('selectedArea');
-                        }
+                if (supplySetLength === 1) {
+                    let supply = result.supplySet[0]._id;
+                    Session.set('selectedArea', supply);
+                    return supply;
+                } else {
+                    return Session.get('selectedArea');
+                }
             }
+        } catch (e) {
+
+        }
+
     },
 
     lineNeedsParts: () => {
@@ -162,7 +182,7 @@ Template.commTablet_2.events ({
             pickingStatus, pickingPauseEnd, user);
     },
 
-    'click .cancel-multi': function(e) {
+    'click .multi-cancel': function(e) {
       e.preventDefault();
         const userCanceled = Meteor.user().username;
         let pickedMachineId = Session.get('multiMachinesId');

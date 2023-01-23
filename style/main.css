@@ -34,8 +34,8 @@
 
 .active-inactive-pickers {
   left: 71em;
-  position: relative;
-  top: 7em;
+  position: absolute;
+  top: 22em;
 }
 
 .pickers-id {
@@ -508,9 +508,9 @@ table.supply-table {
 }
 
 .open-order-multi {
-  left: 176px;
+  left: -250px;
   position: absolute;
-  top: 334px;
+  top: -91px;
 }
 
 .machine-counter {
@@ -805,6 +805,18 @@ table.table-pickers {
   height: 331px;
 }
 
+.all-pickers-button {
+  left: 67px;
+  position: absolute;
+  top: 600px;
+}
+
+.chosen-picker-stats {
+  left: 700px;
+  position: absolute;
+  top: 140px;
+}
+
 .diagram-1 {
   left: 14em;
   position: absolute;
@@ -893,7 +905,7 @@ table.table-pickers {
 .personal-running-result {
   left: 70em;
   position: absolute;
-  top: 17em;
+  top: 14em;
 }
 
 .running-result {
@@ -902,10 +914,10 @@ table.table-pickers {
   top: 10em;
 }
 
-.running-result-last-year {
-  left: 70em;
+.miss-picks-short-picks {
+  left: 80em;
   position: absolute;
-  top: 49em;
+  top: 51em;
 }
 
 .today-team-result {
@@ -1017,6 +1029,18 @@ table.table-pickers {
   position: absolute;
   top: 60em;
   left: 35em;
+}
+
+.diagram-2-personal {
+  left: 1em;
+  position: absolute;
+  top: 5em;
+}
+
+.diagram-4-short-picks {
+  left: -122px;
+  position: relative;
+  top: 51px;
 }
 
 .search-for-date {
@@ -5586,6 +5610,50 @@ table.headerTable {
   width: 90px;
 }
 
+.input-instruction {
+  left: 10px;
+  position: absolute;
+  top: 35px;
+  width: 400px;
+}
+
+.order-header {
+  left: 500px;
+  position: absolute;
+  top: -8px;
+}
+
+.order-parts {
+  left: -1x;
+  position: absolute;
+  top: -30px;
+}
+
+.reason-checkbox {
+  left: 10px;
+  position: relative;
+  top: -180px;
+  width: 200px;
+}
+
+.other-team {
+  left: 500px;
+  position: relative;
+  top: 90px;
+}
+
+.order-form {
+  left: 10px;
+  position: relative;
+  top: -190px;
+}
+
+.mainComponentsPos {
+  left: 5px;
+  position: relative;
+  top: -348px;
+}
+
 .messenger-board {
   top: -26px;
   position: absolute;
@@ -5599,9 +5667,9 @@ table.headerTable {
 }
 
 .dropdown-location {
-  left: 163px;
+  left: 180px;
   position: absolute;
-  top: 97px;
+  top: 128px;
 }
 
 .message-button-team-5 {

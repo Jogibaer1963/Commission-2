@@ -2,7 +2,7 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import {invokeDrawTwoMachines, invokeDrawOneMachine, invokeMachineTest} from '../../lib/99_functionCollector.js';
+import { invokeDrawOneMachine, invokeMachineTest} from '../../lib/99_functionCollector.js';
 import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 import { drawMachineInBay} from '../../lib/99_functionCollector.js';
@@ -11,63 +11,7 @@ import { drawMachineInBay} from '../../lib/99_functionCollector.js';
 Session.set('twoMachines', false)
 
 
-Template.message_board_team_4.helpers({
 
-    lineOrders: () => {
-        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-        let result = lineOrders.find({team_user: "Team 4",
-            status: {$in: [0, 1]}}).fetch();
-        return result.sort((a, b) => a.status - b.status)
-    },
-
-    historyOrders: () => {
-        // status : 0 = unseen, 1 = picking in progress, 2 = delivered
-        let result = lineOrders.find({team_user : "Team 4", status: 2}, {}).fetch();
-        return  result.sort((a, b) => b.unixTimeOrderCompleted - a.unixTimeOrderCompleted)
-    },
-
-    markedSelectedOrder: function(e) {
-        const order = this._id;
-        const selectedOrder = Session.get('orderCanceled');
-        if (order === selectedOrder) {
-            return "markedSelectedOrder";
-        }
-    }
-
-})
-
-Template.message_board_team_4.events({
-
-    'click .selectedOrder': function (e) {
-        e.preventDefault()
-        let order = this._id
-        Session.set('orderCanceled', order)
-    },
-
-/*
-    'click .t4-rep-bt':(e) => {
-        e.preventDefault()
-        window.open('http://localhost:3000/pdiRepairList',
-         //   window.open('http://10.40.1.47:3000/pdiRepairList',
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1500, height=1500')
-    },
-
- */
-
-    'click .messageButton_team_4':(e) => {
-        e.preventDefault()
-        let newUrl = Session.get('ipAndPort') + 'messageBoard'
-        window.open(newUrl,
-            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
-    },
-
-    'click .cancelButton':(e) => {
-        e.preventDefault()
-        let orderCancel = Session.get('orderCanceled', )
-        Meteor.call('cancelOrder', orderCancel)
-    },
-
-})
 
 
 // *********************  Header Buttons  ***********************************
@@ -155,6 +99,9 @@ Template.team_4_move_buttons.events({
         e.preventDefault();
         let oldCanvasId = 'engine-station-2'
         let newCanvasId = "engine-station-3";
+        invokeMoveMachine(oldCanvasId, newCanvasId)
+        let oldCanvasId_cooling_1 = 'cooling-station-1';
+        let newCanvasId_cooling_1 = 'cooling-station-2';
         invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
@@ -296,30 +243,27 @@ Template.team_4_over_view.helpers({
     },
 
     coolingBoxReservoir: () => {
-        let result = machineCommTable.find({activeCoolingBoxList: true},
-            {fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1
-                                 }}).fetch();
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0))
-        return result;
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('reservoirCooling')
+            result = machineCommTable.find({activeCoolingBoxList: true}).fetch()
+            result.sort((a, b) => (a.counter > b.counter) ? 1 :
+                ((b.counter > a.counter) ? -1 : 0));
+            Session.set('coolingBox', result)
+        })
+        return Session.get('coolingBox')
     },
 
-    machineReservoir: () => {
-        let result = machineCommTable.find({activeEngineList : true},
-            {fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1,
-                    bayReady: 1
-                                   }}).fetch();
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
-        return result;
+    engineReservoir: () => {
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('reservoirEngine')
+            result = machineCommTable.find({activeEngineList : true}).fetch()
+            result.sort((a, b) => (a.counter > b.counter) ? 1 :
+                ((b.counter > a.counter) ? -1 : 0));
+            Session.set('engines', result)
+        })
+        return Session.get('engines')
     },
 
     //  ***************    Move Machine from List to the FCB merging Station  *************

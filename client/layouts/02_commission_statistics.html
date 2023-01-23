@@ -24,6 +24,13 @@
                 <div class="pickers-result">
                     {{pickersResult}}
                 </div>
+            <div class="all-pickers-button">
+                <button type="button" class="btn btn-default
+                                        btn-light all-pickers">All Pickers</button>
+            </div>
+            <div class="chosen-picker-stats">
+                <h3>Result for Picker : {{chosenPicker}}</h3>
+            </div>
                 {{/if}}
     {{#if currentUser}}
         <div class="commNav">
@@ -58,21 +65,27 @@
         <div>
              <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overview Fiscal Year 2023</h3>
         </div>
-        <div class="diagram-2-to-4">
+        <div class="diagram-2-personal">
             <div  id="chart_2">{{personalYearResultGraph}}</div>
         </div>
     </div>
 
     <!--  overview same day range last fiscal year -->
 
-    <div class="running-result-last-year" {{personalLastYearResult}}>
-        <div>
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fiscal Year 2022  </h3>
+
+        <div class="miss-picks-short-picks" {{error_per_year_day}}>
+           <button type="button" class="btn btn-default btn-info shortPicks">Short Picks</button>
+           <button type="button" class="btn btn-default btn-info misPicksToday">Mis-picks reported today</button>
+           <button type="button" class="btn btn-default btn-info misPicksYear">Mis-picks running year</button>
+           <div class="short-pick-header">
+              <h4>{{short_pick_total}} Short Picks done total.</h4>
+           </div>
+           <div class="diagram-4-short-picks">
+               <div  id="chart_3">{{error_per_year_day_graph}}</div>
+           </div>
         </div>
-        <div class="diagram-2-to-4">
-            <div  id="chart_3">{{personalYearResultHistory}}</div>
-        </div>
-    </div>
+
+
 
     <!--  overview daylie team result -->
 

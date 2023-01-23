@@ -1,5 +1,5 @@
 Meteor.subscribe('supplyAreas');
-Meteor.subscribe('machineCommTable');
+//Meteor.subscribe('machineCommTable');
 Meteor.subscribe('userActions');
 Meteor.subscribe('lineOrders');
 
@@ -42,35 +42,33 @@ Template.machine_picking_list.helpers({
 
     machineList: () => {
         let machineResult = [];
-        let result = machineCommTable.find({active: true},
-                            {fields: {
-                                                counter: 1,
-                                                machineId: 1,
-                                                inLineDate: 1,
-                                                supplyAreas: 1,
-                                                commissionStatus: 1,
-                                                commissionList: 1,
-                                                timeLine: 1
-                                                }}).fetch();
-
-        result.forEach((element) => {
-           for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
-               if (element.supplyAreas[i].active === false) {
-                   try {
-                   element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
-                   i-- ;
-                   } catch {
+        let result;
+       Tracker.autorun(() => {
+           Meteor.subscribe('pickingOverView')
+           result = machineCommTable.find().fetch();
+            result.forEach((element) => {
+               for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
+                   if (element.supplyAreas[i].active === false) {
+                       try {
+                       element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
+                       i-- ;
+                       } catch {
+                       }
+                   } else {
                    }
-               } else {
                }
-           }
-         //  console.log(element)
-           machineResult.push(element);
-        });
-        machineResult.forEach((element) => {
-            element.supplyAreas.sort(function(a, b) {return a.supplyPosition - b.supplyPosition})
-        })
-        return _.sortBy(machineResult, 'counter');
+             //  console.log(element)
+               machineResult.push(element);
+            });
+            machineResult.forEach((element) => {
+                element.supplyAreas.sort(function(a, b) {return a.supplyPosition - b.supplyPosition})
+            })
+            Session.set('pickingTable', _.sortBy(machineResult, 'counter'));
+           })
+    },
+
+    pickingTable: () => {
+      return Session.get('pickingTable')
     },
 
     inactiveMachineList: () => {

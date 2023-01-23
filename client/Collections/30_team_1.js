@@ -7,7 +7,7 @@ import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 // import {invokeDrawNewMachine} from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
 import { checkMergeBay } from '../../lib/99_functionCollector.js';
-import { invokeEmptyBay} from "../../lib/99_functionCollector.js";
+
 
 
 
@@ -19,68 +19,52 @@ Template.team_1_over_view.helpers({
     // **********************************   inLineDate = Bay 2 Landing date / time
 
     machineReservoir: () => {
-        let result = machineCommTable.find({activeAssemblyLineList : true},
-            {fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1,
-                    inLineTime: 1,
-                    bayReady: 1
-                }}).fetch();
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
-      //  console.log(result)
-        return result;
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('reservoirMainLine')
+           result = machineCommTable.find({activeAssemblyLineList : true}).fetch()
+         //   console.log(result)
+            result.sort((a, b) => (a.counter > b.counter) ? 1 :
+                ((b.counter > a.counter) ? -1 : 0));
+            Session.set('mainLine', result)
+        })
+        return Session.get('mainLine')
     },
 
     rearAxleReservoir: () => {
-        let result = machineCommTable.find({activeRearAxleList : true},
-            {fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1,
-                    inLineTime: 1,
-                    bayReady: 1
-                }}).fetch();
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
-        return result;
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('reservoirRearAxle')
+            result = machineCommTable.find({activeRearAxleList : true}).fetch()
+            result.sort((a, b) => (a.counter > b.counter) ? 1 :
+                ((b.counter > a.counter) ? -1 : 0));
+            Session.set('rearAxle', result)
+        })
+        return Session.get('rearAxle')
     },
 
     threshingReservoir: () => {
-        let result = machineCommTable.find({activeThreshingList: true},
-            {
-                fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1,
-                    inLineTime: 1,
-                    bayReady: 1
-                }
-            }).fetch();
+        let result;
+        Tracker.autorun(() => {
+                Meteor.subscribe('reservoirThreshingHouse')
+        let result = machineCommTable.find({activeThreshingList: true}).fetch();
         result.sort((a, b) => (a.counter > b.counter) ? 1 :
             ((b.counter > a.counter) ? -1 : 0));
-        return result;
+            Session.set('threshingHouse', result)
+        })
+        return Session.get('threshingHouse')
     },
 
     frontAxleReservoir: () => {
-        let result = machineCommTable.find({activeFrontAxleList: true},
-            {
-                fields: {
-                    counter: 1,
-                    machineId: 1,
-                    timeLine: 1,
-                    inLineDate: 1,
-                    inLineTime: 1,
-                    bayReady: 1
-                }
-            }).fetch();
-        result.sort((a, b) => (a.counter > b.counter) ? 1 :
-            ((b.counter > a.counter) ? -1 : 0));
-        return result;
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('reservoirFrontAxle')
+            let result = machineCommTable.find({activeFrontAxleList: true}).fetch();
+            result.sort((a, b) => (a.counter > b.counter) ? 1 :
+                ((b.counter > a.counter) ? -1 : 0));
+            Session.set('frontAxle', result)
+        })
+        return Session.get('frontAxle')
     },
 
     //  ***************    Move Machine from List to the FCB merging Station  *************
@@ -237,13 +221,6 @@ Template.team_1_over_view.events({
             drawMachineInBay(canvasId)
 
         }
-        /*
-       else if (bayStatusFrontAxle !== 0) {
-          console.log('front axle List', bayStatusFrontAxle)
-          window.alert('2 Machines in Bay 2 are not allowed')
-      }
-
-           */
 
         canvasId = "threshing_house"
         bayStatusThreshing = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
@@ -253,13 +230,7 @@ Template.team_1_over_view.events({
                 machineNr, canvasId, 'activeThreshingList');
             drawMachineInBay(canvasId)
         }
-        /*
-        else if (bayStatusThreshing !== 0) {
-            console.log('threshing List')
-            window.alert('2 Machines in Bay 2 are not allowed')
-        }
 
-         */
     },
 
     'click .selectedRearAxle': async function(e) {

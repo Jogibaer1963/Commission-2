@@ -143,7 +143,14 @@ Template.adminView.helpers({
     },
 
     activePickers: () => {
-        return pickers.find({}, {fields: {_id: 1, active: 1}}).fetch();
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('activePickers')
+            result = pickers.find().fetch();
+         //   console.log(result)
+            Session.set('activePickers', result)
+        })
+        return Session.get('activePickers')
     }
 
 

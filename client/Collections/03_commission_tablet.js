@@ -16,8 +16,14 @@ Template.commTablet.helpers ({
                 FlowRouter.go('/multiMachines');
             }
         }
-        let result = machineCommTable.find({active: true}).fetch();
-         return _.sortBy(result, 'counter');
+        Tracker.autorun(() => {
+            let result;
+            Meteor.subscribe('machineCommissioningTable')
+            result = machineCommTable.find().fetch();
+           // console.log('result ', result)
+            Session.set('commList', result)
+        })
+         return _.sortBy(Session.get('commList'), 'counter');
     },
 
     supplyAreaShow: () => {

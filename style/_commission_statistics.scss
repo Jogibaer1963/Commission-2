@@ -18,6 +18,18 @@ table.table-pickers {
   height: 331px;
 }
 
+.all-pickers-button {
+  left: 67px;
+  position: absolute;
+  top: 600px;
+}
+
+.chosen-picker-stats {
+  left: 700px;
+  position: absolute;
+  top: 140px;
+}
+
 .diagram-1 {
   left: 14em;
   position: absolute;
@@ -106,7 +118,7 @@ table.table-pickers {
 .personal-running-result {
   left: 70em;
   position: absolute;
-  top: 17em;
+  top: 14em;
 }
 
 .running-result {
@@ -115,10 +127,10 @@ table.table-pickers {
   top: 10em;
 }
 
-.running-result-last-year {
-  left: 70em;
+.miss-picks-short-picks {
+  left: 80em;
   position: absolute;
-  top: 49em;
+  top: 51em;
 }
 
 .today-team-result {
@@ -230,6 +242,18 @@ table.table-pickers {
   position: absolute;
   top: 60em;
   left: 35em;
+}
+
+.diagram-2-personal {
+  left: 1em;
+  position: absolute;
+  top: 5em;
+}
+
+.diagram-4-short-picks {
+  left: -122px;
+  position: relative;
+  top: 51px;
 }
 
 //      *****************************   specific date without picker / commissionAnalysis.html Line 75 to 83

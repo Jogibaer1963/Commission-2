@@ -1,11 +1,49 @@
 <template name="messageBoard">
 
+    <div class="order-header">
+        <h3>Order for Team : {{team}}</h3>
+    </div>
+
+    <div class="different-team">
+       <h3>{{different_team}}</h3>
+    </div>
+
     <form class="order-parts">
 
-        <input type=number id="part_number" name="partNumber">
+        <div class="other-team">
+            <h3>Order for an other Team :</h3>
+
+            <button type="button" class="btn btn-default
+                                        btn-info team-1-button">Team 1</button>
+            <br><br>
+            <button type="button" class="btn btn-default
+                                        btn-info team-2-button">Team 2</button>
+            <br><br>
+            <button type="button" class="btn btn-default
+                                        btn-info team-3-button">Team 3</button>
+            <br><br>
+            <button type="button" class="btn btn-default
+                                        btn-info team-4-button">Team 4</button>
+            <br><br>
+            <button type="button" class="btn btn-default
+                                        btn-info team-5-button">Team 5</button>
+
+        </div>
+
+        <div class="input-instruction">
+            <h4>Multiple Machines please separate with  ","   </h4>
+            <h4>Like C8910100,101, 102 with or without space</h4>
+        </div>
+
+        <div class="order-form">
+        <!-- todo Validate Machine Numbers, Multiple Machines, Machine Number Pattern  -->
+        <input type="text" id="machineNr" name="machineNr" required>
+        <label for="machineNr">Machine Nr</label><br>
+
+        <input type=number id="part_number" name="partNumber" required>
         <label for="part_number">Part Number</label><br>
 
-        <input type=number id="quantity_needed" name="quantityNeeded">
+        <input type=number id="quantity_needed" name="quantityNeeded" required>
         <label for="quantity_needed">Quantity Needed</label><br>
 
         <input type="text" id="storage_Location" name="storageLocation">
@@ -14,6 +52,8 @@
         <br>
         <input type="text" id="delivery_location" name="location" value={{issueComponent}}>
         <label for="delivery_location"></label><br>
+
+        </div>
 
         <div class="mainComponentsPos">
             {{#dropdownTrigger  name="mainComponents"}}
@@ -39,11 +79,103 @@
             <br>
             <input type="radio" id="missing" name="reason" value="2">
             <label for="missing">Missing</label>
-            ><br>
+            <br>
             <input type="radio" id="repair" name="reason" value="4">
             <label for="repair">Repair / Reconfig</label>
+            <br>
+            <button type="submit" class="btn btn-default btn-success">Submit</button>
         </div>
-        <button type="submit" class="btn btn-default btn-success">Submit</button>
+
     </form>
+
+</template>
+
+<template name="message_board_team_4">
+    <!--
+        <div class="team-3-repair-button">
+            <label for="team_3_repair_button"></label>
+            <button type="button" id="team_3_repair_button"
+                    class="btn btn-success t4-rep-bt">Print PDI-repairs</button>
+        </div>
+    -->
+    <div class="team-order-button">
+        <label for="messageButton_team_4"></label>
+        <button type="button" id="messageButton_team_4"
+                class="btn
+                        btn-default
+                        messageButton_team_4">Parts Needed</button>
+    </div>
+
+    <div class="team-cancel-button">
+        <label for="messageButton"></label>
+        <button type="button" id="messageButton"
+                class="btn
+                        btn-danger
+                        cancelButton">Cancel Order</button>
+    </div>
+
+
+    <table class="team-order-table blueTable">
+        <thead>
+        <tr>
+            <th class="order-part">Part Number</th>
+            <th class="order-storage-bin"><strong>Storage Bin</strong></th>
+            <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="order-point-of-use"><strong>Quantity</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+            <th class="user-pick"><strong>Order processed by</strong></th>
+            <th class="pdiMachineField"><strong>Status</strong></th>
+            <th class="order-storage-bin"><strong>Time ordered</strong></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {{#each lineOrders}}
+            <tr class="selectedOrder {{markedSelectedOrder}}">
+                <td class="order-part">{{part_number}}</td>
+                <td class="order-storage-bin">{{storage_bin}}</td>
+                <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="order-point-of-use">{{quantity_needed}}</td>
+                <td class="pdiMachineField {{getPickingStatus urgency}}"
+                    style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
+                <td class="user-pick">{{picked_by}}</td>
+                <td class="pdiMachineField {{getOrderStatus status}}"
+                    style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
+                <td class="order-storage-bin">{{time_ordered}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <table class="team-order-history blueTable">
+        <thead>
+        <tr>
+            <th class="order-part">Part Number</th>
+            <th class="order-storage-bin"><strong>Storage Bin</strong></th>
+            <th class="order-point-of-use"><strong>Point of Use</strong></th>
+            <th class="order-point-of-use"><strong>Quantity</strong></th>
+            <th class="pdiMachineField"><strong>Urgency</strong></th>
+            <th class="user-pick"><strong>Order processed by</strong></th>
+            <th class="pdiMachineField"><strong>Status</strong></th>
+            <th class="order-storage-bin"><strong>Time ordered</strong></th>
+            <th class="order-storage-bin"><strong>Time completed</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each historyOrders}}
+            <tr class="">
+                <td class="order-part">{{part_number}}</td>
+                <td class="order-storage-bin">{{storage_bin}}</td>
+                <td class="order-point-of-use">{{point_of_use}}</td>
+                <td class="order-point-of-use">{{quantity_needed}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{urgency}}</td>
+                <td class="user-pick">{{picked_by}}</td>
+                <td class="pdiMachineField" style="text-align: center">{{status}}</td>
+                <td class="order-storage-bin">{{time_ordered}}</td>
+                <td class="order-storage-bin">{{order_completed}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
 
 </template>

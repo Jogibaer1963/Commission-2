@@ -1,5 +1,6 @@
 import {Meteor} from "meteor/meteor";
 import {invokeMoveMachine} from "../lib/99_functionCollector";
+import {Session} from "meteor/session";
 /*
 import {unix} from "moment";
 
@@ -21,17 +22,111 @@ if(Meteor.isServer){
             return supplyAreas.find();
         });
 
-        Meteor.publish("machineCommTable", () => {
-            return machineCommTable.find();
+        Meteor.publish("machineCommissioningTable", function() {
+          return machineCommTable.find({active: true},
+              {fields: {counter: 1, supplyAreas: 1, machineId: 1, inLineDate: 1 }});
+        })
+
+
+        Meteor.publish('reservoirMainLine', function() {
+          return machineCommTable.find({activeAssemblyLineList : true},
+                {fields: {
+                        counter: 1,
+                        machineId: 1,
+                        inLineDate: 1,
+                        inLineTime: 1,
+                        activeAssemblyLineList: 1
+                    }});
+        })
+
+        Meteor.publish('reservoirRearAxle', function() {
+           return machineCommTable.find({activeRearAxleList : true},
+                {fields: {
+                        counter: 1,
+                        machineId: 1,
+                        inLineDate: 1,
+                        inLineTime: 1,
+                        activeRearAxleList: 1
+                    }});
+        })
+
+        Meteor.publish('reservoirThreshingHouse', function() {
+               return machineCommTable.find({activeThreshingList: true},
+                    {
+                        fields: {
+                            counter: 1,
+                            machineId: 1,
+                            inLineDate: 1,
+                            inLineTime: 1,
+                            activeThreshingList: 1
+                        }
+                    });
+        })
+
+        Meteor.publish('reservoirFrontAxle', function() {
+          return machineCommTable.find({activeFrontAxleList: true},
+                {
+                    fields: {
+                        counter: 1,
+                        machineId: 1,
+                        inLineDate: 1,
+                        inLineTime: 1,
+                        activeFrontAxleList: 1
+                    }
+                });
+        })
+
+        Meteor.publish('reservoirCooling', function() {
+          return machineCommTable.find({activeCoolingBoxList: true},
+                {fields: {
+                        counter: 1,
+                        machineId: 1,
+                        inLineDate: 1,
+                        inLineTime: 1,
+                        activeCoolingBoxList: 1
+                    }});
+        })
+
+        Meteor.publish('reservoirEngine', function() {
+            return machineCommTable.find({activeEngineList : true},
+                {fields: {
+                        counter: 1,
+                        machineId: 1,
+                        timeLine: 1,
+                        inLineDate: 1,
+                        activeEngineList : 1
+                    }});
+        })
+
+
+        Meteor.publish("pickingMonitorTable", () => {
+            return machineCommTable.find({active: true},
+        {fields: {
+                counter: 1,
+                machineId: 1,
+                inLineDate: 1,
+                supplyAreas: 1,
+                commissionStatus: 1
+            }})
+
         });
+
 
         Meteor.publish("pickersAtWork", () => {
             return pickersAtWork.find();
         });
 
+
+        Meteor.publish("activePickers", function() {
+            return pickers.find({active: 1}, {fields: {_id: 1}})
+        })
+
+
         Meteor.publish("pickers", () => {
             return pickers.find();
         });
+
+
 
         Meteor.publish("fiscalYear", () => {
             return fiscalYear.find();
@@ -61,13 +156,41 @@ if(Meteor.isServer){
             return pickingNewHead.find();
         })
 
+        /*
         Meteor.publish('machineReadyToGo', () => {
           return machineReadyToGo.find();
         })
 
+         */
+
+
         Meteor.publish('lineOrders', () => {
             return (lineOrders.find());
         })
+
+        Meteor.publish('bay_19_count', function() {
+            return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",bayStatus: 1}},
+                inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
+        })
+
+        Meteor.publish('machinesShipped', function() {
+           return machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2022-09-31"}},
+                {fields: {_id: 1}})
+        })
+
+        Meteor.publish('pickingOverView', function() {
+            return machineCommTable.find({active: true},
+                {fields: {
+                                counter: 1,
+                                machineId: 1,
+                                inLineDate: 1,
+                                supplyAreas: 1,
+                                commissionStatus: 1,
+                                commissionList: 1
+                          }})
+        })
+
+
 
     });
 
@@ -158,6 +281,7 @@ if(Meteor.isServer){
                 orderObject = {
                     team : element.team_user,
                     orderStart : element.time_ordered,
+                    machineId : element.machineId,
                     quantity : element.quantity_needed,
                     partNumber : element.part_number,
                     storage : element.storage_bin,
@@ -209,10 +333,52 @@ if(Meteor.isServer){
 
         },
 
+        'shortPicks': (picker) => {
+           // console.log(picker)
+          return lineOrders.find({picked_by: picker},
+              {fields: {reason: 1,
+                              machineId: 1,
+                              point_of_use: 1,
+                              unixTimeOrderCompleted: 1,
+                              picked_by: 1}}).fetch();
+        },
+
+        'errorAnalysis': (chosenPicker) => {
+         // console.log(chosenPicker)
+            if (chosenPicker === false) {
+                // Do nothing
+            } else if (chosenPicker === 'allPickers') {
+                // Result for all Pickers together per Day and per Year
+                let result = lineOrders.find({reason : 2,
+                    machineId: {$gt : 'C8900000'}},
+                    {fields: {picked_by:1,
+                                    part_number: 1,
+                                    machineId: 1,
+                                    point_of_use: 1,
+                                    storage_bin: 1}}).fetch()
+
+             //   console.log(result)
+            } else {
+                // Result for individual picker per Day and per Year
+              //  console.log('only individual Pickers')
+            }
+
+        },
+
+
+
         'success':(result, user, alert) => {
          //   let success = result.slice(0, 7);
         //    console.log('result' , result)
          // serverWorker.insert({result: result, user : user, alert: alert})
+        },
+
+        'pickersResult': (chosenPicker, fiscalYear) => {
+           return pickers.findOne({_id: chosenPicker});
+           // console.log(chosenPicker, result)
+          //  let resultObj = Object.entries(result);
+          //  console.log(Object.keys(result))
+           // return result
         },
 
         'cancelOrder':(id) => {
@@ -220,7 +386,7 @@ if(Meteor.isServer){
         },
 
 
-        'parts_on_order': (user_order, partNumber_order, quantityNeeded_order, storageLocation_order,
+       'parts_on_order': (user_order,machineNr, partNumber_order, quantityNeeded_order, storageLocation_order,
                            point_of_use_order, reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered
             // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
@@ -250,6 +416,7 @@ if(Meteor.isServer){
             lineOrders.insert({ team_user : user_order,
                 time_ordered  : order_date,
                 unixTimeOrderStart : unixOrder,
+                machineId: machineNr,
                 part_number : partNumber_order,
                 quantity_needed : quantityNeeded_order,
                 storage_bin : storageLocation_order,
@@ -488,6 +655,15 @@ if(Meteor.isServer){
             }
         },
 
+        'checkStatus': (front_axle, threshing_house, machineNr) => {
+          let frontAxle = front_axle;
+          let threshingHouse = threshing_house;
+          let machine = machineNr;
+          console.log(frontAxle, threshingHouse, machine)
+          let machineInFrontAxle = activeAssembly.findOne({_id: frontAxle}, {fields: {bayArray: 1}});
+          let machineInThreshing = activeAssembly.findOne({_id: threshingHouse}, {fields: {bayArray: 1}});
+        },
+
         'moveMachineToNextBay': (machineId, machineNr, user, thisBay, nextBayId, boolean,
                                  ecnMachine) => {
           //  console.log(machineId, machineNr, user, thisBay, nextBayId, boolean)
@@ -644,7 +820,7 @@ if(Meteor.isServer){
 
         'moveFromRearAxleList':(machineNr) => {
             let bayArray = [];
-          //  console.log(machineNr)
+           console.log(machineNr)
          //   let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
           //      {fields: {timeLine: 1}});
         //    console.log('Bay Ready Check ',machineNr, bayReadyCheck.timeLine)
@@ -676,9 +852,6 @@ if(Meteor.isServer){
             pickingNewHead.insert({newHeadId: newHeadId,
                                         inLineDate: inLine,
                                         pickingStatus: pickingStatus})
-
-
-
         },
 
         //--------------  Update Machine List with in Line and off Line Date  --------------

@@ -127,7 +127,7 @@ Template.team_5_screen_view.helpers({
 
 
 });
-
+/*
 function timeCounterBay14() {
     let unitCount = Session.get('unitCountBay14')
     timeCounter( "machine_field_bay_14", ['bay14', 'bay_14_time', unitCount], 'realTimerBay14')
@@ -159,3 +159,5 @@ function timeCounterBay19() {
     timeCounter( "machine_field_bay_19", ['bay19Planned', 'bay_19_planned_time', unitCount], 'realTimerBay19')
 }
 
+
+ */

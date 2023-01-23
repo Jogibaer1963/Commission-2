@@ -28,7 +28,14 @@ Template.analysisOverView.helpers({
 
 
     pickers: () => {
-        return pickers.find({active: 1}, {fields: {_id: 1}}).fetch();
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('activePickers')
+            result = pickers.find().fetch();
+            console.log(result)
+            Session.set('activePickers', result)
+        })
+        return Session.get('activePickers')
     },
 
     chosenPicker: () => {

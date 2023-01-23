@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import {pickingToDay} from "../../lib/99_functionCollector";
 const Highcharts = require('highcharts');
+
 Meteor.subscribe('pickers');
 Meteor.subscribe('usersProfile');
 
@@ -11,7 +12,14 @@ Session.set('01-supplyMachine', false);
 Template.commissionStatistics.helpers({
 
     pickers: () => {
-        return pickers.find({active: 1}, {fields: {_id: 1}}).fetch();
+        let result;
+        Tracker.autorun(() => {
+            Meteor.subscribe('activePickers')
+            result = pickers.find().fetch();
+          //  console.log(result)
+            Session.set('activePickers', result)
+        })
+        return Session.get('activePickers')
     },
 
     chosenPicker: () => {
@@ -28,12 +36,48 @@ Template.commissionStatistics.events({
         Session.set('chosenPicker', pickersName);
     },
 
+    'click .all-pickers': (e) => {
+        e.preventDefault()
+        Session.set('chosenPicker', 'allPickers')
+    },
+
 
 });
 
+Template.dailyResult.events({
 
+    'click .shortPicks': (e) => {
+        e.preventDefault()
+        let picker, result;
+        picker = Session.get('chosenPicker')
+        Meteor.call('shortPicks', picker, function(err, response) {
+            if (response) {
+               Session.set('shortPicks', response.length)
+                result = Session.get('shortPicks').length
+            } else {
+                console.log(err)
+            }
+        })
+    },
+
+    'click .misPicksToday': (e) => {
+        e.preventDefault()
+
+    },
+
+    'click .misPicksYear': (e) => {
+        e.preventDefault()
+
+    }
+
+
+})
 
 Template.dailyResult.helpers({
+
+    short_pick_total: () => {
+        return Session.get('shortPicks')
+    },
 
     loggedInUser: () => {
         const loggedUser = Meteor.user();
@@ -124,6 +168,7 @@ Template.dailyResult.helpers({
     personalYearResult: () => {
         let loggedUser = Session.get('loggedUser');
         let chosenPicker = '';
+        let result;
         let userRole = usersProfile.find({'username': loggedUser}, {fields: {role: 1}}).fetch();
         try {
             if (userRole[0].role === 'admin') {
@@ -136,25 +181,33 @@ Template.dailyResult.helpers({
         let arraySummery = [];
         let newArray = [];
         try {
-            let result = pickers.findOne({_id: chosenPicker});
+            Meteor.call('pickersResult', chosenPicker, fiscalYear, function(err, response) {
+                if (response) {
+                    Session.set('pickerResult', response);
+                }
+            })
+            result = Session.get('pickerResult')
             delete result._id;
             delete result.active;
             let resultObj = Object.entries(result);
             /* find dates after fiscal year change */
-            if (resultObj.length > 1) {
+            if (resultObj.length >= 1) {
                 for (let k = 0; k <= resultObj.length - 1; k++) {
                     if (resultObj[k] >= fiscalYear) {
                         resultObj[k].shift();
                         let cleanArray = resultObj[k];
+                   //     console.log('Clean Array ', cleanArray)
                         cleanArray.forEach((element2) => {
                             for (let j = 0; j <= element2.length - 1; j++)
                                 arraySummery.push(element2[j])
                         })
+                    } else {
                     }
                 }
             } else {
                 //console.log('else')
             }
+        //    console.log('Array Summery ', arraySummery)
             arraySummery.forEach((element) => {
                 newArray.push(element.supplyArea)
             })
@@ -180,7 +233,6 @@ Template.dailyResult.helpers({
                 });
                 counter.push(i);
                 durationGraph.push(parseInt((duration / i).toFixed()));
-
             });
         } catch (e) {
          //   console.log(e)
@@ -195,7 +247,6 @@ Template.dailyResult.helpers({
         let averagePerSupply = Session.get('totalResultDuration');
         let cartsCounter = Session.get('carts');
         let categories = Session.get('totalResultSupply');
-    //    console.log(averagePerSupply, cartsCounter, categories);
         let average = (averagePerSupply.reduce((a,b) => a + b , 0) / averagePerSupply.length).toFixed(0);
         let annualCarts = cartsCounter.reduce((a,b) => a + b, 0);
         let annualCategories = categories.length;
@@ -266,7 +317,7 @@ Template.dailyResult.helpers({
 /*  Compare to last Fiscal Year same time frame */
 
 
-    personalLastYearResult: () => {
+    error_per_year_day: () => {
         let loggedUser = Session.get('loggedUser');
         let chosenPicker = '';
         let userRole = usersProfile.find({'username': loggedUser}, {fields: {role: 1}}).fetch();
@@ -277,11 +328,13 @@ Template.dailyResult.helpers({
                 chosenPicker = Session.get('loggedUser')
             }
         } catch {}
-        lastYearResult(chosenPicker)
+        missingParts(chosenPicker)
     },
 
-    personalYearResultHistory: function () {
+
+    error_per_year_day_graph: function () {
         // Gather data:
+        /*
         let averagePerSupply = Session.get('historyTotalResultDuration');
         let cartsCounter = Session.get('historyCarts');
         let categories = Session.get('historyTotalResultSupply');
@@ -289,14 +342,16 @@ Template.dailyResult.helpers({
         let average = (averagePerSupply.reduce((a,b) => a + b , 0) / averagePerSupply.length).toFixed(0);
         let annualCarts = cartsCounter.reduce((a,b) => a + b, 0);
         let annualCategories = categories.length;
-        let titleText = annualCarts + ' ' + 'Carts picked for ' + annualCategories + ' Cost centers with an average of ' + average + ' min';
+        let titleText =  error + ' ' + 'missing Parts on Carts'
+
+         */
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_3', {
 
                 title: {
-                    text: titleText
+                    text: 'Short Picks and Mis-picks'
                 },
 
                 tooltip: {
@@ -327,7 +382,7 @@ Template.dailyResult.helpers({
                 },
 
                 xAxis: {
-                    categories: categories,
+                    categories: 'placeholder',
                     title: {
                         enabled: true,
                         text: 'Areas Picked',
@@ -341,12 +396,12 @@ Template.dailyResult.helpers({
                     {
                         name: 'Average picking time in min',
                         type: 'column',
-                        data: averagePerSupply
+                        data: []
                     },
                     {
                         name: 'Carts picked',
                         type: 'spline',
-                        data: cartsCounter
+                        data: []
                     }
                 ]
             });
@@ -406,7 +461,7 @@ Template.dailyResult.helpers({
             Session.set('teamDayResult', dayResult);
             Session.set('teamUniqueAreas', uniqueAreas);
             Session.set('teamAveragePerSupply', averagePerSupply)
-         //   console.log(dayCount, uniqueAreas)
+            // console.log(dayCount, uniqueAreas)
             return {
                 dayCount: dayCount,
                 averageDuration: durationAverage,
@@ -562,6 +617,23 @@ function daylieResult(loggedUser) {
 }
 
 
+
+function missingParts(chosenPicker) {
+        let choice = chosenPicker;
+        Meteor.call('errorAnalysis', chosenPicker, function(err, response) {
+            if (response) {
+              //  console.log(response)
+        } else {
+               // console.log(err)
+            }
+    })
+        //console.log(choice)
+
+
+}
+
+
+/*
 function lastYearResult(loggedUser) {
     let newFiscalYear = '2022090401' //ToDo : newFiscalYear from table
     let lastFiscalYear = '2021090401' //ToDo : lastFiscalYear from table
@@ -573,7 +645,7 @@ function lastYearResult(loggedUser) {
         delete result.active;
         let resultObj = Object.entries(result);
         /* find dates after fiscal year change */
-        if (resultObj.length > 1) {
+   /*     if (resultObj.length > 1) {
             for (let k = 0; k <= resultObj.length - 1; k++) {
                 if (resultObj[k] >= lastFiscalYear && resultObj[k] <= newFiscalYear) {
                     resultObj[k].shift();
@@ -595,7 +667,7 @@ function lastYearResult(loggedUser) {
     }
 
     /* zusammenfassen der supply areas mit carts zählung und gesamtzeit */
-
+/*
     let durationGraph = [];
     let counter = [];
     let uniqueSupplyAreas = newArray.filter((x, i, a) => a.indexOf(x) === i);
@@ -632,7 +704,7 @@ function lastYearResult(loggedUser) {
     Session.set('historyTotalResultDuration', durationGraph);
 }
 
-
+*/
 
 
 

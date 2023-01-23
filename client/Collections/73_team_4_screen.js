@@ -1,9 +1,6 @@
 import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
-Meteor.subscribe('userActions')
-Meteor.subscribe('machineReadyToGo')
-Meteor.subscribe('machineCommTable')
 
 import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
@@ -18,20 +15,6 @@ Session.set('twoMachines', false)
 
 Template.over_view_all_teams.helpers({
 
-    takt_time: () => {
-        try {
-            let result = userActions.findOne({_id: 'takt_time'})
-            let daysPerWeek = result.daysPerWeek;
-            let hoursPerDay = result.hoursPerDay;
-            let machinesPerWeek = result.machinesPerWeek;
-            let taktTime = ((daysPerWeek * 7.67) / machinesPerWeek).toString()
-            let hours = String(taktTime).charAt(0)
-            return (parseInt(hours) * 60 +  parseInt((( '0' + '.' + String(taktTime).charAt(2) +
-                                                    String(taktTime).charAt(3)) * 60).toFixed(0)))
-        } catch (e) { }
-
-    },
-
     totalMachines: () => {
         try {
             let result = userActions.findOne({_id: "total_machines"}).totalMachines;
@@ -40,27 +23,45 @@ Template.over_view_all_teams.helpers({
         } catch (e) {
 
         }
+
+
     },
 
     buildToDate: () => {
-        let result = machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",bayStatus: 1}},
-         inLineDate: {$gt: "2022-09-01"}}, {fields: {machineId: 1}}).fetch()
-        let totalMachines = Session.get('total-machines');
-        //console.log("result ", result)
-        let machinesBuild = result.length
-        let machinesToBuild = totalMachines - machinesBuild
-        return {
-            machines_to_build: machinesToBuild,
-            machines_build: machinesBuild
-        }
+        let machinesBuild, machinesToBuild, result, totalMachines;
+        Tracker.autorun(() => {
+            Meteor.subscribe('bay_19_count')
+        result = machineCommTable.find().fetch();
+        totalMachines = Session.get('total-machines');
+      //  console.log("result ", result)
+         machinesBuild = result.length
+         machinesToBuild = totalMachines - machinesBuild
+            console.log(machinesToBuild, machinesBuild)
+            Session.set('machinesToBuild', machinesToBuild);
+            Session.set('machinesBuild', machinesBuild)
+        })
+    },
+
+    machinesToBuild: () => {
+        return Session.get('machinesToBuild')
+    },
+
+    machinesBuild: () => {
+      return Session.get('machinesBuild')
     },
 
     shippedMachines:() => {
-        let result =  machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2022-09-31"}},
-            {fields: {shipStatus: 1}}).fetch().length;
-        Session.set('shipped-machines', result)
-        console.log(result)
-        return result
+       let result;
+       Tracker.autorun(() => {
+           Meteor.subscribe('machinesShipped')
+           result = machineReadyToGo.find().fetch();
+           console.log(result)
+           Session.set('shipped-machines', result.length)
+       })
+    },
+
+    machinesShipped: () => {
+        return Session.get('shipped-machines')
     }
 
 })
@@ -239,6 +240,7 @@ Template.team_4_screen_view.helpers({
 
 })
 
+/*
 function timeCounterEngine1() {
     let unitCount = Session.get('unitCountEngine1')
     timeCounter( 'engine-station-1', ['station1', 'station_1_time', unitCount], "realTimerEngine1")
@@ -283,4 +285,6 @@ function timeCounterMerge3() {
     let unitCount = Session.get('unitCountMerge3')
     timeCounter( 'merge-station-3', ['mergeEngine', 'mergeEngine_time', unitCount], "realTimerMerge3")
 }
+
+ */
 

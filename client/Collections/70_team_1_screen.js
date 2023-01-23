@@ -187,13 +187,37 @@ function drawMachineInBay(canvasId) {
             let machineNrInBay = result.bayArray[0].machineNr
             let ecnCheck= result.bayArray[0].ecnMachine;
             //  console.log('machine detected ', ecnCheck, result, result.bayArray[0])
-            invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
+         //   invokeDrawOneMachine(machineNrInBay, canvasId, ecnCheck);
+            let fillingColor, canvas, ctx, ecnColor
+            canvas = document.getElementById(canvasId);
+            ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height) // clear leftovers
+            if (canvasId === 'machine_field_front_test_bay' ||
+                canvasId === 'machine_field_test_bay_3' ||
+                canvasId === 'machine_field_test_bay_4')
+            {
+                fillingColor = "#de1136";
+            } else {
+                fillingColor = "#3ee021"
+            }
+            if(ecnCheck !== ""){  //Check for ecn, re-config, or special message, change color to yellow
+                ecnColor = '#DEB511FF'
+            }
+            else  if (ecnCheck === undefined || ecnCheck === '') {
+                ecnColor = '#37db1a'
+            }
+            ctx.fillStyle = ecnColor
+            ctx.strokeStyle = fillingColor;
+            ctx.lineWidth = "2"
+            ctx.strokeRect(45, 15, 90, 30)
+            ctx.font = "bold 15px Arial"
+            ctx.fillText(machineNrInBay, 55, 35)
         } else if (result.bayArray.length === 2) {
             let firstMachine = result.bayArray[0].machineNr
             let secondMachine = result.bayArray[1].machineNr
             let ecnCheckOne = result.bayArray[0].ecnMachine;
             let ecnCheckTwo = result.bayArray[1].ecnMachine;
-            console.log('2 machine detected', )
+           console.log('2 machine detected', )
             invokeDrawTwoMachines(firstMachine, secondMachine, ecnCheckOne, ecnCheckTwo, canvasId)
         }
     } catch (e) {}

@@ -9,9 +9,9 @@
     <div class="team-4-over-view-correction">
         <h4 >Takt Time:  min per Machine <span class="takt-time">{{takt_time}}</span></h4>
         <h4>Build Plan Goal : <span class="build-plan">{{totalMachines}}</span></h4>
-        <h4 class="machines-shipped">Machines Shipped :  <span class="build-shipped">{{shippedMachines}}</span></h4>
-        <h4>Machines Build (Bay 19) : <span class="build-date">{{buildToDate.machines_build}}</span></h4>
-        <h4 class="machines-build">Machines to build : <span class="to-build">{{buildToDate.machines_to_build}}</span></h4>
+        <h4 class="machines-shipped">Machines Shipped :  <span class="build-shipped">{{shippedMachines}}{{machinesShipped}}</span></h4>
+        <h4>Machines Build (Bay 19) : <span class="build-date">{{buildToDate}}{{machinesBuild}}</span></h4>
+        <h4 class="machines-build">Machines to build : <span class="to-build">{{buildToDate}}{{machinesToBuild}}</span></h4>
 
     </div>
 </template>

@@ -1,5 +1,5 @@
 Meteor.subscribe('supplyAreas');
-Meteor.subscribe('machineCommTable');
+Meteor.subscribe('pickingMonitorTable');
 const Highcharts = require('highcharts');
 import {pickingToDay} from "../../lib/99_functionCollector";
 
@@ -19,14 +19,8 @@ supplyList: () => {
 
     machineList: () => {
     let machineResult = [];
-    let result = machineCommTable.find({active: true},
-        {fields: {
-                counter: 1,
-                machineId: 1,
-                inLineDate: 1,
-                supplyAreas: 1,
-                commissionStatus: 1
-            }}).fetch();
+    let result = machineCommTable.find({}).fetch()
+  //  console.log('Result ', result)
 
     result.forEach((element) => {
         for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
