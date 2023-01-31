@@ -4,6 +4,7 @@ Meteor.subscribe('userActions');
 Meteor.subscribe('lineOrders');
 
 
+
 Template.addMachine.helpers ({
 
     alarmMachine: () => {
@@ -41,29 +42,36 @@ Template.machine_picking_list.helpers({
     },
 
     machineList: () => {
+
         let machineResult = [];
         let result;
        Tracker.autorun(() => {
            Meteor.subscribe('pickingOverView')
-           result = machineCommTable.find().fetch();
-            result.forEach((element) => {
-               for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
-                   if (element.supplyAreas[i].active === false) {
-                       try {
-                       element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
-                       i-- ;
-                       } catch {
+               result = machineCommTable.find({active: true}).fetch();
+          //  console.log(result)
+               result.forEach((element) => {
+                   try {
+                       for (let i = 0; i <= element.supplyAreas.length - 1; ++i ) {
+                           if (element.supplyAreas[i].active === false) {
+                               try {
+                                   element.supplyAreas.splice(element.supplyAreas.indexOf(element.supplyAreas[i]), 1);
+                                   i-- ;
+                               } catch (e) {
+                               }
+                           } else {
+                           }
                        }
-                   } else {
+                   } catch (e) {
                    }
+                   machineResult.push(element);
+               });
+               try {
+                   machineResult.forEach((element) => {
+                       element.supplyAreas.sort(function(a, b) {return a.supplyPosition - b.supplyPosition})
+                   })
+               } catch (e) {
                }
-             //  console.log(element)
-               machineResult.push(element);
-            });
-            machineResult.forEach((element) => {
-                element.supplyAreas.sort(function(a, b) {return a.supplyPosition - b.supplyPosition})
-            })
-            Session.set('pickingTable', _.sortBy(machineResult, 'counter'));
+               Session.set('pickingTable', _.sortBy(machineResult, 'counter'));
            })
     },
 
@@ -72,9 +80,9 @@ Template.machine_picking_list.helpers({
     },
 
     inactiveMachineList: () => {
+        Meteor.subscribe('inActivePickingList')
         // load just the 50 last machines
-        return machineCommTable.find({active: false},
-            {sort: {counter: -1}, limit: 50}).fetch();
+        return machineCommTable.find({active: false},{sort: {counter: -1}}).fetch();
     },
 
     'selectedMachine': function() {
@@ -314,6 +322,7 @@ Template.reviewMachine.helpers({
             let machineResult = [];
             let result = machineCommTable.findOne({machineId: review});
             machineResult.push(result)
+           // console.log(machineResult)
             return machineResult;
     }
 

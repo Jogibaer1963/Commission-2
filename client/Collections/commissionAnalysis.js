@@ -21,7 +21,7 @@ Session.set('diagramArea', false);
 Session.set('errorResponse', false);
 
 // Start with Fiscal Year 2021, later user can choose which Fiscal Year
-Session.set('newFiscalYear', "2021")
+Session.set('newFiscalYear', "2023")
 
 Template.analysisOverView.helpers({
 
@@ -32,7 +32,7 @@ Template.analysisOverView.helpers({
         Tracker.autorun(() => {
             Meteor.subscribe('activePickers')
             result = pickers.find().fetch();
-            console.log(result)
+           // console.log(result)
             Session.set('activePickers', result)
         })
         return Session.get('activePickers')
@@ -119,12 +119,19 @@ Template.analysisOverView.helpers({
                         arraySummery.push(result[element]);
                     }
                 });
-            } else if (newFiscalYear === "2022") {
                 newFiscalYear = "2021090401"
                 resultObj.forEach((element) => {
                     if (element >= newFiscalYear) {
                         arraySummery.push(result[element]);
                     //    console.log(arraySummery)
+                    }
+                });
+            } else if (newFiscalYear === "2023") {
+                newFiscalYear = "2022090401"
+                resultObj.forEach((element) => {
+                    if (element >= newFiscalYear) {
+                        arraySummery.push(result[element]);
+                        //    console.log(arraySummery)
                     }
                 });
             }
@@ -231,6 +238,101 @@ Template.analysisOverView.helpers({
                         name: 'Carts picked',
                         type: 'spline',
                         data: cartsTotal
+                    }
+                ]
+            });
+        });
+    },
+
+
+    missPickersAnnualResult: function() {
+        let pickerResult = []
+        let result = []
+        Meteor.call('missPickYear', function(err, response) {
+            if (response) {
+                Session.set('missPickResponse', response)
+                Session.set('yearMissPicks', response.length)
+            } else if (err) {
+                console.log(err)
+            }
+        })
+        result = Session.get('missPickResponse')
+        result.forEach((element) => {
+            pickerResult.push(element.picker)
+        })
+
+        let picker = []
+        let pickerSummary = []
+        let count = {};
+        pickerResult.forEach(obj => {
+            count[JSON.stringify(obj)] = (count[JSON.stringify(obj)] || 0) + 1;
+        });
+
+        let keys = Object.keys(count);
+        let values = keys.map(key => count[key]);
+
+        Session.set('missPickers', keys)
+        Session.set('missPickersCount', values)
+
+    },
+
+
+
+
+    missPickersAnnualChartResult: function () {
+        // Gather data:
+        let missPickTotal, missPickers, missPickersCount
+        missPickers = Session.get('missPickers')
+        missPickersCount = Session.get('missPickersCount')
+        missPickTotal = Session.get('yearMissPicks')
+        // Use Meteor.defer() to create chart after DOM is ready:
+        let titleText = missPickTotal + ' times parts were missing on Carts since Jan 2023';
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_6', {
+                title: {
+                    text: titleText
+                },
+                tooltip: {
+                    shared: true
+                },
+                chart: {
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+                    height: 500,
+                    width: 900,
+                    zoomType: 'xy'
+                },
+                yAxis: {
+                    categories: missPickersCount,
+                    title: {enabled: true,
+                        text: 'Amount of miss Picks',
+                        style: {
+                            color: 'red',
+                            font: '19px Arial, sans-serif'
+                        }
+                    }
+                },
+                xAxis: {
+                    categories: missPickers,
+                    title: {
+                        enabled: true,
+                        text: 'Pickers',
+                        style: {
+                            font: '19px Arial, sans-serif'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Miss Picks',
+                        type: 'bar',
+                        data: missPickersCount,
+                        style: {
+                            fontWeight: 'bolder'
+                        }
                     }
                 ]
             });

@@ -22,9 +22,27 @@ if(Meteor.isServer){
             return supplyAreas.find();
         });
 
+        Meteor.publish('pickingOverView', function() {
+            return machineCommTable.find({active: true},
+                {fields: {
+                        active: 1,
+                        counter: 1,
+                        machineId: 1,
+                        inLineDate: 1,
+                        supplyAreas: 1,
+                        commissionStatus: 1,
+                        commissionList: 1
+                    }})
+        })
+
         Meteor.publish("machineCommissioningTable", function() {
           return machineCommTable.find({active: true},
               {fields: {counter: 1, supplyAreas: 1, machineId: 1, inLineDate: 1 }});
+        });
+
+        Meteor.publish("inActivePickingList", function () {
+            return machineCommTable.find({active: false},
+                {fields: {machineId: 1, inLineDate: 1, supplyArea:1, active: 1, counter: 1}})
         })
 
 
@@ -178,17 +196,7 @@ if(Meteor.isServer){
                 {fields: {_id: 1}})
         })
 
-        Meteor.publish('pickingOverView', function() {
-            return machineCommTable.find({active: true},
-                {fields: {
-                                counter: 1,
-                                machineId: 1,
-                                inLineDate: 1,
-                                supplyAreas: 1,
-                                commissionStatus: 1,
-                                commissionList: 1
-                          }})
-        })
+
 
 
 
@@ -212,6 +220,55 @@ if(Meteor.isServer){
 
  */
 
+
+        'missPickYear': (picker) => {
+          let pickerSortPick, result, secondResult, machine, pointOfUse, secondSupplyResult, partNumber
+          let machineResult = []
+          let pickerMisPicks = []
+          let obj = {}
+          let object = {}
+          result = lineOrders.find({machineId: {$gt: 'C8000000'}, reason: 2},
+                            {fields: {machineId: 1, point_of_use: 1, part_number: 1}}).fetch()
+
+            result.forEach((element) => {
+             //   console.log(element)
+                try {
+                    if (element.machineId.length === 8) {
+                        obj = {
+                            machineId: element.machineId,
+                            point_of_use: element.point_of_use,
+                            partNumber:  element.part_number
+                        }
+                        machineResult.push(obj)
+                    }
+                } catch (e) {
+
+                }
+
+            })
+
+            machineResult.forEach((element) => {
+                machine = element.machineId.toUpperCase()
+                partNumber = element.partNumber
+                pointOfUse = element.point_of_use
+                secondResult = machineCommTable.findOne({machineId: machine},
+                    {fields: {supplyAreas: 1}})
+                secondSupplyResult = secondResult.supplyAreas
+                    secondSupplyResult.forEach((element) => {
+                            if (element._id === pointOfUse) {
+                                object = {
+                                    machineId: machine,
+                                    supplyArea: element._id,
+                                    picker: element.pickerFinished,
+                                    pickingDate: element.pickingEndDateAndTime,
+                                    partNumber: partNumber
+                                }
+                                pickerMisPicks.push(object)
+                            }
+                        })
+                    })
+            return pickerMisPicks
+        },
 
         'team_leads_repairs':(team ,comment, tech, id, machine) => {
             // id = _id from repaired Issue, machine = Machine Number, team = Team

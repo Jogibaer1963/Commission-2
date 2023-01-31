@@ -62,11 +62,24 @@ Template.dailyResult.events({
 
     'click .misPicksToday': (e) => {
         e.preventDefault()
+        let picker, result;
+        picker = Session.get('chosenPicker')
+
 
     },
 
     'click .misPicksYear': (e) => {
         e.preventDefault()
+        let picker, result;
+        picker = Session.get('chosenPicker')
+        Meteor.call('missPickYear', picker, function(err, response) {
+            if (response) {
+                console.log(response)
+            } else if (err)
+            {
+                console.log('error ', err)
+            }
+        })
 
     }
 

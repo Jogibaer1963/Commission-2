@@ -1055,6 +1055,12 @@ table.table-pickers {
   top: 21em;
 }
 
+.miss-pick-graph {
+  left: 1995px;
+  position: absolute;
+  top: 100px;
+}
+
 .new-supply-area {
   left: 3em;
   position: absolute;
