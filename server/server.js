@@ -253,6 +253,7 @@ if(Meteor.isServer){
                 pointOfUse = element.point_of_use
                 secondResult = machineCommTable.findOne({machineId: machine},
                     {fields: {supplyAreas: 1}})
+               // console.log('MachineId ', machine)
                 secondSupplyResult = secondResult.supplyAreas
                     secondSupplyResult.forEach((element) => {
                             if (element._id === pointOfUse) {
@@ -443,7 +444,8 @@ if(Meteor.isServer){
         },
 
 
-       'parts_on_order': (user_order,machineNr, partNumber_order, quantityNeeded_order, storageLocation_order,
+       'parts_on_order': (loggedInUser, user_order,machineNr, partNumber_order,
+                          quantityNeeded_order, storageLocation_order,
                            point_of_use_order, reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered
             // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
@@ -470,7 +472,9 @@ if(Meteor.isServer){
             }
          //   console.log(orderStart, date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
             order_date = (date + '-' + month + '-' + year + ' '+ hours + ':' + minutes + ':' + seconds)
-            lineOrders.insert({ team_user : user_order,
+            lineOrders.insert({
+                loggedUser: loggedInUser,
+                team_user : user_order,
                 time_ordered  : order_date,
                 unixTimeOrderStart : unixOrder,
                 machineId: machineNr,
@@ -1837,6 +1841,7 @@ if(Meteor.isServer){
         /* -----------------------------   fisacl year result  --------------------- */
 
         'selectedAreaAnalysis': function (area, picker, newFiscalYear) {
+            console.log(area, picker, newFiscalYear)
             let arraySummary = [];
             let result = pickers.findOne({_id: picker});
             try {
@@ -1864,6 +1869,13 @@ if(Meteor.isServer){
                     });
                 } else if (newFiscalYear === "2022") {
                     newFiscalYear = "2021090401"
+                    resultObj.forEach((element) => {
+                        if (element >= newFiscalYear) {
+                            arraySummary.push(result[element]);
+                        }
+                    });
+                } else if (newFiscalYear === "2023") {
+                    newFiscalYear = "2022090401"
                     resultObj.forEach((element) => {
                         if (element >= newFiscalYear) {
                             arraySummary.push(result[element]);

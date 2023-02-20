@@ -38,7 +38,7 @@ Template.messageBoard.helpers({
     different_team: () => {
         let result = Session.get('different-team')
         if (result) {
-            return 'Order for different Team : ' + result
+            return  result
         }
 
     }
@@ -56,6 +56,7 @@ Template.messageBoard.events({
 
     'submit .order-parts':function(e) {
         e.preventDefault();
+        const loggedUser = Meteor.user().username;
         let user_order, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
             reason_order, urgency_order, machineNr, machine;
         if (Session.get('different-team')) {
@@ -74,14 +75,17 @@ Template.messageBoard.events({
         //  ******   Validation of Machine Number    **********
         if (machineNr.length === 8) {
             machine = machineNr.toUpperCase();
-            Meteor.call('parts_on_order', user_order, machine, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
+            Meteor.call('parts_on_order',loggedUser,  user_order, machine, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
                 reason_order, urgency_order, function (err, respond) {
                     if (err) {
                         Meteor.call('success', err, user_order, 'order failed')
                         } else {
+                        /*
                             Meteor.call('success', respond, user_order, 'order succeed')
                             Session.set('selectedComponent', '')
                             Session.set('issueComp', '')
+
+                         */
                             window.close();
                         }
                 })

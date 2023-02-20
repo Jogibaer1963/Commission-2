@@ -248,32 +248,32 @@ Template.analysisOverView.helpers({
     missPickersAnnualResult: function() {
         let pickerResult = []
         let result = []
+        let picker = []
+        let pickerSummary = []
+        let count = {};
         Meteor.call('missPickYear', function(err, response) {
             if (response) {
                 Session.set('missPickResponse', response)
                 Session.set('yearMissPicks', response.length)
+
+                result = Session.get('missPickResponse')
+                result.forEach((element) => {
+                    pickerResult.push(element.picker)
+                })
+                pickerResult.forEach(obj => {
+                    count[JSON.stringify(obj)] = (count[JSON.stringify(obj)] || 0) + 1;
+                });
+
+                let keys = Object.keys(count);
+                let values = keys.map(key => count[key]);
+
+                Session.set('missPickers', keys)
+                Session.set('missPickersCount', values)
             } else if (err) {
                 console.log(err)
             }
         })
-        result = Session.get('missPickResponse')
-        result.forEach((element) => {
-            pickerResult.push(element.picker)
-        })
-
-        let picker = []
-        let pickerSummary = []
-        let count = {};
-        pickerResult.forEach(obj => {
-            count[JSON.stringify(obj)] = (count[JSON.stringify(obj)] || 0) + 1;
-        });
-
-        let keys = Object.keys(count);
-        let values = keys.map(key => count[key]);
-
-        Session.set('missPickers', keys)
-        Session.set('missPickersCount', values)
-
+        
     },
 
 

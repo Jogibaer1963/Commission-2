@@ -146,7 +146,6 @@
             <th class="order-point-of-use"><strong>Point of Use</strong></th>
             <th class="order-point-of-use"><strong>Quantity</strong></th>
             <th class="pdiMachineField"><strong>Urgency</strong></th>
-            <th class="user-pick"><strong>Order processed by</strong></th>
             <th class="pdiMachineField"><strong>Status</strong></th>
             <th class="order-storage-bin"><strong>Time ordered</strong></th>
 
@@ -161,7 +160,6 @@
                 <td class="order-point-of-use">{{quantity_needed}}</td>
                 <td class="pdiMachineField {{getPickingStatus urgency}}"
                     style="background-color: {{getPickingStatus urgency}}; font-size: 0">{{urgency}}</td>
-                <td class="user-pick">{{picked_by}}</td>
                 <td class="pdiMachineField {{getOrderStatus status}}"
                     style="background-color: {{getOrderStatus status}}; font-size: 0">{{status}}</td>
                 <td class="order-storage-bin">{{time_ordered}}</td>

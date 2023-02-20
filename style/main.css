@@ -5629,6 +5629,12 @@ table.headerTable {
   top: -8px;
 }
 
+.different-team {
+  left: 400px;
+  position: absolute;
+  top: 28px;
+}
+
 .order-parts {
   left: -1x;
   position: absolute;
