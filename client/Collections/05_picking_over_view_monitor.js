@@ -116,16 +116,16 @@ supplyList: () => {
         let annualCategories = categories.length;
         let titleText = annualCarts + ' ' + 'Carts picked for ' + annualCategories +
             ' Cost centers with an average of ' + average + ' min';
+        console.log(titleText)
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_4', {
-
                 title:
                     {
+                        text: titleText,
                         style: {
                             color: '#FF00FF',
-                            text: titleText
                         },
                     },
                 tooltip: {

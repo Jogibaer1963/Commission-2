@@ -299,17 +299,24 @@ $base: .6rem;
 }
 
 .open-orders-tablet {
+  animation: blink 2s linear infinite;
   left: 248px;
   position: absolute;
   top: 557px;
   width: 223px;
-  animation: blink 2s linear infinite;
 }
 
-.picking-button-tablet {
-  left: 489px;
+.order-position-tablet {
+  left: 990px;
   position: absolute;
-  top: 597px;
+  top: 328px;
+}
+
+
+.picking-button-tablet {
+  left: 1010px;
+  position: absolute;
+  top: 438px;
 }
 
 .open-order-multi {

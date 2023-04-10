@@ -1,6 +1,7 @@
 import {Meteor} from "meteor/meteor";
 import {invokeMoveMachine} from "../lib/99_functionCollector";
 import {Session} from "meteor/session";
+import {forEachKey} from "yarn/lib/cli";
 /*
 import {unix} from "moment";
 
@@ -246,14 +247,14 @@ if(Meteor.isServer){
                 }
 
             })
-
+           // console.log(machineResult)
             machineResult.forEach((element) => {
                 machine = element.machineId.toUpperCase()
                 partNumber = element.partNumber
                 pointOfUse = element.point_of_use
                 secondResult = machineCommTable.findOne({machineId: machine},
                     {fields: {supplyAreas: 1}})
-               // console.log('MachineId ', machine)
+             //  console.log('MachineId ', machine)
                 secondSupplyResult = secondResult.supplyAreas
                     secondSupplyResult.forEach((element) => {
                             if (element._id === pointOfUse) {
@@ -327,6 +328,8 @@ if(Meteor.isServer){
                     reason = 'Not on Cart'
                 } else if (element.reason === 3) {
                     reason = 'Miss-counting'
+                } else if (element.reason === 4) {
+                    reason = 'Repair / Reconfig'
                 }
                  if (element.status === 0) {
                     pickingStart = 0;
@@ -392,13 +395,53 @@ if(Meteor.isServer){
         },
 
         'shortPicks': (picker) => {
-           // console.log(picker)
-          return lineOrders.find({picked_by: picker},
-              {fields: {reason: 1,
-                              machineId: 1,
-                              point_of_use: 1,
-                              unixTimeOrderCompleted: 1,
-                              picked_by: 1}}).fetch();
+          //  console.log(picker)
+           let result_1, result_2, pickDate, issueFound;
+           let arrayHelper = [];
+           let machineArray = []
+            let returnArray = []
+            let elem = {}
+            let returnObject = {}
+
+            // reason 1 = Quality
+           // reason 2 = not on cart
+           // reason 3 = miss counting
+           // reason 4 = repair / reconfig
+
+            result_1 = pickers.findOne({_id: picker})
+            try {
+                delete result_1._id;
+                delete result_1.active;
+                arrayHelper = (Object.values(result_1))
+                arrayHelper.forEach((element) => {
+                    element.forEach((element_2) => {
+                        elem =  {machine: element_2.machine,
+                            supply: element_2.supplyArea,
+                            datePicked: element_2.date}
+                        machineArray.push(elem)
+                    })
+                })
+            } catch (e) {
+
+            }
+
+
+            machineArray.forEach((element) => {
+                issueFound = lineOrders.findOne({machineId: element.machine,
+                                                         point_of_use: element.supply},
+                                                {fields: {reason: 1}})
+                if (issueFound !== undefined) {
+                    returnObject = {
+                        machine: element.machine,
+                        issue: issueFound.reason,
+                        date: element.datePicked,
+                        supply: element.supply}
+                    returnArray.push(returnObject)
+                } else {
+                   // console.log('undefined detected')
+                }
+            })
+            return returnArray
         },
 
         'errorAnalysis': (chosenPicker) => {
@@ -1169,9 +1212,13 @@ if(Meteor.isServer){
         },
 
         'deactivateArea': function (area) {
+            console.log(area, " deactivated")
             supplyAreas.update({_id: area}, {$set: {active: false}});
-            machineCommTable.update({"supplyAreas._id": area},
-                                {$set: {"supplyAreas.$.active": false}}, {multi: true});
+           // machineCommTable.update({"supplyAreas._id": area},
+            //                    {$set: {"supplyAreas.$.active": false}}, {multi: true});
+            machineCommTable.update({commissionStatus: {lt: 27}},
+                {$pull: {supplyAreas: {_id:  area}}}, {multi: true})
+            console.log("finished")
         },
 
         'reactivateArea': function (area) {

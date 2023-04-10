@@ -177,6 +177,10 @@ Template.tabletEntry.helpers({
 
 Template.open_order.helpers({
 
+    orderMade: function() {
+        return lineOrders.find().count()
+    },
+
     lineNeedsParts: () => {
         let count = 0;
         let result = lineOrders.find().fetch();

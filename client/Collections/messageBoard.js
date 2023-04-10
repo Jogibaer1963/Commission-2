@@ -126,6 +126,12 @@ Template.messageBoard.events({
         let result = Session.get('team-order')
     },
 
+    'click .team-repair': (e) => {
+        e.preventDefault()
+        Session.set('different-team', 'Repair / Recon')
+        let result = Session.get('team-order')
+    },
+
 })
 
 Template.message_board_team_4.helpers({

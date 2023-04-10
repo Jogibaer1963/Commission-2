@@ -1,6 +1,6 @@
 
 .header-commission-monitor {
-  left: 42em;
+  left: 15em;
   position: absolute;
   top: 1em;
 }
@@ -13,9 +13,13 @@
 }
 
 .table-commission-monitor {
-  left: 10em;
+  left: -15em;
   position: absolute;
-  top: 10em;
+  top: 0em;
+}
+
+.table-scaled {
+  transform: scale(.7);
 }
 
 .machine-style {
@@ -31,13 +35,13 @@
 }
 
 .today-result-monitor {
-  left: 47em;
+  left: 21em;
   position: absolute;
-  top: 67em;
+  top: 47em;
 }
 
 .diagram-monitor {
-  left: -39em;
+  left: -36em;
   position: absolute;
-  top: 10em;
+  top: 1em;
 }

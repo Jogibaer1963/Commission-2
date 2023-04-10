@@ -52,13 +52,38 @@ Template.commTablet.helpers ({
     lineNeedsParts: () => {
         let count = 0;
         let result = lineOrders.find().fetch();
-        result.forEach((element) => {
-            if (parseInt(element.status) === 0 ) {
-                count++
-            }
-        })
-        return {count : count};
+        try {
+            result.forEach((element) => {
+                if (parseInt(element.status) === 0) {
+                    count++
+                }
+            })
+            //   console.log('order count ', count)
+            Session.set('openOrderSession', result)
+            return {count: count};
+        } catch (e) {
+
+        }
+
     },
+
+    idOpenOrders: () => {
+        // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
+        try {
+            let urgencyLevel = [];
+            let openOrders = Session.get('openOrderSession');
+            openOrders.forEach((element) => {
+                if (element.status === 0) {
+                    urgencyLevel.push(element.urgency)
+                }
+            })
+            let highestUrgency = Math.min(...urgencyLevel)
+            return {urgency: highestUrgency}
+        } catch (e) {
+        }
+    },
+
+
 
     'selectedMachine': function(){
         const commMachine = this._id;
@@ -172,7 +197,18 @@ Template.commTablet.events ({
     'click .back-to-overview': (e) => {
         e.preventDefault()
         FlowRouter.go('/overview')
-    }
+    },
+
+    'click .picking-button-tablet': (e) => {
+        e.preventDefault()
+        FlowRouter.go('partsOnOrder')
+        /*
+      //  window.open('http://localhost:3100/partsOnOrder',
+       window.open('http://10.40.1.47:3100/partsOnOrder',
+            '_blank', 'toolbar=0, location=0,menubar=0, width=1000, height=500')
+
+         */
+    },
 
 });
 

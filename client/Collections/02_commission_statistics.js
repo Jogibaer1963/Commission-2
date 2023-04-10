@@ -46,42 +46,7 @@ Template.commissionStatistics.events({
 
 Template.dailyResult.events({
 
-    'click .shortPicks': (e) => {
-        e.preventDefault()
-        let picker, result;
-        picker = Session.get('chosenPicker')
-        Meteor.call('shortPicks', picker, function(err, response) {
-            if (response) {
-               Session.set('shortPicks', response.length)
-                result = Session.get('shortPicks').length
-            } else {
-                console.log(err)
-            }
-        })
-    },
 
-    'click .misPicksToday': (e) => {
-        e.preventDefault()
-        let picker, result;
-        picker = Session.get('chosenPicker')
-
-
-    },
-
-    'click .misPicksYear': (e) => {
-        e.preventDefault()
-        let picker, result;
-        picker = Session.get('chosenPicker')
-        Meteor.call('missPickYear', picker, function(err, response) {
-            if (response) {
-                console.log(response)
-            } else if (err)
-            {
-                console.log('error ', err)
-            }
-        })
-
-    }
 
 
 })
@@ -89,7 +54,17 @@ Template.dailyResult.events({
 Template.dailyResult.helpers({
 
     short_pick_total: () => {
-        return Session.get('shortPicks')
+      //  return Session.get('shortPicks')
+        let picker, result;
+        picker = Meteor.user().username
+            Meteor.call('shortPicks', picker, function(err, response) {
+                if (response) {
+                        Session.set('shortPicks', response)
+                } else {
+                    console.log(err)
+                }
+            })
+        return Session.get('shortPicks').length
     },
 
     loggedInUser: () => {
@@ -346,25 +321,60 @@ Template.dailyResult.helpers({
 
 
     error_per_year_day_graph: function () {
-        // Gather data:
-        /*
-        let averagePerSupply = Session.get('historyTotalResultDuration');
-        let cartsCounter = Session.get('historyCarts');
-        let categories = Session.get('historyTotalResultSupply');
-        //    console.log(averagePerSupply, cartsCounter, categories);
-        let average = (averagePerSupply.reduce((a,b) => a + b , 0) / averagePerSupply.length).toFixed(0);
-        let annualCarts = cartsCounter.reduce((a,b) => a + b, 0);
-        let annualCategories = categories.length;
-        let titleText =  error + ' ' + 'missing Parts on Carts'
 
-         */
+        let result, headText;
+        let pointOfUse = [];
+        let amountPerPointOfUse = [];
+        let supplyArea =[]
+        let uniqueSupply = []
+        let machineArray = []
+        let machineCount = []
+        let supplyChart = []
+        let machineChartCount = []
+        let picker = Session.get('chosenPicker')
+      //  picker = Meteor.user().username
+        Meteor.call('shortPicks', picker, function(err, response) {
+            if (response) {
+                Session.set('shortPicks', response)
+            } else {
+              //  console.log(err)
+            }
+        })
+        try {
+            headText =  Session.get('shortPicks').length
+        } catch (e) {
+
+        }
+        // todo: only 1 work center allowed, summ up machines per work center
+        // Gather data:
+        result = Session.get('shortPicks')
+       // console.log(result)
+        result.forEach((element) => {
+            supplyArea.push(element.supply)
+        })
+        uniqueSupply = [...new Set(supplyArea)]
+
+        uniqueSupply.forEach((element) => {
+                    result.forEach((element_2) => {
+                        if (element === element_2.supply) {
+                          //  console.log(element_2.machine)
+                            machineCount.push(element_2.machine)
+                            supplyChart.push(element_2.supply)
+                        } else {
+                          //  console.log('mismatch detected')
+                        }
+                    })
+             machineChartCount.push(machineCount.length)
+             machineCount = []
+        })
+
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
             // Create standard Highcharts chart with options:
             Highcharts.chart('chart_3', {
 
                 title: {
-                    text: 'Short Picks and Mis-picks'
+                    text: 'Mispicks Chart, ' + headText + ' Mispicks discovered this Fiscal Year'
                 },
 
                 tooltip: {
@@ -387,7 +397,7 @@ Template.dailyResult.helpers({
                 yAxis: {
                     categories: [],
                     title: {enabled: true,
-                        text: 'Average Picking Time in min',
+                        text: 'Amount of mispicks',
                         style: {
                             fontWeight: 'normal'
                         }
@@ -395,7 +405,7 @@ Template.dailyResult.helpers({
                 },
 
                 xAxis: {
-                    categories: 'placeholder',
+                    categories: uniqueSupply,
                     title: {
                         enabled: true,
                         text: 'Areas Picked',
@@ -407,15 +417,10 @@ Template.dailyResult.helpers({
 
                 series: [
                     {
-                        name: 'Average picking time in min',
+                        name: 'Amount of mispicks per Area',
                         type: 'column',
-                        data: []
+                        data: machineChartCount
                     },
-                    {
-                        name: 'Carts picked',
-                        type: 'spline',
-                        data: []
-                    }
                 ]
             });
         });

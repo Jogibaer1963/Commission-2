@@ -3,9 +3,6 @@
         <div class="tabletCommissioning">
             {{> commTablet}}
         </div>
-        <div class='tablet-order-position'>
-            {{> open_order}}
-        </div>
 
 </template>
 
@@ -109,6 +106,16 @@
            </div>
       </div>
     </div>
+
+    <div class="order-position-tablet">
+        <h2 class="{{getPickingStatus idOpenOrders.urgency}}"
+            style="background-color:{{getPickingStatus idOpenOrders.urgency}};"
+            id="open_orders">{{lineNeedsParts.count}} open order(s)</h2>
+    </div>
+    <div>
+        <button class="btn btn-default picking-button-tablet" id="picking_button">Parts needed in Line</button>
+    </div>
+
  </html>
 </template>
 

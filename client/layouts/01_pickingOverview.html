@@ -68,10 +68,11 @@
             style="background-color:{{getPickingStatus idOpenOrders.urgency}};"
             id="open_orders">{{lineNeedsParts.count}} open order(s)</h2>
     </div>
-    <button class="btn btn-default picking-button" id="picking_button">Parts needed in Line</button>
-    <button class="btn btn-default unclosed-button" id="unclosed_button">Unclosed Orders / Analysis</button>
-
-
+    <button type="button" class="btn btn-default picking-button" id="picking_button">Parts needed in Line</button>
+    <button type="button" class="btn btn-default unclosed-button" id="unclosed_button">Unclosed Orders / Analysis</button>
+    <div class="order-summary">
+        <h4>{{orderMade}}  Orders were made since Sept 6 2022</h4>
+    </div>
 </template>
 
 <!-- ************************************************************************* -->

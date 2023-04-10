@@ -27,17 +27,24 @@
             <br><br>
             <button type="button" class="btn btn-default
                                         btn-info team-5-button">Team 5</button>
+            <br><br>
+            <button type="button" class="btn btn-default
+                                        btn-info team-repair">Repair / Recon</button>
 
         </div>
 
         <div class="input-instruction">
-            <h4>Multiple Machines please separate with  ","   </h4>
-            <h4>Like C8910100,101, 102 with or without space</h4>
+            <h4>Only 1 Machine is allowed.   </h4>
+            <h4>Machine Number must be greater than C8910052 and not been shipped</h4>
         </div>
 
         <div class="order-form">
         <!-- todo Validate Machine Numbers, Multiple Machines, Machine Number Pattern  -->
-        <input type="text" id="machineNr" name="machineNr" required>
+        <input type="text"
+               id="machineNr"
+               name="machineNr"
+               value="C8"
+               required>
         <label for="machineNr">Machine Nr</label><br>
 
         <input type=number id="part_number" name="partNumber" required>

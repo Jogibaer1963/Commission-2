@@ -166,6 +166,7 @@
   left: 40em;
   position: absolute;
   top: 2em;
+  z-index: 1;
 }
 
 .buttonNotWorking {
@@ -494,17 +495,23 @@ table.supply-table {
   }
 }
 .open-orders-tablet {
+  animation: blink 2s linear infinite;
   left: 248px;
   position: absolute;
   top: 557px;
   width: 223px;
-  animation: blink 2s linear infinite;
+}
+
+.order-position-tablet {
+  left: 990px;
+  position: absolute;
+  top: 328px;
 }
 
 .picking-button-tablet {
-  left: 489px;
+  left: 1010px;
   position: absolute;
-  top: 597px;
+  top: 438px;
 }
 
 .open-order-multi {
@@ -1035,6 +1042,12 @@ table.table-pickers {
   left: 1em;
   position: absolute;
   top: 5em;
+}
+
+.short-pick-header {
+  left: 126px;
+  position: absolute;
+  top: 20px;
 }
 
 .diagram-4-short-picks {
@@ -4058,7 +4071,7 @@ table.headerTable {
 }
 
 .header-commission-monitor {
-  left: 42em;
+  left: 15em;
   position: absolute;
   top: 1em;
 }
@@ -4071,9 +4084,13 @@ table.headerTable {
 }
 
 .table-commission-monitor {
-  left: 10em;
+  left: -15em;
   position: absolute;
-  top: 10em;
+  top: 0em;
+}
+
+.table-scaled {
+  transform: scale(0.7);
 }
 
 .machine-style {
@@ -4089,15 +4106,15 @@ table.headerTable {
 }
 
 .today-result-monitor {
-  left: 47em;
+  left: 21em;
   position: absolute;
-  top: 67em;
+  top: 47em;
 }
 
 .diagram-monitor {
-  left: -39em;
+  left: -36em;
   position: absolute;
-  top: 10em;
+  top: 1em;
 }
 
 .team-4-merge-over-view {
@@ -5776,6 +5793,12 @@ table.headerTable {
   left: 34px;
   position: absolute;
   top: 130px;
+}
+
+.order-summary {
+  left: 1300px;
+  position: absolute;
+  top: 320px;
 }
 
 .team-table-text {
