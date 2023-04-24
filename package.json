@@ -23,7 +23,7 @@
     "spin.js": "^3.1.0",
     "sticky-table-headers": "^0.1.24",
     "strip-bom": "^3.0.0",
-    "stylelint": "^12.0.1",
+    "stylelint": "^15.6.0",
     "stylelint-scss": "^3.14.2",
     "yarn": "^1.22.0"
   }
