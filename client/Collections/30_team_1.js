@@ -325,20 +325,18 @@ Template.team_1_move_buttons.events({
         oldCanvasId = 'front_axle';
         newCanvasId = 'front_threshing_merge';
         invokeMoveFromLastBay(oldCanvasId)
-        // check if front-threshing merge bay is empty or if the same machine number is already in
-      //  checkMergeBay(oldCanvasId, newCanvasId, mergeCanvas)
+
         canvasId = "rear_axle_canvas"
-        let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
-        if (result.bayArray.length === 0) {
-            Meteor.call('moveFromRearAxleList', machineNr, function (err, response) {
-                if (err) {
-                    console.log(err)
-                } else {
-                  //  console.log('Empty Bay detected')
-                   // invokeEmptyBay(canvasId)
-                }
-            });
+        let selectedAssemblyMachine = Session.get('machineId')
+        let bayStatusRearAxle = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
+            //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
+        if (bayStatusRearAxle[0] === 0) {
+            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                machineNr, canvasId, 'activeRearAxleList');
+                drawMachineInBay(canvasId)
         }
+
+
     },
 
     'click .fcb-2-move-button': (e) => {

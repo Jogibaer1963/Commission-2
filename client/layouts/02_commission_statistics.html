@@ -96,6 +96,30 @@
         </div>
     </div>
 
+    <div class="mis-picks-table">
+        <h3>Mispick Table </h3>
+        <table class="table fixed-header">
+            <thead>
+            <tr>
+                <th class="supply-area">Supply Area</th>
+                <th class="part-number-pick">Part Number</th>
+                <th class="machine-number">Machine Nr</th>
+                <th class="mispickDate">Pick Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each mispickTable}}
+                <tr>
+                    <td class="supply-area">{{supplyArea}}</td>
+                    <td class="part-number-pick">{{partNumber}}</td>
+                    <td class="machine-number">{{machine}}</td>
+                    <td class="mispick-date">{{pickDate}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
 </template>
 
 

@@ -1,6 +1,6 @@
 import {Session} from "meteor/session";
 
-Meteor.subscribe('activeAssembly')
+// Meteor.subscribe('activeAssembly')
 
 import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
@@ -28,15 +28,14 @@ Template.over_view_all_teams.helpers({
     },
 
     buildToDate: () => {
-        let machinesBuild, machinesToBuild, result, totalMachines;
+        let machinesBuild, machinesToBuild, resultFinished, totalMachines;
         Tracker.autorun(() => {
             Meteor.subscribe('bay_19_count')
-        result = machineCommTable.find().fetch();
-        totalMachines = Session.get('total-machines');
-      //  console.log("result ", result)
-         machinesBuild = result.length
-         machinesToBuild = totalMachines - machinesBuild
-            console.log(machinesToBuild, machinesBuild)
+            resultFinished = machineCommTable.find({activeInBay: false}).fetch();
+            totalMachines = Session.get('total-machines');
+             machinesBuild = resultFinished.length
+             machinesToBuild = totalMachines - machinesBuild
+           // console.log(machinesToBuild, machinesBuild)
             Session.set('machinesToBuild', machinesToBuild);
             Session.set('machinesBuild', machinesBuild)
         })
@@ -53,9 +52,9 @@ Template.over_view_all_teams.helpers({
     shippedMachines:() => {
        let result;
        Tracker.autorun(() => {
-           Meteor.subscribe('machinesShipped')
+           Meteor.subscribe('machinesShipped') // server line200
            result = machineReadyToGo.find().fetch();
-           console.log(result)
+           // console.log(result)
            Session.set('shipped-machines', result.length)
        })
     },

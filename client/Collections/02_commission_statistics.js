@@ -319,6 +319,10 @@ Template.dailyResult.helpers({
         missingParts(chosenPicker)
     },
 
+    mispickTable: function() {
+        return Session.get('shortPicks')
+    },
+
 
     error_per_year_day_graph: function () {
 
@@ -332,7 +336,12 @@ Template.dailyResult.helpers({
         let supplyChart = []
         let machineChartCount = []
         let picker = Session.get('chosenPicker')
-      //  picker = Meteor.user().username
+        if (picker) {
+
+        } else {
+            picker = Meteor.user().username
+        }
+
         Meteor.call('shortPicks', picker, function(err, response) {
             if (response) {
                 Session.set('shortPicks', response)
@@ -340,6 +349,7 @@ Template.dailyResult.helpers({
               //  console.log(err)
             }
         })
+
         try {
             headText =  Session.get('shortPicks').length
         } catch (e) {
@@ -348,25 +358,30 @@ Template.dailyResult.helpers({
         // todo: only 1 work center allowed, summ up machines per work center
         // Gather data:
         result = Session.get('shortPicks')
-       // console.log(result)
-        result.forEach((element) => {
-            supplyArea.push(element.supply)
-        })
-        uniqueSupply = [...new Set(supplyArea)]
+        console.log(result)
+        try {
+            result.forEach((element) => {
+                supplyArea.push(element.supplyArea)
+            })
+            uniqueSupply = [...new Set(supplyArea)]
 
-        uniqueSupply.forEach((element) => {
-                    result.forEach((element_2) => {
-                        if (element === element_2.supply) {
-                          //  console.log(element_2.machine)
-                            machineCount.push(element_2.machine)
-                            supplyChart.push(element_2.supply)
-                        } else {
-                          //  console.log('mismatch detected')
-                        }
-                    })
-             machineChartCount.push(machineCount.length)
-             machineCount = []
-        })
+            uniqueSupply.forEach((element) => {
+                result.forEach((element_2) => {
+                    if (element === element_2.supplyArea) {
+                        //  console.log(element_2.machine)
+                        machineCount.push(element_2.machine)
+                        supplyChart.push(element_2.supplyArea)
+                    } else {
+                       //  console.log('mismatch detected')
+                    }
+                })
+                machineChartCount.push(machineCount.length)
+                machineCount = []
+            })
+        } catch (e) {
+
+        }
+
 
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {

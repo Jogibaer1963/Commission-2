@@ -1074,6 +1074,21 @@ table.table-pickers {
   top: 100px;
 }
 
+.mis-picks-table {
+  left: 84em;
+  position: absolute;
+  top: 89em;
+}
+
+.supply-area {
+  width: 90px;
+}
+
+.mispick-date {
+  max-width: 250px;
+  min-width: 250px;
+}
+
 .new-supply-area {
   left: 3em;
   position: absolute;
@@ -5307,7 +5322,7 @@ table.headerTable {
   left: -1px;
   position: relative;
   top: 1px;
-  width: 300px;
+  width: 330px;
   font-family: "Share Tech Mono", monospace;
   font-size: 20px;
   color: #a8dcdc;

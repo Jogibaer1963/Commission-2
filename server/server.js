@@ -188,8 +188,12 @@ if(Meteor.isServer){
         })
 
         Meteor.publish('bay_19_count', function() {
-            return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",bayStatus: 1}},
-                inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
+            /*
+            return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",
+            bayStatus: 1}}, inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
+                */
+            return machineCommTable.find({activeInBay: false},
+                {fields: {machineId: 1, activeInBay: 1}});
         })
 
         Meteor.publish('machinesShipped', function() {
@@ -223,6 +227,7 @@ if(Meteor.isServer){
 
 
         'missPickYear': (picker) => {
+
           let pickerSortPick, result, secondResult, machine, pointOfUse, secondSupplyResult, partNumber
           let machineResult = []
           let pickerMisPicks = []
@@ -254,7 +259,7 @@ if(Meteor.isServer){
                 pointOfUse = element.point_of_use
                 secondResult = machineCommTable.findOne({machineId: machine},
                     {fields: {supplyAreas: 1}})
-             //  console.log('MachineId ', machine)
+               // console.log('MachineId ', machine)
                 secondSupplyResult = secondResult.supplyAreas
                     secondSupplyResult.forEach((element) => {
                             if (element._id === pointOfUse) {
@@ -395,8 +400,7 @@ if(Meteor.isServer){
         },
 
         'shortPicks': (picker) => {
-          //  console.log(picker)
-           let result_1, result_2, pickDate, issueFound;
+           let result_1, result_lineOrders, issueFound;
            let arrayHelper = [];
            let machineArray = []
             let returnArray = []
@@ -407,6 +411,14 @@ if(Meteor.isServer){
            // reason 2 = not on cart
            // reason 3 = miss counting
            // reason 4 = repair / reconfig
+            result_lineOrders = lineOrders.find({
+                unixTimeOrderCompleted: {$gt: 1673965266119}, reason: 2},
+                {fields: {machineId: 1,
+                                 reason: 1,
+                                 point_of_use: 1,
+                                 part_number: 1}
+                }).fetch()
+
 
             result_1 = pickers.findOne({_id: picker})
             try {
@@ -425,23 +437,23 @@ if(Meteor.isServer){
 
             }
 
-
             machineArray.forEach((element) => {
-                issueFound = lineOrders.findOne({machineId: element.machine,
-                                                         point_of_use: element.supply},
-                                                {fields: {reason: 1}})
-                if (issueFound !== undefined) {
-                    returnObject = {
-                        machine: element.machine,
-                        issue: issueFound.reason,
-                        date: element.datePicked,
-                        supply: element.supply}
-                    returnArray.push(returnObject)
-                } else {
-                   // console.log('undefined detected')
-                }
+                result_lineOrders.forEach((element2) => {
+                    if (element.machine === element2.machineId &&
+                        element.supply === element2.point_of_use) {
+                        // miss pick detected
+                        returnObject = {
+                            machine: element.machine,
+                            supplyArea: element.supply,
+                            partNumber: element2.part_number,
+                            pickDate: element.datePicked
+                        }
+                        returnArray.push(returnObject)
+                    }
+                })
+
             })
-            return returnArray
+           return returnArray
         },
 
         'errorAnalysis': (chosenPicker) => {
@@ -696,6 +708,18 @@ if(Meteor.isServer){
         },
 
         'leaveLine': (machineId, canvasId, user) => {
+         //   console.log(canvasId)
+            let activeStatus;
+            if (canvasId === 'machine_field_19') {
+                activeStatus = false
+            } else if (canvasId === 'merge-station-1') {
+                activeStatus = true
+            } else {
+                userActions.update({_id: 'error_message_leaveLine_section'},
+                    {$set: {canvas: canvasId,
+                        machineId: machineId,
+                        user: user}})
+            }
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
             machineCommTable.update({_id: machineId, 'bayReady._id': canvasId},
@@ -704,7 +728,7 @@ if(Meteor.isServer){
                         'bayReady.$.bayDateLeaving': movingTime,
                         'bayReady.$.completeBy': user,
                         'bayReady.$.bayStatus' : 1,
-                        'activeInBay' : false
+                        'activeInBay' : activeStatus
                     }
                 });
             activeAssembly.update({_id : canvasId},
@@ -763,7 +787,7 @@ if(Meteor.isServer){
           let frontAxle = front_axle;
           let threshingHouse = threshing_house;
           let machine = machineNr;
-          console.log(frontAxle, threshingHouse, machine)
+        //  console.log(frontAxle, threshingHouse, machine)
           let machineInFrontAxle = activeAssembly.findOne({_id: frontAxle}, {fields: {bayArray: 1}});
           let machineInThreshing = activeAssembly.findOne({_id: threshingHouse}, {fields: {bayArray: 1}});
         },
@@ -877,6 +901,8 @@ if(Meteor.isServer){
          //   toDo: change name, implement cooling box if its first inLine
          //   console.log(selectedMachine, machineNr, canvasId, activeList)
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
+            let bayReadyCheck = machineCommTable.findOne({_id: selectedMachine},
+                {fields: {bayReady: 1, timeLine: 1}});
             let result, today, todayUnix;
             today = moment().format('YYYY-MM-DD HH:mm:ss ');
             todayUnix = (Date.now()).toFixed(0); // milliseconds
@@ -887,16 +913,14 @@ if(Meteor.isServer){
             result.forEach((element) => {
                 listObjects.push(element)
             })
-
-            let bayReadyCheck = machineCommTable.findOne({_id: selectedMachine},
-                {fields: {bayReady: 1, timeLine: 1}});
+           // console.log(bayReadyCheck.timeLine)
           //  console.log('Bay Ready Check ', bayReadyCheck.timeLine.ecnMachine)
-            let ecnCheck = bayReadyCheck.timeLine.ecnMachine
-            if (bayReadyCheck.bayReady === undefined) {
+          //  let ecnCheck = bayReadyCheck.timeLine.ecnMachine
+         //   if (bayReadyCheck.bayReady === undefined) {``
               //  console.log('undefined detected')
-                machineCommTable.upsert({_id: selectedMachine},
-                    {$set: {bayReady: listObjects}})
-                }
+             //   machineCommTable.upsert({_id: selectedMachine},
+             //       {$set: {bayReady: listObjects}})
+              //  }
 
             machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                 {$set: {
@@ -913,7 +937,7 @@ if(Meteor.isServer){
                 machineNr : machineNr,
                 bayDateLanding : today,
                 bayDateLandingUnix : todayUnix,
-                ecnMachine : ecnCheck
+                ecnMachine : ''
             }
             bayArray.push(machineInfo)
             // **************   add machine to active assembly Line  ****************
@@ -924,7 +948,7 @@ if(Meteor.isServer){
 
         'moveFromRearAxleList':(machineNr) => {
             let bayArray = [];
-           console.log(machineNr)
+         //  console.log(machineNr)
          //   let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
           //      {fields: {timeLine: 1}});
         //    console.log('Bay Ready Check ',machineNr, bayReadyCheck.timeLine)
@@ -1212,13 +1236,13 @@ if(Meteor.isServer){
         },
 
         'deactivateArea': function (area) {
-            console.log(area, " deactivated")
+         //   console.log(area, " deactivated")
             supplyAreas.update({_id: area}, {$set: {active: false}});
            // machineCommTable.update({"supplyAreas._id": area},
             //                    {$set: {"supplyAreas.$.active": false}}, {multi: true});
             machineCommTable.update({commissionStatus: {lt: 27}},
                 {$pull: {supplyAreas: {_id:  area}}}, {multi: true})
-            console.log("finished")
+         //   console.log("finished")
         },
 
         'reactivateArea': function (area) {
@@ -1888,7 +1912,7 @@ if(Meteor.isServer){
         /* -----------------------------   fisacl year result  --------------------- */
 
         'selectedAreaAnalysis': function (area, picker, newFiscalYear) {
-            console.log(area, picker, newFiscalYear)
+          //  console.log(area, picker, newFiscalYear)
             let arraySummary = [];
             let result = pickers.findOne({_id: picker});
             try {
