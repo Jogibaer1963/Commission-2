@@ -231,6 +231,8 @@ Template.team_1_over_view.events({
             drawMachineInBay(canvasId)
         }
 
+        Meteor.call('moveFcbList', selectedAssemblyMachine)
+
     },
 
     'click .selectedRearAxle': async function(e) {
@@ -334,6 +336,8 @@ Template.team_1_move_buttons.events({
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
                 machineNr, canvasId, 'activeRearAxleList');
                 drawMachineInBay(canvasId)
+
+            Meteor.call('moveRearAxle', machineNr)
         }
 
 

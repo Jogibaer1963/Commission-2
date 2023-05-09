@@ -897,9 +897,22 @@ if(Meteor.isServer){
 
         // ****************** move from list to FCB Bay ********************
 
+        'moveFcbList': (machineId) => {
+          machineCommTable.update({_id: machineId},
+              {$set: {activeAssemblyLineList: false,
+                                activeFrontAxleList: false,
+                                activeThreshingList: false}})
+        },
+
+        'moveRearAxle': (machineNr) => {
+          machineCommTable.update({machineId: machineNr},
+                    {$set: {activeRearAxleList: false}})
+        },
+
+
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId, activeList) => {
          //   toDo: change name, implement cooling box if its first inLine
-         //   console.log(selectedMachine, machineNr, canvasId, activeList)
+           // console.log(selectedMachine, machineNr, canvasId, activeList)
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
             let bayReadyCheck = machineCommTable.findOne({_id: selectedMachine},
                 {fields: {bayReady: 1, timeLine: 1}});
@@ -910,6 +923,7 @@ if(Meteor.isServer){
             let listObjects = [];
             result = assemblyLineBay.find({}).fetch();
             // ************  prepare bay ready list for insert into machines list
+            /*
             result.forEach((element) => {
                 listObjects.push(element)
             })
@@ -921,6 +935,8 @@ if(Meteor.isServer){
              //   machineCommTable.upsert({_id: selectedMachine},
              //       {$set: {bayReady: listObjects}})
               //  }
+
+             */
 
             machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                 {$set: {
