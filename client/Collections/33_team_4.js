@@ -100,9 +100,6 @@ Template.team_4_move_buttons.events({
         let oldCanvasId = 'engine-station-2'
         let newCanvasId = "engine-station-3";
         invokeMoveMachine(oldCanvasId, newCanvasId)
-        let oldCanvasId_cooling_1 = 'cooling-station-1';
-        let newCanvasId_cooling_1 = 'cooling-station-2';
-        invokeMoveMachine(oldCanvasId, newCanvasId)
     },
 
     'click .engine-3-move': (e) => {
@@ -246,7 +243,8 @@ Template.team_4_over_view.helpers({
         let result;
         Tracker.autorun(() => {
             Meteor.subscribe('reservoirCooling')
-            result = machineCommTable.find({activeCoolingBoxList: true}).fetch()
+            result = machineCommTable.find({activeCoolingBoxList: true},
+                {fields: {supplyAreas: 0}}).fetch()
             result.sort((a, b) => (a.counter > b.counter) ? 1 :
                 ((b.counter > a.counter) ? -1 : 0));
             Session.set('coolingBox', result)
@@ -276,10 +274,10 @@ Template.team_4_over_view.helpers({
                 // draw empty field in Bay
                 invokeEmptyBay(canvasId)
             } else if (result.bayArray.length === 1) {
-                let locator = 'helper draw_fcb...'
+                let ecn = result.bayArray[0].ecnMachine
                 // draw 1 machine in Bay
                 let machineNrInBay = result.bayArray[0].machineNr;
-                invokeDrawOneMachine(machineNrInBay, canvasId, locator);
+                invokeDrawOneMachine(machineNrInBay, canvasId, ecn);
             }
         } catch(e) {
 

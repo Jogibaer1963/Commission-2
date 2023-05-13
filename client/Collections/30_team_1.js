@@ -2,7 +2,7 @@ import {Session} from "meteor/session";
 
 Meteor.subscribe('activeAssembly')
 
-import {drawMachineInBay, invokeMachineTest} from '../../lib/99_functionCollector.js';
+import {drawMachineInBay, invokeMachineTest, drawMachineFromListInBay} from '../../lib/99_functionCollector.js';
 import { invokeMoveMachine } from '../../lib/99_functionCollector.js';
 // import {invokeDrawNewMachine} from '../../lib/99_functionCollector.js';
 import { invokeMoveFromLastBay } from '../../lib/99_functionCollector.js';
@@ -192,7 +192,7 @@ Template.team_1_over_view.events({
     //  **************   From List to FCB 1, include Front Axle and threshing move from list to Bays
     'click .selectedAssemblyMachine': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine, machineNr, canvasId, bayStatusFrontAxle, bayStatusThreshing;
+        let selectedAssemblyMachine, machineNr, canvasId, bayStatusFrontAxle, bayStatusThreshing, resultFcb1;
         selectedAssemblyMachine = this._id;
         machineNr = this.machineId;
         canvasId = "fcb_station_1";
@@ -200,39 +200,33 @@ Template.team_1_over_view.events({
         Session.set('machineInFCB_1', machineNr);
        // bayStatus = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
        //  // returns 0 if bay is empty, ready to move machine into bay
-        let result = activeAssembly.findOne({_id: canvasId}, {})   // looking up in bay if and how many machines
-       // console.log('Bay Status ', result)
-        if (result.bayArray.length === 0) {
-           // console.log('FCB 1 is empty')
+        resultFcb1 = activeAssembly.findOne({_id: 'fcb_station_1'}, {})   // looking up in bay if and how many machines
+
+        if (resultFcb1.bayArray.length === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-                machineNr, canvasId, 'activeAssemblyLineList');
-            drawMachineInBay(canvasId)
-        } else {
-            console.log('wrong place ')
-            window.alert('2 Machines in Bay 2 are not allowed')
-        }
+                                 machineNr, "fcb_station_1", 'activeAssemblyLineList', function (error, response) {
+                if (error) {
+                } else if (response) {
+                    console.log(response)
+                    }
+                })
 
-        canvasId = "front_axle"
-        bayStatusFrontAxle = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
-        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatusFrontAxle[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-                machineNr, canvasId, 'activeFrontAxleList');
-            drawMachineInBay(canvasId)
+                machineNr, 'front_axle', 'activeFrontAxleList', function (error, response) {
+                    if (error) {
+                    } else if (response) {
+                        console.log(response)
+                    }
+                })
 
-        }
-
-        canvasId = "threshing_house"
-        bayStatusThreshing = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
-        //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatusThreshing[0] === 0) {
             Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-                machineNr, canvasId, 'activeThreshingList');
-            drawMachineInBay(canvasId)
+                machineNr, 'threshing_house', 'activeThreshingList', function (error, response) {
+                    if (error) {
+                    } else if (response) {
+                        console.log(response)
+                    }
+                })
         }
-
-        Meteor.call('moveFcbList', selectedAssemblyMachine)
-
     },
 
     'click .selectedRearAxle': async function(e) {
@@ -316,6 +310,7 @@ Template.team_1_move_buttons.events({
 
     'click .fcb-1-move-button': async function(e) {
         e.preventDefault();
+        let selectedAssemblyMachine = Session.get('machineId')
         let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId
         machineNr = Session.get('machineInFCB_1')
         oldCanvasId = 'fcb_station_1'
@@ -327,19 +322,9 @@ Template.team_1_move_buttons.events({
         oldCanvasId = 'front_axle';
         newCanvasId = 'front_threshing_merge';
         invokeMoveFromLastBay(oldCanvasId)
-
         canvasId = "rear_axle_canvas"
-        let selectedAssemblyMachine = Session.get('machineId')
-        let bayStatusRearAxle = checkMachinesInBay(canvasId)  //  ********    Submit canvasId to function
-            //  console.log('Bay Status ', bayStatus[0]) // returns 0 if bay is empty, ready to move machine into bay
-        if (bayStatusRearAxle[0] === 0) {
-            Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-                machineNr, canvasId, 'activeRearAxleList');
-                drawMachineInBay(canvasId)
-
-            Meteor.call('moveRearAxle', machineNr)
-        }
-
+        Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+            machineNr, 'rear_axle_canvas', 'activeRearAxleList');
 
     },
 

@@ -96,14 +96,16 @@ if(Meteor.isServer){
         })
 
         Meteor.publish('reservoirCooling', function() {
-          return machineCommTable.find({activeCoolingBoxList: true},
+          let result = machineCommTable.find({activeCoolingBoxList: true},
                 {fields: {
                         counter: 1,
                         machineId: 1,
                         inLineDate: 1,
                         inLineTime: 1,
-                        activeCoolingBoxList: 1
-                    }});
+                        activeCoolingBoxList: 1,
+                        timeLine: 1
+                    }})
+          return result
         })
 
         Meteor.publish('reservoirEngine', function() {
@@ -191,9 +193,11 @@ if(Meteor.isServer){
             /*
             return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",
             bayStatus: 1}}, inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
-                */
+            */
             return machineCommTable.find({activeInBay: false},
                 {fields: {machineId: 1, activeInBay: 1}});
+
+
         })
 
         Meteor.publish('machinesShipped', function() {
@@ -708,9 +712,9 @@ if(Meteor.isServer){
         },
 
         'leaveLine': (machineId, canvasId, user) => {
-         //   console.log(canvasId)
+           console.log(canvasId)
             let activeStatus;
-            if (canvasId === 'machine_field_19') {
+            if (canvasId === 'machine_field_bay_19') {
                 activeStatus = false
             } else if (canvasId === 'merge-station-1') {
                 activeStatus = true
@@ -722,6 +726,7 @@ if(Meteor.isServer){
             }
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
+            console.log(machineId, activeStatus)
             machineCommTable.update({_id: machineId, 'bayReady._id': canvasId},
                 {$set: {
                         'bayReady.$.bayDateLeavingUnix': todayUnix,
@@ -733,7 +738,8 @@ if(Meteor.isServer){
                 });
             activeAssembly.update({_id : canvasId},
                 {$pull: {bayArray: {machineId: machineId}}})
-           userActions.update({_id: "bay_19_last_machine"}, {$set: {lastMachine: machineId}})
+           userActions.update({_id: "bay_19_last_machine"},
+               {$set: {lastMachine: machineId}})
             
         },
         
@@ -862,7 +868,7 @@ if(Meteor.isServer){
                     machineInfo = machineInfo_2
                 }
                 let result = activeAssembly.findOne({_id: thisBay});
-              //  console.log('result ', result)
+            //   console.log('result ', result)
                 let pullMachineId = result.bayArray[0].machineId  // Id to be pulled out of array
                 activeAssembly.update({_id : thisBay},
                     {$pull: {bayArray: {machineId: pullMachineId}}})  // remove Machine
@@ -894,7 +900,7 @@ if(Meteor.isServer){
         },
 
 
-
+/*
         // ****************** move from list to FCB Bay ********************
 
         'moveFcbList': (machineId) => {
@@ -909,10 +915,12 @@ if(Meteor.isServer){
                     {$set: {activeRearAxleList: false}})
         },
 
+ */
+
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId, activeList) => {
          //   toDo: change name, implement cooling box if its first inLine
-           // console.log(selectedMachine, machineNr, canvasId, activeList)
+         //   console.log(selectedMachine, machineNr, canvasId, activeList)
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
             let bayReadyCheck = machineCommTable.findOne({_id: selectedMachine},
                 {fields: {bayReady: 1, timeLine: 1}});
@@ -922,26 +930,9 @@ if(Meteor.isServer){
             let bayArray = [];
             let listObjects = [];
             result = assemblyLineBay.find({}).fetch();
-            // ************  prepare bay ready list for insert into machines list
-            /*
-            result.forEach((element) => {
-                listObjects.push(element)
-            })
-           // console.log(bayReadyCheck.timeLine)
-          //  console.log('Bay Ready Check ', bayReadyCheck.timeLine.ecnMachine)
-          //  let ecnCheck = bayReadyCheck.timeLine.ecnMachine
-         //   if (bayReadyCheck.bayReady === undefined) {``
-              //  console.log('undefined detected')
-             //   machineCommTable.upsert({_id: selectedMachine},
-             //       {$set: {bayReady: listObjects}})
-              //  }
-
-             */
 
             machineCommTable.update({_id: selectedMachine, 'bayReady._id': canvasId},
                 {$set: {
-                        [activeList]: false,
-                        'activeInBay' : true,
                         'bayReady.$.bayDateLanding': today,
                         'bayReady.$.bayDateLandingUnix': todayUnix,
                         'bayReady.$.bayStatus' : 2
@@ -957,11 +948,32 @@ if(Meteor.isServer){
             }
             bayArray.push(machineInfo)
             // **************   add machine to active assembly Line  ****************
+          //  console.log(canvasId, bayArray)
             activeAssembly.upsert({_id : canvasId}, {$set: {
                           bayArray
                 }})
-        },
+            if (activeList === 'activeAssemblyLineList') {
+                machineCommTable.update({_id: selectedMachine},
+                    {$set: {'activeInBay' : true,
+                                    activeAssemblyLineList: false,
+                                    activeFrontAxleList: false,
+                                    activeThreshingList: false}})
+            } else if (activeList === 'activeRearAxleList') {
+                machineCommTable.update({_id: selectedMachine},
+                    {$set: {'activeInBay' : true,
+                            activeRearAxleList: false}})
+            } else if (activeList === 'activeEngineList') {
+                machineCommTable.update({_id: selectedMachine},
+                    {$set: {'activeInBay' : true,
+                            activeEngineList: false}})
+            } else if (activeList === 'activeCoolingBoxList') {
+                machineCommTable.update({_id: selectedMachine},
+                    {$set: {'activeInBay' : true,
+                            activeCoolingBoxList: false}})
+            }
 
+        },
+/*
         'moveFromRearAxleList':(machineNr) => {
             let bayArray = [];
          //  console.log(machineNr)
@@ -984,6 +996,8 @@ if(Meteor.isServer){
         },
 
 
+
+ */
 //  ************************************************************************************************************************
 
         //  **************************    Corn Heads start here    **********************************
