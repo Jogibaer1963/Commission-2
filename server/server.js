@@ -712,8 +712,8 @@ if(Meteor.isServer){
         },
 
         'leaveLine': (machineId, canvasId, user) => {
-           console.log(canvasId)
-            let activeStatus;
+          // console.log(canvasId)
+            let activeStatus = true
             if (canvasId === 'machine_field_bay_19') {
                 activeStatus = false
             } else if (canvasId === 'merge-station-1') {
@@ -726,7 +726,7 @@ if(Meteor.isServer){
             }
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
-            console.log(machineId, activeStatus)
+            //console.log(machineId, activeStatus)
             machineCommTable.update({_id: machineId, 'bayReady._id': canvasId},
                 {$set: {
                         'bayReady.$.bayDateLeavingUnix': todayUnix,
@@ -920,7 +920,7 @@ if(Meteor.isServer){
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId, activeList) => {
          //   toDo: change name, implement cooling box if its first inLine
-         //   console.log(selectedMachine, machineNr, canvasId, activeList)
+          // console.log(selectedMachine, machineNr, canvasId, activeList)
             // *********   prepare this machines database for bayReady data / copy Bays and necessary data fields  ******
             let bayReadyCheck = machineCommTable.findOne({_id: selectedMachine},
                 {fields: {bayReady: 1, timeLine: 1}});
@@ -959,9 +959,9 @@ if(Meteor.isServer){
                                     activeFrontAxleList: false,
                                     activeThreshingList: false}})
             } else if (activeList === 'activeRearAxleList') {
-                machineCommTable.update({_id: selectedMachine},
-                    {$set: {'activeInBay' : true,
-                            activeRearAxleList: false}})
+               // console.log('rear axle list', machineNr)
+                machineCommTable.update({machineId: machineNr},
+                    {$set: {activeRearAxleList: false}})
             } else if (activeList === 'activeEngineList') {
                 machineCommTable.update({_id: selectedMachine},
                     {$set: {'activeInBay' : true,

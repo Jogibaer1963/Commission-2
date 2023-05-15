@@ -310,7 +310,7 @@ Template.team_1_move_buttons.events({
 
     'click .fcb-1-move-button': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine = Session.get('machineId')
+        let selectedAssemblyMachine = Session.get('machine_Id')
         let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId
         machineNr = Session.get('machineInFCB_1')
         oldCanvasId = 'fcb_station_1'
@@ -322,7 +322,6 @@ Template.team_1_move_buttons.events({
         oldCanvasId = 'front_axle';
         newCanvasId = 'front_threshing_merge';
         invokeMoveFromLastBay(oldCanvasId)
-        canvasId = "rear_axle_canvas"
         Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
             machineNr, 'rear_axle_canvas', 'activeRearAxleList');
 
