@@ -310,21 +310,25 @@ Template.team_1_move_buttons.events({
 
     'click .fcb-1-move-button': async function(e) {
         e.preventDefault();
-        let selectedAssemblyMachine = Session.get('machine_Id')
-        let oldCanvasId, newCanvasId, mergeCanvas, machineNr, canvasId
-        machineNr = Session.get('machineInFCB_1')
-        oldCanvasId = 'fcb_station_1'
-        newCanvasId = "fcb_station_2";
-        invokeMoveMachine(oldCanvasId, newCanvasId)
-        oldCanvasId = 'threshing_house';
-        newCanvasId = 'front_threshing_merge';
-        invokeMoveMachine(oldCanvasId, newCanvasId)
-        oldCanvasId = 'front_axle';
-        newCanvasId = 'front_threshing_merge';
-        invokeMoveFromLastBay(oldCanvasId)
-        Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
-            machineNr, 'rear_axle_canvas', 'activeRearAxleList');
-
+        let selectedAssemblyMachine, machineNr, oldCanvasId, newCanvasId, mergeCanvas, canvasId
+        Meteor.call('moveRearAxle', function (err, response) {
+            if (err) {
+            } else if (response) {
+                selectedAssemblyMachine = response[0]
+                machineNr = response[1]
+                oldCanvasId = 'fcb_station_1'
+                newCanvasId = "fcb_station_2";
+                invokeMoveMachine(oldCanvasId, newCanvasId)
+                oldCanvasId = 'threshing_house';
+                newCanvasId = 'front_threshing_merge';
+                invokeMoveMachine(oldCanvasId, newCanvasId)
+                oldCanvasId = 'front_axle';
+                newCanvasId = 'front_threshing_merge';
+                invokeMoveFromLastBay(oldCanvasId)
+                Meteor.call('moveFromListToFCB_Bay', selectedAssemblyMachine,
+                    machineNr, 'rear_axle_canvas', 'activeRearAxleList');
+            }
+        })
     },
 
     'click .fcb-2-move-button': (e) => {

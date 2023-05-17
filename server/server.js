@@ -900,22 +900,21 @@ if(Meteor.isServer){
         },
 
 
-/*
+
         // ****************** move from list to FCB Bay ********************
 
-        'moveFcbList': (machineId) => {
-          machineCommTable.update({_id: machineId},
-              {$set: {activeAssemblyLineList: false,
-                                activeFrontAxleList: false,
-                                activeThreshingList: false}})
+
+
+        'moveRearAxle': () => {
+            let returnResult = []
+            let result = activeAssembly.findOne({_id: 'fcb_station_1'})
+            let machineId = result.bayArray[0].machineId
+            let machineNr = result.bayArray[0].machineNr
+            returnResult.push(machineId, machineNr)
+            return returnResult
         },
 
-        'moveRearAxle': (machineNr) => {
-          machineCommTable.update({machineId: machineNr},
-                    {$set: {activeRearAxleList: false}})
-        },
 
- */
 
 
         'moveFromListToFCB_Bay': (selectedMachine, machineNr, canvasId, activeList) => {
