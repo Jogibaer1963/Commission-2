@@ -255,11 +255,11 @@ Template.analysisOverView.helpers({
             if (response) {
                 Session.set('missPickResponse', response)
                 Session.set('yearMissPicks', response.length)
-
                 result = Session.get('missPickResponse')
                 result.forEach((element) => {
                     pickerResult.push(element.picker)
                 })
+                // console.log(pickerResult)
                 pickerResult.forEach(obj => {
                     count[JSON.stringify(obj)] = (count[JSON.stringify(obj)] || 0) + 1;
                 });
@@ -274,6 +274,15 @@ Template.analysisOverView.helpers({
             }
         })
         
+    },
+
+/* ---------------------------   Miss Picks  Analysis  ----------------------*/
+
+
+
+
+    mispickTable: function() {
+        return Session.get('shortPicks')
     },
 
 
@@ -338,6 +347,263 @@ Template.analysisOverView.helpers({
             });
         });
     },
+
+    missPickersResult: function () {
+        // reason 1 = Quality
+        // reason 2 = not on cart
+        // reason 3 = miss counting
+        // reason 4 = repair / reconfig
+        // Gather data:
+        let missPicksTotal = Session.get('missPickResponse')
+
+        let result, headText;
+        let pointOfUse = [];
+        let amountPerPointOfUse = [];
+        let supplyArea =[]
+        let uniqueSupply = []
+        let machineArray = []
+        let machineCount = []
+        let supplyChart = []
+        let supplySort = []
+        let supplyAmount = []
+        let machineChartCount = []
+        let partNumber = []
+        let pickerObj = {}
+        let picker = Session.get('chosenPicker')
+        let count = []
+
+        missPicksTotal.forEach((element) => {
+        // console.log(element)
+            if (element.picker === picker) {
+               // console.log(element)
+                machineCount.push(element.picker)
+                supplyArea.push(element.supplyArea)
+                machineArray.push(element.machineId)
+                partNumber.push(element.partNumber)
+            }
+
+           // console.log(machineCount, supplyArea.sort(), machineArray.sort(), partNumber.sort())
+            Session.set('shortPicks', machineCount.length)
+            Session.set('machineArray', machineArray)
+            Session.set('partNumbers', partNumber)
+        })
+        supplyArea.forEach(element => {
+            supplySort[element] = (supplySort[element] || 0) + 1
+             })
+
+        supplyChart = Object.keys((supplySort))
+        supplyAmount = supplyChart.map(key => supplySort[key])
+
+            headText =  Session.get('shortPicks')
+
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_7', {
+
+                title: {
+                    text: 'Mispicks Chart, ' + headText + ' Mispicks discovered this Fiscal Year'
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Amount of mispicks',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: supplyChart,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Amount of mispicks per Area',
+                        type: 'column',
+                        data: supplyAmount
+                    },
+                ]
+            });
+        });
+    },
+
+
+    missPickersMachines: function () {
+       let machineSort = []
+       let machineCount = []
+       let machineNr = []
+       let machines =  Session.get('machineArray')
+
+        machines.forEach(element => {
+            machineSort[element] = (machineSort[element] || 0) + 1
+        })
+
+        machineNr = Object.keys((machineSort))
+        machineCount = machineNr.map(key => machineSort[key])
+
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_8', {
+
+                title: {
+                    text: 'Mispicks Chart, miss-picks per Machine'
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Amount of mispicks',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: machineNr,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Amount of mispicks per Area',
+                        type: 'column',
+                        data: machineCount
+                    },
+                ]
+            });
+        });
+    },
+
+
+    missPickersPartNumber: function () {
+
+        let partNumbers = Session.get('partNumbers')
+
+        let partNumberSort = []
+        let partNumberCount = []
+        let partNumberChart = []
+
+        partNumbers.forEach(element => {
+            partNumberSort[element] = (partNumberSort[element] || 0) + 1
+        })
+
+        partNumberChart = Object.keys((partNumberSort))
+        partNumberCount = partNumberChart.map(key => partNumberSort[key])
+
+        console.log(partNumbers)
+        console.log(partNumberChart)
+        console.log(partNumberCount)
+
+        // Use Meteor.defer() to create chart after DOM is ready:
+        Meteor.defer(function() {
+            // Create standard Highcharts chart with options:
+            Highcharts.chart('chart_9', {
+
+                title: {
+                    text: 'Mispicks Chart, miss-picks per Part Number'
+                },
+
+                tooltip: {
+                    shared: true
+                },
+
+                chart: {
+
+                    style: {
+                        fontFamily: '\'Unica One\', sans-serif'
+                    },
+                    plotBorderColor: '#606063',
+
+
+                    height: 400,
+                    width: 700,
+                    zoomType: 'xy'
+                },
+
+                yAxis: {
+                    categories: [],
+                    title: {enabled: true,
+                        text: 'Amount of mispicks',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                xAxis: {
+                    categories: partNumberChart,
+                    title: {
+                        enabled: true,
+                        text: 'Areas Picked',
+                        style: {
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        name: 'Amount of mispicks per Area',
+                        type: 'column',
+                        data: partNumberCount
+                    },
+                ]
+            });
+        });
+    },
+
 
     /* -----------------------------------  Analysis by date  ------------------------------- */
 

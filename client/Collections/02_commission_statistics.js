@@ -320,7 +320,9 @@ Template.dailyResult.helpers({
     },
 
     mispickTable: function() {
-        return Session.get('shortPicks')
+        let result = Session.get('shortPicks')
+        console.log(result)
+        return result
     },
 
 
@@ -358,7 +360,7 @@ Template.dailyResult.helpers({
         // todo: only 1 work center allowed, summ up machines per work center
         // Gather data:
         result = Session.get('shortPicks')
-        console.log(result)
+        // console.log(result)
         try {
             result.forEach((element) => {
                 supplyArea.push(element.supplyArea)

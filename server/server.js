@@ -238,10 +238,12 @@ if(Meteor.isServer){
           let obj = {}
           let object = {}
           result = lineOrders.find({machineId: {$gt: 'C8000000'}, reason: 2},
-                            {fields: {machineId: 1, point_of_use: 1, part_number: 1}}).fetch()
+                            {fields: {machineId: 1,
+                                    point_of_use: 1,
+                                    part_number: 1}}).fetch()
 
             result.forEach((element) => {
-             //   console.log(element)
+                console.log(element)
                 try {
                     if (element.machineId.length === 8) {
                         obj = {
@@ -442,6 +444,7 @@ if(Meteor.isServer){
             }
 
             machineArray.forEach((element) => {
+               // console.log(element.machine)
                 result_lineOrders.forEach((element2) => {
                     if (element.machine === element2.machineId &&
                         element.supply === element2.point_of_use) {
@@ -474,7 +477,7 @@ if(Meteor.isServer){
                                     point_of_use: 1,
                                     storage_bin: 1}}).fetch()
 
-             //   console.log(result)
+               // console.log(result)
             } else {
                 // Result for individual picker per Day and per Year
               //  console.log('only individual Pickers')
@@ -508,6 +511,12 @@ if(Meteor.isServer){
                            point_of_use_order, reason_order, urgency_order) => {
             // status : 0 = unseen, 1 = picking in progress, 2 = delivered
             // urgency level : 10 = high urgency, 11 = medium urgency, 12 low urgency
+           /*
+           console.log(loggedInUser, user_order,machineNr, partNumber_order,
+               quantityNeeded_order, storageLocation_order,
+               point_of_use_order, reason_order, urgency_order)
+
+            */
             let reason = parseInt(reason_order);
             let urgency = parseInt(urgency_order)
             let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -726,20 +735,25 @@ if(Meteor.isServer){
             }
             let movingTime = moment().format('YYYY-MM-DD HH:mm:ss');
             let todayUnix = (Date.now()).toFixed(0);
-            //console.log(machineId, activeStatus)
             machineCommTable.update({_id: machineId, 'bayReady._id': canvasId},
                 {$set: {
+                        'activeInBay' : activeStatus,
                         'bayReady.$.bayDateLeavingUnix': todayUnix,
                         'bayReady.$.bayDateLeaving': movingTime,
                         'bayReady.$.completeBy': user,
-                        'bayReady.$.bayStatus' : 1,
-                        'activeInBay' : activeStatus
+                        'bayReady.$.bayStatus' : 1
                     }
                 });
+
+            machineCommTable.update({_id: machineId},
+                {$set: {'activeInBay' : activeStatus}
+                });
+
             activeAssembly.update({_id : canvasId},
                 {$pull: {bayArray: {machineId: machineId}}})
-           userActions.update({_id: "bay_19_last_machine"},
-               {$set: {lastMachine: machineId}})
+
+             userActions.update({_id: "bay_19_last_machine"},
+                 {$set: {lastMachine: machineId}})
             
         },
         
@@ -1288,6 +1302,7 @@ if(Meteor.isServer){
         // and _commission_statistics.scss line 250 to 260 / commissionAnalysis.js Line 550
 
         'searchDate': (date) => {
+            console.log(date)
             let searchResult, newDate, wd, weekDay, yyyy, mm, dd, searchString, result;
             let returnResult = [];
             newDate = new Date(date);
@@ -1303,9 +1318,11 @@ if(Meteor.isServer){
                 dd = '0' + dd;
             }
             searchString = yyyy + mm + dd + weekDay;
+            // console.log('Search String :', searchString)
             // search String must be like 2021100705 (YYYYMMDDWD) WD = Day of the Week (Mo = 0, Sun = 6)
             // first slice is Year, then Month, ten Day and weekday with leading 0.
             result = pickers.find({}, {fields: {[searchString]: 1}}).fetch();
+            // console.log(result)
             result.forEach((element) => {
                 if (Object.keys(element).length >> 1 ) {
                     searchResult = {

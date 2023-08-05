@@ -35,7 +35,7 @@ Template.over_view_all_teams.helpers({
             totalMachines = Session.get('total-machines');
              machinesBuild = resultFinished.length
              machinesToBuild = totalMachines - machinesBuild
-            console.log(machinesToBuild, machinesBuild)
+           // console.log(machinesToBuild, machinesBuild)
             Session.set('machinesToBuild', machinesToBuild);
             Session.set('machinesBuild', machinesBuild)
         })

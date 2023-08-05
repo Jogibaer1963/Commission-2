@@ -265,23 +265,42 @@ table.table-pickers {
 //      *****************************   specific date without picker / commissionAnalysis.html Line 75 to 83
 
 .search-for-date {
-  left: 106em;
+  left: 163em;
   position: absolute;
-  top: 15em;
+  top: 13em;
 }
 
 .date-search-table {
-  left: 106em;
+  left: 163em;
   position: absolute;
-  top: 21em;
+  top: 25em;
+  width: 500px;
 }
 
 //    **********************************   Miss Picks per year   ***************************
 
 .miss-pick-graph {
-  left: 1995px;
+  left: 1210px;
   position: absolute;
   top: 100px;
+}
+
+.miss-pick-graph-picker {
+  left: 1211px;
+  position: absolute;
+  top: 696px;
+}
+
+.miss-pick-graph-machine {
+  left: 1211px;
+  position: absolute;
+  top: 1200px;
+}
+
+.miss-pick-graph-partNumber {
+  left: 1211px;
+  position: absolute;
+  top: 1800px;
 }
 
 .mis-picks-table {

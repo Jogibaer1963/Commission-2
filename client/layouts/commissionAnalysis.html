@@ -71,12 +71,42 @@
                 </div>
             </div>
 
-        <div class="miss-pick-graph">
+       <div class="miss-pick-graph">
                 <h3>Miss-picks for running fiscal year (counting starts at Jan 2023)</h3>
                 <div class="mis-pick-running-result">
                 {{missPickersAnnualResult}}
                 <div class="diagram-6">
                     <div  id="chart_6">{{missPickersAnnualChartResult}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="miss-pick-graph-picker">
+            <h3>Miss-picks for {{chosenPicker}}</h3>
+            <div class="mis-pick-running-result">
+                {{missPickersAnnualResult}}
+                <div class="diagram-7">
+                    <div  id="chart_7">{{missPickersResult}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="miss-pick-graph-machine">
+            <h3>Miss-picks per Machine Number</h3>
+            <div class="mis-pick-running-result">
+                {{missPickersAnnualResult}}
+                <div class="diagram-8">
+                    <div  id="chart_8">{{missPickersMachines}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="miss-pick-graph-partNumber">
+            <h3>Miss-picks per Part Number</h3>
+            <div class="mis-pick-running-result">
+                {{missPickersAnnualResult}}
+                <div class="diagram-9">
+                    <div  id="chart_9">{{missPickersPartNumber}}</div>
                 </div>
             </div>
         </div>

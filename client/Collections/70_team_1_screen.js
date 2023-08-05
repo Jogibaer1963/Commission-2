@@ -143,9 +143,9 @@ Template.team_1_screen_view.helpers({
     },
 
     units_bay_4: () => {
-      //  let unitCount = unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
-      //  Session.set('unitCountBay4', unitCount);
-      //  return unitCount
+       let unitCount = unitCounter("machine_field_bay_4", ["bay4", "bay_4_time"])
+        Session.set('unitCountBay4', unitCount);
+        return unitCount
     },
 
 
