@@ -3,46 +3,68 @@ const Highcharts = require('highcharts');
 
 Template.orderAnalysis.helpers({
 
+    loadingOrderList:() => {
+        Meteor.call('orderList', function(err, response) {
+            if (response) {
+                Session.set('orderResult', response)
+            } else {
+            }
+        })
+    },
+
         orderList:() => {
-           let result, dia_1;
-               Meteor.call('orderList', function(err, response) {
-                   if (response) {
-                       Session.set('orderResult', response)
-                   } else {
-                   }
-               })
-            result = Session.get('orderResult')
+            let result = Session.get('orderResult')
             let team_order = Session.get('team-order')
-            if (team_order === 'team-1-order') {
+            // console.log(team_order)
+            if (team_order === 'all_teams') {
+                Session.set('team_table', 'All Teams')
+                try {
+                    result[11].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                } catch (e) {}
+               // console.log(result[11])
+                Session.set("team_miss_picks", result[11].length)
+                return result[11]
+            }
+            else if (team_order === 'team-1-order') {
                 Session.set('team_table', 'Team 1')
                 Session.set('diagram-1', result[5])
                 Session.set('diagram-2', result[10])
-                result[0].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
-           //     console.log(result[0])
+                result[0].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
+                result[0].reverse()
+                Session.set("team_miss_picks", result[0].length)
                 return result[0]
             } else if (team_order === 'team-2-order') {
                 Session.set('team_table', 'Team 2')
                 Session.set('diagram-1', result[6])
-                result[1].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
+                result[1].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                Session.set("team_miss_picks", result[1].length)
                 return result[1]
             }  else if (team_order === 'team-3-order') {
                 Session.set('team_table', 'Team 3')
                 Session.set('diagram-1', result[7])
-                result[2].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
+                result[2].sort((a,b) => a.pickingEndTime - b.pickingEndTime)
+                result[2].reverse()
+                Session.set("team_miss_picks", result[2].length)
                 return result[2]
             } else if (team_order === 'team-4-order') {
                 Session.set('team_table', 'Team 4')
                 Session.set('diagram-1', result[8])
-                result[3].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
+                result[3].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                Session.set("team_miss_picks", result[3].length)
                 return result[3]
             } else if (team_order === 'team-5-order') {
                 Session.set('team_table', 'Team 5')
                 Session.set('diagram-1', result[9])
-                result[4].sort((a,b) => a.time_ordered > b.time_ordered ? 1 : -1)
+                result[4].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                Session.set("team_miss_picks", result[4].length)
                 return result[4]
             }
 
         },
+
+    team_miss_picks: () => {
+           return Session.get('team_miss_picks')
+    },
 
     team_order: () => {
            return Session.get('team_table')
@@ -266,6 +288,11 @@ Template.orderAnalysis.events({
     'click #team_5': (e) => {
         e.preventDefault();
         Session.set('team-order', 'team-5-order')
+    },
+
+    'click #all_teams': (e) => {
+        e.preventDefault();
+        Session.set('team-order', 'all_teams')
     },
 
 })

@@ -23,6 +23,10 @@
 </template>
 
 <template name="orderAnalysis">
+   <div>
+       {{loadingOrderList}}
+   </div>
+
     <div id="logo">
         <img src="claas_logo.png" />
     </div>
@@ -38,10 +42,12 @@
         <button type="button" id="team_4" class="btn btn-success">Team 4</button>
         <label for="team_5"></label>
         <button type="button" id="team_5" class="btn btn-success">Team 5</button>
+        <label for="all-teams"></label>
+        <button type="button" id="all_teams" class="btn btn-success">All Teams</button>
     </div>
 
     <div class="team-table-text">
-        <h1>Analysis for {{team_order}}</h1>
+        <h1>Analysis for {{team_order}}, {{team_miss_picks}} Miss Picks since Jan 16th 2023</h1>
     </div>
 
 
@@ -56,12 +62,11 @@
                 <th class="storage-field"><strong>Part Number</strong></th>
                 <th class="storage-field"><strong>Storage Bin</strong></th>
                 <th class="pdiMachineField"><strong>Point of Use</strong></th>
-                <th class="order-date-field"><strong>Reason</strong></th>
-                <th class="pdiMachineField"><strong>Urgency</strong></th>
                 <th class="pdiMachineField"><strong>Status</strong></th>
                 <th class="order-date-field"><strong>Picking End</strong></th>
                 <th class="pdiMachineField"><strong>Order processing in min</strong></th>
-                <th class="pdiMachineField"><strong>Picked by</strong></th>
+                <th class="pdiMachineField"><strong>Miss Pick by</strong></th>
+                <th class="order-date-field"><strong>Picking Date / Time</strong></th>
             </tr>
             </thead>
             <tbody>
@@ -74,12 +79,11 @@
                     <td class="storage-field">{{partNumber}}</td>
                     <td class="storage-field">{{storage}}</td>
                     <td class="pdiMachineField">{{pou}}</td>
-                    <td class="order-date-field">{{reason}}</td>
-                    <td class="pdiMachineField">{{urgency}}</td>
                     <td class="pdiMachineField">{{status}}</td>
                     <td class="order-date-field">{{pickingFinished}}</td>
                     <td class="pdiMachineField">{{overAllDuration}}</td>
-                    <td class="pdiShipField">{{picker}}</td>
+                    <td class="pdiMachineField">{{picker}}</td>
+                    <td class="order-date-field">{{pickingDate}}</td>
 
                 </tr>
             {{/each}}
@@ -90,11 +94,11 @@
     <div class="order-diagram-1">
         <div  id="part_numbers">{{partNumbers}}</div>
     </div>
-
+    <!--
     <div class="order-diagram-2">
         <div  id="order_reason">{{orderPerReason}}</div>
     </div>
-<!--
+
     <div class="order-diagram-3">
         <div  id="reason_bin">{{reasonPerStorageBin}}</div>
     </div>

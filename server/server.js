@@ -1,7 +1,5 @@
 import {Meteor} from "meteor/meteor";
-import {invokeMoveMachine} from "../lib/99_functionCollector";
-import {Session} from "meteor/session";
-import {forEachKey} from "yarn/lib/cli";
+
 /*
 import {unix} from "moment";
 
@@ -194,9 +192,10 @@ if(Meteor.isServer){
             return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",
             bayStatus: 1}}, inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
             */
-            return machineCommTable.find({activeInBay: false},
-                {fields: {machineId: 1, activeInBay: 1}});
-
+           // return machineCommTable.find({activeInBay: false},
+           //     {fields: {machineId: 1, activeInBay: 1}});
+            return machineCommTable.find({counter: {$gt: 1358}},
+                {fields: {machineId: 1, counter:1, activeInBay: 1}});
 
         })
 
@@ -204,9 +203,6 @@ if(Meteor.isServer){
            return machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2022-09-31"}},
                 {fields: {_id: 1}})
         })
-
-
-
 
 
     });
@@ -243,7 +239,7 @@ if(Meteor.isServer){
                                     part_number: 1}}).fetch()
 
             result.forEach((element) => {
-                console.log(element)
+              //  console.log(element)
                 try {
                     if (element.machineId.length === 8) {
                         obj = {
@@ -324,66 +320,83 @@ if(Meteor.isServer){
             let [orderArray_team_1, orderArray_team_2, orderArray_team_3,
                 orderArray_team_4, orderArray_team_5] = [[], [], [], [], []]  ;
             let [t1_dia1, t2_dia1, t3_dia1, t4_dia1, t5_dia1, t1_dia2]= [[], [], [], [], [], []];
+            let all_teams = [];
             let count_t1_dia1 = {};
             let count_t2_dia1 = {}
             let count_t3_dia1 = {};
             let count_t4_dia1 = {};
             let count_t5_dia1 = {};
             let count_t1_dia2 = {}
-            let result, orderObject, openOrder, overAllDuration, pickingStart, reason;
-            result = lineOrders.find().fetch();
-            result.forEach((element) => {
-                if (element.reason === 1) {
-                    reason = 'Quality'
-                } else if (element.reason === 2) {
-                    reason = 'Not on Cart'
-                } else if (element.reason === 3) {
-                    reason = 'Miss-counting'
-                } else if (element.reason === 4) {
-                    reason = 'Repair / Reconfig'
-                }
-                 if (element.status === 0) {
-                    pickingStart = 0;
-                    openOrder = 0;
-                    overAllDuration = 0;
-                } else if (element.status === 2) {
+            let result, orderObject, openOrder, overAllDuration, pickingStart, reason, machineId, supply_Area,
+                secondResult, secondSupplyResult, part_number
+
+            result = lineOrders.find({machineId: {$gt: 'C8000000'}, reason: 2}).fetch();
+            if (result) {
+                result.forEach((element) => {
                     overAllDuration = ((parseInt(element.unixTimeOrderCompleted) -
                         parseInt(element.unixTimeOrderStart)) / 60000).toFixed(0);
-                }
-                orderObject = {
-                    team : element.team_user,
-                    orderStart : element.time_ordered,
-                    machineId : element.machineId,
-                    quantity : element.quantity_needed,
-                    partNumber : element.part_number,
-                    storage : element.storage_bin,
-                    pou : element.point_of_use,
-                    reason : reason,
-                    urgency : element.urgency,
-                    status : element.status,
-                    pickingFinished : element.order_completed,
-                    overAllDuration :  overAllDuration,
-                    picker : element.picked_by
-                }
-                 if (element.team_user === 'Team 1') {
-                     orderArray_team_1.push(orderObject)
-                     t1_dia1.push(element.part_number)
-                     t1_dia2.push(element.reason)
-                 } else if (element.team_user === 'Team 2') {
-                     orderArray_team_2.push(orderObject)
-                     t2_dia1.push(element.part_number)
-                 } else if (element.team_user === 'Team 3') {
-                     orderArray_team_3.push(orderObject)
-                     t3_dia1.push(element.part_number)
-                 } else if (element.team_user === 'Team 4') {
-                     orderArray_team_4.push(orderObject)
-                     t4_dia1.push(element.part_number)
-                 } else if (element.team_user === 'Team 5') {
-                     orderArray_team_5.push(orderObject)
-                     t5_dia1.push(element.part_number)
-                 }
-            })
+
+                    machineId = element.machineId
+                    supply_Area = element.point_of_use
+                    part_number = element.part_number
+
+                  //  console.log(element.machineId, element.point_of_use)
+
+                    secondResult = machineCommTable.findOne({machineId: machineId},
+                        {fields: {supplyAreas: 1}})
+
+                    secondSupplyResult = secondResult.supplyAreas
+                    secondSupplyResult.forEach((element_2) => {
+                        if (element_2._id === supply_Area ) {
+                          //  console.log(machineId, element_2._id, supply_Area)
+                            orderObject = {
+                                team: element.team_user,
+                                orderStart: element.time_ordered,
+                                machineId: element.machineId,
+                                quantity: element.quantity_needed,
+                                partNumber: element.part_number,
+                                storage: element.storage_bin,
+                                pou: element.point_of_use,
+                                reason: reason,
+                                status: element.status,
+                                pickingFinished: element.order_completed,
+                                overAllDuration: overAllDuration,
+                                picker: element_2.pickerFinished,
+                                pickingEndTime: element_2.pickerEnd,
+                                pickingDate: element_2.pickingEndDateAndTime
+                            }
+                            all_teams.push(orderObject)
+
+                                if (orderObject.team === 'Team 1' ) {
+                                 //   console.log(orderObject.team)
+                                    orderArray_team_1.push(orderObject)
+                                    t1_dia1.push(element.part_number)
+                                    t1_dia2.push(element.reason)
+                                } else if (element.team_user === 'Team 2') {
+                                    orderArray_team_2.push(orderObject)
+                                    t2_dia1.push(element.part_number)
+                                } else if (element.team_user === 'Team 3') {
+                                    orderArray_team_3.push(orderObject)
+                                    t3_dia1.push(element.part_number)
+                                } else if (element.team_user === 'Team 4') {
+                                    orderArray_team_4.push(orderObject)
+                                    t4_dia1.push(element.part_number)
+                                } else if (element.team_user === 'Team 5') {
+                                    orderArray_team_5.push(orderObject)
+                                    t5_dia1.push(element.part_number)
+                                }
+                        }
+
+                    })
+
+
+                });
+            } else {
+                console.log('ERROR: waiting for Data')
+            }
+           // console.log(all_teams)
    //  ************************    diagram 1 Array   ********************************
+
             t1_dia1.forEach(function(i) {count_t1_dia1[i] = (count_t1_dia1[i]||0) + 1;});
             t2_dia1.forEach(function(i) {count_t2_dia1[i] = (count_t2_dia1[i]||0) + 1;});
             t3_dia1.forEach(function(i) {count_t3_dia1[i] = (count_t3_dia1[i]||0) + 1;});
@@ -391,18 +404,14 @@ if(Meteor.isServer){
             t5_dia1.forEach(function(i) {count_t5_dia1[i] = (count_t5_dia1[i]||0) + 1;});
 
    //  *************************   diagram 2 Array   ********************************
+
             t1_dia2.forEach(function(i) {count_t1_dia2[i] = (count_t1_dia2[i] || 0) + 1;});
 
-
-
-
    //  ********************************  Return Array  ******************************
-
+           // console.log(orderArray_team_1)
             return [orderArray_team_1, orderArray_team_2, orderArray_team_3,
                 orderArray_team_4, orderArray_team_5, count_t1_dia1, count_t2_dia1,
-                count_t3_dia1, count_t4_dia1, count_t5_dia1, count_t1_dia2];
-
-
+                count_t3_dia1, count_t4_dia1, count_t5_dia1, count_t1_dia2, all_teams];
         },
 
         'shortPicks': (picker) => {
@@ -505,6 +514,26 @@ if(Meteor.isServer){
             lineOrders.remove({_id: id})
         },
 
+        'machineConfirmation': (machineNr) => {
+            let resultArray = []
+            let result = activeAssembly.find({}, {fields: {bayArray: 1, _id: 0}}).fetch()
+            result.forEach((element) => {
+                try {
+                   // console.log(element.bayArray[0].machineNr)
+                    resultArray.push(element.bayArray[0].machineNr)
+                    resultArray.push(element.bayArray[1].machineNr)
+                } catch (e) {
+                   // console.log(e.message)
+                    }
+                }
+            )
+            if (resultArray.includes(machineNr)) {
+                return true
+            } else {
+                return false
+            }
+
+        },
 
        'parts_on_order': (loggedInUser, user_order,machineNr, partNumber_order,
                           quantityNeeded_order, storageLocation_order,
@@ -1302,7 +1331,7 @@ if(Meteor.isServer){
         // and _commission_statistics.scss line 250 to 260 / commissionAnalysis.js Line 550
 
         'searchDate': (date) => {
-            console.log(date)
+        //    console.log(date)
             let searchResult, newDate, wd, weekDay, yyyy, mm, dd, searchString, result;
             let returnResult = [];
             newDate = new Date(date);
@@ -1468,7 +1497,7 @@ if(Meteor.isServer){
                         "supplyAreas.$.pickerStart": '',
                         "supplyAreas.$.pickerFinished": '',
                         "supplyAreas.$.pickingDateAndTime": '',
-                        "supplyAreas.$.pickingEnd": '',
+                        "supplyAreas.$.pickerEnd": '',
                         "supplyAreas.$.pickingTime": '',
                         "supplyAreas.$.pickingEndDateAndTime": '',
                         "supplyAreas.$.pickingPauseStart": '',
@@ -1488,7 +1517,7 @@ if(Meteor.isServer){
                             "supplyAreas.$.pickerStart": '',
                             "supplyAreas.$.pickerFinished": '',
                             "supplyAreas.$.pickingDateAndTime": '',
-                            "supplyAreas.$.pickingEnd": '',
+                            "supplyAreas.$.pickerEnd": '',
                             "supplyAreas.$.pickingTime": '',
                             "supplyAreas.$.pickingEndDateAndTime": '',
                             "supplyAreas.$.pickingPauseStart": '',
@@ -1655,9 +1684,10 @@ if(Meteor.isServer){
                 machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
                     {$set: {"supplyAreas.$.supplyStatus": status,
                             "supplyAreas.$.pickerFinished": user,
-                            "supplyAreas.$.pickingEnd": pickingEnd,
+                            "supplyAreas.$.pickerEnd": pickingEnd,
                             "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
-                            "supplyAreas.$.pickingTime": pickingTime
+                            "supplyAreas.$.pickingTime": pickingTime,
+                            "supplyAreas.$.multi": true,
                         }});
 
                 machineCommTable.update({machineId: element}, {$inc: {commissionStatus: 1}});

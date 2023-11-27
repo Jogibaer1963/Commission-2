@@ -542,9 +542,9 @@ Template.analysisOverView.helpers({
         partNumberChart = Object.keys((partNumberSort))
         partNumberCount = partNumberChart.map(key => partNumberSort[key])
 
-        console.log(partNumbers)
-        console.log(partNumberChart)
-        console.log(partNumberCount)
+        //console.log(partNumbers)
+       // console.log(partNumberChart)
+       // console.log(partNumberCount)
 
         // Use Meteor.defer() to create chart after DOM is ready:
         Meteor.defer(function() {
@@ -1264,3 +1264,11 @@ Template.analysisOverView.onDestroyed(() => {
     Session.set('diagramArea', false);
     Session.set('errorResponse', false);
 });
+
+
+
+
+
+
+
+

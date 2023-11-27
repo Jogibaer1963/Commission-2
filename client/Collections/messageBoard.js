@@ -1,6 +1,7 @@
 import {Session} from "meteor/session";
 
 
+
 Template.messageBoard.helpers({
 
 
@@ -45,7 +46,10 @@ Template.messageBoard.helpers({
 
 })
 
+Meteor.subscribe('machineNumberConfirmation')
+
 Template.messageBoard.events({
+
 
     'click .comp': function () {
         let textMainComp = this._id;
@@ -72,28 +76,44 @@ Template.messageBoard.events({
         point_of_use_order = e.target.location.value;
         reason_order = e.target.reason.value;
         urgency_order = 11;
-        //  ******   Validation of Machine Number    **********
-        if (machineNr.length === 8) {
-            machine = machineNr.toUpperCase();
-            Meteor.call('parts_on_order',loggedUser,  user_order, machine, partNumber_order, quantityNeeded_order, storageLocation_order, point_of_use_order,
-                reason_order, urgency_order, function (err, respond) {
-                    if (err) {
-                        Meteor.call('success', err, user_order, 'order failed')
-                        } else {
-                        /*
-                            Meteor.call('success', respond, user_order, 'order succeed')
-                            Session.set('selectedComponent', '')
-                            Session.set('issueComp', '')
 
-                         */
-                            window.close();
-                        }
-                })
+        Meteor.call('machineConfirmation', machineNr, function (err, respond) {
+                // respond is true if machine is still in the assembly Line, false if machine o=is offline or doesn't exist
+             if (respond === true) {  // Machine Nr is Valid and inside Assembly Line, reason is 1, 2 or 3 but not 4
+               // console.log("server respond " + respond)
+                 if (point_of_use_order) {
+                     Meteor.call('parts_on_order',loggedUser,  user_order, machine, partNumber_order,
+                         quantityNeeded_order, storageLocation_order, point_of_use_order, reason_order, urgency_order,
+                         function (err, respond) {
+                             if (err) {
+                                 Meteor.call('success', err, user_order, 'order failed')
+                             } else if (respond) {
+                                 window.close();
+                             }
+                         })
+                 } else {
+                     window.alert('Point of use / Delivery Location must be defined ')
+                 }
 
-            } else if (machineNr.length > 8 && machineNr.length < 11) {
-
-              console.log(machineNr)
+            } else if (respond === false) { // Machine Number is invalid but its repair
+                 console.log('inside ' + reason_order)
+                 if (reason_order === '4') {
+                     console.log("server respond " + respond + ' reason ' + reason_order)
+                     Meteor.call('parts_on_order', loggedUser, user_order, machine, partNumber_order,
+                         quantityNeeded_order, storageLocation_order, point_of_use_order, reason_order, urgency_order,
+                         function (err, respond) {
+                             if (err) {
+                                 Meteor.call('success', err, user_order, 'order failed')
+                             } else if (respond) {
+                                 window.close();
+                             }
+                         })
+                 } else {
+                     console.log("third server respond " + respond + ' reason ' + reason_order)
+                     window.alert('Machine Number is Invalid, too long, too short or not in Line ')
+                 }
             }
+        })
     },
 
     'click .team-1-button': (e) => {
