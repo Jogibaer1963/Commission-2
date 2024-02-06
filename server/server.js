@@ -1,5 +1,7 @@
 import {Meteor} from "meteor/meteor";
-
+import {invokeMoveMachine} from "../lib/99_functionCollector";
+import {Session} from "meteor/session";
+import {forEachKey} from "yarn/lib/cli";
 /*
 import {unix} from "moment";
 
@@ -8,6 +10,7 @@ import {unix} from "moment";
 if(Meteor.isServer){
 
     Meteor.startup( () => {
+		
 
         Meteor.publish("usersProfile", () => {
             return usersProfile.find();
@@ -175,12 +178,12 @@ if(Meteor.isServer){
             return pickingNewHead.find();
         })
 
-        /*
+        
         Meteor.publish('machineReadyToGo', () => {
           return machineReadyToGo.find();
         })
 
-         */
+        
 
 
         Meteor.publish('lineOrders', () => {
@@ -192,18 +195,21 @@ if(Meteor.isServer){
             return machineCommTable.find({bayReady: {$elemMatch: {_id: "machine_field_bay_19",
             bayStatus: 1}}, inLineDate: {$gt: "2022-09-01"}}, {fields: {_id: 1}})
             */
-           // return machineCommTable.find({activeInBay: false},
-           //     {fields: {machineId: 1, activeInBay: 1}});
-            return machineCommTable.find({counter: {$gt: 1358}},
-                {fields: {machineId: 1, counter:1, activeInBay: 1}});
+			
+            return machineCommTable.find({counter: {$gt: 1358}, activeInBay: false},
+                {fields: {machineId: 1, activeInBay: 1, counter: 1}});
+
 
         })
 
         Meteor.publish('machinesShipped', function() {
-           return machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2022-09-31"}},
+           return machineReadyToGo.find( {shipStatus: 1, dateOfCreation: {$gt: "2023-09-31"}},
                 {fields: {_id: 1}})
         })
 
+
+
+ 
 
     });
 
@@ -278,6 +284,8 @@ if(Meteor.isServer){
                     })
             return pickerMisPicks
         },
+
+ 
 
         'team_leads_repairs':(team ,comment, tech, id, machine) => {
             // id = _id from repaired Issue, machine = Machine Number, team = Team
@@ -362,7 +370,7 @@ if(Meteor.isServer){
                                 pickingFinished: element.order_completed,
                                 overAllDuration: overAllDuration,
                                 picker: element_2.pickerFinished,
-                                pickingEndTime: element_2.pickerEnd,
+								pickingEndTime: element_2.pickerEnd,
                                 pickingDate: element_2.pickingEndDateAndTime
                             }
                             all_teams.push(orderObject)
@@ -514,26 +522,6 @@ if(Meteor.isServer){
             lineOrders.remove({_id: id})
         },
 
-        'machineConfirmation': (machineNr) => {
-            let resultArray = []
-            let result = activeAssembly.find({}, {fields: {bayArray: 1, _id: 0}}).fetch()
-            result.forEach((element) => {
-                try {
-                   // console.log(element.bayArray[0].machineNr)
-                    resultArray.push(element.bayArray[0].machineNr)
-                    resultArray.push(element.bayArray[1].machineNr)
-                } catch (e) {
-                   // console.log(e.message)
-                    }
-                }
-            )
-            if (resultArray.includes(machineNr)) {
-                return true
-            } else {
-                return false
-            }
-
-        },
 
        'parts_on_order': (loggedInUser, user_order,machineNr, partNumber_order,
                           quantityNeeded_order, storageLocation_order,
@@ -546,6 +534,7 @@ if(Meteor.isServer){
                point_of_use_order, reason_order, urgency_order)
 
             */
+			
             let reason = parseInt(reason_order);
             let urgency = parseInt(urgency_order)
             let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1673,7 +1662,7 @@ if(Meteor.isServer){
         },
 
 
-        'multi-finished': (pickedMachines, pickedSupplyAreaId, status, user, dateEndNow, pickingEnd) => {
+        'multi-finished': (pickedMachines, pickedSupplyAreaId, status, user, dateEndNow, pickerEnd) => {
 
             let machineNumbers = pickedMachines.length;
             let pickersResult = pickersAtWork.findOne({_id: user});
@@ -1684,10 +1673,10 @@ if(Meteor.isServer){
                 machineCommTable.update({machineId: element, "supplyAreas._id": pickedSupplyAreaId},
                     {$set: {"supplyAreas.$.supplyStatus": status,
                             "supplyAreas.$.pickerFinished": user,
-                            "supplyAreas.$.pickerEnd": pickingEnd,
+                            "supplyAreas.$.pickerEnd": pickerEnd,
                             "supplyAreas.$.pickingEndDateAndTime": dateEndNow,
                             "supplyAreas.$.pickingTime": pickingTime,
-                            "supplyAreas.$.multi": true,
+							"supplyAreas.$.multi": true
                         }});
 
                 machineCommTable.update({machineId: element}, {$inc: {commissionStatus: 1}});
@@ -1707,7 +1696,7 @@ if(Meteor.isServer){
                     pickingPauseStart = 0;
                     pickingPauseEnd = 0;
                 }
-                let pickingDuration = (pickingEnd - pickersStorage.pickingStart -
+                let pickingDuration = (pickerEnd - pickersStorage.pickingStart -
                                         (pickingPauseEnd - pickingPauseStart));
                 let pickingDateAndTime = pickersStorage.pickingEndDateAndTime;
                 let durationCalc = pickingDuration / machineNumbers;
@@ -1878,7 +1867,7 @@ if(Meteor.isServer){
            // order is YYYY-MM-DD
            let minDate = (chosenYear + '-' + chosenMonth + '-' + '01').toString();
            let maxDate =  (chosenYear + '-' + chosenMonth + '-' + dayMax).toString();
-           /* ToDo why the Unix Correction  */
+          
            let unixMinDate = new Date(minDate).getTime() + 20000000;
            let unixMaxDate = new Date(maxDate).getTime() + 104300000;
         //   console.log(moment(unixMinDate).format('DD-MM-YYYY HH:mm'));
@@ -1927,10 +1916,10 @@ if(Meteor.isServer){
 
         },
 
-        /* ----------- select a date range to see the picker results --------------- */
+        // ----------- select a date range to see the picker results --------------- 
 
         'chosenRange': function(dateX, dateY, picker) {
-            /*  ToDo why do i need a correction to unix time dateX and dateY  */
+           
          dateX = dateX + 20000000;
          //   console.log(moment(dateX).format('DD-MM-YYYY HH:mm'));
          let dateA = parseUnixToDate(dateX);
@@ -1985,7 +1974,7 @@ if(Meteor.isServer){
             return [counter, uniqueSupply, durationGraph];
         },
 
-        /* -----------------------------   fisacl year result  --------------------- */
+        // -----------------------------   fisacl year result  --------------------- 
 
         'selectedAreaAnalysis': function (area, picker, newFiscalYear) {
           //  console.log(area, picker, newFiscalYear)
@@ -2049,7 +2038,7 @@ if(Meteor.isServer){
             return oneArray;
         },
 
-        /* -------  change the Time in a specific Supply area to a specific Machine  --------- */
+        // -------  change the Time in a specific Supply area to a specific Machine  --------- 
 
         'changeTime': (picker, machine, area, inputResult, objectKey) => {
             let date = new Date(objectKey);
@@ -2140,6 +2129,7 @@ if(Meteor.isServer){
 
 //-------------------------------------------------------- Supply Areas -----------------------------------------------------------------------
 
+
     });
 
 
@@ -2197,7 +2187,6 @@ if(Meteor.isServer){
     }
 
 }
-
 
 
 

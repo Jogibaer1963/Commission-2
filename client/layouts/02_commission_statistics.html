@@ -2,7 +2,7 @@
         <!--  *******************   Admin section  *********************       -->
             {{#if isInRole 'admin'}}
                     <div class="commission-admin">
-                      <a class="btn btn-danger"  href="commissionAnalysis.html">Commissions Analysis</a>
+                      <a class="btn btn-danger"  href="commissionAnalysis.html" disabled>Commissions Analysis</a>
                       <a>|</a>
                       <a class="btn btn-danger" href="/admin">Admin</a>
                     </div>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="pickers-overview">
                     <h4>Pickers Result</h4>
-                    <table class="table table-striped table-bordered ">
+                    <table class="table table-striped table-bordered">
                         <tbody class="table-pickers">
                         {{#each pickers}}
                             <tr class="pickersName {{selected}}">
@@ -58,6 +58,10 @@
         <div  id="chart_1">{{dayChart}}</div>
     </div>
     <br><br><br>
+
+    <div class="offline">
+        <h1>O F F L I N E</h1>
+    </div>
 
     <!-- overview of fiscal Year -->
 

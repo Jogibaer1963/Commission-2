@@ -1,3 +1,11 @@
+.offline {
+  color: #f00;
+  left: 580px;
+  position: absolute;
+  top: 500px;
+  scale: 5;
+  transform: rotateY(0deg) rotate(45deg);
+}
 
 $base-color: #000;
 $table-head: #1cbdee;

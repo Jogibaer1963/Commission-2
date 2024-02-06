@@ -796,6 +796,15 @@ table.commOverView {
   left: 2em;
 }
 
+.offline {
+  color: #f00;
+  left: 580px;
+  position: absolute;
+  top: 500px;
+  scale: 5;
+  transform: rotateY(0deg) rotate(45deg);
+}
+
 .pickers-table {
   left: 3em;
   position: absolute;

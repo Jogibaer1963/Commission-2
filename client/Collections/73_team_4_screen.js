@@ -1,10 +1,14 @@
 import {Session} from "meteor/session";
 
 // Meteor.subscribe('activeAssembly')
+
+import { invokeEmptyBay } from '../../lib/99_functionCollector.js';
 import { invokeDrawMachineInBay } from '../../lib/99_functionCollector.js';
+import { invokeDrawOneMachine } from '../../lib/99_functionCollector.js';
 
+import { unitCounter } from "../../lib/99_functionCollector.js";
 import { updateTime } from "../../lib/99_functionCollector.js";
-
+import { timeCounter } from "../../lib/99_functionCollector.js";
 
 Session.set('twoMachines', false)
 
@@ -27,12 +31,11 @@ Template.over_view_all_teams.helpers({
         let machinesBuild, machinesToBuild, resultFinished, totalMachines;
         Tracker.autorun(() => {
             Meteor.subscribe('bay_19_count')
-            resultFinished = machineCommTable.find({activeInBay: false},
-                {fields: {machineId: 1, counter:1}}).fetch();
+            resultFinished = machineCommTable.find({counter: {$gt: 1358}, activeInBay: false}, {fields: {machineId: 1, counter: 1}}).fetch();
             totalMachines = Session.get('total-machines');
              machinesBuild = resultFinished.length
              machinesToBuild = totalMachines - machinesBuild
-            console.log('Result: ', resultFinished)
+           // console.log(machinesToBuild, machinesBuild)
             Session.set('machinesToBuild', machinesToBuild);
             Session.set('machinesBuild', machinesBuild)
         })

@@ -169,16 +169,11 @@ Template.machine_picking_list.events({
 
 Session.set('openOderSession', '')
 
-Template.tabletEntry.helpers({
-
-
-
-})
 
 Template.open_order.helpers({
 
     orderMade: function() {
-        return lineOrders.find().count()
+       // return lineOrders.find().count()
     },
 
     lineNeedsParts: () => {

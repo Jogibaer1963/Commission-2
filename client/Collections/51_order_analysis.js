@@ -30,32 +30,35 @@ Template.orderAnalysis.helpers({
                 Session.set('diagram-1', result[5])
                 Session.set('diagram-2', result[10])
                 result[0].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
-                result[0].reverse()
+				result[0].reverse()
                 Session.set("team_miss_picks", result[0].length)
                 return result[0]
             } else if (team_order === 'team-2-order') {
                 Session.set('team_table', 'Team 2')
                 Session.set('diagram-1', result[6])
-                result[1].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                result[1].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
+				result[1].reverse()
                 Session.set("team_miss_picks", result[1].length)
                 return result[1]
             }  else if (team_order === 'team-3-order') {
                 Session.set('team_table', 'Team 3')
                 Session.set('diagram-1', result[7])
-                result[2].sort((a,b) => a.pickingEndTime - b.pickingEndTime)
-                result[2].reverse()
+                result[2].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
+				result[2].reverse()
                 Session.set("team_miss_picks", result[2].length)
                 return result[2]
             } else if (team_order === 'team-4-order') {
                 Session.set('team_table', 'Team 4')
                 Session.set('diagram-1', result[8])
-                result[3].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                result[3].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
+				result[3].reverse()
                 Session.set("team_miss_picks", result[3].length)
                 return result[3]
             } else if (team_order === 'team-5-order') {
                 Session.set('team_table', 'Team 5')
                 Session.set('diagram-1', result[9])
-                result[4].sort((a,b) => a.pickingEndTime > b.pickingEndTime ? 1 : -1)
+                result[4].sort((a,b) => a.pickingEndTime - b.pickingEndTime )
+				result[4].reverse()
                 Session.set("team_miss_picks", result[4].length)
                 return result[4]
             }

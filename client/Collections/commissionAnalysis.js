@@ -1,4 +1,5 @@
-Meteor.subscribe('pickers');
+
+/*Meteor.subscribe('pickers');
 Meteor.subscribe('fiscalYear')
 const Highcharts = require('highcharts');
 
@@ -23,9 +24,11 @@ Session.set('errorResponse', false);
 // Start with Fiscal Year 2021, later user can choose which Fiscal Year
 Session.set('newFiscalYear', "2023")
 
+ */
+
 Template.analysisOverView.helpers({
 
-
+/*
 
     pickers: () => {
         let result;
@@ -96,7 +99,10 @@ Template.analysisOverView.helpers({
     range: () => {
         return Session.get('range')
     },
+
+ */
 /*  -----------------------------   Annual Result  -----------------------------------  */
+    /*
     pickersAnnualResult: () => {
         let arraySummery = [];
         let newArray = [];
@@ -157,7 +163,7 @@ Template.analysisOverView.helpers({
                 uniqueSupplyAreas.splice(i, 1); i--;
             }
         }
-       // console.log(uniqueSupplyAreas)
+
         uniqueSupplyAreas.forEach((element) => {
             let i = 0;
             annualSummary.forEach((element2) => {
@@ -276,10 +282,12 @@ Template.analysisOverView.helpers({
         
     },
 
+     */
+
 /* ---------------------------   Miss Picks  Analysis  ----------------------*/
 
 
-
+/*
 
     mispickTable: function() {
         return Session.get('shortPicks')
@@ -604,11 +612,13 @@ Template.analysisOverView.helpers({
         });
     },
 
+ */
+
 
     /* -----------------------------------  Analysis by date  ------------------------------- */
 
     //  Day Chart
-
+/*
     pickersDayChartResult: function () {
         // Use Meteor.defer() to create chart after DOM is ready:
         // Gather data:
@@ -676,10 +686,12 @@ Template.analysisOverView.helpers({
         });
     },
 
+ */
+
     /* ------------------------------------------  Analysis by Month  ------------------ */
 
     // Month Chart
-
+/*
     pickersMonthChartResult: function () {
         // Use Meteor.defer() to create chart after DOM is ready:
         // Gather data:
@@ -747,8 +759,10 @@ Template.analysisOverView.helpers({
         });
     },
 
-    /*  -----------------------------------  Analysis by Date Range  ------------------------ */
+ */
 
+    /*  -----------------------------------  Analysis by Date Range  ------------------------ */
+/*
     pickersRangeChartResult: function () {
         // Use Meteor.defer() to create chart after DOM is ready:
         // Gather data:
@@ -813,8 +827,10 @@ Template.analysisOverView.helpers({
     },
 
 
-/*  --------------------------  Result by Area  ------------------------------- */
+ */
 
+/*  --------------------------  Result by Area  ------------------------------- */
+/*
     areaResult: function () {
         // Gather data:
         let areaResult = Session.get('response');
@@ -936,6 +952,8 @@ Template.analysisOverView.helpers({
         return Session.get('returnResult')
     },
 
+ */
+
 
 });
 
@@ -944,7 +962,7 @@ Template.analysisOverView.events({
     
     // **  Search for a specific Date without Picker / commissionAnalysis.html  Line 75 to 82 / 
     // and _commission_statistics.scss line 250 to 260 / server.js Line 519
-    
+    /*
     'submit .search-for-date': function(e) {
         e.preventDefault();
         // Set all previous Session to false, clears the Screen
@@ -1226,11 +1244,12 @@ Template.analysisOverView.events({
                 }
             })
         }
-
-
     }
-});
 
+
+     */
+});
+/*
 function getArea (area, picker, newFiscalYear) {
     Meteor.call('selectedAreaAnalysis', area, picker, newFiscalYear, function (err, response) {
         if (err) {
@@ -1266,6 +1285,8 @@ Template.analysisOverView.onDestroyed(() => {
 });
 
 
+
+ */
 
 
 
