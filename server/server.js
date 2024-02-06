@@ -2,10 +2,7 @@ import {Meteor} from "meteor/meteor";
 import {invokeMoveMachine} from "../lib/99_functionCollector";
 import {Session} from "meteor/session";
 import {forEachKey} from "yarn/lib/cli";
-/*
-import {unix} from "moment";
 
- */
 
 if(Meteor.isServer){
 
@@ -1005,30 +1002,7 @@ if(Meteor.isServer){
 
         },
 /*
-        'moveFromRearAxleList':(machineNr) => {
-            let bayArray = [];
-         //  console.log(machineNr)
-         //   let bayReadyCheck = machineCommTable.findOne({machineId: machineNr},
-          //      {fields: {timeLine: 1}});
-        //    console.log('Bay Ready Check ',machineNr, bayReadyCheck.timeLine)
-         //  let ecnCheck = bayReadyCheck.timeLine.ecnMachine
-           let today = moment().format('YYYY-MM-DD HH:mm:ss ');
-           let todayUnix = (Date.now()).toFixed(0); // milliseconds
-           machineCommTable.update({machineId: machineNr}, {$set: {activeRearAxleList: false}})
-           let  machineInfo = {
-               machineNr: machineNr,
-               bayDateLanding: today,
-               bayDateLandingUnix: todayUnix,
-               ecnMachine: ""
-           }
-            bayArray.push(machineInfo)
-            activeAssembly.upsert({_id : "rear_axle_canvas"}, {$set: { bayArray }})
 
-        },
-
-
-
- */
 //  ************************************************************************************************************************
 
         //  **************************    Corn Heads start here    **********************************
